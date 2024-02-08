@@ -1,5 +1,4 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
+if status is-interactive # Commands to run in interactive sessions can go here
 
     # Cleaning up the home directory using the XDG standart
     set -gx ANDROID_HOME "$XDG_DATA_HOME"/android
@@ -10,15 +9,17 @@ if status is-interactive
     set -gx LESSHISTFILE "$XDG_STATE_HOME"/less/history
     set -gx WINEPREFIX "$XDG_DATA_HOME"/wine
     set -gx NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
-    set -gx MANGOHUD 1
     set -gx TMPDIR "$XDG_RUNTIME_DIR"
 
     # ENVIRONMENT VARIABLES
     set -gx EDITOR micro
+    set -gx BROWSER firefox
+    set -gx MANGOHUD 1
 
     # Abbreviations (Similar to aliases)
     abbr s "sudo" 
     abbr sc "systemctl"
+    abbr ssc "sudo systemctl"
     abbr scu "systemctl --user"
     abbr m "micro"
     abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
@@ -27,4 +28,5 @@ if status is-interactive
 
     # Adding directories to $PATH
     fish_add_path "/home/iliq/.local/bin"
+    
 end
