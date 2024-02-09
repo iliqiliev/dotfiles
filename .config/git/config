@@ -1,0 +1,12 @@
+[user]
+	name = Iliya Iliev
+	email = iliq123123@gmail.com
+	username = iliqiliev
+	
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+	
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
