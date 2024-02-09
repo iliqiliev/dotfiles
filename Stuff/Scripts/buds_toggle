@@ -1,0 +1,19 @@
+#!/usr/bin/env fish
+set bluetooth_device_name "C8:BD:4D:F9:0F:0F" # Replace if needed
+
+
+function is_device_connected
+    set connected (bluetoothctl info $bluetooth_device_name | grep -q "Connected: yes"; echo $status)
+    return $connected
+end
+
+
+if is_device_connected
+    echo "Disconnecting $bluetooth_device_name"
+    bluetoothctl disconnect $bluetooth_device_name
+    echo "Disconnected $bluetooth_device_name"
+else
+    echo "Connecting $bluetooth_device_name"
+    bluetoothctl connect $bluetooth_device_name
+    echo "Connected $bluetooth_device_name"
+end

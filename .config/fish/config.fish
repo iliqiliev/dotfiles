@@ -30,6 +30,7 @@ if status is-interactive # Commands to run in interactive sessions can go here
     abbr ssd "sudo smartctl -a /dev/nvme0"
     abbr fp "flatpak"
     abbr ff "fastfetch"
+    abbr ya "yadm add"
 
     # Adding directories to $PATH
     fish_add_path "/home/iliq/.local/bin"
