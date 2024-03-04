@@ -17,14 +17,15 @@ upp --pp-file="$VEGA_PATH"/pp_table set --write \
 
 # Sets gpu performance level control to manual
 # Then changes the power profile mode
+#	 Power profile modes are:
+#	   1 = 3D_FULL_SCREEN
+#	   4 = VR
+#	   5 = COMPUTE
 echo performance > "$VEGA_PATH"/power_dpm_state
 echo manual > "$VEGA_PATH"/power_dpm_force_performance_level
 echo 1 > "$VEGA_PATH"/pp_power_profile_mode
 
-      # The other power profile modes are:
-      #   1 = 3D_FULL_SCREEN
-      #   4 = VR
-      #   5 = COMPUTE
+
 
 #GPU Clock and Voltage
 echo "s 0 852 800" > "$VEGA_PATH/pp_od_clk_voltage"
