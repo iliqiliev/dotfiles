@@ -18,8 +18,10 @@ if status is-interactive # Commands to run in interactive sessions can go here
     # Environment variables
     set -gx EDITOR micro
     set -gx BROWSER firefox
-    set -gx MANGOHUD 1
-
+    set -gx RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
+    set -gx VDPAU_DRIVER radeonsi
+    set -gx LIBVA_DRIVER_NAME radeonsi
+    
     # Abbreviations (Similar to aliases)
     abbr s "sudo" 
     abbr sc "systemctl"

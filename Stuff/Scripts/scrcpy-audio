@@ -1,4 +1,5 @@
 #!/usr/bin/fish
+
 set HOME "$XDG_DATA_HOME"/android
 
 if ps -C scrcpy >/dev/null
