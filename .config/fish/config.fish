@@ -29,9 +29,12 @@ set -x TMPDIR "$XDG_RUNTIME_DIR"
 # Environment variables
 set -x EDITOR micro
 set -x BROWSER firefox
-set -x RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
-set -x VDPAU_DRIVER radeonsi
-set -x LIBVA_DRIVER_NAME radeonsi
+
+if lsmod | grep --quiet "amdgpu"
+    set -x RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
+    set -x VDPAU_DRIVER radeonsi
+    set -x LIBVA_DRIVER_NAME radeonsi
+end
 
 # Abbreviations
 abbr s "sudo" 
@@ -43,12 +46,9 @@ abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
 abbr ssd "sudo smartctl -a /dev/nvme0"
 abbr fp "flatpak"
 abbr ff "fastfetch"
-abbr update "yay && flatpak update && flatpak remove --unused"
 
 # Aliases (Different from Abbreviations)
 alias adb "HOME="$XDG_DATA_HOME"/android command adb"
 
 # Adding directories to $PATH
-fish_add_path "/home/iliq/.local/bin" "/var/lib/flatpak/exports/bin/"
-
-
+fish_add_path "$HOME/.local/bin" "/var/lib/flatpak/exports/bin/"
