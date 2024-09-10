@@ -1,0 +1,8 @@
+[Context]
+filesystems=xdg-config/MangoHud:ro;xdg-config/vkBasalt:ro;
+
+[System Bus Policy]
+org.freedesktop.NetworkManager=talk
+
+[Environment]
+MANGOHUD=1
