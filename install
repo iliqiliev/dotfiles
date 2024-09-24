@@ -1,0 +1,4 @@
+curl --create-dirs -fLo ~/.cache/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+chmod +x ~/.cache/yadm
+
+~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
