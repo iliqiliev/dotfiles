@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo pacman -S --needed --noconfirm yadm git-delta
+su -c  "pacman -S --needed --noconfirm yadm git-delta fish"
