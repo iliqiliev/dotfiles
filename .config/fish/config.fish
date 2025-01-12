@@ -14,8 +14,11 @@
     set -x XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
     set -x XDG_CONFIG_DIRS /etc/xdg
 
-# Cleaning up the home directory using the XDG standart
+# Cleaning up the home directory according to the XDG standart
 set -x ANDROID_USER_HOME "$XDG_DATA_HOME"/android
+set -x ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
+set -x ANDROID_SDK_HOME "$XDG_DATA_HOME"/android
+set -x ANDROID_SDK_ROOT "$XDG_DATA_HOME"/android
 set -x ADB_VENDOR_KEYS "$XDG_DATA_HOME"/android
 set -x HISTFILE "$XDG_STATE_HOME"/bash/history
 set -x CARGO_HOME "$XDG_DATA_HOME"/cargo
@@ -29,6 +32,7 @@ set -x TMPDIR "$XDG_RUNTIME_DIR"
 # Environment variables
 set -x EDITOR micro
 set -x BROWSER firefox
+set -x fish_greeting
 
 if lsmod | grep --quiet "amdgpu"
     set -x RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
@@ -37,13 +41,12 @@ if lsmod | grep --quiet "amdgpu"
 end
 
 # Abbreviations
+abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
 abbr s "sudo" 
 abbr sc "systemctl"
 abbr ssc "sudo systemctl"
 abbr scu "systemctl --user"
 abbr m "micro"
-abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
-abbr ssd "sudo smartctl -a /dev/nvme0"
 abbr fp "flatpak"
 abbr ff "fastfetch"
 

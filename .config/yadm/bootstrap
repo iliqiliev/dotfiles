@@ -1,7 +1,9 @@
 #!/bin/sh
 
 su -c  "pacman -S --needed --noconfirm \
-yadm git-delta fish fisher micro \
+yadm micro fish fisher git-delta \
 "
+
+fish --command "yes | fish_config theme save 'Old School'"
 
 fish --command "fisher update"
