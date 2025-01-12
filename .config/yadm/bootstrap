@@ -1,5 +1,5 @@
 #!/bin/sh
 
 su -c  "pacman -S --needed --noconfirm \
-yadm git-delta fish micro \
+yadm git-delta fish fisher micro \
 "
