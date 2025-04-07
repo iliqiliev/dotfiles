@@ -5,5 +5,9 @@ yadm micro fish fisher git-delta \
 "
 
 fish --command "yes | fish_config theme save 'Old School'"
-
 fish --command "fisher update"
+
+if type -P gsettings > /dev/null; then
+  gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
+  gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']" 
+fi
