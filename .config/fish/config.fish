@@ -55,3 +55,6 @@ alias adb "HOME="$XDG_DATA_HOME"/android command adb"
 
 # Adding directories to $PATH
 fish_add_path "$HOME/.local/bin" "/var/lib/flatpak/exports/bin/"
+
+# [zoxide](https://github.com/ajeetdsouza/zoxide)
+zoxide init fish | source
