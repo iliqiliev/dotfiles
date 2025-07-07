@@ -1,11 +1,12 @@
 #!/bin/sh
 
-if ! type -P git > /dev/null; then
+if ! command -v git >/dev/null 2>&1; then
   echo "Git is not installed. Please install Git before running this script."
   exit 1
 fi
 
-curl --create-dirs -fLo ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
+# fail silently and follow redirects
+curl --create-dirs --fail --location --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
 chmod +x ~/.cache/yadm
 
 ~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
