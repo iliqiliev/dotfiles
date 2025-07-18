@@ -1,57 +1,65 @@
 # Setting XDG Base Directories
     # User
-    set -x XDG_CACHE_HOME $HOME/.cache
-    set -x XDG_CONFIG_HOME $HOME/.config
-    set -x XDG_DATA_HOME $HOME/.local/share
-    set -x XDG_DESKTOP_DIR $HOME/Desktop
-    set -x XDG_DOWNLOAD_DIR $HOME/Downloads
-    set -x XDG_DOCUMENTS_DIR $HOME/Documents
-    set -x XDG_MUSIC_DIR $HOME/Music
-    set -x XDG_PICTURES_DIR $HOME/Pictures
-    set -x XDG_VIDEOS_DIR $HOME/Videos
+    set --export XDG_CACHE_HOME $HOME/.cache
+    set --export XDG_CONFIG_HOME $HOME/.config
+    set --export XDG_DATA_HOME $HOME/.local/share
+    set --export XDG_DESKTOP_DIR $HOME/Desktop
+    set --export XDG_DOWNLOAD_DIR $HOME/Downloads
+    set --export XDG_DOCUMENTS_DIR $HOME/Documents
+    set --export XDG_MUSIC_DIR $HOME/Music
+    set --export XDG_PICTURES_DIR $HOME/Pictures
+    set --export XDG_VIDEOS_DIR $HOME/Videos
 
     # System
-    set -x XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
-    set -x XDG_CONFIG_DIRS /etc/xdg
+    set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
+    set --export XDG_CONFIG_DIRS /etc/xdg
 
 # Cleaning up the home directory according to the XDG standart
-set -x ANDROID_USER_HOME "$XDG_DATA_HOME"/android
-set -x ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
-set -x ANDROID_SDK_HOME "$XDG_DATA_HOME"/android
-set -x ANDROID_SDK_ROOT "$XDG_DATA_HOME"/android
-set -x ADB_VENDOR_KEYS "$XDG_DATA_HOME"/android
-set -x HISTFILE "$XDG_STATE_HOME"/bash/history
-set -x CARGO_HOME "$XDG_DATA_HOME"/cargo
-set -x GNUPGHOME "$XDG_DATA_HOME"/gnupg
-set -x GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-set -x LESSHISTFILE "$XDG_STATE_HOME"/less/history
-set -x WINEPREFIX "$XDG_DATA_HOME"/wine
-set -x NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
-set -x TMPDIR "$XDG_RUNTIME_DIR"
+set --export ANDROID_USER_HOME "$XDG_DATA_HOME"/android
+set --export ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
+set --export ANDROID_SDK_HOME "$XDG_DATA_HOME"/android
+set --export ANDROID_SDK_ROOT "$XDG_DATA_HOME"/android
+set --export ADB_VENDOR_KEYS "$XDG_DATA_HOME"/android
+set --export HISTFILE "$XDG_STATE_HOME"/bash/history
+set --export CARGO_HOME "$XDG_DATA_HOME"/cargo
+set --export GNUPGHOME "$XDG_DATA_HOME"/gnupg
+set --export GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+set --export LESSHISTFILE "$XDG_STATE_HOME"/less/history
+set --export WINEPREFIX "$XDG_DATA_HOME"/wine
+set --export NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
+set --export TMPDIR "$XDG_RUNTIME_DIR"
 
 # Environment variables
-set -x EDITOR micro
-set -x BROWSER firefox
-set -x fish_greeting
+set --export EDITOR micro
+set --export BROWSER firefox
+set --export fish_greeting
 
 if lsmod | grep --quiet "amdgpu"
-    set -x RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
-    set -x VDPAU_DRIVER radeonsi
-    set -x LIBVA_DRIVER_NAME radeonsi
+    set --export RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
+    set --export VDPAU_DRIVER radeonsi
+    set --export LIBVA_DRIVER_NAME radeonsi
 end
 
 # Abbreviations
 abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
-abbr s "sudo" 
 abbr sc "systemctl"
 abbr ssc "sudo systemctl"
 abbr scu "systemctl --user"
-abbr m "micro"
 abbr fp "flatpak"
 abbr ff "fastfetch"
 
 # Aliases (Different from Abbreviations)
 alias adb "HOME="$XDG_DATA_HOME"/android command adb"
+
+if command --quiet eza
+    alias ls="eza"
+    alias tree="eza -all --tree"
+end
+
+if command --quiet bat
+    alias cat="bat --paging=never --style=plain"
+end
+
 
 # Adding directories to $PATH
 fish_add_path "$HOME/.local/bin" "/var/lib/flatpak/exports/bin/"

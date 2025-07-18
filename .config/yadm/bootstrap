@@ -1,13 +1,16 @@
 #!/bin/sh
 
-su -c  "pacman -S --needed --noconfirm \
-yadm micro fish fisher git-delta \
-"
+if { command -v pacman && command -v sudo; } > /dev/null 2>&1; then
+    sudo pacman -S --needed --noconfirm \
+    yadm micro fish fisher git-delta
+fi
 
-fish --command "yes | fish_config theme save 'Old School'"
-fish --command "fisher update"
+if command -v fish > /dev/null 2>&1; then
+    fish --command "yes | fish_config theme save 'Old School'"
+    fish --command "fisher update"
+fi
 
-if type -P gsettings > /dev/null; then
-  gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
-  gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']" 
+if command -v gsettings > /dev/null 2>&1; then
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
 fi
