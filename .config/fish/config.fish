@@ -31,7 +31,6 @@ set --export TMPDIR "$XDG_RUNTIME_DIR"
 
 # Environment variables
 set --export EDITOR micro
-set --export BROWSER firefox
 set --export fish_greeting
 
 if lsmod | grep --quiet "amdgpu"
