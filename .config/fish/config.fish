@@ -59,7 +59,6 @@ if command --quiet bat
     alias cat="bat --paging=never --style=plain"
 end
 
-
 # Adding directories to $PATH
 fish_add_path "$HOME/.local/bin" "/var/lib/flatpak/exports/bin/"
 

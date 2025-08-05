@@ -2,12 +2,11 @@
 
 if { command -v pacman && command -v sudo; } > /dev/null 2>&1; then
     sudo pacman -S --needed --noconfirm \
-    yadm micro fish fisher git-delta
+    yadm micro fish git-delta
 fi
 
 if command -v fish > /dev/null 2>&1; then
     fish --command "yes | fish_config theme save 'Old School'"
-    fish --command "fisher update"
 fi
 
 if command -v gsettings > /dev/null 2>&1; then
