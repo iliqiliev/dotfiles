@@ -5,8 +5,7 @@ if ! command -v git > /dev/null 2>&1; then
   exit 1
 fi
 
-# fail silently and follow redirects
-curl --create-dirs --fail --location --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
+curl --fail --location --create-dirs --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
 chmod +x ~/.cache/yadm
 
 ~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
