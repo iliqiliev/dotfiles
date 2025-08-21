@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-export PACKAGES="yadm micro fish git-delta"
+export PACKAGES="yadm fish micro git-delta eza bat zoxide fastfetch"
 export GREEN="\033[32m"
 export RESET="\033[0m"
 
@@ -27,7 +27,8 @@ if command -v fish >/dev/null 2>&1; then
     "
 fi
 
-if command -v gsettings > /dev/null 2>&1; then
+if gsettings list-schemas | rg org.gnome > /dev/null 2>&1; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
+    gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
 fi

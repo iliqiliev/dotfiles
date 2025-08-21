@@ -1,42 +1,60 @@
 # Setting XDG Base Directories
-    # User
-    set --export XDG_CACHE_HOME $HOME/.cache
-    set --export XDG_CONFIG_HOME $HOME/.config
-    set --export XDG_DATA_HOME $HOME/.local/share
-    set --export XDG_DESKTOP_DIR $HOME/Desktop
-    set --export XDG_DOWNLOAD_DIR $HOME/Downloads
-    set --export XDG_DOCUMENTS_DIR $HOME/Documents
-    set --export XDG_MUSIC_DIR $HOME/Music
-    set --export XDG_PICTURES_DIR $HOME/Pictures
-    set --export XDG_VIDEOS_DIR $HOME/Videos
+# User
+set --export XDG_CACHE_HOME    $HOME/.cache
+set --export XDG_CONFIG_HOME   $HOME/.config
+set --export XDG_DATA_HOME     $HOME/.local/share
+set --export XDG_DESKTOP_DIR   $HOME/Desktop
+set --export XDG_DOWNLOAD_DIR  $HOME/Downloads
+set --export XDG_DOCUMENTS_DIR $HOME/Documents
+set --export XDG_MUSIC_DIR     $HOME/Music
+set --export XDG_PICTURES_DIR  $HOME/Pictures
+set --export XDG_VIDEOS_DIR    $HOME/Videos
 
-    # System
-    set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
-    set --export XDG_CONFIG_DIRS /etc/xdg
+# System
+set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
+set --export XDG_CONFIG_DIRS /etc/xdg
 
 # Cleaning up the home directory according to the XDG standart
-set --export ANDROID_USER_HOME "$XDG_DATA_HOME"/android
+set --export ANDROID_USER_HOME     "$XDG_DATA_HOME"/android
 set --export ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
-set --export ANDROID_SDK_HOME "$XDG_DATA_HOME"/android
-set --export ANDROID_SDK_ROOT "$XDG_DATA_HOME"/android
-set --export ADB_VENDOR_KEYS "$XDG_DATA_HOME"/android
-set --export HISTFILE "$XDG_STATE_HOME"/bash/history
-set --export CARGO_HOME "$XDG_DATA_HOME"/cargo
-set --export GNUPGHOME "$XDG_DATA_HOME"/gnupg
-set --export GTK2_RC_FILES "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-set --export LESSHISTFILE "$XDG_STATE_HOME"/less/history
-set --export WINEPREFIX "$XDG_DATA_HOME"/wine
-set --export NUGET_PACKAGES "$XDG_CACHE_HOME"/NuGetPackages
-set --export TMPDIR "$XDG_RUNTIME_DIR"
+set --export ANDROID_SDK_HOME      "$XDG_DATA_HOME"/android
+set --export ANDROID_SDK_ROOT      "$XDG_DATA_HOME"/android
+set --export ADB_VENDOR_KEYS       "$XDG_DATA_HOME"/android
+set --export HISTFILE              "$XDG_STATE_HOME"/bash/history
+set --export CARGO_HOME            "$XDG_DATA_HOME"/cargo
+set --export GNUPGHOME             "$XDG_DATA_HOME"/gnupg
+set --export GTK2_RC_FILES         "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+set --export LESSHISTFILE          "$XDG_STATE_HOME"/less/history
+set --export WINEPREFIX            "$XDG_DATA_HOME"/wine
+set --export NUGET_PACKAGES        "$XDG_CACHE_HOME"/NuGetPackages
+set --export TMPDIR                "$XDG_RUNTIME_DIR"
 
-# Environment variables
-set --export EDITOR micro
 set --export fish_greeting
 
-if lsmod | grep --quiet "amdgpu"
+alias adb "HOME=$XDG_DATA_HOME/android command adb"
+
+if command --quiet eza
+    alias ls="eza"
+    alias tree="eza --all --tree"
+end
+
+if command --quiet bat
+    alias cat="bat --paging=never --style=plain"
+end
+
+if command --quiet micro
+    set --export EDITOR micro
+end
+
+if lsmod | grep --quiet amdgpu
     set --export RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
     set --export VDPAU_DRIVER radeonsi
     set --export LIBVA_DRIVER_NAME radeonsi
+end
+
+# [zoxide](https://github.com/ajeetdsouza/zoxide)
+if command --quiet zoxide  
+    zoxide init fish | source
 end
 
 # Abbreviations
@@ -47,20 +65,7 @@ abbr scu "systemctl --user"
 abbr fp "flatpak"
 abbr ff "fastfetch"
 
-# Aliases (Different from Abbreviations)
-alias adb "HOME="$XDG_DATA_HOME"/android command adb"
-
-if command --quiet eza
-    alias ls="eza"
-    alias tree="eza -all --tree"
-end
-
-if command --quiet bat
-    alias cat="bat --paging=never --style=plain"
-end
-
 # Adding directories to $PATH
-fish_add_path "$HOME/.local/bin" "/var/lib/flatpak/exports/bin/"
+fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
 
-# [zoxide](https://github.com/ajeetdsouza/zoxide)
-zoxide init fish | source
+
