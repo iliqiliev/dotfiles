@@ -1,12 +1,20 @@
-#!/bin/sh
+#!/usr/bin/bash
+
+export PACKAGES="yadm micro fish git-delta"
+export GREEN="\033[32m"
+export RESET="\033[0m"
 
 if {
     command -v pacman &&
     command -v sudo &&
     groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
 } > /dev/null 2>&1; then
-    sudo pacman -S --needed --noconfirm \
-    yadm micro fish git-delta
+    sudo pacman -S --needed --noconfirm $PACKAGES   
+else
+    echo "Please install the following packages manually:"
+    echo -e "${GREEN}${PACKAGES}${RESET}"
+    echo "Exit the shell afterwards so that the bootstrap can continue."
+    PS1="  (install):\$ " bash --norc --noprofile -i
 fi
 
 if command -v fish >/dev/null 2>&1; then
