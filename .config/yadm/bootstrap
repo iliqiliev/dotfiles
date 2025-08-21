@@ -1,12 +1,22 @@
 #!/bin/sh
 
-if { command -v pacman && command -v sudo; } > /dev/null 2>&1; then
+if {
+    command -v pacman &&
+    command -v sudo &&
+    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
+} > /dev/null 2>&1; then
     sudo pacman -S --needed --noconfirm \
     yadm micro fish git-delta
 fi
 
-if command -v fish > /dev/null 2>&1; then
-    fish --command "yes | fish_config theme save 'Old School'"
+if command -v fish >/dev/null 2>&1; then
+    fish --command "
+        yes | fish_config theme save 'Old School'
+        curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
+        if type --quiet fisher
+            fisher update
+        end
+    "
 fi
 
 if command -v gsettings > /dev/null 2>&1; then
