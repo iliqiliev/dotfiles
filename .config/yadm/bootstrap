@@ -27,8 +27,10 @@ if command -v fish >/dev/null 2>&1; then
     "
 fi
 
-if gsettings list-schemas | rg org.gnome > /dev/null 2>&1; then
+if gsettings list-schemas | grep --quiet org.gnome > /dev/null 2>&1; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
+else
+    echo "Could not detect GNOME, skipping its settings."
 fi
