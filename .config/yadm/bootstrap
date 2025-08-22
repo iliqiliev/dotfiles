@@ -5,17 +5,17 @@ export RED="\033[31m"
 export GREEN="\033[32m"
 export RESET="\033[0m"
 
-if {
-    command -v pacman &&
-    command -v sudo &&
-    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
-} > /dev/null 2>&1; then
+if command -v pacman > /dev/null 2>&1 &&
+   command -v sudo   > /dev/null 2>&1 &&
+   groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
+then
     sudo pacman -S --needed --noconfirm $PACKAGES   
 else
     echo "Please install the following packages manually:"
     echo -e "${GREEN}${PACKAGES}${RESET}"
     echo "Exit the shell afterwards so that the bootstrap can continue."
-    PS1="  (install):\$ " bash --norc --noprofile -i
+
+    PS1="  $GREEN(install)$RESET:\$ " bash --norc --noprofile -i
 fi
 
 ~/.cache/yadm sparse-checkout set --no-cone \
@@ -34,7 +34,7 @@ if command -v fish > /dev/null 2>&1; then
     "
 fi
 
-if gsettings list-schemas | grep --quiet org.gnome > /dev/null 2>&1; then
+if gsettings list-schemas 2>&1 | grep --quiet org.gnome; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
