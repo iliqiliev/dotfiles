@@ -3,6 +3,7 @@
 export PACKAGES="yadm fish micro git-delta eza bat zoxide fastfetch"
 export RED="\033[31m"
 export GREEN="\033[32m"
+export YELLOW="\033[33m"
 export RESET="\033[0m"
 
 if command -v pacman > /dev/null 2>&1 &&
@@ -15,7 +16,7 @@ else
     echo -e "${GREEN}${PACKAGES}${RESET}"
     echo "Exit the shell afterwards so that the bootstrap can continue."
 
-    PS1="  $GREEN(install)$RESET:\$ " bash --norc --noprofile -i
+    PS1="$GREEN  (install):\$ $RESET" bash --norc --noprofile -i
 fi
 
 ~/.cache/yadm sparse-checkout set --no-cone \
@@ -39,5 +40,5 @@ if gsettings list-schemas 2>&1 | grep --quiet org.gnome; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
 else
-    echo -e "${RED}Could not detect GNOME, skipping its settings.${RESET}"
+    echo -e "${YELLOW}No GNOME found - empty garden! Desktop settings skipped.${RESET}"
 fi
