@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 export PACKAGES="yadm fish micro git-delta eza bat zoxide fastfetch"
+export RED="\033[31m"
 export GREEN="\033[32m"
 export RESET="\033[0m"
 
@@ -17,7 +18,13 @@ else
     PS1="  (install):\$ " bash --norc --noprofile -i
 fi
 
-if command -v fish >/dev/null 2>&1; then
+~/.cache/yadm sparse-checkout set --no-cone \
+"/*" \
+"!README.md" \
+"!install" \
+"!.gitattributes"
+
+if command -v fish > /dev/null 2>&1; then
     fish --command "
         yes | fish_config theme save 'Old School'
         curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
@@ -32,5 +39,5 @@ if gsettings list-schemas | grep --quiet org.gnome > /dev/null 2>&1; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
 else
-    echo "Could not detect GNOME, skipping its settings."
+    echo -e "${RED}Could not detect GNOME, skipping its settings.${RESET}"
 fi
