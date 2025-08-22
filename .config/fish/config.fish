@@ -3,6 +3,7 @@
 set --export XDG_CACHE_HOME    $HOME/.cache
 set --export XDG_CONFIG_HOME   $HOME/.config
 set --export XDG_DATA_HOME     $HOME/.local/share
+set --export XDG_STATE_HOME    $HOME/.local/state
 set --export XDG_DESKTOP_DIR   $HOME/Desktop
 set --export XDG_DOWNLOAD_DIR  $HOME/Downloads
 set --export XDG_DOCUMENTS_DIR $HOME/Documents
@@ -14,7 +15,7 @@ set --export XDG_VIDEOS_DIR    $HOME/Videos
 set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
 set --export XDG_CONFIG_DIRS /etc/xdg
 
-# Cleaning up the home directory according to the XDG standart
+# Cleaning up the home directory according to the XDG standard
 set --export ANDROID_USER_HOME     "$XDG_DATA_HOME"/android
 set --export ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
 set --export ANDROID_SDK_HOME      "$XDG_DATA_HOME"/android
