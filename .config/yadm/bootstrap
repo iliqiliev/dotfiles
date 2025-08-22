@@ -28,10 +28,8 @@ fi
 if command -v fish > /dev/null 2>&1; then
     fish --command "
         yes | fish_config theme save 'Old School'
-        curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
-        if type --quiet fisher
-            fisher update
-        end
+        curl -sL git.io/fisher | source 
+        and fisher update
     "
 fi
 
