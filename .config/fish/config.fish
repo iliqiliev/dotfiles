@@ -3,6 +3,7 @@
 set --export XDG_CACHE_HOME    $HOME/.cache
 set --export XDG_CONFIG_HOME   $HOME/.config
 set --export XDG_DATA_HOME     $HOME/.local/share
+set --export XDG_STATE_HOME    $HOME/.local/state
 set --export XDG_DESKTOP_DIR   $HOME/Desktop
 set --export XDG_DOWNLOAD_DIR  $HOME/Downloads
 set --export XDG_DOCUMENTS_DIR $HOME/Documents
@@ -14,21 +15,20 @@ set --export XDG_VIDEOS_DIR    $HOME/Videos
 set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
 set --export XDG_CONFIG_DIRS /etc/xdg
 
-# Cleaning up the home directory according to the XDG standart
-set --export ANDROID_USER_HOME     "$XDG_DATA_HOME"/android
-set --export ANDROID_EMULATOR_HOME "$XDG_DATA_HOME"/android
-set --export ANDROID_SDK_HOME      "$XDG_DATA_HOME"/android
-set --export ANDROID_SDK_ROOT      "$XDG_DATA_HOME"/android
-set --export ADB_VENDOR_KEYS       "$XDG_DATA_HOME"/android
-set --export HISTFILE              "$XDG_STATE_HOME"/bash/history
-set --export CARGO_HOME            "$XDG_DATA_HOME"/cargo
-set --export GNUPGHOME             "$XDG_DATA_HOME"/gnupg
-set --export GTK2_RC_FILES         "$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-set --export LESSHISTFILE          "$XDG_STATE_HOME"/less/history
-set --export WINEPREFIX            "$XDG_DATA_HOME"/wine
-set --export NUGET_PACKAGES        "$XDG_CACHE_HOME"/NuGetPackages
-set --export TMPDIR                "$XDG_RUNTIME_DIR"
-
+# Cleaning up the home directory according to the XDG standard
+set --export TMPDIR                $XDG_RUNTIME_DIR
+set --export NUGET_PACKAGES        $XDG_CACHE_HOME/NuGetPackages
+set --export ANDROID_USER_HOME     $XDG_DATA_HOME/android
+set --export ANDROID_EMULATOR_HOME $XDG_DATA_HOME/android
+set --export ANDROID_SDK_HOME      $XDG_DATA_HOME/android
+set --export ANDROID_SDK_ROOT      $XDG_DATA_HOME/android
+set --export ADB_VENDOR_KEYS       $XDG_DATA_HOME/android
+set --export CARGO_HOME            $XDG_DATA_HOME/cargo
+set --export GNUPGHOME             $XDG_DATA_HOME/gnupg
+set --export WINEPREFIX            $XDG_DATA_HOME/wine
+set --export HISTFILE              $XDG_STATE_HOME/bash/history
+set --export LESSHISTFILE          $XDG_STATE_HOME/less/history
+set --export PYTHON_HISTORY        $XDG_STATE_HOME/python_history
 set --export fish_greeting
 
 alias adb "HOME=$XDG_DATA_HOME/android command adb"
