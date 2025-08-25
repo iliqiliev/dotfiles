@@ -46,7 +46,7 @@ if command --quiet micro
     set --export EDITOR micro
 end
 
-if lsmod | grep --quiet amdgpu
+if grep --quiet --no-messages amdgpu /proc/modules
     set --export RUSTICL_ENABLE radeonsi # enables rusticl opnencl driver
     set --export VDPAU_DRIVER radeonsi
     set --export LIBVA_DRIVER_NAME radeonsi
