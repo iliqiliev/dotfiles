@@ -32,6 +32,7 @@ set --export PYTHON_HISTORY        $XDG_STATE_HOME/python_history
 set --export fish_greeting
 
 alias adb "HOME=$XDG_DATA_HOME/android command adb"
+alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
 
 if command --quiet eza
     alias ls="eza"
