@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+export YADM=~/.cache/yadm
 export PACKAGES="yadm fish micro git-delta eza bat zoxide fastfetch"
 export RED="\033[31m"
 export GREEN="\033[32m"
@@ -19,7 +20,16 @@ else
     PS1="$GREEN  (install):\$ $RESET" bash --norc --noprofile -i
 fi
 
-~/.cache/yadm sparse-checkout set --no-cone \
+if $YADM diff --quiet; then
+    echo -e $YELLOW
+    $YADM stash push --message="Local files before yadm bootstrap."
+    echo -e $GREEN
+    echo "Use 'yadm stash show' to view them."
+    echo "Then either 'yadm stash pop' to restore them or 'yadm stash drop' to delete them forever."
+    echo -e $RESET
+fi
+
+$YADM sparse-checkout set --no-cone \
 "/*" \
 "!README.md" \
 "!install" \
@@ -38,5 +48,5 @@ if gsettings list-schemas 2>&1 | grep --quiet org.gnome; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
 else
-    echo -e "${YELLOW}No GNOME found - empty garden! Desktop settings skipped.${RESET}"
+    echo -e "${YELLOW}GNOME not found! :( Desktop settings skipped.${RESET}"
 fi
