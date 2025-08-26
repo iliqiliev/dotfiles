@@ -24,7 +24,7 @@ if ! $YADM diff --quiet; then
     echo -e $YELLOW
     $YADM stash push --message="Local files before yadm bootstrap."
     echo -e $GREEN
-    echo "Use 'yadm stash show' to view them."
+    echo "Use 'yadm stash show --patch' to view them."
     echo "Then either 'yadm stash pop' to restore them or 'yadm stash drop' to delete them forever."
     echo -e $RESET
 fi
