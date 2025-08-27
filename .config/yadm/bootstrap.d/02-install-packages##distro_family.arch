@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $(dirname $0)/00-packages
+
 if command -v sudo > /dev/null 2>&1 &&
    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
 then

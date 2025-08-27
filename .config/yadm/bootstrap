@@ -13,21 +13,6 @@ export NORMAL="\033[0m"
 
 export PATH=$PATH:~/.cache
 
-declare -A PACKAGES=(
-    [delta]=git-delta
-    [tldr]=tealdeer
-    [yadm]=yadm
-    [fish]=fish
-    [micro]=micro
-    [eza]=eza
-    [bat]=bat
-    [zoxide]=zoxide
-    [fastfetch]=fastfetch
-    [yazi]=yazi
-    [btop]=btop
-    [fzf]=fzf
-)
-
 # Directory to look for bootstrap executables in
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 

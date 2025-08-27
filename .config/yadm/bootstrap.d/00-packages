@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+declare -A PACKAGES=(
+    [delta]=git-delta
+    [tldr]=tealdeer
+    [yadm]=yadm
+    [fish]=fish
+    [micro]=micro
+    [eza]=eza
+    [bat]=bat
+    [zoxide]=zoxide
+    [fastfetch]=fastfetch
+    [yazi]=yazi
+    [btop]=btop
+    [fzf]=fzf
+)

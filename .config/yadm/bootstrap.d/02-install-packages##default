@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $(dirname $0)/00-packages
+
 echo "Please install the following packages:"
 echo -ne $GREEN
 echo ${PACKAGES[@]}

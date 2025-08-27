@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $(dirname $0)/00-packages
+
 for package in ${!PACKAGES[@]}; do
     if command -v $package > /dev/null 2>&1; then
         unset PACKAGES[${package}]
