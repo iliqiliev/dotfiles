@@ -2,6 +2,7 @@
     "colorscheme": "simple",
     "hltrailingws": true,
     "mkparents": true,
+    "rmtrailingws": true,
     "softwrap": true,
     "tabstospaces": true
 }
