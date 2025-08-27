@@ -6,7 +6,7 @@ for package in ${!PACKAGES[@]}; do
     fi
 done
 
-if [ -z "$PACKAGES" ]; then
+if (( ${#PACKAGES[@]} == 0 )); then
     exit 0
 fi
 
