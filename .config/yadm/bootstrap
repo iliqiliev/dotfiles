@@ -1,54 +1,29 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-export YADM=~/.cache/yadm
-export PACKAGES="yadm fish micro git-delta eza bat zoxide fastfetch"
-export RED="\033[31m"
-export GREEN="\033[32m"
-export YELLOW="\033[33m"
-export RESET="\033[0m"
+# Save this file as ~/.config/yadm/bootstrap and make it executable. It will
+# execute all executable files (excluding templates and editor backups) in the
+# ~/.config/yadm/bootstrap.d directory when run.
 
-if command -v pacman > /dev/null 2>&1 &&
-   command -v sudo   > /dev/null 2>&1 &&
-   groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
-then
-    sudo pacman -S --needed --noconfirm $PACKAGES   
-else
-    echo "Please install the following packages manually:"
-    echo -e "${GREEN}${PACKAGES}${RESET}"
-    echo "Exit the shell afterwards so that the bootstrap can continue."
+set -eu
 
-    PS1="$GREEN  (install):\$ $RESET" bash --norc --noprofile -i
+# Directory to look for bootstrap executables in
+BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
+
+if [[ ! -d "$BOOTSTRAP_D" ]]; then
+    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
+    exit 1
 fi
 
-if ! $YADM diff --quiet; then
-    echo -e $YELLOW
-    $YADM stash push --message="Local files before yadm bootstrap."
-    echo -e $GREEN
-    echo "Use 'yadm stash show --patch' to view them."
-    echo "Then either 'yadm stash pop' to restore them or 'yadm stash drop' to delete them forever."
-    echo -e $RESET
-fi
+declare -a bootstraps
+while IFS= read -r bootstrap; do
+    if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ ~$ ]]; then
+        bootstraps+=("$bootstrap")
+    fi
+done < <(find -L "$BOOTSTRAP_D" -type f | sort)
 
-$YADM sparse-checkout set --no-cone \
-"/*" \
-"!README.md" \
-"!install" \
-"!.gitattributes"
-
-if command -v fish > /dev/null 2>&1; then
-    fish --command "
-        yes | fish_config theme save 'Old School'
-        
-        curl -sL git.io/fisher | source
-        and fisher update > /dev/null
-        and echo -e '${GREEN}Installed fish plugins.${RESET}'
-    "
-fi
-
-if gsettings list-schemas 2>&1 | grep --quiet org.gnome; then
-    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
-    gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
-else
-    echo -e "${YELLOW}GNOME not found! :( Desktop settings skipped.${RESET}"
-fi
+for bootstrap in "${bootstraps[@]}"; do
+    if ! "$bootstrap"; then
+        echo "Error: bootstrap '$bootstrap' failed" >&2
+        exit 1
+    fi
+done
