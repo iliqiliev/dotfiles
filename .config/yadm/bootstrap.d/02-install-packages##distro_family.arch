@@ -6,6 +6,6 @@ then
     sudo pacman -S --needed --noconfirm $PACKAGES
 else
     echo -e $RED
-    echo Failed to install packages! Check if you are a valid sudoer.
+    echo "Failed to install packages! Check if you are a valid sudoer."
     echo -e $NORMAL
 fi 
