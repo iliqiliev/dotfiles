@@ -1,7 +1,5 @@
 #!/bin/sh
 
-export PATH=$PATH:~/.cache
-
 if ! command -v git > /dev/null 2>&1; then
   echo "Git is not installed. Please install Git before running this script."
   exit 1
@@ -10,4 +8,4 @@ fi
 curl --fail --location --create-dirs --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
 chmod +x ~/.cache/yadm
 
-yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
+~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
