@@ -7,6 +7,9 @@ for package in ${!PACKAGES[@]}; do
 done
 
 if (( ${#PACKAGES[@]} == 0 )); then
+    echo -ne $GREEN
+    echo "All packages installed."
+    echo -ne $NORMAL
     exit 0
 fi
 
