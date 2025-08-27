@@ -38,8 +38,10 @@ $YADM sparse-checkout set --no-cone \
 if command -v fish > /dev/null 2>&1; then
     fish --command "
         yes | fish_config theme save 'Old School'
+        
         curl -sL git.io/fisher | source
-        and fisher update
+        and fisher update > /dev/null
+        and echo -e '${GREEN}Installed fish plugins.${RESET}'
     "
 fi
 
