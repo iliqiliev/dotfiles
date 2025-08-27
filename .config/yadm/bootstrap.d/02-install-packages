@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "Please install the following packages manually:"
+echo -e $GREEN
+echo $PACKAGES
+echo -e $NORMAL
+echo "Exit the shell afterwards so that the bootstrap can continue."
+
+PS1="$GREEN  (install):\$ $NORMAL" bash --norc --noprofile -i

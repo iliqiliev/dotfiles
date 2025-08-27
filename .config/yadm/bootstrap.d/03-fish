@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+yes | fish_config theme save 'Old School'
+
+if curl -sL git.io/fisher | source
+    fisher update > /dev/null
+    set --local plugin_count (count (fisher list))
+    set_color green
+    echo "Installed $plugin_count fish plugins."
+    set_color normal

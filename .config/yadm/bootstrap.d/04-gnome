@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if gsettings list-schemas 2>&1 | grep --quiet org.gnome; then
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
+    gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
+else
+    echo -e $YELLOW
+    echo GNOME not found! :( Desktop settings skipped.
+    echo -e $NORMAL
+fi
