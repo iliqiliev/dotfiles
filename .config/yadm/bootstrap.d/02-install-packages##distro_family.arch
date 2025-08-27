@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if command -v sudo   > /dev/null 2>&1 &&
+if command -v sudo > /dev/null 2>&1 &&
    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
 then
     sudo pacman -S --needed --noconfirm $PACKAGES
