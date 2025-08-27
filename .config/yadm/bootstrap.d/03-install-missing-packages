@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+for package in ${!PACKAGES[@]}; do
+    if command -v $package > /dev/null 2>&1; then
+        unset PACKAGES[$package]
+    fi
+done
+
+if [ -z "$PACKAGES" ]; then
+    exit 0
+fi
+
+echo "Please install the missing packages manually:"
+echo -ne $RED
+echo $PACKAGES
+echo -ne $NORMAL
+echo "Exit the shell afterwards so that the bootstrap can continue."
+
+PS1="$RED  (install):\$ $NORMAL" bash --norc --noprofile -i

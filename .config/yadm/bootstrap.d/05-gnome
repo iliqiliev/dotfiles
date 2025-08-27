@@ -1,12 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env fish
 
 if gsettings list-schemas 2>&1 | grep --quiet org.gnome
-then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
+    set_color green
+    echo "GNOME settings successfully set!"
 else
-    echo -e $YELLOW
+    set_color yellow
     echo "GNOME not found! :( Desktop settings skipped."
-    echo -e $NORMAL
-fi
+end
+
+set_color normal

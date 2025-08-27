@@ -3,9 +3,9 @@
 if command -v sudo > /dev/null 2>&1 &&
    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
 then
-    sudo pacman -S --needed --noconfirm $PACKAGES
+    sudo pacman -S --needed --noconfirm ${!PACKAGES[@]}
 else
-    echo -e $RED
+    echo -ne $RED
     echo "Failed to install packages! Check if you are a valid sudoer."
-    echo -e $NORMAL
-fi 
+    echo -ne $NORMAL
+fi

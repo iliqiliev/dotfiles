@@ -1,5 +1,6 @@
 {
     "colorscheme": "simple",
+    "hltrailingws": true,
     "mkparents": true,
     "softwrap": true,
     "tabstospaces": true
