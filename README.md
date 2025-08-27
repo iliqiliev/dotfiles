@@ -1,3 +1,3 @@
-```shell
-sh <(curl -sSL iliqiliev.me/dotfiles)
+```bash
+sh <(curl -L iliqiliev.me/dotfiles)
 ```
