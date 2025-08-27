@@ -16,3 +16,7 @@ yadm sparse-checkout set --no-cone \
 "!README.md" \
 "!install" \
 "!.gitattributes"
+
+echo -ne $GREEN
+echo "Sparse checkout applied successfully."
+echo -ne $NORMAL
