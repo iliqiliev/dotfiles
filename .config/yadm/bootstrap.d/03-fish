@@ -8,3 +8,4 @@ if curl -sL git.io/fisher | source
     set_color green
     echo "Installed $plugin_count fish plugins."
     set_color normal
+end
