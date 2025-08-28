@@ -2,12 +2,6 @@
 
 source $(dirname $0)/00-packages
 
-for package in ${!PACKAGES[@]}; do
-    if command -v $package > /dev/null 2>&1; then
-        unset PACKAGES[${package}]
-    fi
-done
-
 if (( ${#PACKAGES[@]} == 0 )); then
     echo -ne $GREEN
     echo "All packages installed."
@@ -15,7 +9,7 @@ if (( ${#PACKAGES[@]} == 0 )); then
     exit 0
 fi
 
-echo "Please install the missing packages manually:"
+echo "Please install the still missing packages manually!"
 echo -ne $RED
 echo ${PACKAGES[@]}
 echo -ne $NORMAL

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# This is an associative array, a feature introduced in Bash 4.
+# Syntax:
+# [Executable name]=[Package name]
+
 declare -A PACKAGES=(
     [delta]=git-delta
     [tldr]=tealdeer
@@ -14,3 +18,9 @@ declare -A PACKAGES=(
     [btop]=btop
     [fzf]=fzf
 )
+
+for package in ${!PACKAGES[@]}; do
+    if command -v $package > /dev/null 2>&1; then
+        unset PACKAGES[${package}]
+    fi
+done
