@@ -11,7 +11,7 @@ fi
 
 cd
 
-export WANTED_FILES=$(yadm list | grep --invert-match --extended-regexp "^.github/*|.gitattributes")
+WANTED_FILES=$(yadm list | grep --invert-match --extended-regexp "^.github/*|.gitattributes")
 
 yadm sparse-checkout set --cone --sparse-index $WANTED_FILES
 
