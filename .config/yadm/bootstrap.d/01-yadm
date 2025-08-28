@@ -11,7 +11,9 @@ fi
 
 cd
 
-yadm sparse-checkout set --cone --sparse-index $(yadm list | grep --invert-match '.github/*')
+export WANTED_FILES=$(yadm list | grep --invert-match --extended-regexp '^.github/*|^.gitattributes$')
+
+yadm sparse-checkout set --cone --sparse-index $WANTED_FILES
 
 echo -ne $GREEN
 echo "Sparse checkout applied successfully."
