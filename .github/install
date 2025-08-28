@@ -8,4 +8,4 @@ fi
 curl --fail --location --create-dirs --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
 chmod +x ~/.cache/yadm
 
-~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap
+~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap --depth=5
