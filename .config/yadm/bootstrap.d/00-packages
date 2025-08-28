@@ -5,18 +5,19 @@
 # [Executable name]=[Package name]
 
 declare -A PACKAGES=(
+    [bat]=bat
+    [btop]=btop
     [delta]=git-delta
+    [eza]=eza
+    [fastfetch]=fastfetch
+    [fish]=fish
+    [fzf]=fzf
+    [micro]=micro
+    [rg]=ripgrep
     [tldr]=tealdeer
     [yadm]=yadm
-    [fish]=fish
-    [micro]=micro
-    [eza]=eza
-    [bat]=bat
-    [zoxide]=zoxide
-    [fastfetch]=fastfetch
     [yazi]=yazi
-    [btop]=btop
-    [fzf]=fzf
+    [zoxide]=zoxide
 )
 
 for package in ${!PACKAGES[@]}; do
