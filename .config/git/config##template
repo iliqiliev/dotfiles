@@ -1,3 +1,10 @@
+{% if yadm.user == "iliya" %}
+[user]
+	name = Iliya Iliev
+	email = iliq0000@proton.me
+	username = iliqiliev
+{% endif %}
+
 [core]
     pager = delta
 
