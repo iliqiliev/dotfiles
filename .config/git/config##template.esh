@@ -1,10 +1,10 @@
-{% if yadm.user == "iliya" %}
+<% if [[ $YADM_USER =~ ^(iliq|iliya)$ ]]; then -%>
 [user]
-	name = Iliya Iliev
-	email = iliq0000@proton.me
-	username = iliqiliev
-{% endif %}
+    name = Iliya Iliev
+    email = iliq0000@proton.me
+    username = iliqiliev
 
+<% fi -%>
 [core]
     pager = delta
 
