@@ -11,11 +11,7 @@ fi
 
 cd
 
-yadm sparse-checkout set --no-cone \
-"/*" \
-"!README.md" \
-"!install" \
-"!.gitattributes"
+yadm sparse-checkout set --cone --sparse-index $(yadm list | grep --invert-match '.github/*')
 
 echo -ne $GREEN
 echo "Sparse checkout applied successfully."
