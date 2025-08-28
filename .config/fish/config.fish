@@ -48,7 +48,7 @@ if command --quiet wget
 end
 
 if command --quiet bat
-    alias cat="bat --paging=never --style=plain"
+    alias cat="bat"
 end
 
 if command --quiet eza
@@ -60,7 +60,7 @@ if command --quiet micro
     set --export EDITOR micro
 end
 
-if command --quiet zoxide  
+if command --quiet zoxide
     zoxide init fish | source
 end
 
