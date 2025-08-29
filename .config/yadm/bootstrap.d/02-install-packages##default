@@ -12,4 +12,4 @@ echo ${PACKAGES[@]}
 echo -ne $NORMAL
 echo "Exit the shell afterwards so that the bootstrap can continue."
 
-PS1="$GREEN  (install):\$ $NORMAL" bash --norc --noprofile -i
+PS1="$GREEN  (install):\$ $NORMAL" bash --norc --noprofile -i || true
