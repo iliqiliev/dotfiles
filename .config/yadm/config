@@ -1,2 +1,4 @@
 [core]
 	sparseCheckout = true
+[yadm]
+	auto-private-dirs = false
