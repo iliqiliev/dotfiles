@@ -14,6 +14,8 @@ echo "Fish shell still not found. Installing static x86_64 build to '$FISH_BIN_P
 echo -ne $NORMAL
 
 curl --location $FISH_STATIC_URL | tar --extract --xz --directory=$FISH_BIN_PATH && {
+    $FISH_BIN_PATH/fish --install
+
     echo -ne $GREEN
     echo "Fish shell installed successfully."
     echo -ne $NORMAL
