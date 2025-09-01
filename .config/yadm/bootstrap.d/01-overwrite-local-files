@@ -8,13 +8,3 @@ if ! yadm diff --quiet; then
     echo "Then either 'yadm stash pop' to restore them or 'yadm stash drop' to delete them forever."
     echo -ne $NORMAL
 fi
-
-cd
-
-SPARSE_DIRS=$(yadm list | grep --invert-match --extended-regexp "^.github/*|^.gitattributes\$" | xargs dirname | sort --unique)
-
-yadm sparse-checkout set $SPARSE_DIRS
-
-echo -ne $GREEN
-echo "Sparse checkout applied successfully."
-echo -ne $NORMAL

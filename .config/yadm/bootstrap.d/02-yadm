@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cd
+
+SPARSE_DIRS=$(yadm list | grep --invert-match --extended-regexp "^.github/*|^.gitattributes\$" | xargs dirname | sort --unique)
+
+yadm sparse-checkout set $SPARSE_DIRS
+
+echo -ne $GREEN
+echo "Sparse checkout applied successfully."
+echo -ne $NORMAL
