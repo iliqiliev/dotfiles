@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-SPARSE_DIRS=$(yadm list | grep --invert-match --extended-regexp "^.github/*|^.gitattributes\$" | xargs dirname | sort --unique)
-
-yadm sparse-checkout set --cone --sparse-index $SPARSE_DIRS
