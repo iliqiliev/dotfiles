@@ -2,7 +2,7 @@
 
 cd
 
-SPARSE_DIRS=$(yadm list | grep --invert-match --extended-regexp "^.github/*|^.gitattributes\$" | xargs dirname | sort --unique)
+SPARSE_DIRS=$(yadm list | grep -vE "^.github/*|^.gitattributes\$" | xargs dirname | sort -u)
 
 yadm sparse-checkout set $SPARSE_DIRS
 
