@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Save this file as ~/.config/yadm/bootstrap and make it executable. It will
-# execute all executable files (excluding templates and editor backups) in the
-# ~/.config/yadm/bootstrap.d directory when run.
-
 set -eu
 
 export RED="\033[31m"
@@ -29,8 +25,14 @@ while IFS= read -r bootstrap; do
 done < <(find -L "$BOOTSTRAP_D" -type f | sort)
 
 for bootstrap in "${bootstraps[@]}"; do
+    echo -ne $GREEN
+    echo "Running $bootstrap from $BOOTSTRAP_D..."
+    echo -ne $NORMAL
+
     if ! "$bootstrap"; then
+        echo -ne $RED
         echo "Error: bootstrap '$bootstrap' failed" >&2
+        echo -ne $NORMAL
         exit 1
     fi
 done
