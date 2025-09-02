@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
 if ! command -v git > /dev/null 2>&1; then
-  echo "Git is not installed. Please install Git before running this script."
-  exit 1
+    echo "Git is not installed. Please install Git before running this script."
+    exit 1
 fi
 
-curl --fail --location --create-dirs --output ~/.cache/yadm https://github.com/yadm-dev/yadm/raw/master/yadm
-chmod +x ~/.cache/yadm
+if [[ $(readlink -f /proc/$$/exe) =~ "busybox" ]]; then
+    echo "Please install fully-featured coreutils and findutils"
+    exit 1
+fi
 
+echo "Downloading yadm..."
+curl --fail --location https://github.com/yadm-dev/yadm/raw/master/yadm --output ~/.cache/yadm --create-dirs --progress-bar &&
+echo "Completed!"
+
+chmod +x ~/.cache/yadm
 ~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap --depth=5
