@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-yes | fish_config theme save 'Old School'
+yes | fish_config theme save "Old School"
 
 if curl -sL git.io/fisher | source
     fisher update > /dev/null

@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-if command -v gsettings and gsettings list-schemas 2>&1 | grep --quiet org.gnome
+if command --query gsettings; and gsettings list-schemas | grep --quiet org.gnome
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"

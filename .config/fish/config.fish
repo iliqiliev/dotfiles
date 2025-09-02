@@ -39,28 +39,28 @@ if grep --quiet --no-messages amdgpu /proc/modules
     set --export LIBVA_DRIVER_NAME radeonsi
 end
 
-if command --quiet adb
+if command --query adb
     alias adb "HOME=$XDG_DATA_HOME/android command adb"
 end
 
-if command --quiet wget
+if command --query wget
     alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
 end
 
-if command --quiet bat
+if command --query bat
     alias cat="bat"
 end
 
-if command --quiet eza
+if command --query eza
     alias ls="eza"
     alias tree="eza --all --tree"
 end
 
-if command --quiet micro
+if command --query micro
     set --export EDITOR micro
 end
 
-if command --quiet zoxide
+if command --query zoxide
     zoxide init fish | source
 end
 
