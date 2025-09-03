@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source $(dirname $0)/00-packages
+PACKAGES_FILE=$(dirname $(readlink -e ${BASH_SOURCE[0]}))/00-packages
+source $PACKAGES_FILE
 
 if (( ${#PACKAGES[@]} == 0 )); then
     echo -ne $GREEN
@@ -12,6 +13,4 @@ fi
 echo "Please install the still missing packages manually!"
 echo "Exit the shell afterwards so that the bootstrap can continue."
 
-trap "source $(dirname $0)/00-packages" DEBUG
-
-bash --norc --noprofile -i || true
+PROMPT_COMMAND="source $PACKAGES_FILE" bash --norc --noprofile -i || true
