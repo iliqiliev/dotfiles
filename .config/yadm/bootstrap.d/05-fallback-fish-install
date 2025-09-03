@@ -3,7 +3,7 @@
 FISH_STATIC_URL="https://github.com/fish-shell/fish-shell/releases/download/4.0.2/fish-static-amd64-4.0.2.tar.xz"
 FISH_BIN_PATH=~/.local/bin
 
-if ! command -v fish &> /dev/null; then
+if command -v fish &> /dev/null; then
     exit 0
 fi
 
