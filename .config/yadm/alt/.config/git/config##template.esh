@@ -5,6 +5,7 @@
     username = iliqiliev
 
 <% fi -%>
+<% if command -v delta &> /dev/null; then -%>
 [core]
     pager = delta
 
@@ -14,8 +15,9 @@
 [delta]
     navigate = true
 
+<% fi -%>
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 
 [diff]
     colorMoved = default
