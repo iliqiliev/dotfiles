@@ -2,7 +2,7 @@
 
 yes | fish_config theme save "Old School"
 
-if curl -sL git.io/fisher | source; and fisher updatef > /dev/null
+if curl -sL git.io/fisher | source; and fisher update > /dev/null
     set --local plugin_count (count (fisher list))
     set_color green
     echo "Installed $plugin_count fish plugins."
