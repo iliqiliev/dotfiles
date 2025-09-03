@@ -2,10 +2,10 @@
 
 set -eu
 
-export RED="\033[31m"
-export GREEN="\033[32m"
-export YELLOW="\033[33m"
-export NORMAL="\033[0m"
+export readonly RED="\033[31m"
+export readonly GREEN="\033[32m"
+export readonly YELLOW="\033[33m"
+export readonly NORMAL="\033[0m"
 
 export PATH=$PATH:~/.cache:~/.local/bin
 
@@ -26,7 +26,7 @@ done < <(find -L "$BOOTSTRAP_D" -type f | sort)
 
 for bootstrap in "${bootstraps[@]}"; do
     echo -ne $GREEN
-    echo "Running $bootstrap from $BOOTSTRAP_D..."
+    echo "Running $bootstrap..."
     echo -ne $NORMAL
 
     if ! "$bootstrap"; then

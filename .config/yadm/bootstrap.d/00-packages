@@ -25,3 +25,9 @@ for package in ${!PACKAGES[@]}; do
         unset PACKAGES[${package}]
     fi
 done
+
+if (( ${#PACKAGES[@]} == 0 )); then
+    export PS1="$GREEN  (done):\$ $NORMAL"
+else
+    export PS1="$YELLOW (install): ${PACKAGES[*]}\n :\$ $NORMAL"
+fi

@@ -6,10 +6,7 @@ if (( ${#PACKAGES[@]} == 0 )); then
     exit 0
 fi
 
-echo "Please install the following packages:"
-echo -ne $GREEN
-echo ${PACKAGES[@]}
-echo -ne $NORMAL
+echo "Please install the listed packages:"
 echo "Exit the shell afterwards so that the bootstrap can continue."
 
-PS1="$GREEN  (install):\$ $NORMAL" bash --norc --noprofile -i || true
+bash --norc --noprofile -i || true
