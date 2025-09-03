@@ -9,4 +9,6 @@ fi
 echo "Please install the listed packages:"
 echo "Exit the shell afterwards so that the bootstrap can continue."
 
+trap "source $(dirname $0)/00-packages" DEBUG
+
 bash --norc --noprofile -i || true

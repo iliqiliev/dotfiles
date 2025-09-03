@@ -3,9 +3,7 @@
 FISH_STATIC_URL="https://github.com/fish-shell/fish-shell/releases/download/4.0.2/fish-static-amd64-4.0.2.tar.xz"
 FISH_BIN_PATH=~/.local/bin
 
-source $(dirname $0)/00-packages
-
-if [[ ! -v PACKAGES[fish] ]]; then
+if ! command -v fish &> /dev/null; then
     exit 0
 fi
 
@@ -14,7 +12,7 @@ echo "Fish shell still not found. Installing static x86_64 build to '$FISH_BIN_P
 echo -ne $NORMAL
 
 curl --location $FISH_STATIC_URL | tar --extract --xz --directory=$FISH_BIN_PATH && {
-    $FISH_BIN_PATH/fish --install
+    $FISH_BIN_PATH/fish --command "fish --install"
 
     echo -ne $GREEN
     echo "Fish shell installed successfully."
