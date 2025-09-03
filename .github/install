@@ -2,7 +2,7 @@
 
 set -e
 
-if ! command -v git > /dev/null 2>&1; then
+if ! command -v git &> /dev/null; then
     echo "Git is not installed. Please install Git before running this script."
     exit 1
 fi
