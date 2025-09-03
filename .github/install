@@ -7,7 +7,7 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
-if [[ $(readlink -f /proc/$$/exe) =~ "busybox" ]]; then
+if [[ $(readlink -f $(command -v grep)) =~ "busybox" ]]; then
     echo "Please install fully-featured coreutils and findutils!"
     exit 1
 fi
