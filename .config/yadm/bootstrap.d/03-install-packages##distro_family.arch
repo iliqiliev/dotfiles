@@ -6,7 +6,7 @@ if (( ${#PACKAGES[@]} == 0 )); then
     exit 0
 fi
 
-if command -v sudo > /dev/null 2>&1 &&
+if command -v sudo &> /dev/null &&
    groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"
 then
     echo "Enter your password to install the following packages"
