@@ -9,15 +9,10 @@ export readonly NORMAL="\033[0m"
 
 export PATH=$PATH:~/.cache:~/.local/bin
 
-# Directory to look for bootstrap executables in
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 
-if [[ ! -d "$BOOTSTRAP_D" ]]; then
-    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
-    exit 1
-fi
-
 declare -a bootstraps
+
 while IFS= read -r bootstrap; do
     if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ ~$ ]]; then
         bootstraps+=("$bootstrap")
