@@ -1,22 +1,27 @@
 #!/usr/bin/env bash
 
-FISH_STATIC_URL="https://github.com/fish-shell/fish-shell/releases/download/4.0.2/fish-static-amd64-4.0.2.tar.xz"
-FISH_BIN_PATH=~/.local/bin
+set -e
 
 if command -v fish &> /dev/null; then
     exit 0
 fi
 
+FISH_BIN_PATH=~/.local/bin
+FISH_BASE_URL="https://github.com/fish-shell/fish-shell/releases/download"
+
+case $(uname --machine) in
+  x86_64) FISH_STATIC_URL="$FISH_BASE_URL/4.0.2/fish-static-amd64-4.0.2.tar.xz";;
+  aarch64) FISH_STATIC_URL="$FISH_BASE_URL/4.0.2/fish-static-aarch64-4.0.2.tar.xz";;
+  *) exit 1;;
+esac
+
 echo -ne $YELLOW
-echo "Fish shell still not found. Installing static x86_64 build to '$FISH_BIN_PATH' manually."
+echo "Fish shell not found. Installing static build to '$FISH_BIN_PATH' manually."
+
+echo "Downloading..."
+curl --location $FISH_STATIC_URL --progress-bar | tar --extract --xz --directory=$FISH_BIN_PATH
+
+echo "yes" | $FISH_BIN_PATH/fish --install --no-execute
+echo -ne $GREEN
+echo "Fish shell installed successfully."
 echo -ne $NORMAL
-
-curl --location $FISH_STATIC_URL | tar --extract --xz --directory=$FISH_BIN_PATH && {
-    $FISH_BIN_PATH/fish --install --no-execute
-
-    echo -ne $GREEN
-    echo "Fish shell installed successfully."
-    echo -ne $NORMAL
-}
-
-
