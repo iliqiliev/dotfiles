@@ -31,3 +31,6 @@ if (( ${#PACKAGES[@]} == 0 )); then
 else
     export PS1="$YELLOW (install): ${PACKAGES[*]}\n :\$ $NORMAL"
 fi
+
+THIS_FILE=${BASH_SOURCE[0]}
+export PROMPT_COMMAND="source $THIS_FILE"
