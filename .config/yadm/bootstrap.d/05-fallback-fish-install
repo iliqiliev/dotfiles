@@ -6,6 +6,10 @@ if command -v fish &> /dev/null; then
     exit 0
 fi
 
+if [ "$(uname --kernel-name)" != "Linux" ]; then
+    exit 0
+fi
+
 FISH_BIN_PATH=~/.local/bin
 FISH_BASE_URL="https://github.com/fish-shell/fish-shell/releases/download"
 
@@ -15,13 +19,13 @@ case $(uname --machine) in
   *) exit 1;;
 esac
 
-echo -ne $YELLOW
+echo -ne "$YELLOW"
 echo "Fish shell not found. Installing static build to '$FISH_BIN_PATH' manually."
 
 echo "Downloading..."
 curl --location $FISH_STATIC_URL --progress-bar | tar --extract --xz --directory=$FISH_BIN_PATH
 
 echo "yes" | $FISH_BIN_PATH/fish --install --no-execute
-echo -ne $GREEN
+echo -ne "$GREEN"
 echo "Fish shell installed successfully."
-echo -ne $NORMAL
+echo -ne "$NORMAL"

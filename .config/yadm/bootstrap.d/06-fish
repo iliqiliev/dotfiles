@@ -1,10 +1,16 @@
 #!/usr/bin/env fish
 
+echo "Setting fish theme..."
 yes | fish_config theme save "Old School"
 
-if curl -sL git.io/fisher | source; and fisher update > /dev/null
+if curl -sL git.io/fisher | source
+    set_color yellow
+    echo "Installing fish plugins..."
+    fisher update > /dev/null
+
     set --local plugin_count (count (fisher list))
     set_color green
     echo "Installed $plugin_count fish plugins."
+
     set_color normal
 end
