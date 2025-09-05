@@ -52,8 +52,8 @@ if command --query bat
 end
 
 if command --query eza
-    alias ls="eza"
-    alias tree="eza --all --tree"
+    alias ls="eza --all --long --octal-permissions"
+    alias tree="eza --tree --all"
 end
 
 if command --query micro
