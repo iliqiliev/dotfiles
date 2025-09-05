@@ -30,11 +30,28 @@ for package in "${!PACKAGES[@]}"; do
     fi
 done
 
+
 if (( ${#PACKAGES[@]} == 0 )); then
-    export PS1="$GREEN  (done):\$ $NORMAL"
+
+PS1=$(cat << EOF
+$GREEN Good job! Type exit to continue.
+$GREEN (done):\$ $NORMAL
+EOF
+)
+
 else
-    export PS1="$YELLOW (install): ${PACKAGES[*]}\n :\$ $NORMAL"
+
+PS1=$(cat << EOF
+$YELLOW Install these packages:$GREEN ${PACKAGES[*]}
+$YELLOW Hint: you can use the APPS variable to reference them all.
+$YELLOW (install):\$ $NORMAL
+EOF
+)
+
 fi
 
-THIS_FILE=${BASH_SOURCE[0]}
-export PROMPT_COMMAND="source $THIS_FILE"
+FILE_00=${BASH_SOURCE[0]}
+
+export PS1
+export APPS=${PACKAGES[*]}
+export PROMPT_COMMAND="source $FILE_00"

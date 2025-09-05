@@ -1,4 +1,5 @@
 {
+    "clipboard": "terminal",
     "colorscheme": "simple",
     "hltrailingws": true,
     "mkparents": true,
