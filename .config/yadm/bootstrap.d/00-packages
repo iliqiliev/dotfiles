@@ -20,9 +20,13 @@ declare -A PACKAGES=(
     [zoxide]=zoxide
 )
 
-for package in ${!PACKAGES[@]}; do
-    if command -v $package &> /dev/null; then
-        unset PACKAGES[${package}]
+for package in "${!PACKAGES[@]}"; do
+    if command -v "$package" &> /dev/null; then
+        if [ "$package" = "yadm" ] && (( $(type -aP "yadm" | wc --lines) < 2 )); then
+            continue
+        fi
+
+        unset "PACKAGES['$package']"
     fi
 done
 

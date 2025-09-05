@@ -7,7 +7,7 @@ export readonly GREEN="\033[32m"
 export readonly YELLOW="\033[33m"
 export readonly NORMAL="\033[0m"
 
-export PATH=$PATH:~/.cache:~/.local/bin
+export PATH=$PATH:~/.local/bin
 
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 

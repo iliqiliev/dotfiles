@@ -2,19 +2,25 @@
 
 set -e
 
-if ! command -v git &> /dev/null; then
+YADM=~/.local/bin/yadm
+
+if ! command -v git >/dev/null; then
     echo "Git is not installed. Please install Git before running this script."
-    exit 1
+    ERROR=1
 fi
 
-if [[ $(readlink -f $(command -v grep)) =~ "busybox" ]]; then
+if [[ $(readlink -f "$(command -v grep)") =~ "busybox" ]]; then
     echo "Please install fully-featured coreutils and findutils!"
-    exit 1
+    ERROR=1
+fi
+
+if [ "$ERROR" ]; then
+    exit "$ERROR"
 fi
 
 echo "Downloading yadm..."
-curl --fail --location https://github.com/yadm-dev/yadm/raw/master/yadm --output ~/.cache/yadm --create-dirs --progress-bar
+curl --fail --location https://github.com/yadm-dev/yadm/raw/master/yadm --output $YADM --create-dirs --progress-bar
 echo "Completed!"
 
-chmod +x ~/.cache/yadm
-~/.cache/yadm clone https://github.com/iliqiliev/dotfiles.git --bootstrap --depth=5
+chmod +x $YADM
+$YADM clone https://github.com/iliqiliev/dotfiles.git --bootstrap --depth=5
