@@ -1,4 +1,4 @@
-<% if [[ $YADM_USER =~ ^(iliq|iliya)$ ]]; then -%>
+<% if echo "$YADM_USER $YADM_CLASSES" | grep -Eiqw "iliq|iliya"; then -%>
 [user]
     name = Iliya Iliev
     email = iliq0000@proton.me

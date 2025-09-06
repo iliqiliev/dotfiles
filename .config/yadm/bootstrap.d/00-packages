@@ -14,6 +14,7 @@ declare -A PACKAGES=(
     [fzf]=fzf
     [micro]=micro
     [rg]=ripgrep
+    [shellcheck]=shellcheck
     [tldr]=tealdeer
     [yadm]=yadm
     [yazi]=yazi
