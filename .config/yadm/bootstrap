@@ -2,12 +2,20 @@
 
 set -eu
 
-export readonly RED="\033[31m"
-export readonly GREEN="\033[32m"
-export readonly YELLOW="\033[33m"
-export readonly NORMAL="\033[0m"
+export RED="\033[31m"
+export GREEN="\033[32m"
+export YELLOW="\033[33m"
+export NORMAL="\033[0m"
 
 export PATH=$PATH:~/.local/bin
+
+for util in sort find grep; do
+    if [ "$(readlink -f $(command -v "$util"))" = "$(command -v busybox)" ]; then
+        echo "Please install fully-featured utils!"
+        echo "Example for Alpine: 'apk add --force-overwrite coreutils findutils grep'."
+        false
+    fi
+done
 
 BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
 
