@@ -32,20 +32,20 @@ for package in "${!PACKAGES[@]}"; do
 done
 
 
-if (( ${#PACKAGES[@]} == 0 )); then
+if (( ${#PACKAGES[@]} > 0 )); then
 
 PS1=$(cat << EOF
-$GREEN Good job! Type exit to continue.
-$GREEN (done):\$ $NORMAL
+ Install these packages:$GREEN ${PACKAGES[*]}${NORMAL}
+ Hint: you can use the APPS variable to reference them all.
+$YELLOW (install):\$ $NORMAL
 EOF
 )
 
 else
 
 PS1=$(cat << EOF
-$YELLOW Install these packages:$GREEN ${PACKAGES[*]}
-$YELLOW Hint: you can use the APPS variable to reference them all.
-$YELLOW (install):\$ $NORMAL
+$GREEN Good job! Type exit to continue.
+ (done):\$ $NORMAL
 EOF
 )
 

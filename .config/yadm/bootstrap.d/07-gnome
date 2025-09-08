@@ -4,11 +4,12 @@ if command --query gsettings; and gsettings list-schemas 2>&1 | grep --quiet org
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L']"
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift>Alt_L']"
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile "flat"
+
     set_color green
     echo "GNOME settings successfully set!"
+    set_color normal
 else
-    set_color yellow
     echo "GNOME not found! :( Desktop settings skipped."
 end
 
-set_color normal
+

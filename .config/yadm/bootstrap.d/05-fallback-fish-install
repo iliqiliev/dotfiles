@@ -19,7 +19,6 @@ case $(uname --machine) in
   *) exit 1;;
 esac
 
-echo -ne "$YELLOW"
 echo "Fish shell not found. Installing static build to '$FISH_BIN_PATH' manually."
 
 echo "Downloading..."
