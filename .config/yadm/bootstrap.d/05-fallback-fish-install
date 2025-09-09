@@ -7,7 +7,7 @@ if command -v fish &> /dev/null; then
 fi
 
 if [ "$(uname --kernel-name)" != "Linux" ]; then
-    exit 0
+    exit 1
 fi
 
 FISH_BIN_PATH=~/.local/bin
