@@ -1,5 +1,6 @@
 {
     "colorscheme": "simple",
+    "fileformat": "unix",
     "hltrailingws": true,
     "mkparents": true,
     "rmtrailingws": true,
