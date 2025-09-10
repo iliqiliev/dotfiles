@@ -15,8 +15,8 @@ set --export XDG_PICTURES_DIR  $HOME/Pictures
 set --export XDG_VIDEOS_DIR    $HOME/Videos
 
 # System
-set --export XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
-set --export XDG_CONFIG_DIRS /etc/xdg
+set --export --path XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
+set --export --path XDG_CONFIG_DIRS /etc/xdg
 
 # Cleaning up the home directory according to the XDG standard
 set --export TMPDIR                $XDG_RUNTIME_DIR
