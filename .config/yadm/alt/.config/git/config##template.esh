@@ -5,8 +5,9 @@
     username = iliqiliev
 
 <% fi -%>
-<% if command -v delta &> /dev/null; then -%>
 [core]
+    autocrlf = input
+<% if command -v delta &> /dev/null; then -%>
     pager = delta
 
 [interactive]
