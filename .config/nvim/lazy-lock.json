@@ -1,0 +1,5 @@
+{
+  "adwaita.nvim": { "branch": "main", "commit": "334d918d5241262816624e8c80410574ccdb25dc" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "shellcheck.nvim": { "branch": "main", "commit": "ee40e705ea61a4d790907c93cd01cc52480351fa" }
+}
