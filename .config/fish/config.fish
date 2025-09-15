@@ -55,8 +55,8 @@ if command --query eza
     alias tree="eza --tree --all"
 end
 
-if command --query micro
-    set --export EDITOR micro
+if command --query nvim
+    set --export EDITOR nvim
 end
 
 if command --query zoxide
