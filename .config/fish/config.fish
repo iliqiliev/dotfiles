@@ -34,8 +34,7 @@ set --export LESSHISTFILE          $XDG_STATE_HOME/less/history
 set --export PYTHON_HISTORY        $XDG_STATE_HOME/python_history
 
 if grep --quiet --no-messages amdgpu /proc/modules
-    set --export RUSTICL_ENABLE radeonsi # enables rusticl OpenCL driver
-    set --export VDPAU_DRIVER radeonsi
+    set --export RUSTICL_ENABLE radeonsi
     set --export LIBVA_DRIVER_NAME radeonsi
 end
 
