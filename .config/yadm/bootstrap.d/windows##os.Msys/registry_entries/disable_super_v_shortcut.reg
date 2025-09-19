@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+;; Disables Super+V shortcut so that an actually
+;; good clipboard manager (Ditto) can use it.
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"DisabledHotkeys"="V"
