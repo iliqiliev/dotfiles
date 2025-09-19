@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+for entry in "$(dirname "${BASH_SOURCE[0]}")"/registry_entries/*.reg; do
+    echo -n "Registry entry '$(basename "$entry")': "
+    reg import "$entry"
+done
+
+echo -e "\n${GREEN}Imported registry entries succesfully.${NORMAL}"
+
+{
+    taskkill -f -im explorer.exe && start explorer.exe
+} >/dev/null
+echo "Explorer restarted to apply changes."
