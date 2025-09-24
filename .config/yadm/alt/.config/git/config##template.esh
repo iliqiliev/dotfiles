@@ -6,7 +6,6 @@
 
 <% fi -%>
 [core]
-    autocrlf = input
 <% if command -v delta &> /dev/null; then -%>
     pager = delta
 
