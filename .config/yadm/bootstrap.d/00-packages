@@ -54,5 +54,5 @@ fi
 FILE_00=${BASH_SOURCE[0]}
 
 export PS1
-export APPS=${PACKAGES[*]}
+export APPS=${PACKAGES[@]}
 export PROMPT_COMMAND="source $FILE_00"
