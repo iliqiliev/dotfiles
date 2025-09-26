@@ -6,7 +6,7 @@ function install_arch_packages() {
     if groups | grep --quiet --word-regexp --extended-regexp "sudo|wheel"; then
         echo "Enter your password to install the following packages:"
         echo -e "${GREEN}${PACKAGES[*]}${NORMAL}"
-        sudo --reset-timestamp pacman -Sy --needed --noconfirm "$APPS"
+        sudo --reset-timestamp pacman -Sy --needed --noconfirm "${PACKAGES[@]}"
         true
     else
         echo -e "${RED}Failed to install packages! Check if you are a valid sudoer.${NORMAL}"
