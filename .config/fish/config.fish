@@ -63,6 +63,10 @@ if command --query zoxide
     zoxide init fish | source
 end
 
+if command --query starship
+    starship init fish | source
+end
+
 # Abbreviations
 abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
 abbr sc  "systemctl"
