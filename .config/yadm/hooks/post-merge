@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-cd "$(yadm rev-parse --show-toplevel)" || exit 1
-
-if ! yadm diff --diff-filter=ACDR --quiet "HEAD@{1}" "HEAD"; then
-    .config/yadm/bootstrap.d/02-yadm
-fi
