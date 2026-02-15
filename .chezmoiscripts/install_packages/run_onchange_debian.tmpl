@@ -1,0 +1,14 @@
+{{ if eq .distro "debian" -}}
+
+#!/usr/bin/env bash
+
+# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+if [[ $EUID -ne 0 ]]; then
+    SUDO_CMD="sudo"
+fi
+
+$SUDO_CMD apt update -y
+$SUDO_CMD apt install -y {{ join " " .packages.apt }}
+
+{{- end }}
