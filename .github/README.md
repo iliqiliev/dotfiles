@@ -1,11 +1,11 @@
 My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing crazy.
 
 # Installation:
-From Bash:
-```bash
-bash <(curl -L iliqiliev.me/dotfiles)
+With `chezmoi` installed:
+```console
+chezmoi init --apply iliqiliev
 ```
-or from Fish:
-```fish
-bash (curl -L iliqiliev.me/dotfiles | psub)
+or without it:
+```console
+TODO
 ```
