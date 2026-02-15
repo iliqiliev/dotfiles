@@ -11,8 +11,15 @@
     {{- $username = promptStringOnce . "username" "Username (for git)" }}
 {{- end -}}
 
+{{- $distro := "" }}
+{{- if hasKey .chezmoi.osRelease "id_like" }}
+{{- $distro = .chezmoi.osRelease.id_like }}
+{{- else }}
+{{- $distro = .chezmoi.osRelease.id }}
+{{- end -}}
 
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}
     username = {{ $username | quote }}
+    distro = {{ $distro | lower | quote }}
