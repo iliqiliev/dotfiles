@@ -4,11 +4,7 @@
 
 # packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 
-if [[ $EUID -ne 0 ]]; then
-    SUDO_CMD="sudo"
-fi
-
-$SUDO_CMD pacman -Syu --noconfirm
-$SUDO_CMD pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+{{ .sudo }} pacman -Syu --noconfirm
+{{ .sudo }} pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
 
 {{- end }}

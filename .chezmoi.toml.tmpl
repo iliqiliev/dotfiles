@@ -18,8 +18,20 @@
 {{- $distro = .chezmoi.osRelease.id }}
 {{- end -}}
 
+{{- $sudo := "" }}
+{{- if eq .chezmoi.uid "0" }}
+{{- $sudo = "" }}
+{{- else if lookPath "doas"}}
+{{- $sudo = "doas" }}
+{{- else if lookPath "sudo"}}
+{{- $sudo = "sudo" }}
+{{- else }}
+{{- $sudo = "su root -c" }}
+{{- end }}
+
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}
     username = {{ $username | quote }}
     distro = {{ $distro | lower | quote }}
+    sudo = {{ $sudo | quote }}
