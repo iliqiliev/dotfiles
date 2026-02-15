@@ -13,7 +13,7 @@
 
 {{- $distro := "" }}
 {{- if hasKey .chezmoi.osRelease "idLike" }}
-{{- $distro = .chezmoi.osRelease.idLike }}
+{{- $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else }}
 {{- $distro = .chezmoi.osRelease.id }}
 {{- end -}}
