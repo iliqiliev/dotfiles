@@ -1,6 +1,0 @@
-[core]
-	sparseCheckout = true
-	sparseCheckoutCone = true
-
-[yadm]
-	auto-private-dirs = false
