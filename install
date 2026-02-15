@@ -3,6 +3,7 @@
 set -eu # exit on Error and Unset variables
 
 if ! chezmoi="$(command -v chezmoi)"; then
+    cd
     chezmoi_url="get.chezmoi.io/lb"
     chezmoi="${HOME}/.local/bin/chezmoi"
     echo "Installing chezmoi to '${chezmoi}'" >&2
