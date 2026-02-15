@@ -10,9 +10,26 @@ packages:
     - fzf
     - git-delta
     - github-cli
-    - nvim
+    - neovim
     - ripgrep
     - shellcheck
     - tealdeer
     - yazi
+    - zoxide
+  apt:
+    - bat
+    - btop
+    # - chezmoi
+    - eza
+    # - fastfetch
+    - fd-find # fd
+    - fish
+    - fzf
+    - git-delta
+    - gh # github-cli
+    - neovim
+    - ripgrep
+    - shellcheck
+    - tealdeer
+    # - yazi
     - zoxide
