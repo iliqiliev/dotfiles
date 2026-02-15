@@ -1,17 +1,30 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-set -e
+# -e: exit on error
+# -u: exit on unset variables
+set -eu
 
-YADM=~/.local/bin/yadm
-
-if ! command -v git >/dev/null; then
-    echo "Git is not installed. Please install Git before running this script."
+if ! chezmoi="$(command -v chezmoi)"; then
+  bin_dir="${HOME}/.local/bin"
+  chezmoi="${bin_dir}/chezmoi"
+  echo "Installing chezmoi to '${chezmoi}'" >&2
+  if command -v curl >/dev/null; then
+    chezmoi_install_script="$(curl -fsSL https://chezmoi.io/get)"
+  elif command -v wget >/dev/null; then
+    chezmoi_install_script="$(wget -qO- https://chezmoi.io/get)"
+  else
+    echo "To install chezmoi, you must have curl or wget installed." >&2
     exit 1
+  fi
+  sh -c "${chezmoi_install_script}" -- -b "${bin_dir}"
+  unset chezmoi_install_script bin_dir
 fi
 
-echo "Downloading yadm..."
-curl --fail --location https://github.com/yadm-dev/yadm/raw/master/yadm --output $YADM --create-dirs --progress-bar
-echo "Completed!"
+# POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
+script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
-chmod +x $YADM
-$YADM clone https://github.com/iliqiliev/dotfiles.git --bootstrap --depth=5 $*
+set -- init --apply --source="${script_dir}"
+
+echo "Running 'chezmoi $*'" >&2
+# exec: replace current process with chezmoi
+exec "$chezmoi" "$@"
