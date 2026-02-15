@@ -3,7 +3,6 @@
 #!/usr/bin/env bash
 
 # packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
-echo "Running on an Arch-based distro: {{ .chezmoi.osRelease.id }}"
 
 if [[ $EUID -ne 0 ]]; then
     SUDO_CMD="sudo"
