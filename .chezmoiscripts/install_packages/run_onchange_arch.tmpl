@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.osRelease.id "arch" -}}
+
+#!/bin/bash
+
+echo "Running on an Arch-based distro: {{ .chezmoi.osRelease.id }}"
+
+sudo pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+
+{{- end }}

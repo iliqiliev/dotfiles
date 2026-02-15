@@ -1,0 +1,18 @@
+packages:
+  pacman:
+    - bat
+    - btop
+    - eza
+    - fastfetch
+    - fd
+    - fish
+    - fzf
+    - git-delta
+    - github-cli
+    - nvim
+    - rg
+    - shellcheck
+    - tldr
+    - yadm
+    - yazi
+    - zoxide
