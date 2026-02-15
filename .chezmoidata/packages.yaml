@@ -2,6 +2,7 @@ packages:
   pacman:
     - bat
     - btop
+    - chezmoi
     - eza
     - fastfetch
     - fd
@@ -10,9 +11,8 @@ packages:
     - git-delta
     - github-cli
     - nvim
-    - rg
+    - ripgrep
     - shellcheck
-    - tldr
-    - yadm
+    - tealdeer
     - yazi
     - zoxide

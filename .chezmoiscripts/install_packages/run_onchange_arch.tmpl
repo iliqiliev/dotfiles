@@ -9,6 +9,6 @@ if [[ $EUID -ne 0 ]]; then
     SUDO_CMD="sudo"
 fi
 
-$SUDO_CMD pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+$SUDO_CMD pacman -Sy --needed --noconfirm {{ join " " .packages.pacman }}
 
 {{- end }}
