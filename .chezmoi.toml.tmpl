@@ -1,0 +1,18 @@
+{{- $name := "" }}
+{{- $email := "" }}
+{{- $username := "" }}
+{{- if regexMatch "iliq|iliya" .chezmoi.username }}
+    {{- $name = "Iliya Iliev" }}
+    {{- $email = "iliq0000@proton.me" }}
+    {{- $username = "iliqiliev" }}
+{{- else }}
+    {{- $name = promptStringOnce . "name" "Full name (for git)" }}
+    {{- $email = promptStringOnce . "email" "Email address (for git)" }}
+    {{- $username = promptStringOnce . "username" "Username (for git)" }}
+{{- end -}}
+
+
+[data]
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    username = {{ $username| quote }}
