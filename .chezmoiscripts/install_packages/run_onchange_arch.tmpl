@@ -4,7 +4,38 @@
 
 # packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 
+function add_chaotic_aur() {
+    echo "Installing Chaotic-AUR..."
+    {{ .sudo }} pacman-key --init
+
+    {{ .sudo }} pacman-key --recv-key  3056513887B78AEB --keyserver keyserver.ubuntu.com
+    {{ .sudo }} pacman-key --lsign-key 3056513887B78AEB
+
+    {{ .sudo }} pacman -U --noconfirm "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
+    {{ .sudo }} pacman -U --noconfirm "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+
+    {{ .sudo }} echo "[chaotic-aur]"                              >> /etc/pacman.conf
+    {{ .sudo }} echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+
+    {{ .sudo }} pacman -Sy --noconfirm
+    echo "Chaotic-AUR installed succesfully."
+}
+
+echo "Syncing package database..."
 {{ .sudo }} pacman -Syu --noconfirm
+echo "Installing package packages..."
 {{ .sudo }} pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+
+if grep --quiet "chaotic-aur" /etc/pacman.conf; then
+	echo "Chaotic-AUR is detected as installed."
+    exit 0
+fi
+
+read -p "Install Chaotic-AUR? [y/N]: " -r -s -N 1 CHAOTIC_REPLY; echo
+
+case ${CHAOTIC_REPLY,,} in
+    y) add_chaotic_aur;;
+    *) echo "Skipping Chaotic-AUR installation.";;
+esac
 
 {{- end }}
