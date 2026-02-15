@@ -1,9 +1,14 @@
 {{ if eq .chezmoi.osRelease.id "arch" -}}
 
-#!/bin/bash
+#!/usr/bin/env bash
 
+# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 echo "Running on an Arch-based distro: {{ .chezmoi.osRelease.id }}"
 
-sudo pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+if [[ $EUID -ne 0 ]]; then
+    SUDO_CMD="sudo"
+fi
+
+$SUDO_CMD pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
 
 {{- end }}
