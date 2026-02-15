@@ -1,6 +1,9 @@
 {{- $name := "" }}
 {{- $email := "" }}
 {{- $username := "" }}
+{{- $distro := "" }}
+{{- $sudo := "" -}}
+
 {{- if regexMatch "iliq|iliya" .chezmoi.username }}
     {{- $name = "Iliya Iliev" }}
     {{- $email = "iliq0000@proton.me" }}
@@ -11,23 +14,21 @@
     {{- $username = promptStringOnce . "username" "Username (for git)" }}
 {{- end -}}
 
-{{- $distro := "" }}
 {{- if hasKey .chezmoi.osRelease "idLike" }}
-{{- $distro = splitList " " .chezmoi.osRelease.idLike | last }}
+{   {- $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else }}
-{{- $distro = .chezmoi.osRelease.id }}
+    {{- $distro = .chezmoi.osRelease.id }}
 {{- end -}}
 
-{{- $sudo := "" }}
 {{- if eq .chezmoi.uid "0" }}
-{{- $sudo = "" }}
+    {{- $sudo = "" }}
 {{- else if lookPath "doas"}}
-{{- $sudo = "doas" }}
+    {{- $sudo = "doas" }}
 {{- else if lookPath "sudo"}}
-{{- $sudo = "sudo" }}
+    {{- $sudo = "sudo" }}
 {{- else }}
-{{- $sudo = "su root -c" }}
-{{- end }}
+    {{- $sudo = "su root -c" }}
+{{- end -}}
 
 [data]
     name = {{ $name | quote }}
