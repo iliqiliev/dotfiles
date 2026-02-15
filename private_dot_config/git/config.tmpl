@@ -1,0 +1,28 @@
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+    username = {{ .username }}
+
+{{- if lookPath "delta" }}
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+{{- end }}
+
+[merge]
+    conflictstyle = diff3
+
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
