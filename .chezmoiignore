@@ -1,2 +1,4 @@
 .github/
-install
+install.sh
+LICENSE
+README.md
