@@ -12,8 +12,8 @@
 {{- end -}}
 
 {{- $distro := "" }}
-{{- if hasKey .chezmoi.osRelease "id_like" }}
-{{- $distro = .chezmoi.osRelease.id_like }}
+{{- if hasKey .chezmoi.osRelease "idLike" }}
+{{- $distro = .chezmoi.osRelease.idLike }}
 {{- else }}
 {{- $distro = .chezmoi.osRelease.id }}
 {{- end -}}
