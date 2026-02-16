@@ -1,0 +1,21 @@
+{{ if lookPath "fish" -}}
+
+#!/usr/bin/env fish
+
+if not type --query "fisher"
+	if not curl -sL git.io/fisher | source
+		set_color red
+		echo "Failed to install fisher." >&2
+		set_color normal
+		exit 1
+	end
+end
+
+echo "Installing fish plugins..."
+fisher update > /dev/null
+
+set_color green
+echo "Installed (count (fisher list)) fish plugins."
+set_color normal
+
+{{- end }}
