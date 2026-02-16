@@ -4,8 +4,6 @@
 
 # packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 
-
-
 {{ .sudo }} apt update -y
 AVAILABLE_PACKAGES=$(
   comm -12 \
