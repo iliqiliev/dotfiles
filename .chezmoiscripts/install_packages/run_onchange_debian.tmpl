@@ -2,7 +2,7 @@
 
 #!/usr/bin/env bash
 
-# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+# packages.yaml hash: {{ .packages.apt | toString | sha256sum }}
 
 {{ .sudo }} apt update -y
 AVAILABLE_PACKAGES=$(

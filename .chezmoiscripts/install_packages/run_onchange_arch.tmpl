@@ -2,7 +2,7 @@
 
 #!/usr/bin/env bash
 
-# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+# packages.yaml hash: {{ .packages.pacman | toString | sha256sum }}
 
 function add_chaotic_aur() {
     echo "Installing Chaotic-AUR..."

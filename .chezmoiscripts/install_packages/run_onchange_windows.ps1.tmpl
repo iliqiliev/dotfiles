@@ -2,7 +2,7 @@
 
 #!/usr/bin/env pwsh
 
-# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+# packages.yaml hash: {{ .packages.scoop | toString | sha256sum }}
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression

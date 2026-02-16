@@ -2,7 +2,7 @@
 
 #!/usr/bin/env bash
 
-# apt packages hash: {{ .packages.apt | sha256sum }}
+# apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
 apt update -y
 AVAILABLE_PACKAGES=$(
