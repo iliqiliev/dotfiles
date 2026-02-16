@@ -1,0 +1,17 @@
+{{- if lookPath "reg.exe" }}
+{{- $files := glob (joinPath .chezmoi.sourceDir ".data" "regedit" "*.reg") -}}
+
+#!/usr/bin/env pwsh
+
+{{- range $files }}
+
+# {{ base . }} hash: {{ include . | sha256sum }}
+Write-Output "Importing {{ base . }}"
+reg import {{ . }}
+
+{{- end }}
+
+Write-Output "Restarting explorer.exe"
+Stop-Process -Name explorer -Force; Start-Process explorer
+
+{{- end }}
