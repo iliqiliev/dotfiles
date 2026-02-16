@@ -1,7 +1,7 @@
 {{- if lookPath "fish" }}
 {{- $fisher_plugins := joinPath .chezmoi.homeDir ".config" "fish" "fish_plugins" -}}
 
-#!/usr/bin/env fish
+#!{{ lookPath "fish" }}
 
 # fisher_plugins hash: {{ include $fisher_plugins | sha256sum }}
 
