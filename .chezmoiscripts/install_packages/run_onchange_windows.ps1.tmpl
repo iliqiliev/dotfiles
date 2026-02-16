@@ -1,0 +1,14 @@
+{{ if eq .distro "windows" -}}
+
+#!/usr/bin/env pwsh
+
+# packages.yaml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+}
+
+scoop update
+scoop install {{ join " " .packages.scoop }}
+
+{{- end }}
