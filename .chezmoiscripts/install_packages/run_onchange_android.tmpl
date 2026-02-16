@@ -1,0 +1,15 @@
+{{ if eq .distro "android" -}}
+
+#!/usr/bin/env bash
+
+# apt packages hash: {{ .packages.apt | sha256sum }}
+
+apt update -y
+AVAILABLE_PACKAGES=$(
+  comm -12 \
+    <(apt-cache pkgnames | sort) \
+    <(echo -e "{{ join "\\n" .packages.apt }}" | sort)
+)
+apt install -y $AVAILABLE_PACKAGES
+
+{{- end }}
