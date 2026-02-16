@@ -7,9 +7,11 @@
 
 
 {{ .sudo }} apt update -y
-APT_PACKAGES=$(apt-cache pkgnames | sort)
-CHEZMOI_PACKAGES=$(echo -e "{{ join "\\n" .packages.apt }}" | sort)
-AVAILABLE_PACKAGES=$(comm -12 <(echo $APT_PACKAGES) <(echo $CHEZMOI_PACKAGES))
+AVAILABLE_PACKAGES=$(
+  comm -12 \
+    <(apt-cache pkgnames | sort) \
+    <(echo -e "{{ join "\\n" .packages.apt }}" | sort)
+)
 {{ .sudo }} apt install -y $AVAILABLE_PACKAGES
 
 {{- end }}
