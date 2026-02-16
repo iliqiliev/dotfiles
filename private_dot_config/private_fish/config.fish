@@ -1,8 +1,7 @@
 # Disabling fish greeting
 set --export fish_greeting
 
-# Setting XDG Base Directories
-# User
+# Setting User XDG Base Directories
 set --export XDG_CACHE_HOME    $HOME/.cache
 set --export XDG_CONFIG_HOME   $HOME/.config
 set --export XDG_DATA_HOME     $HOME/.local/share
@@ -14,9 +13,13 @@ set --export XDG_MUSIC_DIR     $HOME/Music
 set --export XDG_PICTURES_DIR  $HOME/Pictures
 set --export XDG_VIDEOS_DIR    $HOME/Videos
 
-# System
+# Setting System XDG Base Directories
 set --export --path XDG_DATA_DIRS /usr/share /usr/local/share /var/lib/flatpak/exports/share $XDG_DATA_HOME/flatpak/exports/share
 set --export --path XDG_CONFIG_DIRS /etc/xdg
+
+if not set --query XDG_RUNTIME_DIR
+    set --export XDG_RUNTIME_DIR $XDG_CACHE_HOME
+end
 
 # Cleaning up the home directory according to the XDG standard
 set --export TMPDIR                $XDG_RUNTIME_DIR
@@ -75,5 +78,4 @@ abbr ssc "sudo systemctl"
 abbr fp "flatpak"
 abbr ff "fastfetch"
 
-# Adding directories to $PATH
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
