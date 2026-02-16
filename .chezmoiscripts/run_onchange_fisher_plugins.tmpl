@@ -3,12 +3,12 @@
 #!/usr/bin/env fish
 
 if not type --query "fisher"
-	if not curl -sL git.io/fisher | source
-		set_color red
-		echo "Failed to install fisher." >&2
-		set_color normal
-		exit 1
-	end
+    if not curl -sL git.io/fisher | source
+        set_color red
+        echo "Failed to install fisher." >&2
+        set_color normal
+        exit 1
+    end
 end
 
 echo "Installing fish plugins..."
