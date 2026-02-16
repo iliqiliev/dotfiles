@@ -1,6 +1,6 @@
 {{ if eq .distro "android" -}}
 
-#!/usr/bin/env bash
+#!{{ lookPath "bash" }}
 
 # apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
