@@ -19,9 +19,9 @@ packages:
   apt:
     - bat
     - btop
-    # - chezmoi
+    - chezmoi
     - eza
-    # - fastfetch
+    - fastfetch
     - fd-find # fd
     - fish
     - fzf
@@ -31,7 +31,7 @@ packages:
     - ripgrep
     - shellcheck
     - tealdeer
-    # - yazi
+    - yazi
     - zoxide
   scoop:
     - bat
