@@ -33,3 +33,20 @@ packages:
     - tealdeer
     # - yazi
     - zoxide
+  scoop:
+    - bat
+    - btop
+    - chezmoi
+    - eza
+    - fastfetch
+    - fd
+    # - fish
+    - fzf
+    - delta # git-delta
+    - gh # github-cli
+    - neovim
+    - ripgrep
+    - shellcheck
+    - tealdeer
+    - yazi
+    - zoxide
