@@ -1,7 +1,3 @@
-{{ if eq .distro "windows" -}}
-
-#!/usr/bin/env pwsh
-
 # packages.yaml hash: {{ .packages.scoop | toString | sha256sum }}
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
@@ -13,5 +9,3 @@ scoop update
 scoop bucket add extras
 
 scoop install {{ join " " .packages.scoop }}
-
-{{- end }}
