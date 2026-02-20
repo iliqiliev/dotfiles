@@ -37,10 +37,13 @@ packages:
     - bat
     - btop
     - chezmoi
+    - clink # +
+    - clink-completions # +
+    - clink-flex-prompt # +
     - eza
     - fastfetch
     - fd
-    # - fish
+    # fish
     - fzf
     - delta # git-delta
     - gh # github-cli
@@ -48,5 +51,6 @@ packages:
     - ripgrep
     - shellcheck
     - tealdeer
+    - uutils-coreutils # +
     - yazi
     - zoxide
