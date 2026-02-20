@@ -3,3 +3,11 @@
 install
 LICENSE
 README.md
+
+# OS-Specific chezmoi scripts
+.chezmoiscripts/*
+{{ if eq .chezmoi.os "windows" -}}
+!.chezmoiscripts/windows
+{{ else if regexMatch "linux|android" .chezmoi.os -}}
+!.chezmoiscripts/linux
+{{ end -}}
