@@ -11,5 +11,6 @@ sh -c "$(curl -L iliqiliev.me/dotfiles)"
 ```
 or with `PowerShell`:
 ```ps1
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 iex "&{$(irm 'https://get.chezmoi.io/ps1')} -BinDir '~/.local/bin' init --apply 'iliqiliev'"
 ```
