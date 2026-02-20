@@ -5,9 +5,9 @@ LICENSE
 README.md
 
 # OS-Specific chezmoi scripts
-.chezmoiscripts/*
-{{ if eq .chezmoi.os "windows" -}}
-!.chezmoiscripts/windows
-{{ else if regexMatch "linux|android" .chezmoi.os -}}
-!.chezmoiscripts/linux
+{{ if ne .chezmoi.os "windows" -}}
+.chezmoiscripts/windows/*
+{{ end -}}
+{{ if not (regexMatch "linux|android" .chezmoi.os) -}}
+.chezmoiscripts/linux/*
 {{ end -}}
