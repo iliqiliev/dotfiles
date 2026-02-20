@@ -8,9 +8,10 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
-scoop update
 scoop install git
+scoop update
 scoop bucket add extras
+
 scoop install {{ join " " .packages.scoop }}
 
 {{- end }}
