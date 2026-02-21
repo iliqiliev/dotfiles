@@ -1,0 +1,7 @@
+if systemctl list-unit-files "scx_loader.service" &> /dev/null; then
+	exit 0
+fi
+
+{{ .sudo }} pacman -S --needed --noconfirm scx-scheds scx-tools
+{{ .sudo }} scxctl switch --sched lavd --mode gaming
+{{ .sudo }} systemctl enable --now scx-scheds.service
