@@ -6,5 +6,6 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 scoop install git
 scoop bucket add extras
+scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
 
 scoop install --no-update-scoop {{ join " " .packages.scoop }}

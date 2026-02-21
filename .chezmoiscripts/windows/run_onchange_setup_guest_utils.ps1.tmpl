@@ -1,0 +1,8 @@
+$system_info = Get-WmiObject -Class Win32_ComputerSystem
+
+if (!($system_info.Manufacturer -match "QEMU")) {
+    exit 0
+}
+
+Write-Output "Installing VirtIO Guest Tools."
+scoop install --no-update-scoop iliya/virtio-guest-tools
