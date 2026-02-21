@@ -47,6 +47,7 @@ packages:
     - fzf
     - delta # git-delta
     - gh # github-cli
+    - gsudo # +
     - neovim
     - ripgrep
     - shellcheck

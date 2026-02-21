@@ -28,6 +28,8 @@
     {{- $sudo = "" }}
 {{- else if lookPath "doas"}}
     {{- $sudo = "doas" }}
+{{- else if lookPath "gsudo"}}
+    {{- $sudo = "gsudo" }}
 {{- else if lookPath "sudo"}}
     {{- $sudo = "sudo" }}
 {{- else }}
