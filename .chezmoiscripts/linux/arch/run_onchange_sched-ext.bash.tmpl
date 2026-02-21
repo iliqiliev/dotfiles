@@ -1,0 +1,7 @@
+if systemctl list-unit-files scx_loader.service &> /dev/null; then
+	exit 0
+fi
+
+{{ .sudo }} pacman -S --needed --noconfirm scx-scheds scx-tools
+{{ .sudo }} cp "$CHEZMOI_SOURCE_DIR"/.data/scx_loader.toml /etc/scx_loader.toml
+{{ .sudo }} systemctl enable --now scx_loader.service

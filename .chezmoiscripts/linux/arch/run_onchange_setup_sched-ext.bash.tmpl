@@ -1,8 +1,0 @@
-if systemctl list-unit-files "scx_loader.service" &> /dev/null; then
-	exit 0
-fi
-
-{{ .sudo }} pacman -S --needed --noconfirm scx-scheds scx-tools
-{{ .sudo }} echo 'default_sched = "scx_lavd"' > /etc/scx_loader.toml
-{{ .sudo }} echo 'default_mode  = "Gaming"'  >> /etc/scx_loader.toml
-{{ .sudo }} systemctl enable --now scx-scheds.service
