@@ -34,6 +34,7 @@ packages:
     - yazi
     - zoxide
   scoop:
+    - AdwaitaMono-NF-Mono # +
     - bat
     - btop
     - chezmoi
