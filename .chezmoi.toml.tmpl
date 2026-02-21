@@ -24,7 +24,7 @@
     {{- $distro = "unknown" }}
 {{- end -}}
 
-{{- if eq .chezmoi.uid "0" }}
+{{- if or (eq .chezmoi.uid "0") (eq .distro "android") }}
     {{- $sudo = "" }}
 {{- else if lookPath "doas"}}
     {{- $sudo = "doas" }}
