@@ -1,17 +1,22 @@
 # packages.yaml hash: {{ .packages.pacman | toString | sha256sum }}
 
 function add_chaotic_aur() {
+	CHAOTIC_KEY="3056513887B78AEB"
+	CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur/"
+
     echo "Installing Chaotic-AUR..."
     {{ .sudo }} pacman-key --init
 
-    {{ .sudo }} pacman-key --recv-key  3056513887B78AEB --keyserver keyserver.ubuntu.com
-    {{ .sudo }} pacman-key --lsign-key 3056513887B78AEB
+    {{ .sudo }} pacman-key --recv-key  $CHAOTIC_KEY --keyserver keyserver.ubuntu.com
+    {{ .sudo }} pacman-key --lsign-key $CHAOTIC_KEY
 
-    {{ .sudo }} pacman -U --noconfirm "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
-    {{ .sudo }} pacman -U --noconfirm "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+    {{ .sudo }} pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    {{ .sudo }} echo "[chaotic-aur]"                              >> /etc/pacman.conf
-    {{ .sudo }} echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+    cat << 'EOF' | {{ .sudo }} tee --append /etc/pacman.conf > /dev/null
+
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist
+EOF
 
     {{ .sudo }} pacman -Sy --noconfirm
     echo "Chaotic-AUR installed succesfully."
