@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Changing default shell to fish."
+
+if [ ! -f /usr/bin/fish ]; then
+    echo "Fish shell file not found."
+    exit 1
+fi
+
+{{ .sudo }} chsh --shell /usr/bin/fish $USER
