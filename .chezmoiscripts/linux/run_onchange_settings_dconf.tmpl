@@ -4,6 +4,6 @@
 
 # dconf.ini hash: {{ include ".data/dconf.ini" | sha256sum }}
 
-dconf load / < {{ joinPath .chezmoi.sourceDir ".data" "dconf.ini" | quote }}
+dconf load / < {{ joinPath .chezmoi.sourceDir ".data/dconf.ini" }}
 
 {{- end }}

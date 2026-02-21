@@ -1,4 +1,4 @@
-{{ range (glob (joinPath .chezmoi.sourceDir ".data" "regedit" "*.reg")) -}}
+{{ range (glob (joinPath .chezmoi.sourceDir ".data/regedit/*.reg")) -}}
 
 # {{ base . }} hash: {{ include . | sha256sum }}
 Write-Output "Importing {{ base . }}"
