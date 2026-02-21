@@ -1,9 +1,9 @@
-{{ if lookPath "dconf" -}}
-
 #!/usr/bin/env bash
 
 # dconf.ini hash: {{ include ".data/dconf.ini" | sha256sum }}
 
-dconf load / < {{ joinPath .chezmoi.sourceDir ".data/dconf.ini" }}
+if [ ! -x "$(command -v dconf)" ]; then
+	exit 0
+fi
 
-{{- end }}
+dconf load / < {{ joinPath .chezmoi.sourceDir ".data/dconf.ini" }}
