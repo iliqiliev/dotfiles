@@ -5,7 +5,6 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 }
 
 scoop install git
-scoop update
 scoop bucket add extras
 
-scoop install {{ join " " .packages.scoop }}
+scoop install --no-update-scoop {{ join " " .packages.scoop }}
