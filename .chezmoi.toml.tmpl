@@ -45,6 +45,11 @@
     name = {{ $name | quote }}
     email = {{ $email | quote }}
     username = {{ $username | quote }}
+
     distro = {{ $distro | lower | quote }}
     os = {{ $os | lower | quote }}
+
     sudo = {{ $sudo | quote }}
+
+[interpreters]
+    fish = { command = "fish" }
