@@ -1,5 +1,3 @@
-{{ if eq .distro "arch" -}}
-
 #!/usr/bin/env bash
 
 # packages.yaml hash: {{ .packages.pacman | toString | sha256sum }}
@@ -37,5 +35,3 @@ case ${CHAOTIC_REPLY,,} in
     y) add_chaotic_aur;;
     *) echo "Skipping Chaotic-AUR installation.";;
 esac
-
-{{- end }}

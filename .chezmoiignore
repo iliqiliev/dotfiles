@@ -4,10 +4,15 @@ install
 LICENSE
 README.md
 
-# OS-Specific chezmoi scripts
-{{ if ne .chezmoi.os "windows" -}}
+{{/* Check for Windows */}}
+{{- if ne .chezmoi.os "windows" -}}
 .chezmoiscripts/windows/*
 {{ end -}}
-{{ if not (regexMatch "linux|android" .chezmoi.os) -}}
+{{- /* Check for Arch Linux */}}
+{{- if ne .distro "arch" -}}
+.chezmoiscripts/linux/arch
+{{ end -}}
+{{- /* Check for generic Linux */}}
+{{- if not (regexMatch "linux|android" .chezmoi.os) -}}
 .chezmoiscripts/linux/*
 {{ end -}}
