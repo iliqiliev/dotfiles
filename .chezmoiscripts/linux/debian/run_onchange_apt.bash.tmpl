@@ -1,6 +1,3 @@
-{{- /* template is needed for Termux */ -}}
-#!{{ lookPath "bash" }}
-
 # apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
 {{ .sudo }} apt update -y

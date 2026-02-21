@@ -1,5 +1,3 @@
-#!{{ lookPath "bash" }}
-
 # dconf.ini hash: {{ include ".data/dconf.ini" | sha256sum }}
 
 if [ ! -x "$(command -v dconf)" ]; then
