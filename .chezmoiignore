@@ -12,7 +12,11 @@ README.md
 {{- if ne .distro "arch" -}}
 .chezmoiscripts/linux/arch
 {{ end -}}
+{{- /* Check for Debian Linux and its derivatives*/}}
+{{- if not (regexMatch "debian|ubuntu|android" .distro) -}}
+.chezmoiscripts/linux/debian
+{{ end -}}
 {{- /* Check for generic Linux */}}
-{{- if not (regexMatch "linux|android" .chezmoi.os) -}}
+{{- if ne .os "linux" -}}
 .chezmoiscripts/linux/*
 {{ end -}}

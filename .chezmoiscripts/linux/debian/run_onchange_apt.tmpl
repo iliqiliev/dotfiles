@@ -1,8 +1,7 @@
-{{ if eq .distro "debian" -}}
+{{- /* template is needed for Termux */ -}}
+#!{{ lookPath "bash" }}
 
-#!/usr/bin/env bash
-
-# packages.yaml hash: {{ .packages.apt | toString | sha256sum }}
+# apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
 {{ .sudo }} apt update -y
 AVAILABLE_PACKAGES=$(
@@ -11,5 +10,3 @@ AVAILABLE_PACKAGES=$(
     <(echo -e "{{ join "\\n" .packages.apt }}" | sort)
 )
 {{ .sudo }} apt install -y $AVAILABLE_PACKAGES
-
-{{- end }}

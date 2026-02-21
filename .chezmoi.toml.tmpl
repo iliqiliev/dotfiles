@@ -2,6 +2,7 @@
 {{- $email := "" }}
 {{- $username := "" }}
 {{- $distro := "" }}
+{{- $os := "" }}
 {{- $sudo := "" -}}
 
 {{- if regexMatch "iliq|iliya" .chezmoi.username }}
@@ -20,8 +21,12 @@
     {{- $distro = .chezmoi.osRelease.id }}
 {{- else if hasKey .chezmoi "os" }}
     {{- $distro = .chezmoi.os }}
-{{- else }}
-    {{- $distro = "unknown" }}
+{{- end -}}
+
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
+	{{- $os = "linux" }}
+{{- else if hasKey .chezmoi "os" }}
+    {{- $os = .chezmoi.os }}
 {{- end -}}
 
 {{- if or (eq .chezmoi.uid "0") (eq .distro "android") }}
@@ -41,4 +46,5 @@
     email = {{ $email | quote }}
     username = {{ $username | quote }}
     distro = {{ $distro | lower | quote }}
+    os = {{ $os | lower | quote }}
     sudo = {{ $sudo | quote }}
