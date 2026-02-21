@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if grep -q "fish$" /etc/passwd; then
+    exit 0
+fi
+
 echo "Changing default shell to fish."
 
 if [ ! -f /usr/bin/fish ]; then
