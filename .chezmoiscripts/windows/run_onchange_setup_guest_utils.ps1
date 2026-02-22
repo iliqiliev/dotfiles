@@ -8,6 +8,5 @@ if (!($system_info.Manufacturer -match "QEMU")) {
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
-
-Write-Output "Installing VirtIO Guest Tools."
+Write-Host "System detected as a KVM guest. Installing guest tools." -ForegroundColor Blue
 gsudo scoop install --no-update-scoop iliya/virtio-guest-tools

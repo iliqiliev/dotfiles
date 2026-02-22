@@ -1,10 +1,10 @@
 {{ range (glob (joinPath .chezmoi.sourceDir "data/regedit/*.reg")) -}}
 
 # {{ base . }} hash: {{ include . | sha256sum }}
-Write-Output "Importing {{ base . }}"
+Write-Host "Importing {{ base . }}" -ForegroundColor Blue
 reg import {{ . }}
 
 {{ end -}}
 
-Write-Output "Restarting explorer.exe"
+Write-Host "Restarting explorer.exe" -ForegroundColor Blue
 Stop-Process -Name explorer -Force; Start-Process explorer
