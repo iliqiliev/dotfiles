@@ -10,3 +10,4 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
 
 Write-Host "System detected as a KVM guest. Installing guest tools." -ForegroundColor Blue
 gsudo scoop install --no-update-scoop iliya/virtio-guest-tools
+Write-Host "KVM guest tools successfully installed." -ForegroundColor Green

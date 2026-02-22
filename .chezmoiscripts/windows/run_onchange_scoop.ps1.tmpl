@@ -11,5 +11,6 @@ scoop bucket add extras
 scoop bucket add nerd-fonts
 scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
 
-Write-Host "Installing scoop packages." -ForegroundColor Blue
+Write-Host "Installing scoop packages..." -ForegroundColor Blue
 scoop install --no-update-scoop {{ join " " .packages.scoop }}
+Write-Host "Packages installed sucessfully." -ForegroundColor Green

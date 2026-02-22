@@ -4,3 +4,4 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
 
 Write-Host "Setting up clink autorun." -ForegroundColor Blue
 clink autorun install
+Write-Host "Clink successfully configured." -ForegroundColor Green
