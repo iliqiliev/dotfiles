@@ -1,7 +1,9 @@
 # dconf.ini hash: {{ include "data/dconf.ini" | sha256sum }}
 
 if [ ! -x "$(command -v dconf)" ]; then
+	echo -e "${BLUE}Dconf not found. Skipping Dconf settings.${NORMAL}"
     exit 0
 fi
 
+echo -e "${BLUE}Setting Dconf settings.${NORMAL}"
 dconf load / <"$CHEZMOI_SOURCE_DIR"/data/dconf.ini

@@ -4,7 +4,7 @@ function add_chaotic_aur() {
 	CHAOTIC_KEY="3056513887B78AEB"
 	CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur/"
 
-    echo "Installing Chaotic-AUR..."
+    echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
     $CHEZ_SUDO pacman-key --init
 
     $CHEZ_SUDO pacman-key --recv-key  $CHAOTIC_KEY --keyserver keyserver.ubuntu.com
@@ -19,22 +19,23 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 EOF
 
     $CHEZ_SUDO pacman -Sy --noconfirm
-    echo "Chaotic-AUR installed succesfully."
+    echo -e "${GREEN}Chaotic-AUR installed succesfully.{NORMAL}"
 }
 
-echo "Syncing package database..."
+echo -e "${BLUE}Syncing package database...${NORMAL}"
 $CHEZ_SUDO pacman -Syu --noconfirm
-echo "Installing package packages..."
+echo -e "${BLUE}Installing pacman packages...${NORMAL}"
 $CHEZ_SUDO pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
-	echo "Chaotic-AUR is detected as installed."
+	echo -e "${GREEN}Chaotic-AUR is detected as installed.${NORMAL}"
     exit 0
 fi
 
-read -p "Install Chaotic-AUR? [y/N]: " -r -s -N 1 CHAOTIC_REPLY; echo
-
+echo -e $BLUE
+read -p "Install Chaotic-AUR? [y/N]: " -r -s -N 1 CHAOTIC_REPLY
+echo -e $NORMAL
 case ${CHAOTIC_REPLY,,} in
     y) add_chaotic_aur;;
-    *) echo "Skipping Chaotic-AUR installation.";;
+    *) echo -e "${BLUE}Skipping Chaotic-AUR installation.{NORMAL}";;
 esac

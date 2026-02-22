@@ -1,9 +1,13 @@
 # apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
+echo -e "${BLUE}Syncing package database...${NORMAL}"
 $CHEZ_SUDO apt update -y
+
 AVAILABLE_PACKAGES=$(
   comm -12 \
     <(apt-cache pkgnames | sort) \
     <(echo "{{ join "\n" .packages.apt }}" | sort)
 )
+
+echo -e "${BLUE}Installing apt packages...${NORMAL}"
 $CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES

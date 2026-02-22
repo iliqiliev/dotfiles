@@ -1,15 +1,13 @@
+echo -e $BLUE"Setting up fisher..."$NORMAL
+
 if not type --query "fisher"
     if not curl -sL git.io/fisher | source
-        set_color red
-        echo "Failed to install fisher." >&2
-        set_color normal
+        echo -e $RED"Fish shell is not installed."$NORMAL >&2
         exit 0
     end
 end
 
-echo "Installing fish plugins..."
+echo -e $BLUE"Installing fish plugins..."$NORMAL
 fisher update > /dev/null
 
-set_color green
-echo "Installed $(count (fisher list)) fish plugins."
-set_color normal
+echo -e $GREEN"Installed $(count (fisher list)) fish plugins."$NORMAL

@@ -1,11 +1,12 @@
+echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
+
 if grep -q "fish$" /etc/passwd; then
+    echo -e "${BLUE}Fish already default. Will not change it.${NORMAL}"
     exit 0
 fi
 
-echo "Changing default shell to fish."
-
 if [ ! -f /usr/bin/fish ]; then
-    echo "Fish shell file not found."
+    echo -e "${RED}Fish shell is not installed.${NORMAL}"
     exit 0
 fi
 
