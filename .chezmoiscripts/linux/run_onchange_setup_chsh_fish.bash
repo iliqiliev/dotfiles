@@ -9,4 +9,4 @@ if [ ! -f /usr/bin/fish ]; then
     exit 0
 fi
 
-{{ .sudo }} chsh --shell /usr/bin/fish $USER
+$CHEZ_SUDO chsh --shell /usr/bin/fish "$USER"
