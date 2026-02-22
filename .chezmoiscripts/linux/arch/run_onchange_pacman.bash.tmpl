@@ -5,27 +5,27 @@ function add_chaotic_aur() {
 	CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur/"
 
     echo "Installing Chaotic-AUR..."
-    {{ .sudo }} pacman-key --init
+    $CHEZ_SUDO pacman-key --init
 
-    {{ .sudo }} pacman-key --recv-key  $CHAOTIC_KEY --keyserver keyserver.ubuntu.com
-    {{ .sudo }} pacman-key --lsign-key $CHAOTIC_KEY
+    $CHEZ_SUDO pacman-key --recv-key  $CHAOTIC_KEY --keyserver keyserver.ubuntu.com
+    $CHEZ_SUDO pacman-key --lsign-key $CHAOTIC_KEY
 
-    {{ .sudo }} pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
+    $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    cat << 'EOF' | {{ .sudo }} tee --append /etc/pacman.conf > /dev/null
+    cat << 'EOF' | $CHEZ_SUDO tee --append /etc/pacman.conf > /dev/null
 
 [chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist
 EOF
 
-    {{ .sudo }} pacman -Sy --noconfirm
+    $CHEZ_SUDO pacman -Sy --noconfirm
     echo "Chaotic-AUR installed succesfully."
 }
 
 echo "Syncing package database..."
-{{ .sudo }} pacman -Syu --noconfirm
+$CHEZ_SUDO pacman -Syu --noconfirm
 echo "Installing package packages..."
-{{ .sudo }} pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+$CHEZ_SUDO pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
 	echo "Chaotic-AUR is detected as installed."

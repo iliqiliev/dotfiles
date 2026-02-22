@@ -1,9 +1,9 @@
 # apt packages hash: {{ .packages.apt | toString | sha256sum }}
 
-{{ .sudo }} apt update -y
+$CHEZ_SUDO apt update -y
 AVAILABLE_PACKAGES=$(
   comm -12 \
     <(apt-cache pkgnames | sort) \
     <(echo -e "{{ join "\\n" .packages.apt }}" | sort)
 )
-{{ .sudo }} apt install -y $AVAILABLE_PACKAGES
+$CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES
