@@ -4,19 +4,7 @@ install
 LICENSE
 README.md
 
-{{/* Check for Windows */}}
-{{- if ne .chezmoi.os "windows" -}}
-.chezmoiscripts/windows/*
-{{ end -}}
-{{- /* Check for Arch Linux */}}
-{{- if ne .distro "arch" -}}
-.chezmoiscripts/linux/arch/*
-{{ end -}}
-{{- /* Check for Debian Linux and its derivatives*/}}
-{{- if not (regexMatch "debian|ubuntu|android" .distro) -}}
-.chezmoiscripts/linux/debian/*
-{{ end -}}
-{{- /* Check for generic Linux */}}
-{{- if ne .os "linux" -}}
-.chezmoiscripts/linux/*
-{{ end -}}
+{{ if ne .chezmoi.os "windows" }}.chezmoiscripts/windows/*{{ end }}
+{{ if ne .distro "arch" }}.chezmoiscripts/linux/arch/*{{ end }}
+{{ if not (regexMatch "debian|ubuntu|android" .distro) }}.chezmoiscripts/linux/debian/*{{ end }}
+{{ if ne .os "linux" }}.chezmoiscripts/linux/*{{ end }}
