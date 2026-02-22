@@ -29,7 +29,7 @@
     {{- $os = .chezmoi.os }}
 {{- end -}}
 
-{{- if or (eq .chezmoi.uid "0") (eq .distro "android") }}
+{{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
     {{- $sudo = "" }}
 {{- else if lookPath "doas"}}
     {{- $sudo = "doas" }}
