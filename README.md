@@ -20,7 +20,7 @@ chezmoi init --apply iliqiliev
 ## With `PowerShell`:
 ```ps1
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-iex "&{$(irm get.chezmoi.io/ps1)} -BinDir '~/.local/bin' init --apply iliqiliev"
+iex "&{$(irm get.chezmoi.io/ps1)} -BinDir ~/.local/bin -- init --apply iliqiliev"
 ```
 
 # Helpful Links:
