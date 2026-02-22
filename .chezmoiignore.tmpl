@@ -1,8 +1,7 @@
-.data/
-.github/
 install
-LICENSE
 README.md
+
+data
 
 {{ if ne .chezmoi.os "windows" }}.chezmoiscripts/windows/*{{ end }}
 {{ if ne .distro "arch" }}.chezmoiscripts/linux/arch/*{{ end }}
