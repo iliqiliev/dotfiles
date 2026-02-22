@@ -1,4 +1,4 @@
-if systemctl list-unit-files scx_loader.service &>/dev/null; then
+if systemctl is-active --quiet scx_loader; then
     exit 0
 fi
 
@@ -72,4 +72,4 @@ powersave_mode = ["-m", "powersave", "-d", "-p", "5000"]
 server_mode = ["-s", "20000"]
 EOF
 
-$CHEZ_SUDO systemctl enable --now scx_loader.service
+$CHEZ_SUDO systemctl enable --now scx_loader
