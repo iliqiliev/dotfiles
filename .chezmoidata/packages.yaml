@@ -36,7 +36,7 @@ packages:
   scoop:
     - AdwaitaMono-NF-Mono # +
     - bat
-    - btop
+    # btop
     - chezmoi
     - clink # +
     - clink-completions # +
@@ -50,6 +50,7 @@ packages:
     - gh # github-cli
     - gsudo # +
     - neovim
+    - process-explorer # +
     - ripgrep
     - shellcheck
     - tealdeer
