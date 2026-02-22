@@ -54,3 +54,6 @@
 [interpreters]
     bash = { command = "bash" }
     fish = { command = "fish" }
+
+[env]
+    CHEZ_SUDO = {{ $sudo | quote }}
