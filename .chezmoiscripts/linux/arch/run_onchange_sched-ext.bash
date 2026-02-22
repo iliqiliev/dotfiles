@@ -1,5 +1,5 @@
 if systemctl is-active --quiet scx_loader; then
-    echo -e "${BLUE}Sched_ext is already configured.${NORMAL}"
+    echo -e "${GREEN}Sched_ext is already configured.${NORMAL}"
     exit 0
 fi
 
@@ -74,5 +74,6 @@ powersave_mode = ["-m", "powersave", "-d", "-p", "5000"]
 server_mode = ["-s", "20000"]
 EOF
 
-echo -e "${BLUE}Starting and enabling Sched_ext.${NORMAL}"
+echo -e "${BLUE}Starting and enabling Sched_ext...${NORMAL}"
 $CHEZ_SUDO systemctl enable --now scx_loader
+echo -e "${GREEN}Sched_ext installed sucessfully.${NORMAL}"

@@ -1,7 +1,7 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
 if grep -q "fish$" /etc/passwd; then
-    echo -e "${BLUE}Fish already default. Will not change it.${NORMAL}"
+    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
     exit 0
 fi
 
@@ -11,3 +11,4 @@ if [ ! -f /usr/bin/fish ]; then
 fi
 
 $CHEZ_SUDO chsh --shell /usr/bin/fish "$USER"
+echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
