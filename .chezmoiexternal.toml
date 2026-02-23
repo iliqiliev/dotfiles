@@ -1,0 +1,4 @@
+["AppData/Local/clink/zoxide.lua"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/shunsambongi/clink-zoxide/refs/heads/master/zoxide.lua"
+    refreshPeriod = "672h" # four weeks
