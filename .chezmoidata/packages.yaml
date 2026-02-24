@@ -35,12 +35,14 @@ packages:
     - zoxide
   scoop:
     - AdwaitaMono-NF-Mono # +
+    - altsnap
     - bat
     # btop
     - chezmoi
     - clink # +
     - clink-completions # +
     - clink-flex-prompt # +
+    - ditto # +
     - eza
     - fastfetch
     - fd
