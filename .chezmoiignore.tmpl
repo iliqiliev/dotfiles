@@ -7,6 +7,15 @@ data
 .chezmoiscripts/windows/*
 AppData/*
 {{ end }}
-{{ if ne .distro "arch" }}.chezmoiscripts/linux/arch/*{{ end }}
-{{ if not (regexMatch "debian|ubuntu|android" .distro) }}.chezmoiscripts/linux/debian/*{{ end }}
-{{ if ne .os "linux" }}.chezmoiscripts/linux/*{{ end }}
+
+{{ if ne .distro "arch" }}
+.chezmoiscripts/linux/arch/*
+{{ end }}
+
+{{ if not (regexMatch "debian|ubuntu|android" .distro) }}
+.chezmoiscripts/linux/debian/*
+{{ end }}
+
+{{ if ne .os "linux" }}
+.chezmoiscripts/linux/*
+{{ end }}
