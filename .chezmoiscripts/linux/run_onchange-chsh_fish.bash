@@ -1,5 +1,10 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
+if [ "$DISTRO" == "android" ]; then
+    yes fish | chsh
+    exit 0
+fi
+
 if grep -q "fish$" /etc/passwd; then
     echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
     exit 0
