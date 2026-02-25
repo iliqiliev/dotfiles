@@ -1,6 +1,6 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
-if [ "$DISTRO" == "android" ]; then
+if [ "$CHEZ_DISTRO" == "android" ]; then
     yes fish | chsh
     exit 0
 fi
