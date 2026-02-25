@@ -24,10 +24,6 @@ color.transient_divider_line = sgr 38;5;240
 # type: color
 color.transient_divider_text = sgr 38;5;214
 
-# name: Auto-translate fish completion files
-# type: boolean
-fishcomplete.enable = True
-
 # name: Automatically expand ~ to home directory
 # type: boolean
 tilde.autoexpand = True
