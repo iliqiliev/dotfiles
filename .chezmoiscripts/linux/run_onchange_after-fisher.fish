@@ -2,7 +2,7 @@ echo -e $BLUE"Setting up fisher..."$NORMAL
 
 if not type --query "fisher"
     if not curl -sL git.io/fisher | source
-        echo -e $RED"Fish shell is not installed."$NORMAL >&2
+        echo -e $RED"Fisher install failed."$NORMAL >&2
         exit 0
     end
 end
