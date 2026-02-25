@@ -1,7 +1,13 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
 if [ "$CHEZ_DISTRO" == "android" ]; then
-    yes fish | chsh
+    if readlink .termux/shell | grep "fish"; then
+        echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
+        exit 0
+    fi
+
+    yes fish | chsh >/dev/null
+    echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
     exit 0
 fi
 
