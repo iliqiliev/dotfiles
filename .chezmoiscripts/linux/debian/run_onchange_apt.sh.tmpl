@@ -9,5 +9,6 @@ AVAILABLE_PACKAGES=$(
 )
 
 echo -e "${BLUE}Installing apt packages...${NORMAL}"
-$CHEZ_SUDO apt install -y "$AVAILABLE_PACKAGES"
+#shellcheck disable=2086
+$CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES
 echo -e "${GREEN}Packages installed sucessfully.${NORMAL}"
