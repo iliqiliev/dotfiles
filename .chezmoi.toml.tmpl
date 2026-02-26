@@ -42,25 +42,25 @@
 {{- end -}}
 
 [data]
-    name = {{ $name | quote }}
-    email = {{ $email | quote }}
-    username = {{ $username | quote }}
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
+  username = {{ $username | quote }}
 
-    distro = {{ $distro | lower | quote }}
-    os = {{ $os | lower | quote }}
+  distro = {{ $distro | lower | quote }}
+  os = {{ $os | lower | quote }}
 
-    sudo = {{ $sudo | quote }}
+  sudo = {{ $sudo | quote }}
 
 [interpreters]
-	sh = { command = "bash" }
-    fish = { command = "fish" }
+  sh = { command = "bash" }
+  fish = { command = "fish" }
 
 [env]
-	RED    = "\\033[31m"
-	GREEN  = "\\033[32m"
-	YELLOW = "\\033[33m"
-	BLUE   = "\\033[34m"
-	NORMAL = "\\033[0m"
+  RED    = "\\033[31m"
+  GREEN  = "\\033[32m"
+  YELLOW = "\\033[33m"
+  BLUE   = "\\033[34m"
+  NORMAL = "\\033[0m"
 
-	CHEZ_DISTRO = {{ $distro | quote }}
-    CHEZ_SUDO = {{ $sudo | quote }}
+  CHEZ_DISTRO = {{ $distro | quote }}
+  CHEZ_SUDO = {{ $sudo | quote }}
