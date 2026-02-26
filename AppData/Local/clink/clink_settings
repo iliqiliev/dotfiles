@@ -12,6 +12,11 @@ clink.autoupdate = off
 # options: none,full,short
 clink.logo = none
 
+# name: Auto-answer terminate prompt
+# type: enum
+# options: off,answer_yes,answer_no
+cmd.auto_answer = answer_yes
+
 # name: Color for direnv banner messages
 # type: color
 color.direnv_banner = sgr 0;3;38;5;136
