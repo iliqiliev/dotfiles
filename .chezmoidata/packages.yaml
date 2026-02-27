@@ -85,5 +85,6 @@ packages:
     - shadow # +
     - shellcheck
     # - tealdeer
+    - wget # +
     - yazi
     - zoxide
