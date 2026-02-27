@@ -3,11 +3,13 @@ packages:
     - bat
     - btop
     - chezmoi
+    - curl
     - eza
     - fastfetch
     - fd
     - fish
     - fzf
+    - git
     - git-delta
     - github-cli
     - neovim
@@ -20,11 +22,13 @@ packages:
     - bat
     - btop
     - chezmoi
+    - curl
     - eza
     - fastfetch
     - fd-find # fd
     - fish
     - fzf
+    - git
     - git-delta
     - gh # github-cli
     - neovim
@@ -42,6 +46,7 @@ packages:
     - clink # +
     - clink-completions # +
     - clink-flex-prompt # +
+    - curl
     - ditto # +
     - eza
     - fastfetch
@@ -50,6 +55,7 @@ packages:
     - fzf
     - delta # git-delta
     - gh # github-cli
+    - git
     - gsudo # +
     - neovim
     - process-explorer # +
@@ -60,7 +66,24 @@ packages:
     - yazi
     - zoxide
   apk:
-    - coreutils
+    - bat
+    - btop
+    - chezmoi
+    - coreutils # +
     - curl
-    - grep
-    - shadow
+    - grep # +
+    - eza
+    - fastfetch
+    - fd
+    - fish
+    - fzf
+    - git
+    - delta # git-delta
+    - github-cli
+    - neovim
+    - ripgrep
+    - shadow # +
+    - shellcheck
+    # - tealdeer
+    - yazi
+    - zoxide
