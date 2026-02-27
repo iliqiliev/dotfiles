@@ -1,0 +1,7 @@
+# apt packages hash: {{ .packages.apk | toString | sha256sum }}
+
+echo -e "${BLUE}Installing apk packages...${NORMAL}"
+
+$CHEZ_SUDO apk add {{ join " " .packages.apk }}
+
+echo -e "${GREEN}Packages installed sucessfully.${NORMAL}"
