@@ -1,7 +1,7 @@
 if not type --query "fisher"
     echo -e $BLUE"Installing fisher..."$NORMAL
 
-    if not curl -sL git.io/fisher | source
+    if not $CHEZ_FETCH git.io/fisher | source
         echo -e $RED"Fisher install failed."$NORMAL >&2
         exit 0
     end
