@@ -1,7 +1,12 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
+if ! command -v chsh >/dev/null; then
+    echo -e "${RED}chsh command not found. Cannot change default shell.${NORMAL}"
+    exit 0
+fi
+
 if [ "$CHEZ_DISTRO" == "android" ]; then
-    if readlink .termux/shell | grep "fish" >/dev/null; then
+    if readlink .termux/shell | grep -q "fish"; then
         echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
         exit 0
     fi
