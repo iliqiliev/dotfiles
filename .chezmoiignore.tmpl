@@ -16,6 +16,10 @@ AppData/*
 .chezmoiscripts/linux/debian/*
 {{ end }}
 
+{{ if ne .distro "alpine" }}
+.chezmoiscripts/linux/alpine/*
+{{ end }}
+
 {{ if ne .os "linux" }}
 .chezmoiscripts/linux/*
 {{ end }}
