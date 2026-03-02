@@ -11,7 +11,6 @@ packages:
     - fzf
     - git
     - git-delta
-    - github-cli
     - neovim
     - ripgrep
     - shellcheck
@@ -30,7 +29,6 @@ packages:
     - fzf
     - git
     - git-delta
-    - gh # github-cli
     - neovim
     - ripgrep
     - shellcheck
@@ -54,7 +52,6 @@ packages:
     # fish
     - fzf
     - delta # git-delta
-    - gh # github-cli
     - git
     - gsudo # +
     - neovim
@@ -78,7 +75,6 @@ packages:
     - fish
     - fzf
     - git
-    - delta # git-delta
     - github-cli
     - neovim
     - ripgrep
