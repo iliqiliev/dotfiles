@@ -4,22 +4,22 @@ README.md
 data
 
 {{ if ne .chezmoi.os "windows" }}
-.chezmoiscripts/windows/*
-AppData/*
+.chezmoiscripts/windows/**
+AppData/**
 {{ end }}
 
 {{ if ne .distro "arch" }}
-.chezmoiscripts/linux/arch/*
+.chezmoiscripts/linux/arch/**
 {{ end }}
 
 {{ if not (regexMatch "debian|ubuntu|android" .distro) }}
-.chezmoiscripts/linux/debian/*
+.chezmoiscripts/linux/debian/**
 {{ end }}
 
 {{ if ne .distro "alpine" }}
-.chezmoiscripts/linux/alpine/*
+.chezmoiscripts/linux/alpine/**
 {{ end }}
 
 {{ if ne .os "linux" }}
-.chezmoiscripts/linux/*
+.chezmoiscripts/linux/**
 {{ end }}
