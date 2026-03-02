@@ -41,12 +41,9 @@ if grep --quiet --no-messages amdgpu /proc/modules
     set --export LIBVA_DRIVER_NAME radeonsi
 end
 
+# Aliases
 if command --query adb
     alias adb "HOME=$XDG_DATA_HOME/android command adb"
-end
-
-if command --query wget
-    alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
 end
 
 if command --query bat
@@ -54,28 +51,32 @@ if command --query bat
 end
 
 if command --query eza
-    alias ls="eza --all --long --octal-permissions"
-    alias tree="eza --tree --all"
+    alias ls="eza"
+    alias tree="eza --tree"
 end
 
 if command --query nvim
     set --export EDITOR nvim
 end
 
-if command --query zoxide
-    zoxide init fish | source
-end
-
 if command --query starship
     starship init fish | source
 end
 
+if command --query wget
+    alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
+end
+
+if command --query zoxide
+    zoxide init fish | source
+end
+
 # Abbreviations
 abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
+abbr ff "fastfetch"
+abbr fp "flatpak"
 abbr sc  "systemctl"
 abbr scu "systemctl --user"
 abbr ssc "sudo systemctl"
-abbr fp "flatpak"
-abbr ff "fastfetch"
 
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
