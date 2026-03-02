@@ -47,12 +47,12 @@ if command --query adb
 end
 
 if command --query bat
-    alias cat="bat"
+    alias cat "bat"
 end
 
 if command --query eza
-    alias ls="eza"
-    alias tree="eza --tree"
+    alias ls "eza"
+    alias tree "eza --tree"
 end
 
 if command --query nvim
