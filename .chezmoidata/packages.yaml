@@ -75,7 +75,7 @@ packages:
     - fish
     - fzf
     - git
-    - github-cli
+    - delta # git-delta
     - neovim
     - ripgrep
     - shadow # +
