@@ -1,13 +1,11 @@
 My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing crazy.
 
-<div align="center">
-  <a href="https://codeberg.org/iliqiliev/dotfiles"">
-    <img alt="Get it on Codeberg" src="data/readme/codeberg_banner_dark.svg" height="60px">
-  </a>
-  <a href="https://github.com/iliqiliev/dotfiles">
-    <img alt="Get it on GitHub" src="data/readme/github_banner_dark.png" height="60px">
-  </a>
-</div>
+<a href="https://codeberg.org/iliqiliev/dotfiles">
+  <img alt="Get it on Codeberg" src="data/readme/codeberg_banner_dark.svg" height="60px">
+</a>
+<a href="https://github.com/iliqiliev/dotfiles">
+  <img alt="Get it on GitHub" src="data/readme/github_banner_dark.png" height="60px">
+</a>
 
 # Installation:
 
