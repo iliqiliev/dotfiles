@@ -1,20 +1,4 @@
-{{- $name := "" }}
-{{- $email := "" }}
-{{- $username := "" }}
 {{- $distro := "" }}
-{{- $os := "" }}
-{{- $sudo := "" -}}
-
-{{- if regexMatch "iliq|iliya" .chezmoi.username }}
-{{-   $name = "Iliya Iliev" }}
-{{-   $email = "iliq0000@proton.me" }}
-{{-   $username = "iliqiliev" }}
-{{- else }}
-{{-   $name = promptStringOnce . "name" "Full name (for git)" }}
-{{-   $email = promptStringOnce . "email" "Email address (for git)" }}
-{{-   $username = promptStringOnce . "username" "Username (for git)" }}
-{{- end -}}
-
 {{- if hasKey .chezmoi.osRelease "idLike" }}
 {{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else if hasKey .chezmoi.osRelease "id" }}
@@ -23,12 +7,14 @@
 {{-   $distro = .chezmoi.os }}
 {{- end -}}
 
+{{- $os := "" }}
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{-   $os = "linux" }}
 {{- else if hasKey .chezmoi "os" }}
 {{-   $os = .chezmoi.os }}
 {{- end -}}
 
+{{- $sudo := "" -}}
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
 {{-   $sudo = "" }}
 {{- else if lookPath "doas"}}
@@ -42,13 +28,8 @@
 {{- end -}}
 
 [data]
-  name = {{ $name | quote }}
-  email = {{ $email | quote }}
-  username = {{ $username | quote }}
-
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
-
   sudo = {{ $sudo | quote }}
 
 [interpreters]
