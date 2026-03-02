@@ -5,14 +5,14 @@
 {{   $distro = .chezmoi.osRelease.id }}
 {{ else if hasKey .chezmoi "os" }}
 {{   $distro = .chezmoi.os }}
-{{ end -}}
+{{ end }}
 
 {{ $os := "" }}
 {{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{   $os = "linux" }}
 {{ else if hasKey .chezmoi "os" }}
 {{   $os = .chezmoi.os }}
-{{ end -}}
+{{ end }}
 
 {{ $sudo := "" }}
 {{ if or (eq .chezmoi.uid "0") (eq $distro "android") }}
