@@ -41,6 +41,18 @@ if grep --quiet --no-messages amdgpu /proc/modules
     set --export LIBVA_DRIVER_NAME radeonsi
 end
 
+if command --query nvim
+    set --export EDITOR nvim
+end
+
+if command --query starship
+    starship init fish | source
+end
+
+if command --query zoxide
+    zoxide init fish | source
+end
+
 # Aliases
 if command --query adb
     alias adb "HOME=$XDG_DATA_HOME/android command adb"
@@ -59,20 +71,8 @@ if command --query fdfind
     alias fd "fdfind"
 end
 
-if command --query nvim
-    set --export EDITOR nvim
-end
-
-if command --query starship
-    starship init fish | source
-end
-
 if command --query wget
     alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
-end
-
-if command --query zoxide
-    zoxide init fish | source
 end
 
 # Abbreviations
