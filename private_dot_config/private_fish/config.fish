@@ -55,6 +55,10 @@ if command --query eza
     alias tree "eza --tree"
 end
 
+if command --query fdfind
+    alias fd "fdfind"
+end
+
 if command --query nvim
     set --export EDITOR nvim
 end
