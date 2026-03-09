@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 $system_info = Get-WmiObject -Class Win32_ComputerSystem
 
 if (!($system_info.Manufacturer -match "QEMU")) {

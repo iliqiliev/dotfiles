@@ -1,5 +1,7 @@
 # packages.yaml hash: {{ .packages.scoop | toString | sha256sum }}
 
+$ErrorActionPreference = "Stop"
+
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
@@ -10,11 +12,14 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 }
 
 Write-Host "Setting up scoop buckets." -ForegroundColor Blue
+
 scoop install git
 scoop bucket add extras
 scoop bucket add sysinternals
 scoop bucket add nerd-fonts
 scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
+
+Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 Write-Host "Installing scoop packages..." -ForegroundColor Blue
 scoop install --no-update-scoop {{ join " " .packages.scoop }}
