@@ -1,10 +1,12 @@
-# registry.reg hash: {{ include "data/registry.reg" | sha256sum }}
-
 $ErrorActionPreference = "Stop"
 
+# registry.reg hash: {{ include "data/registry.reg" | sha256sum }}
+
 Write-Host "Setting registry settings..." -ForegroundColor Blue
-reg import $env:CHEZMOI_SOURCE_DIR/data/registry.reg
+reg import $env:CHEZMOI_SOURCE_DIR/data/registry.reg; if (!$?) { exit 1 }
+Write-Host "Registry settings imported successfully." -ForegroundColor Green
 
 Write-Host "Restarting explorer.exe" -ForegroundColor Blue
-taskkill -f -im explorer.exe; start explorer.exe
+taskkill -f -im explorer.exe; if (!$?) { exit 1 }
+start explorer.exe; if (!$?) { exit 1 }
 Write-Host "Registry configured sucessfully." -ForegroundColor Green
