@@ -16,7 +16,3 @@ Windows Registry Editor Version 5.00
 ;; Disables Super+V shortcut so that another clipboard manager (Ditto) can use it.
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "DisabledHotkeys"="V"
-
-;; Increase max path length from 260 to 32k.
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
-"LongPathsEnabled"=dword:00000001
