@@ -49,6 +49,9 @@
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
 
-[interpreters]
-  sh = { command = "bash" }
-  fish = { command = "fish" }
+[interpreters.sh]
+  command = "sh"
+  args = ["-euo", "pipefail"]
+
+[interpreters.fish]
+  command = "fish"
