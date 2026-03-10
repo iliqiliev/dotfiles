@@ -13,10 +13,10 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 Write-Host "Setting up scoop buckets." -ForegroundColor Blue
 scoop install git; if (!$?) { exit 1 }
-scoop bucket add extras; if (!$?) { exit 1 }
-scoop bucket add sysinternals; if (!$?) { exit 1 }
-scoop bucket add nerd-fonts; if (!$?) { exit 1 }
-scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket; if (!$?) { exit 1 }
+scoop bucket add extras
+scoop bucket add sysinternals
+scoop bucket add nerd-fonts
+scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
 Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 Write-Host "Installing scoop packages..." -ForegroundColor Blue
