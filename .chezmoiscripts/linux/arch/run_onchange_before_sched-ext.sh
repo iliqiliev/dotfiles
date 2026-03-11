@@ -76,4 +76,4 @@ EOF
 
 echo -e "${BLUE}Starting and enabling Sched_ext...${NORMAL}"
 $CHEZ_SUDO systemctl enable --now scx_loader
-echo -e "${GREEN}Sched_ext installed sucessfully.${NORMAL}"
+echo -e "${GREEN}Sched_ext installed successfully.${NORMAL}"

@@ -12,7 +12,7 @@ if [ "$CHEZ_DISTRO" == "android" ]; then
     fi
 
     yes fish | chsh >/dev/null
-    echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
+    echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
     exit 0
 fi
 
@@ -43,4 +43,4 @@ fi
 # allows chsh to work with unset $USER
 # shellcheck disable=2086
 $CHEZ_SUDO chsh --shell "$FISH_SHELL" $USER
-echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
+echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
