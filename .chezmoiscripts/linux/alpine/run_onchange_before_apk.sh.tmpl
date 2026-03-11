@@ -1,6 +1,6 @@
 # apt packages hash: {{ .packages.apk | toString | sha256sum }}
 
 echo -e "${BLUE}Installing apk packages...${NORMAL}"
-#shellcheck disable=1083
+# shellcheck disable=1083
 $CHEZ_SUDO apk add {{ join " " .packages.apk }}
 echo -e "${GREEN}Packages installed sucessfully.${NORMAL}"

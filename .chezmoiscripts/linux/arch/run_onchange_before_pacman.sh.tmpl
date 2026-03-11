@@ -30,7 +30,7 @@ echo -e "${BLUE}Syncing pacman database...${NORMAL}"
 $CHEZ_SUDO pacman -Syu --noconfirm
 
 echo -e "${BLUE}Installing pacman packages...${NORMAL}"
-#shellcheck disable=1083
+# shellcheck disable=1083
 $CHEZ_SUDO pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
 echo -e "${GREEN}Packages installed sucessfully.${NORMAL}"
 

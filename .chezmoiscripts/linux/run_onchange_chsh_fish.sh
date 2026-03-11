@@ -26,6 +26,7 @@ if [ ! -f /usr/bin/fish ]; then
     exit 0
 fi
 
-#shellcheck disable=2086
+# shellcheck disable=2086
+# allows chsh to work with unset $USER
 $CHEZ_SUDO chsh --shell /usr/bin/fish $USER
 echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
