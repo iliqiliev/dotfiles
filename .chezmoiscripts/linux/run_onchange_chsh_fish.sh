@@ -21,7 +21,9 @@ if grep --quiet "fish$" /etc/passwd; then
     exit 0
 fi
 
-if ! grep --quiet "fish$" /etc/shells; then
+FISH_SHELL=$(grep "fish$" /etc/shells)
+
+if [ -z "$FISH_SHELL" ]; then
     echo -e "${RED}Fish shell is not available as valid login shell.${NORMAL}"
 
     if command -v fish >/dev/null; then
@@ -33,12 +35,12 @@ if ! grep --quiet "fish$" /etc/shells; then
     exit 0
 fi
 
-if ! fish --version | grep --quiet "[4-9].[0-9].[0-9]"; then
+if ! $FISH_SHELL --version | grep --quiet "[4-9].[0-9].[0-9]"; then
     echo -e "${RED}Fish version is older than v4.0.0, aborting.${NORMAL}"
     exit 0
 fi
 
 # shellcheck disable=2086
 # allows chsh to work with unset $USER
-$CHEZ_SUDO chsh --shell /usr/bin/fish $USER
+$CHEZ_SUDO chsh --shell $FISH_SHELL $USER
 echo -e "${GREEN}Shell changed to fish sucessfully.${NORMAL}"
