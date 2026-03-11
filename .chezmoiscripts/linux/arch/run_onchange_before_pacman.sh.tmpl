@@ -44,5 +44,5 @@ read -p "Install Chaotic-AUR? [y/N]: " -r -s -N 1 CHAOTIC_REPLY
 echo -e "$NORMAL"
 case ${CHAOTIC_REPLY,,} in
 y) add_chaotic_aur ;;
-*) echo -e "${RED}Skipping Chaotic-AUR installation.{NORMAL}" ;;
+*) echo -e "${RED}Skipping Chaotic-AUR installation.${NORMAL}" ;;
 esac
