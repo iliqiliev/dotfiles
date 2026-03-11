@@ -1,4 +1,4 @@
-# apt packages hash: {{ .packages.apk | toString | sha256sum }}
+# apk packages hash: {{ .packages.apk | toString | sha256sum }}
 
 echo -e "${BLUE}Installing apk packages...${NORMAL}"
 # shellcheck disable=1083
