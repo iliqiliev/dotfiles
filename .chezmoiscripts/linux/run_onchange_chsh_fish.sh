@@ -21,7 +21,7 @@ if grep --quiet "fish$" /etc/passwd; then
     exit 0
 fi
 
-if grep --quiet "fish$" /etc/shells; then
+if ! grep --quiet "fish$" /etc/shells; then
     echo -e "${RED}Fish shell is not available as valid login shell.${NORMAL}"
 
     if command -v fish >/dev/null; then
