@@ -35,7 +35,7 @@ if [ -z "$FISH_SHELL" ]; then
     exit 0
 fi
 
-if ! $FISH_SHELL --version | grep --quiet "[4-9].[0-9].[0-9]"; then
+if ! $FISH_SHELL --version | grep --quiet "[4-9]\.[0-9]\.[0-9]"; then
     echo -e "${RED}$($FISH_SHELL --version) is older than version 4.0.0, aborting.${NORMAL}"
     exit 0
 fi
