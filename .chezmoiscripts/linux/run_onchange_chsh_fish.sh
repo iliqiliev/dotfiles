@@ -21,8 +21,20 @@ if grep --quiet "fish$" /etc/passwd; then
     exit 0
 fi
 
-if [ ! -f /usr/bin/fish ]; then
-    echo -e "${RED}Fish shell is not installed.${NORMAL}"
+if grep --quiet "fish$" /etc/shells; then
+    echo -e "${RED}Fish shell is not available as valid login shell.${NORMAL}"
+
+    if command -v fish >/dev/null; then
+        echo -e "${YELLOW}It is installed but not listed in '/etc/shells'.${NORMAL}"
+    else
+        echo -e "${RED}It is not installed.${NORMAL}"
+    fi
+
+    exit 0
+fi
+
+if ! fish --version | grep --quiet "[4-9].[0-9].[0-9]"; then
+    echo -e "${RED}Fish version is older than v4.0.0, aborting.${NORMAL}"
     exit 0
 fi
 
