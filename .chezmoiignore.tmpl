@@ -6,6 +6,7 @@ data
 {{ if ne .chezmoi.os "windows" }}
 .chezmoiscripts/windows/**
 AppData/**
+scoop/**
 {{ end }}
 
 {{ if ne .distro "arch" }}
