@@ -22,10 +22,6 @@ function fish_version_check \
         return 1
     end
 
-    if test $version_array[3] -ge $patch
-        return
-    else
-        return 1
-    end
+    test $version_array[3] -ge $patch
 
 end
