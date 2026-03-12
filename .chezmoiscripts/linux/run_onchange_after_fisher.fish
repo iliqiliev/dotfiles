@@ -1,10 +1,5 @@
 echo -e $BLUE"Installing fisher plugins..."$NORMAL
 
-if not fish_version_check 3 4 0
-    echo -e $RED"Fish version is older than 3.4, aborting."$NORMAL >&2
-    exit 0
-end
-
 if not type --query "fisher"
     echo -e $BLUE"Fisher is not installed. Installing it first..."$NORMAL
 
