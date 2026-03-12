@@ -36,6 +36,7 @@ set --export HISTFILE              $XDG_STATE_HOME/bash/history
 set --export LESSHISTFILE          $XDG_STATE_HOME/less/history
 set --export PYTHON_HISTORY        $XDG_STATE_HOME/python_history
 
+
 if grep --quiet --no-messages amdgpu /proc/modules
     set --export RUSTICL_ENABLE radeonsi
     set --export LIBVA_DRIVER_NAME radeonsi
@@ -52,36 +53,6 @@ end
 if command --query zoxide
     zoxide init fish | source
 end
-
-# Aliases
-if command --query adb
-    alias adb "HOME=$XDG_DATA_HOME/android command adb"
-end
-
-if command --query bat
-    alias cat "bat"
-end
-
-if command --query eza
-    alias ls "eza"
-    alias tree "eza --tree"
-end
-
-if command --query fdfind
-    alias fd "fdfind"
-end
-
-if command --query wget
-    alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
-end
-
-# Abbreviations
-abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
-abbr ff "fastfetch"
-abbr fp "flatpak"
-abbr sc  "systemctl"
-abbr scu "systemctl --user"
-abbr ssc "sudo systemctl"
 
 
 if fish_version_check 3 2 0
