@@ -1,4 +1,7 @@
-function fish_version_check --argument-names major minor patch
+function fish_version_check \
+    --argument-names major minor patch \
+    --description "Check if the current fish version is major.minor.patch or newer"
+
     type --quiet string; or return 1
     set --local version_array (string split "." $version)
 
