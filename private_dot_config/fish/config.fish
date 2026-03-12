@@ -83,4 +83,7 @@ abbr sc  "systemctl"
 abbr scu "systemctl --user"
 abbr ssc "sudo systemctl"
 
-fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
+
+if fish_version_check 3 2 0
+    fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
+end
