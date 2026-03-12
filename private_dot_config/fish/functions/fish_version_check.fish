@@ -1,4 +1,5 @@
 function fish_version_check --argument-names major minor patch
+    type --quiet string; or return 1
     set --local version_array (string split "." $version)
 
     if test $version_array[1] -gt $major
