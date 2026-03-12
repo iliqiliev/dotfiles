@@ -1,0 +1,32 @@
+function fish_version_check() {
+    if [ "$#" -ne 3 ]; then
+        echo "Usage: fish_version_check MAJOR MINOR PATCH" >&2
+        return 2
+    fi
+
+    local major minor patch
+    major="$1"
+    minor="$2"
+    patch="$3"
+
+    local version_array
+    IFS=. read -r -a version_array <<<"$(fish --version 2>/dev/null | awk '{print $NF}')"
+
+    if [ "${#version_array[@]}" -ne 3 ]; then
+        return 1
+    fi
+
+    if ((version_array[0] > major)); then
+        return 0
+    elif ((version_array[0] < major)); then
+        return 1
+    fi
+
+    if ((version_array[1] > minor)); then
+        return 0
+    elif ((version_array[1] < minor)); then
+        return 1
+    fi
+
+    ((version_array[2] >= patch))
+}
