@@ -40,7 +40,5 @@ if ! $FISH_SHELL --version | grep --quiet "[4-9]\.[0-9]\.[0-9]"; then
     exit 0
 fi
 
-# allows chsh to work with unset $USER
-# shellcheck disable=2086
-$CHEZ_SUDO chsh --shell "$FISH_SHELL" $USER
+$CHEZ_SUDO chsh --shell "$FISH_SHELL"
 echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
