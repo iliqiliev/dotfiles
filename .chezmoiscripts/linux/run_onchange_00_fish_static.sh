@@ -15,4 +15,4 @@ ARCH=$(uname --machine)
 BASE_URL="github.com/fish-shell/fish-shell/releases/"
 FISH_URL="${BASE_URL}/${FISH_VERSION}/fish-${FISH_VERSION}-linux-${ARCH}.tar.xz"
 
-$CHEZ_FETCH "$FISH_URL" | tar xfJ >"$HOME"/.local/bin/fish
+$CHEZ_FETCH "$FISH_URL" | tar --extract --xz >"$HOME"/.local/bin/fish
