@@ -2,7 +2,7 @@
 
 if [ "$#" -ne 3 ]; then
     echo "Usage: fish_version_check MAJOR MINOR PATCH" >&2
-    return 2
+    exit 2
 fi
 
 major="$1"
@@ -12,19 +12,19 @@ patch="$3"
 IFS=. read -r -a version_array <<<"$(fish --version 2>/dev/null | awk '{print $NF}')"
 
 if [ "${#version_array[@]}" -ne 3 ]; then
-    return 1
+    exit 1
 fi
 
 if ((version_array[0] > major)); then
-    return 0
+    exit 0
 elif ((version_array[0] < major)); then
-    return 1
+    exit 1
 fi
 
 if ((version_array[1] > minor)); then
-    return 0
+    exit 0
 elif ((version_array[1] < minor)); then
-    return 1
+    exit 1
 fi
 
 ((version_array[2] >= patch))
