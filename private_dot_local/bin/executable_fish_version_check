@@ -5,6 +5,11 @@ if [ "$#" -ne 3 ]; then
     exit 2
 fi
 
+if ! command -v fish >/dev/null; then
+    echo "Error: fish shell is not installed." >&2
+    exit 127
+fi
+
 major="$1"
 minor="$2"
 patch="$3"
