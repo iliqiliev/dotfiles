@@ -12,7 +12,7 @@ fi
 
 FISH_VERSION=4.5.0
 ARCH=$(uname --machine)
-BASE_URL="github.com/fish-shell/fish-shell/releases/download"
+BASE_URL="https://github.com/fish-shell/fish-shell/releases/download"
 FISH_URL="${BASE_URL}/${FISH_VERSION}/fish-${FISH_VERSION}-linux-${ARCH}.tar.xz"
 FISH_LOCAL_PATH="$HOME/.local/bin/fish"
 
