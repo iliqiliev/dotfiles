@@ -24,7 +24,6 @@
   "git_panel": {
     "tree_view": true,
   },
-  "hard_tabs": false,
   "project_panel": {
     "hide_root": true,
   },
