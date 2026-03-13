@@ -8,6 +8,9 @@
       "enable_thinking": false,
     },
   },
+  "auto_install_extensions": {
+    "adwaita": true,
+  },
   "auto_update": false,
   "colorize_brackets": true,
   "file_types": {
