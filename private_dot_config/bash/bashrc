@@ -1,4 +1,0 @@
-for function_file in "${BASH_SOURCE%/*}"/functions/*.bash; do
-    # shellcheck disable=1090
-    test -r "$function_file" && source "$function_file"
-done
