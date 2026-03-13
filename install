@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu # exit on Error and Unset variables
+set -eu # exit on [e]rror and [u]nset variables
 
 if ! chezmoi="$(command -v chezmoi)"; then
     cd
@@ -24,4 +24,4 @@ fi
 set -- init --apply iliqiliev
 
 echo "Running 'chezmoi $*'" >&2
-exec "$chezmoi" "$@" # exec: replace current process with chezmoi
+exec "$chezmoi" "$@"
