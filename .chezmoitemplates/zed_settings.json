@@ -21,6 +21,20 @@
       "**/zed*.json",
     ],
   },
+  "file_scan_exclusions": [
+    // default
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    // custom
+    "**/__pycache__",
+  ],
   "git_panel": {
     "tree_view": true,
   },
