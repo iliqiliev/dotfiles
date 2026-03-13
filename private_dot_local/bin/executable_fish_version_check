@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 
-if [ "$#" -ne 3 ]; then
+if [ $# -ne 3 ]; then
     echo "Usage: fish_version_check MAJOR MINOR PATCH" >&2
     exit 2
 fi
 
-if ! command -v fish >/dev/null; then
+fish=$(command -v fish)
+if test -z "$fish"; then
     echo "Error: fish shell is not installed." >&2
     exit 127
 fi
 
-major="$1"
-minor="$2"
-patch="$3"
-
-IFS=. read -r -a version_array <<<"$(fish --version 2>/dev/null | awk '{print $NF}')"
-
-if [ "${#version_array[@]}" -ne 3 ]; then
+IFS=. read -r -a version_array <<<"$($fish --version 2>/dev/null | awk '{print $NF}')"
+if [ ${#version_array[@]} -ne 3 ]; then
     exit 1
 fi
+
+major=$1 minor=$2 patch=$3
 
 if ((version_array[0] > major)); then
     exit 0
