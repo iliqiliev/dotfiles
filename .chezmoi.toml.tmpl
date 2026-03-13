@@ -53,7 +53,7 @@
 
 [interpreters.sh]
   command = "bash"
-  args = ["-euo", "pipefail"]
+  args = ["--init-file", "$HOME/.config/bash/bashrc", "-euo", "pipefail"]
 
 [interpreters.fish]
   command = "fish"
