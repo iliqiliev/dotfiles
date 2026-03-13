@@ -28,14 +28,16 @@
 {{ end }}
 
 [env]
-  RED    = "\\033[31m"
-  GREEN  = "\\033[32m"
-  YELLOW = "\\033[33m"
-  BLUE   = "\\033[34m"
-  NORMAL = "\\033[0m"
+  RED    = '\033[31m'
+  GREEN  = '\033[32m'
+  YELLOW = '\033[33m'
+  BLUE   = '\033[34m'
+  NORMAL = '\033[0m'
 
   CHEZ_DISTRO = {{ $distro | quote }}
   CHEZ_SUDO = {{ $sudo | quote }}
+
+  PATH = '{{ .chezmoi.homeDir }}/.local/bin{{ .chezmoi.pathListSeparator }}{{ env "PATH" }}'
 
   {{ if lookPath "curl" }}
   CHEZ_FETCH = "curl --silent --location"
