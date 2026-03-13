@@ -15,6 +15,7 @@
     "adwaita": true,
     "fish": true,
     "ini": true,
+    "lua": true,
     "toml": true,
     "xml": true,
   },
