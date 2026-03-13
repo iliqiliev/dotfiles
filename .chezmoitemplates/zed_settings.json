@@ -1,0 +1,43 @@
+{
+  "auto_update": false,
+  "colorize_brackets": true,
+  "file_types": {
+    "JSONC": [
+      // default
+      "**/.zed/**/*.json",
+      "**/zed/**/*.json",
+      "**/Zed/**/*.json",
+      "**/.vscode/**/*.json",
+      // custom
+      "**/zed*.json",
+    ],
+  },
+  "git_panel": {
+    "tree_view": true,
+  },
+  "hard_tabs": false,
+  "project_panel": {
+    "hide_root": true,
+  },
+  "languages": {
+    "Shell Script": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "shfmt",
+          "arguments": ["--filename", "{buffer_path}", "--indent", "4"],
+        },
+      },
+    },
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Adwaita Light",
+    "dark": "Adwaita Dark",
+  },
+  "wrap_guides": [80, 88],
+}
