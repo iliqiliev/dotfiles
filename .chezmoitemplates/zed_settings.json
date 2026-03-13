@@ -1,12 +1,12 @@
 {
   "$schema": "zed://schemas/settings",
   "agent": {
-    "default_profile": "ask",
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-5.3-codex",
       "enable_thinking": false,
     },
+    "default_profile": "ask",
   },
   "auto_install_extensions": {
     // default
@@ -22,8 +22,11 @@
   "auto_update": false,
   "colorize_brackets": true,
   "file_types": {
+    "Go Text Template": ["*.tmpl"],
     "ini": ["*.reg", "**/*flatpak/overrides/*"],
     "JSONC": ["**/zed*.json"],
+    "PowerShell": ["*.ps1.tmpl"],
+    "Shell Script": ["*.sh.tmpl"],
   },
   "file_scan_exclusions": [
     // default
@@ -40,8 +43,10 @@
     "**/__pycache__",
   ],
   "git_panel": {
+    "sort_by_path": true,
     "tree_view": true,
   },
+  "preferred_line_length": 88,
   "project_panel": {
     "hide_root": true,
   },
@@ -56,6 +61,7 @@
       },
     },
   },
+  "middle_click_paste": false,
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
