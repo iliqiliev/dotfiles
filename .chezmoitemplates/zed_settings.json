@@ -1,4 +1,12 @@
 {
+  "agent": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.3-codex",
+      "enable_thinking": false,
+    },
+  },
   "auto_update": false,
   "colorize_brackets": true,
   "file_types": {
