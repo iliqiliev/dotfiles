@@ -14,9 +14,11 @@ FISH_VERSION=4.5.0
 ARCH=$(uname --machine)
 BASE_URL="github.com/fish-shell/fish-shell/releases/download"
 FISH_URL="${BASE_URL}/${FISH_VERSION}/fish-${FISH_VERSION}-linux-${ARCH}.tar.xz"
+FISH_LOCAL_PATH="$HOME/.local/bin/fish"
 
 echo -e "${BLUE}Downloading from '${FISH_URL}' ...${NORMAL}"
 
-$CHEZ_FETCH "$FISH_URL" | tar --extract --xz >"$HOME"/.local/bin/fish
+$CHEZ_FETCH "$FISH_URL" | tar --extract --xz >"$FISH_LOCAL_PATH"
+chmod +x "$FISH_LOCAL_PATH"
 
-echo -e "${GREEN}Fish static build installed successfully.${NORMAL}"
+echo -e "${GREEN}Fish static installed to '${FISH_LOCAL_PATH}' successfully.${NORMAL}"
