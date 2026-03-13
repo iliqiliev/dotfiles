@@ -21,15 +21,7 @@
   "colorize_brackets": true,
   "file_types": {
     "ini": ["*.reg"],
-    "JSONC": [
-      // default
-      "**/.zed/**/*.json",
-      "**/zed/**/*.json",
-      "**/Zed/**/*.json",
-      "**/.vscode/**/*.json",
-      // custom
-      "**/zed*.json",
-    ],
+    "JSONC": ["**/zed*.json"],
   },
   "file_scan_exclusions": [
     // default
