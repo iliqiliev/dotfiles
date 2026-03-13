@@ -13,9 +13,11 @@
     "html": true,
     // custom
     "adwaita": true,
+    "basher": true,
     "fish": true,
     "ini": true,
     "lua": true,
+    "powershell": true,
     "toml": true,
     "xml": true,
   },
