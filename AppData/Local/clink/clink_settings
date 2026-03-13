@@ -33,3 +33,7 @@ color.transient_divider_text = sgr 38;5;214
 # type: boolean
 tilde.autoexpand = True
 
+# name: Show a tip when Clink starts
+# type: boolean
+tips.enable = False
+
