@@ -40,5 +40,5 @@ if ! fish_version_check 4 0 0; then
     exit 0
 fi
 
-$CHEZ_SUDO chsh --shell "$FISH_SHELL"
-echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
+$CHEZ_SUDO chsh --shell "$FISH_SHELL" >/dev/null
+echo -e "${GREEN}Shell changed to $FISH_SHELL successfully.${NORMAL}"
