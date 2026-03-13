@@ -13,6 +13,7 @@
     "html": true,
     // custom
     "adwaita": true,
+    "fish": true,
     "ini": true,
     "toml": true,
     "xml": true,
@@ -20,7 +21,7 @@
   "auto_update": false,
   "colorize_brackets": true,
   "file_types": {
-    "ini": ["*.reg"],
+    "ini": ["*.reg", "**/*flatpak/overrides/*"],
     "JSONC": ["**/zed*.json"],
   },
   "file_scan_exclusions": [
