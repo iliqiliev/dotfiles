@@ -29,6 +29,7 @@
     "JSONC": ["**/zed*.json"],
     "PowerShell": ["*.ps1.tmpl"],
     "Shell Script": ["*.sh.tmpl"],
+    "TOML": ["*.toml.tmpl"],
   },
   "file_scan_exclusions": [
     // default
