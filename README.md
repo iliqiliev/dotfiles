@@ -27,10 +27,9 @@ chezmoi init --apply iliqiliev
 ## With `PowerShell`:
 ```ps1
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-iex "&{$(irm get.chezmoi.io/ps1)} -BinDir ~/.local/bin -- init --apply iliqiliev"
+iex "&{$(irm get.chezmoi.io/ps1)} -BinDir ~/.local/bin init --apply iliqiliev"
 ```
 
 # Helpful Links:
-- [chezmoi](https://chezmoi.io)
 - [chezmoi user guide](https://www.chezmoi.io/user-guide/command-overview)
 - [chezmoi reference](https://www.chezmoi.io/reference)
