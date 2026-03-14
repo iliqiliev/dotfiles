@@ -50,11 +50,9 @@ if command --query starship
     starship init fish | source
 end
 
-if command --query zoxide
+if command --query zoxide && string length --quiet $__fish_data_dir
     zoxide init fish | source
 end
 
 
-if fish_version_check 3 2 0
-    fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
-end
+fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
