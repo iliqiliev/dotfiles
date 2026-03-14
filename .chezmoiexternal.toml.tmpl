@@ -1,14 +1,7 @@
 {{ $month := "672h" | quote -}}
+{{ $fishVersionCheck := joinPath .chezmoi.sourceDir "private_dot_local/bin/executable_fish_version_check" -}}
 
-["AppData/Local/clink/zoxide.lua"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/shunsambongi/clink-zoxide/refs/heads/master/zoxide.lua"
-    refreshPeriod = {{ $month }}
-
-{{ if and
-     (eq .os "linux")
-     (not (exec "bash" (joinPath .chezmoi.sourceDir "private_dot_local/bin/executable_fish_version_check") "4" "0" "0"))
-}}
+{{ if and (eq .os "linux") (not (exec "bash" $fishVersionCheck "4" "0" "0")) }}
 {{   $arch := output "uname" "--machine" | trim -}}
 [".local/bin/fish"]
     type = "archive-file"
@@ -17,3 +10,12 @@
     path = "fish"
     refreshPeriod = {{ $month }}
 {{ end }}
+
+[".config/fish/functions/fisher.fish"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
+
+["AppData/Local/clink/zoxide.lua"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/shunsambongi/clink-zoxide/master/zoxide.lua"
+    refreshPeriod = {{ $month }}

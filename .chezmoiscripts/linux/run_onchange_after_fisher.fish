@@ -1,14 +1,8 @@
 echo -e $BLUE"Installing fisher plugins..."$NORMAL
 
 if not type --query "fisher"
-    echo -e $BLUE"Fisher is not installed. Installing it first..."$NORMAL
-
-    if not eval $CHEZ_FETCH https://git.io/fisher | source
-        echo -e $RED"Fisher install failed."$NORMAL >&2
-        exit 0
-    end
-
-    echo -e $GREEN"Fisher installed successfully."$NORMAL
+    echo -e $RED"Fisher is not installed. Aborting..."$NORMAL
+    exit 0
 end
 
 fisher update > /dev/null

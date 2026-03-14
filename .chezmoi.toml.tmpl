@@ -37,14 +37,6 @@
   CHEZ_DISTRO = {{ $distro | quote }}
   CHEZ_SUDO = {{ $sudo | quote }}
 
-  {{ if lookPath "curl" }}
-  CHEZ_FETCH = "curl --silent --location"
-  {{ else if lookPath "wget" }}
-  CHEZ_FETCH = "wget --quiet --output-document -"
-  {{ else }}
-  {{   fail "Install either curl or wget." }}
-  {{ end }}
-
 [data]
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
