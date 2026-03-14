@@ -2,7 +2,7 @@
 
 echo -e "${BLUE}Setting Dconf settings...${NORMAL}"
 
-if [ ! -x "$(command -v dconf)" ]; then
+if ! command -v dconf >/dev/null; then
     echo -e "${YELLOW}Dconf not found. Skipping Dconf settings.${NORMAL}"
     exit 0
 fi

@@ -5,7 +5,7 @@ if ! command -v chsh >/dev/null; then
     exit 0
 fi
 
-if [ "$CHEZ_DISTRO" == "android" ]; then
+if test "$CHEZ_DISTRO" = "android"; then
     if readlink .termux/shell | grep --quiet "fish"; then
         echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
         exit 0
