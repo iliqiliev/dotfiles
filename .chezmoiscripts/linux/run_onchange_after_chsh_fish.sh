@@ -35,7 +35,7 @@ if ! grep --fixed-strings --line-regexp --quiet $FISH_SHELL /etc/shells; then
     exit 0
 fi
 
-if ! fish_version_check 4 0 0; then
+if ! fish_version_check 4 0 0 "$FISH_SHELL"; then
     echo -e "${RED}$($FISH_SHELL --version) is older than version 4.0.0, aborting.${NORMAL}"
     exit 0
 fi
