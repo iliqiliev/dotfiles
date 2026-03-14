@@ -5,9 +5,9 @@
 {{   $arch := output "uname" "--machine" | trim -}}
 [".local/bin/fish"]
     type = "archive-file"
-    url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" (printf "fish-*-linux-%s.tar.xz" $arch) | quote}}
-    executable = true
     path = "fish"
+    executable = true
+    url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" (printf "fish-*-linux-%s.tar.xz" $arch) | quote}}
     refreshPeriod = {{ $month }}
 {{ end }}
 
