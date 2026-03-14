@@ -37,8 +37,6 @@
   CHEZ_DISTRO = {{ $distro | quote }}
   CHEZ_SUDO = {{ $sudo | quote }}
 
-  PATH = '{{ .chezmoi.homeDir }}/.local/bin{{ .chezmoi.pathListSeparator }}{{ env "PATH" }}'
-
   {{ if lookPath "curl" }}
   CHEZ_FETCH = "curl --silent --location"
   {{ else if lookPath "wget" }}
