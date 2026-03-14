@@ -5,5 +5,8 @@ if not type --query "fisher"
     exit 0
 end
 
+# Making fisher adopt itself
+set --universal --append _fisher_plugins jorgebucaran/fisher
+
 fisher update > /dev/null
 and echo -e $GREEN"Installed $(count (fisher list)) fish plugins."$NORMAL
