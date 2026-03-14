@@ -11,7 +11,7 @@ if test -z "$fish"; then
     exit 127
 fi
 
-IFS=. read -r -a version_array <<<"$($fish --version 2>/dev/null | awk '{print $NF}')"
+IFS=. read -r -a version_array <<<"$($fish --version 2>&1 | awk '{print $NF}')"
 if [ ${#version_array[@]} -ne 3 ]; then
     exit 1
 fi
