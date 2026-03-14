@@ -1,8 +1,8 @@
 # packages.yaml hash: {{ .packages.pacman | toString | sha256sum }}
 
-echo -e "${BLUE}Syncing pacman database...${NORMAL}"
+echo -e "${BLUE}Updating system to avoid partially updated dependencies...${NORMAL}"
 $CHEZ_SUDO pacman -Syu --noconfirm
-echo -e "${GREEN}Database synced successfully.${NORMAL}"
+echo -e "${GREEN}System updated successfully.${NORMAL}"
 
 echo -e "${BLUE}Installing pacman packages...${NORMAL}"
 # shellcheck disable=1083
