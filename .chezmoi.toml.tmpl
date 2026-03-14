@@ -38,6 +38,7 @@
   CHEZ_SUDO = {{ $sudo | quote }}
 
   BASH_ENV = "$HOME/.config/bash/bash_env"
+  PATH = '{{ .chezmoi.homeDir }}/.local/bin{{ .chezmoi.pathListSeparator }}{{ env "PATH" }}'
 
 [data]
   distro = {{ $distro | lower | quote }}
