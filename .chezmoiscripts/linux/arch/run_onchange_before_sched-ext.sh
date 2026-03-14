@@ -1,9 +1,14 @@
+if ! test -d /run/systemd/system; then
+    exit 0
+fi
+
+echo -e "${BLUE}Setting up Sched_ext...${NORMAL}"
+
 if systemctl is-active --quiet scx_loader; then
     echo -e "${GREEN}Sched_ext is already configured.${NORMAL}"
     exit 0
 fi
 
-echo -e "${BLUE}Installing Sched_ext...${NORMAL}"
 $CHEZ_SUDO pacman -S --needed --noconfirm scx-tools
 
 cat <<'EOF' | $CHEZ_SUDO tee /etc/scx_loader.toml >/dev/null
@@ -74,6 +79,5 @@ powersave_mode = ["-m", "powersave", "-d", "-p", "5000"]
 server_mode = ["-s", "20000"]
 EOF
 
-echo -e "${BLUE}Starting and enabling Sched_ext...${NORMAL}"
 $CHEZ_SUDO systemctl enable --now scx_loader
-echo -e "${GREEN}Sched_ext installed successfully.${NORMAL}"
+echo -e "${GREEN}Sched_ext installed and enabled successfully.${NORMAL}"
