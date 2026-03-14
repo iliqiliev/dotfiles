@@ -2,18 +2,25 @@
 
 set -eu # exit on [e]rror and [u]nset variables
 
+RED='\033[31m'
+GREEN='\033[32m'
+BLUE='\033[34m'
+NORMAL='\033[0m'
+
+cd
+
 if ! chezmoi="$(command -v chezmoi)"; then
-    cd
-    chezmoi_url="get.chezmoi.io/lb"
+    chezmoi_url="https://get.chezmoi.io/lb"
     chezmoi="${HOME}/.local/bin/chezmoi"
-    echo "Installing chezmoi to '${chezmoi}'" >&2
+
+    printf "%b\n" "${BLUE}Installing chezmoi to '${chezmoi}'${NORMAL}"
 
     if command -v curl >/dev/null; then
         chezmoi_install_script="$(curl -fsSL $chezmoi_url)"
     elif command -v wget >/dev/null; then
         chezmoi_install_script="$(wget -qO- $chezmoi_url)"
     else
-        echo "To install chezmoi, you must have curl or wget installed." >&2
+        printf "%b\n" "${RED}To install chezmoi, you must have curl or wget installed.${NORMAL}" >&2
         exit 1
     fi
 
@@ -23,5 +30,5 @@ fi
 
 set -- init --apply iliqiliev
 
-echo "Running 'chezmoi $*'" >&2
+printf "%b\n" "${GREEN}Running 'chezmoi $*'${NORMAL}" >&2
 exec "$chezmoi" "$@"
