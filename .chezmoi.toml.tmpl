@@ -37,13 +37,15 @@
   CHEZ_DISTRO = {{ $distro | quote }}
   CHEZ_SUDO = {{ $sudo | quote }}
 
+  BASH_ENV = "$HOME/.config/bash/bash_env"
+
 [data]
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
 
 [interpreters.sh]
   command = "bash"
-  args = ["--init-file", "$HOME/.config/bash/bashrc", "-euo", "pipefail"]
+  args = ["-euo", "pipefail"]
 
 [interpreters.fish]
   command = "fish"
