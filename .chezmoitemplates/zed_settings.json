@@ -25,7 +25,7 @@
   "colorize_brackets": true,
   "file_types": {
     "Go Text Template": ["*.tmpl"],
-    "ini": ["*.reg", "**/*flatpak/overrides/*"],
+    "ini": ["*.reg", "*.ini.tmpl", "**/*flatpak/overrides/*"],
     "JSONC": ["**/zed*.json"],
     "PowerShell": ["*.ps1.tmpl"],
     "Shell Script": ["*.sh.tmpl"],
