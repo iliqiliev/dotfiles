@@ -1,0 +1,59 @@
+{
+  "version": 3,
+  "prefs": {
+    "websites.hyperlinkAuditingEnabled": {
+      "initialValue": {},
+      "precedenceList": [
+        {
+          "id": "uBlock0@raymondhill.net",
+          "installDate": 1741184858654,
+          "value": false,
+          "enabled": true
+        }
+      ]
+    },
+    "network.networkPredictionEnabled": {
+      "initialValue": {},
+      "precedenceList": [
+        {
+          "id": "uBlock0@raymondhill.net",
+          "installDate": 1741184858654,
+          "value": false,
+          "enabled": true
+        }
+      ]
+    }
+  },
+  "commands": {
+    "launch-element-picker": {
+      "precedenceList": [
+        {
+          "id": "uBlock0@raymondhill.net",
+          "installDate": 1741184858654,
+          "value": { "shortcut": "Alt+X" },
+          "enabled": true
+        }
+      ]
+    },
+    "launch-element-zapper": {
+      "precedenceList": [
+        {
+          "id": "uBlock0@raymondhill.net",
+          "installDate": 1741184858654,
+          "value": { "shortcut": "Alt+Z" },
+          "enabled": true
+        }
+      ]
+    },
+    "addSite": {
+      "precedenceList": [
+        {
+          "id": "addon@darkreader.org",
+          "installDate": 1741184852046,
+          "value": { "shortcut": "Ctrl+Alt+D" },
+          "enabled": true
+        }
+      ]
+    }
+  }
+}
