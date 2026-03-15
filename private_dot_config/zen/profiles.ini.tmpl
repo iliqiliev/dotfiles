@@ -1,15 +1,1 @@
-; {{ $releaseId := mozillaInstallHash "/opt/zen-browser-bin" }}
-
-[Profile0]
-Name={{ .distro }}-{{ .chezmoi.hostname }}
-IsRelative=1
-Path=profile
-Default=1
-
-[General]
-StartWithLastProfile=1
-Version=2
-
-[Install{{ $releaseId }}]
-Default=profile
-Locked=1
+{{ template "zen/profiles.ini" . }}
