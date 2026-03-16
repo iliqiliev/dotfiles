@@ -27,6 +27,10 @@
 {{   $sudo = "su root -c" }}
 {{ end }}
 
+[data]
+  distro = {{ $distro | lower | quote }}
+  os = {{ $os | lower | quote }}
+
 [env]
   RED    = '\033[31m'
   GREEN  = '\033[32m'
@@ -40,13 +44,9 @@
   BASH_ENV = "$HOME/.config/bash/bash_env"
   PATH = '{{ .chezmoi.homeDir }}/.local/bin{{ .chezmoi.pathListSeparator }}{{ env "PATH" }}'
 
-[data]
-  distro = {{ $distro | lower | quote }}
-  os = {{ $os | lower | quote }}
+[interpreters.fish]
+  command = "fish"
 
 [interpreters.sh]
   command = "bash"
   args = ["-euo", "pipefail"]
-
-[interpreters.fish]
-  command = "fish"
