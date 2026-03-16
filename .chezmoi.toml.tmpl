@@ -1,31 +1,31 @@
-{{ $distro := "" }}
-{{ if hasKey .chezmoi.osRelease "idLike" }}
-{{   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
-{{ else if hasKey .chezmoi.osRelease "id" }}
-{{   $distro = .chezmoi.osRelease.id }}
-{{ else if hasKey .chezmoi "os" }}
-{{   $distro = .chezmoi.os }}
-{{ end }}
+{{- $distro := "" }}
+{{- if hasKey .chezmoi.osRelease "idLike" }}
+{{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
+{{- else if hasKey .chezmoi.osRelease "id" }}
+{{-   $distro = .chezmoi.osRelease.id }}
+{{- else if hasKey .chezmoi "os" }}
+{{-   $distro = .chezmoi.os }}
+{{- end }}
 
-{{ $os := "" }}
-{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
-{{   $os = "linux" }}
-{{ else if hasKey .chezmoi "os" }}
-{{   $os = .chezmoi.os }}
-{{ end }}
+{{- $os := "" }}
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
+{{-   $os = "linux" }}
+{{- else if hasKey .chezmoi "os" }}
+{{-   $os = .chezmoi.os }}
+{{- end }}
 
-{{ $sudo := "" }}
-{{ if or (eq .chezmoi.uid "0") (eq $distro "android") }}
-{{   $sudo = "" }}
-{{ else if lookPath "doas"}}
-{{   $sudo = "doas" }}
-{{ else if lookPath "gsudo"}}
-{{   $sudo = "gsudo" }}
-{{ else if lookPath "sudo"}}
-{{   $sudo = "sudo" }}
-{{ else }}
-{{   $sudo = "su root -c" }}
-{{ end }}
+{{- $sudo := "" }}
+{{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
+{{-   $sudo = "" }}
+{{- else if lookPath "doas"}}
+{{-   $sudo = "doas" }}
+{{- else if lookPath "gsudo"}}
+{{-   $sudo = "gsudo" }}
+{{- else if lookPath "sudo"}}
+{{-   $sudo = "sudo" }}
+{{- else }}
+{{-   $sudo = "su root -c" }}
+{{- end -}}
 
 [data]
   distro = {{ $distro | lower | quote }}
