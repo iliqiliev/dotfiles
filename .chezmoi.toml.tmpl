@@ -31,6 +31,13 @@
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
 
+{{- if lookPath "delta" }}
+
+[diff]
+  pager = "delta"
+
+{{- end }}
+
 [env]
   RED    = '\033[31m'
   GREEN  = '\033[32m'
