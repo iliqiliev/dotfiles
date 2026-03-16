@@ -42,6 +42,7 @@
     "**/.classpath",
     "**/.settings",
     // custom
+    "**/.ruff_cache",
     "**/__pycache__",
   ],
   "git_panel": {
