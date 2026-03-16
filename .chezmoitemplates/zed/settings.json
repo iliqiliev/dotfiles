@@ -62,6 +62,15 @@
         },
       },
     },
+    "TCL": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "tclfmt",
+          "arguments": ["{buffer_path}", "--indent", "4"],
+        },
+      },
+    },
   },
   "middle_click_paste": false,
   "telemetry": {
