@@ -48,8 +48,12 @@
   CHEZ_DISTRO = {{ $distro | quote }}
   CHEZ_SUDO = {{ $sudo | quote }}
 
-  BASH_ENV = "$HOME/.config/bash/bash_env"
-  PATH = '{{ .chezmoi.homeDir }}/.local/bin{{ .chezmoi.pathListSeparator }}{{ env "PATH" }}'
+  BASH_ENV = "${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_env"
+
+  {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
+  {{- if not (has $localBin (splitList .chezmoi.pathListSeparator (env "PATH"))) }}
+  PATH = {{ join .chezmoi.pathListSeparator (list $localBin (env "PATH")) | quote }}
+  {{ end }}
 
 [interpreters.fish]
   command = "fish"
