@@ -11,8 +11,7 @@
 {{-   abortEmpty }}
 {{- end }}
 
-{{- $arch := output "uname" "--machine" | trim }}
-{{- $fish := printf "fish-*-linux-%s.tar.xz" $arch -}}
+{{- $fish := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
 
 [".local/bin/fish"]
 type = "archive-file"
