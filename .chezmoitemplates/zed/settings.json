@@ -49,10 +49,6 @@
     "sort_by_path": true,
     "tree_view": true,
   },
-  "preferred_line_length": 88,
-  "project_panel": {
-    "hide_root": true,
-  },
   "languages": {
     "Shell Script": {
       "formatter": {
@@ -75,6 +71,10 @@
     },
   },
   "middle_click_paste": false,
+  "preferred_line_length": 88,
+  "project_panel": {
+    "hide_root": true,
+  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
