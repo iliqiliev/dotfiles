@@ -1,26 +1,29 @@
+# Install script and README.md
 install
 README.md
 
+# Data used by scripts and README.md
 data
 
-{{ if ne .chezmoi.os "windows" }}
+# Distro-specific scripts
+{{- if ne .distro "alpine" }}
+.chezmoiscripts/linux/alpine/**
+{{- end }}
+
+{{- if ne .distro "arch" }}
+.chezmoiscripts/linux/arch/**
+{{- end }}
+
+{{- if not (regexMatch "debian|ubuntu|android" .distro) }}
+.chezmoiscripts/linux/debian/**
+{{- end }}
+
+{{- if ne .os "linux" }}
+.chezmoiscripts/linux/**
+{{- end }}
+
+{{- if ne .distro "windows" }}
 .chezmoiscripts/windows/**
 AppData/**
 scoop/**
-{{ end }}
-
-{{ if ne .distro "arch" }}
-.chezmoiscripts/linux/arch/**
-{{ end }}
-
-{{ if not (regexMatch "debian|ubuntu|android" .distro) }}
-.chezmoiscripts/linux/debian/**
-{{ end }}
-
-{{ if ne .distro "alpine" }}
-.chezmoiscripts/linux/alpine/**
-{{ end }}
-
-{{ if ne .os "linux" }}
-.chezmoiscripts/linux/**
-{{ end }}
+{{- end }}
