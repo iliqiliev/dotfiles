@@ -1,22 +1,22 @@
 {{-
-  $fishVersionCheck := joinPath
-    .chezmoi.sourceDir "private_dot_local/bin/executable_fish_version_check"
+  $fishVersion := joinPath
+    .chezmoi.sourceDir "private_dot_local/bin/executable_fish_version"
 }}
 {{-
   if or
     (ne .os "linux")
     (not (lookPath "bash"))
-    (exec "bash" $fishVersionCheck "4" "0" "0")
+    (exec "bash" $fishVersion "4" "0" "0")
 }}
 {{-   abortEmpty }}
 {{- end }}
 
 {{- $arch := output "uname" "--machine" | trim }}
-{{- $fishFile := printf "fish-*-linux-%s.tar.xz" $arch -}}
+{{- $fish := printf "fish-*-linux-%s.tar.xz" $arch -}}
 
 [".local/bin/fish"]
 type = "archive-file"
 path = "fish"
 executable = true
-url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $fishFile | quote }}
+url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $fish | quote }}
 refreshPeriod = "672h"
