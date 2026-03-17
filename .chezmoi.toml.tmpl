@@ -7,6 +7,14 @@
 {{-   $distro = .chezmoi.os }}
 {{- end }}
 
+{{- $isPersonal := promptBool "Are you a Iliya Iliev" false }}
+{{- $name := "Iliya Iliev" }}
+{{- $email := "iliq0000@proton.me" }}
+{{- if not $isPersonal }}
+{{-   $email = promptString "Email (for git)" "" }}
+{{-   $name = promptString "Name (for git)" (splitList "@" $email | first) }}
+{{- end }}
+
 {{- $os := "" }}
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{-   $os = "linux" }}
@@ -30,6 +38,10 @@
 [data]
   distro = {{ $distro | lower | quote }}
   os = {{ $os | lower | quote }}
+
+  isPersonal = {{ $isPersonal | quote }}
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
 
 {{- if lookPath "delta" }}
 
