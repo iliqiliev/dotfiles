@@ -7,12 +7,12 @@
 {{-   $distro = .chezmoi.os }}
 {{- end }}
 
-{{- $isPersonal := promptBool "Are you a Iliya Iliev" false }}
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
 {{- if not $isPersonal }}
-{{-   $email = promptString "Email (for git)" "" |  }}
-{{-   $name = promptString "Name (for git)" (splitList "@" $email | first) |  }}
+{{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
 
 {{- $os := "" }}
