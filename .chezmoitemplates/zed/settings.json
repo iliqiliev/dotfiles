@@ -66,9 +66,6 @@
         },
       },
     },
-    "TOML": {
-      "tab_size": 2,
-    },
   },
   "middle_click_paste": false,
   "preferred_line_length": 88,

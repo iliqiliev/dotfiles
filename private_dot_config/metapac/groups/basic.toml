@@ -1,22 +1,21 @@
-arch = {
-  packages = [
-    "bat",
-    "btop",
-    "chezmoi",
-    "curl",
-    "eza",
-    "fastfetch",
-    "fd",
-    "fish",
-    "fzf",
-    "git",
-    "git-delta",
-    "neovim",
-    "ripgrep",
-    "shellcheck",
-    "starship",
-    "tealdeer",
-    "yazi",
-    "zoxide",
-  ]
-}
+[arch]
+packages = [
+  "bat",
+  "btop",
+  "chezmoi",
+  "curl",
+  "eza",
+  "fastfetch",
+  "fd",
+  "fish",
+  "fzf",
+  "git",
+  "git-delta",
+  "neovim",
+  "ripgrep",
+  "shellcheck",
+  "starship",
+  "tealdeer",
+  "yazi",
+  "zoxide",
+]

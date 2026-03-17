@@ -11,8 +11,8 @@
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
 {{- if not $isPersonal }}
-{{-   $email = promptString "Email (for git)" "" }}
-{{-   $name = promptString "Name (for git)" (splitList "@" $email | first) }}
+{{-   $email = promptString "Email (for git)" "" |  }}
+{{-   $name = promptString "Name (for git)" (splitList "@" $email | first) |  }}
 {{- end }}
 
 {{- $os := "" }}
@@ -36,40 +36,40 @@
 {{- end -}}
 
 [data]
-  distro = {{ $distro | lower | quote }}
-  os = {{ $os | lower | quote }}
+distro = {{ $distro | lower | quote }}
+os = {{ $os | lower | quote }}
 
-  isPersonal = {{ $isPersonal | quote }}
-  name = {{ $name | quote }}
-  email = {{ $email | quote }}
+isPersonal = {{ $isPersonal | quote }}
+name = {{ $name | quote }}
+email = {{ $email | quote }}
 
 {{- if lookPath "delta" }}
 
 [diff]
-  pager = "delta"
+pager = "delta"
 
 {{- end }}
 
 [env]
-  RED    = '\033[31m'
-  GREEN  = '\033[32m'
-  YELLOW = '\033[33m'
-  BLUE   = '\033[34m'
-  NORMAL = '\033[0m'
+RED    = '\033[31m'
+GREEN  = '\033[32m'
+YELLOW = '\033[33m'
+BLUE   = '\033[34m'
+NORMAL = '\033[0m'
 
-  CHEZ_DISTRO = {{ $distro | quote }}
-  CHEZ_SUDO = {{ $sudo | quote }}
+CHEZ_DISTRO = {{ $distro | quote }}
+CHEZ_SUDO = {{ $sudo | quote }}
 
-  BASH_ENV = "${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_env"
+BASH_ENV = "${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_env"
 
-  {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
-  {{- if not (has $localBin (splitList .chezmoi.pathListSeparator (env "PATH"))) }}
-  PATH = {{ join .chezmoi.pathListSeparator (list $localBin (env "PATH")) | quote }}
-  {{ end }}
+{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
+{{- if not (has $localBin (splitList .chezmoi.pathListSeparator (env "PATH"))) }}
+PATH = {{ join .chezmoi.pathListSeparator (list $localBin (env "PATH")) | quote }}
+{{ end }}
 
 [interpreters.fish]
-  command = "fish"
+command = "fish"
 
 [interpreters.sh]
-  command = "bash"
-  args = ["-euo", "pipefail"]
+command = "bash"
+args = ["-euo", "pipefail"]

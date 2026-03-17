@@ -1,15 +1,15 @@
 [".config/zen/profile/extensions/78272b6fa58f4a1abaac99321d503a20@proton.me.xpi"]
-  type = "file"
-  url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi"
+type = "file"
+url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi"
 
 [".config/zen/profile/extensions/jid1-xUfzOsOFlzSOXg@jetpack.xpi"]
-  type = "file"
-  url = "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi"
+type = "file"
+url = "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi"
 
 [".config/zen/profile/extensions/uBlock0@raymondhill.net.xpi"]
-  type = "file"
-  url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+type = "file"
+url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
 
 [".config/zen/profile/extensions/{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}.xpi"]
-  type = "file"
-  url = "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi"
+type = "file"
+url = "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi"
