@@ -53,4 +53,6 @@ packagesBase:
   wget: {}
   yazi: {}
   zoxide: {}
-packagesGui: {}
+packagesGui:
+  zed:
+    apk: null
