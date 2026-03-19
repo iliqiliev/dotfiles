@@ -1,7 +1,4 @@
 packages:
-  AdwaitaMono-NF-Mono:
-    "*": null
-    scoop: "AdwaitaMono-NF-Mono"
   altsnap:
     "*": null
     scoop: "altsnap"
@@ -21,6 +18,7 @@ packages:
   coreutils:
     "*": null
     apk: "coreutils"
+    scoop: "uutils-coreutils"
   curl: {}
   ditto:
     "*": null
@@ -32,9 +30,7 @@ packages:
   fish:
     scoop: null
   fzf: {}
-  grep:
-    "*": null
-    apk: "grep"
+  grep: {}
   git: {}
   git-delta:
     apk: "delta"
@@ -54,11 +50,6 @@ packages:
   starship: {}
   tealdeer:
     apk: null
-  uutils-coreutils:
-    "*": null
-    scoop: "uutils-coreutils"
-  wget:
-    "*": null
-    apk: "wget"
+  wget: {}
   yazi: {}
   zoxide: {}
