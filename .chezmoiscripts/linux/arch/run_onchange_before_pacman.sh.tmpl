@@ -1,14 +1,5 @@
 # packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
 
-echo -e "${BLUE}Updating system to avoid partially updated dependencies...${NORMAL}"
-$CHEZ_SUDO pacman -Syu --noconfirm
-echo -e "${GREEN}System updated successfully.${NORMAL}"
-
-echo -e "${BLUE}Installing pacman packages...${NORMAL}"
-# shellcheck disable=1083
-$CHEZ_SUDO pacman -S --needed --noconfirm {{ template "packages" . }}
-echo -e "${GREEN}Packages installed successfully.${NORMAL}"
-
 echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
     echo -e "${GREEN}Chaotic-AUR is already installed.${NORMAL}"
@@ -37,3 +28,12 @@ echo -e "${GREEN}Chaotic-AUR installed succesfully.${NORMAL}"
 echo -e "${BLUE}Installing Yay AUR helper...${NORMAL}"
 $CHEZ_SUDO pacman -S --needed --noconfirm yay
 echo -e "${GREEN}Yay installed successfully.${NORMAL}"
+
+echo -e "${BLUE}Updating system to avoid partially updated dependencies...${NORMAL}"
+yay -Syu --noconfirm
+echo -e "${GREEN}System updated successfully.${NORMAL}"
+
+echo -e "${BLUE}Installing pacman packages...${NORMAL}"
+# shellcheck disable=1083
+yay -S --needed --noconfirm {{ template "packages" . }}
+echo -e "${GREEN}Packages installed successfully.${NORMAL}"
