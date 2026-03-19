@@ -1,0 +1,24 @@
+{{- $packageManager := "" }}
+{{- if eq .distro "alpine" }}
+{{-   $packageManager = "apk" }}
+{{- else if (regexMatch "debian|ubuntu|android" .distro) }}
+{{-   $packageManager = "apt" }}
+{{- else if eq .distro "archlinux" }}
+{{-   $packageManager = "pacman" }}
+{{- else if eq .distro "windows" }}
+{{-   $packageManager = "scoop" }}
+{{- else }}
+{{-   abortEmpty }}
+{{- end }}
+
+{{- $result := list }}
+{{- range $package, $overrides := .packages }}
+{{-   if hasKey $overrides $packageManager }}
+{{-     $package = index $overrides $packageManager }}
+{{-   else if hasKey $overrides "*" }}
+{{-     $package = index $overrides "*" }}
+{{-   end }}
+{{-   $result = append $result $package }}
+{{- end }}
+
+{{- join " " (sortAlpha (compact ($result))) -}}

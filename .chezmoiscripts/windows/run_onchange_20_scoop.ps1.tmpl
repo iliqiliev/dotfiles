@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-# packages.yaml hash: {{ .packages.scoop | toString | sha256sum }}
+# packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
@@ -20,5 +20,5 @@ scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
 Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 Write-Host "Installing scoop packages..." -ForegroundColor Blue
-scoop install --no-update-scoop {{ join " " .packages.scoop }} ; if (!$?) { exit 1 }
+scoop install --no-update-scoop {{ template "packages" . }}; if (!$?) { exit 1 }
 Write-Host "Packages installed successfully." -ForegroundColor Green

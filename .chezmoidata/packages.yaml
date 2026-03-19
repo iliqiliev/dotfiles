@@ -1,90 +1,64 @@
 packages:
-  pacman:
-    - bat
-    - btop
-    - chezmoi
-    - curl
-    - eza
-    - fastfetch
-    - fd
-    - fish
-    - fzf
-    - git
-    - git-delta
-    - neovim
-    - ripgrep
-    - shellcheck
-    - starship
-    - tealdeer
-    - yazi
-    - zoxide
-  apt:
-    - bat
-    - btop
-    - chezmoi
-    - curl
-    - eza
-    - fastfetch
-    - fd-find # fd
-    - fish
-    - fzf
-    - git
-    - git-delta
-    - neovim
-    - ripgrep
-    - shellcheck
-    - starship
-    - tealdeer
-    - yazi
-    - zoxide
-  scoop:
-    - AdwaitaMono-NF-Mono # +
-    - altsnap
-    - bat
-    # btop
-    - chezmoi
-    - clink # +
-    - clink-completions # +
-    - clink-flex-prompt # +
-    - curl
-    - ditto # +
-    - eza
-    - fastfetch
-    - fd
-    # fish
-    - fzf
-    - delta # git-delta
-    - git
-    - gsudo # +
-    - neovim
-    - process-explorer # +
-    - ripgrep
-    - shellcheck
-    - starship
-    - tealdeer
-    - uutils-coreutils # +
-    - yazi
-    - zoxide
-  apk:
-    - bat
-    - btop
-    - chezmoi
-    - coreutils # +
-    - curl
-    - grep # +
-    - eza
-    - fastfetch
-    - fd
-    - fish
-    - fzf
-    - git
-    - delta # git-delta
-    - neovim
-    - ripgrep
-    - shadow # +
-    - shellcheck
-    - starship
-    # - tealdeer
-    - wget # +
-    - yazi
-    - zoxide
+  AdwaitaMono-NF-Mono:
+    "*": null
+    scoop: "AdwaitaMono-NF-Mono"
+  altsnap:
+    "*": null
+    scoop: "altsnap"
+  bat: {}
+  btop:
+    scoop: null
+  chezmoi: {}
+  clink:
+    "*": null
+    scoop: "clink"
+  clink-completions:
+    "*": null
+    scoop: "clink-completions"
+  clink-flex-prompt:
+    "*": null
+    scoop: "clink-flex-prompt"
+  coreutils:
+    "*": null
+    apk: "coreutils"
+  curl: {}
+  ditto:
+    "*": null
+    scoop: "ditto"
+  eza: {}
+  fastfetch: {}
+  fd:
+    apt: "fd-find"
+  fish:
+    scoop: null
+  fzf: {}
+  grep:
+    "*": null
+    apk: "grep"
+  git: {}
+  git-delta:
+    apk: "delta"
+    scoop: "delta"
+  gsudo:
+    "*": null
+    scoop: "gsudo"
+  neovim: {}
+  process-explorer:
+    "*": null
+    scoop: "process-explorer"
+  ripgrep: {}
+  shadow:
+    "*": null
+    apk: "shadow"
+  shellcheck: {}
+  starship: {}
+  tealdeer:
+    apk: null
+  uutils-coreutils:
+    "*": null
+    scoop: "uutils-coreutils"
+  wget:
+    "*": null
+    apk: "wget"
+  yazi: {}
+  zoxide: {}

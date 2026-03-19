@@ -1,6 +1,6 @@
-# apk packages hash: {{ .packages.apk | toString | sha256sum }}
+# apk packages hash: {{ includeTemplate "packages" . | sha256sum }}
 
 echo -e "${BLUE}Installing apk packages...${NORMAL}"
 # shellcheck disable=1083
-$CHEZ_SUDO apk add {{ join " " .packages.apk }}
+$CHEZ_SUDO apk add {{ template "packages" . }}
 echo -e "${GREEN}Packages installed successfully.${NORMAL}"

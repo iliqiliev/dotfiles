@@ -1,4 +1,4 @@
-# packages.yaml hash: {{ .packages.pacman | toString | sha256sum }}
+# packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
 
 echo -e "${BLUE}Updating system to avoid partially updated dependencies...${NORMAL}"
 $CHEZ_SUDO pacman -Syu --noconfirm
@@ -6,7 +6,7 @@ echo -e "${GREEN}System updated successfully.${NORMAL}"
 
 echo -e "${BLUE}Installing pacman packages...${NORMAL}"
 # shellcheck disable=1083
-$CHEZ_SUDO pacman -S --needed --noconfirm {{ join " " .packages.pacman }}
+$CHEZ_SUDO pacman -S --needed --noconfirm {{ template "packages" . }}
 echo -e "${GREEN}Packages installed successfully.${NORMAL}"
 
 echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
