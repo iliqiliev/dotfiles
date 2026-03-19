@@ -7,6 +7,8 @@
 {{-   $distro = .chezmoi.os }}
 {{- end }}
 
+{{- $installGui:= promptBoolOnce . "installGui" "Install GUI packages" false }}
+
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
@@ -39,7 +41,8 @@
 distro = {{ $distro | lower | quote }}
 os = {{ $os | lower | quote }}
 
-isPersonal = {{ $isPersonal | quote }}
+installGui= {{ $installGui}}
+isPersonal = {{ $isPersonal }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
 

@@ -1,18 +1,12 @@
-{{- $packageManager := "" }}
-{{- if eq .distro "alpine" }}
-{{-   $packageManager = "apk" }}
-{{- else if (regexMatch "debian|ubuntu|android" .distro) }}
-{{-   $packageManager = "apt" }}
-{{- else if eq .distro "archlinux" }}
-{{-   $packageManager = "pacman" }}
-{{- else if eq .distro "windows" }}
-{{-   $packageManager = "scoop" }}
-{{- else }}
-{{-   abortEmpty }}
+{{- $packages := .packagesBase }}
+{{- if .installGui }}
+{{-   $packages = merge $packages .packagesBase .packagesGui }}
 {{- end }}
 
+{{- $packageManager := get .packageManagers .distro }}
+
 {{- $result := list }}
-{{- range $package, $overrides := .packages }}
+{{- range $package, $overrides := $packages }}
 {{-   if hasKey $overrides $packageManager }}
 {{-     $package = index $overrides $packageManager }}
 {{-   else if hasKey $overrides "*" }}
