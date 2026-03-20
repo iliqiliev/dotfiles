@@ -15,6 +15,9 @@ packagesBase:
   clink-flex-prompt:
     "*": null
     scoop: "clink-flex-prompt"
+  clink-gizmos:
+    "*": null
+    scoop: "clink-gizmos"
   coreutils:
     "*": null
     apk: "coreutils"
