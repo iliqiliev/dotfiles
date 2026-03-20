@@ -7,15 +7,14 @@
 {{-   $distro = .chezmoi.os }}
 {{- end }}
 
-{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
+{{- $installGui:= promptBoolOnce . "installGui" "Install GUI applications" false }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
 {{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
-
-{{- $installGui:= promptBoolOnce . "installGui" "Install GUI applications" false }}
 
 {{- $os := "" }}
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
