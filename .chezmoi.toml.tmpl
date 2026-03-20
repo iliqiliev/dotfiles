@@ -23,7 +23,7 @@
 {{-   $os = .chezmoi.os }}
 {{- end }}
 
-{{- $sudo := "" }}
+{{- $sudo := "su root -c" }}
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
 {{-   $sudo = "" }}
 {{- else if lookPath "doas"}}
@@ -32,8 +32,6 @@
 {{-   $sudo = "gsudo" }}
 {{- else if lookPath "sudo"}}
 {{-   $sudo = "sudo" }}
-{{- else }}
-{{-   $sudo = "su root -c" }}
 {{- end -}}
 
 [data]
