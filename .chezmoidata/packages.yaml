@@ -19,6 +19,7 @@ packagesBase:
     "*": null
     apk: "coreutils"
     scoop: "uutils-coreutils"
+  cowsay: {}
   curl: {}
   ditto:
     "*": null
