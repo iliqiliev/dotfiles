@@ -10,12 +10,15 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Environment]
 ; Set path to bat's config file
 "BAT_CONFIG_PATH"="%USERPROFILE%\\.config\\bat\\config"
+; Set XDG config folder to allow some apps to use it instead of AppData
+"XDG_CONFIG_HOME"="%USERPROFILE%\\.config"
 
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}]
-; Restores the classic context menu in Windows 11
+; Restore the classic context menu in Windows 11 (1/2)
 @=""
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
+; Restore the classic context menu in Windows 11 (2/2)
 @=""
 
 
@@ -32,4 +35,5 @@ Windows Registry Editor Version 5.00
 
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
+; Make PowerShell load its profile from AppData instead of Documents
 "Personal"="%APPDATA%"
