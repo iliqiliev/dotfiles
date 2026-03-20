@@ -1,3 +1,7 @@
+{{- if not .installGui }}
+{{-   abortEmpty }}
+{{- end -}}
+
 [".config/zen/profile/extensions/78272b6fa58f4a1abaac99321d503a20@proton.me.xpi"]
 type = "file"
 url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi"
