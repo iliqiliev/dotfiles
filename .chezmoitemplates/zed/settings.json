@@ -3,14 +3,14 @@
 
   // Fonts.
   "buffer_font_size": 20.0,
-  "buffer_font_family": "Adwaita Mono",
+  "buffer_font_family": "AdwaitaMono Nerd Font Mono",
   "ui_font_size": 20.0,
-  "ui_font_family": "UbuntuMono Nerd Font",
+  "ui_font_family": "UbuntuMono Nerd Font Mono",
 
   // Look & feel.
   "colorize_brackets": true,
   "theme": { "mode": "system", "light": "Adwaita Light", "dark": "Adwaita Dark" },
-  "wrap_guides": [80, 88], // line length indicators
+  "wrap_guides": [80, 88],
 
   // Extensions.
   "auto_install_extensions": {
