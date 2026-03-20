@@ -22,9 +22,8 @@ data
 .chezmoiscripts/linux/**
 {{- end }}
 
-{{- if ne .distro "windows" }}
+{{- if ne .os "windows" }}
 .chezmoiscripts/windows/**
 AppData/**
-Documents/WindowsPowerShell/**
 scoop/**
 {{- end }}
