@@ -7,16 +7,16 @@
   "ui_font_size": 20.0,
   "ui_font_family": "UbuntuMono Nerd Font",
 
-  // Look & Feel.
+  // Look & feel.
   "colorize_brackets": true,
   "theme": { "mode": "system", "light": "Adwaita Light", "dark": "Adwaita Dark" },
   "wrap_guides": [80, 88], // line length indicators
 
   // Extensions.
   "auto_install_extensions": {
-    // Extensions: Default
+    // Extensions: default
     "html": true,
-    // Extensions: Custom
+    // Extensions: custom
     "adwaita": true,
     "basher": true,
     "fish": true,
@@ -28,14 +28,14 @@
     "xml": true,
   },
 
-  // Disable Auto-Updates & Telemetry.
+  // Disable auto-updates & telemetry.
   "auto_update": false,
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
   },
 
-  // Linux <3 Specific!
+  // Linux <3 specific!
   "middle_click_paste": false,
 
   // Detect more files types correctly.
@@ -47,7 +47,7 @@
     "TOML": ["*.toml.tmpl"],
   },
 
-  // Languages & Formatting.
+  // Languages & formatting.
   "languages": {
     "Shell Script": {
       "formatter": {
@@ -70,7 +70,7 @@
 
   // Hide unnecessary files from file dock.
   "file_scan_exclusions": [
-    // Exclusions: Default
+    // Exclusions: default
     "**/.git",
     "**/.svn",
     "**/.hg",
@@ -80,7 +80,7 @@
     "**/Thumbs.db",
     "**/.classpath",
     "**/.settings",
-    // Exclusions: Custom
+    // Exclusions: custom
     "**/.ruff_cache",
     "**/__pycache__",
   ],
