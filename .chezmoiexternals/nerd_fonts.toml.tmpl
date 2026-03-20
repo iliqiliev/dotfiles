@@ -3,6 +3,10 @@
 
 {{- if eq .os "windows" }}
 {{-   $fontsDir = "AppData/Local/Microsoft/Windows/Fonts" }}
+{{- end }}
+
+{{- if not .installGui }}
+{{-   abortEmpty }}
 {{- end -}}
 
 [adwaita_mono]
