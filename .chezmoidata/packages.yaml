@@ -47,13 +47,19 @@ packagesBase:
     "*": null
     scoop: "process-explorer"
   ripgrep: {}
+  sfsu:
+    "*": null
+    scoop: "sfsu"
   shadow:
     "*": null
     apk: "shadow"
   shellcheck: {}
+  shfmt: {}
   starship: {}
   tealdeer:
     apk: null
+  topgrade: {}
+  uv: {}
   wget: {}
   yazi: {}
   zoxide: {}
