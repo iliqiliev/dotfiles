@@ -1,28 +1,44 @@
 {
   "$schema": "zed://schemas/settings",
-  "agent": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5.3-codex",
-      "enable_thinking": false,
-    },
-    "default_profile": "ask",
-  },
+
+  // Fonts.
+  "buffer_font_size": 20.0,
+  "buffer_font_family": "Adwaita Mono",
+  "ui_font_size": 20.0,
+  "ui_font_family": "UbuntuMono Nerd Font",
+
+  // Look & Feel.
+  "colorize_brackets": true,
+  "theme": { "mode": "system", "light": "Adwaita Light", "dark": "Adwaita Dark" },
+  "wrap_guides": [80, 88], // line length indicators
+
+  // Extensions.
   "auto_install_extensions": {
-    // default
+    // Extensions: Default
     "html": true,
-    // custom
+    // Extensions: Custom
     "adwaita": true,
     "basher": true,
     "fish": true,
     "ini": true,
     "lua": true,
     "powershell": true,
+    "tcl": true,
     "toml": true,
     "xml": true,
   },
+
+  // Disable Auto-Updates & Telemetry.
   "auto_update": false,
-  "colorize_brackets": true,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+
+  // Linux <3 Specific!
+  "middle_click_paste": false,
+
+  // Detect more files types correctly.
   "file_types": {
     "Go Text Template": ["*.tmpl"],
     "ini": ["*.reg", "*.ini.tmpl", "**/*flatpak/overrides/*"],
@@ -30,25 +46,8 @@
     "Shell Script": ["*.sh.tmpl"],
     "TOML": ["*.toml.tmpl"],
   },
-  "file_scan_exclusions": [
-    // default
-    "**/.git",
-    "**/.svn",
-    "**/.hg",
-    "**/.jj",
-    "**/CVS",
-    "**/.DS_Store",
-    "**/Thumbs.db",
-    "**/.classpath",
-    "**/.settings",
-    // custom
-    "**/.ruff_cache",
-    "**/__pycache__",
-  ],
-  "git_panel": {
-    "sort_by_path": true,
-    "tree_view": true,
-  },
+
+  // Languages & Formatting.
   "languages": {
     "Shell Script": {
       "formatter": {
@@ -67,19 +66,38 @@
       },
     },
   },
-  "middle_click_paste": false,
   "preferred_line_length": 88,
-  "project_panel": {
-    "hide_root": true,
+
+  // Hide unnecessary files from file dock.
+  "file_scan_exclusions": [
+    // Exclusions: Default
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    // Exclusions: Custom
+    "**/.ruff_cache",
+    "**/__pycache__",
+  ],
+
+  // Version control.
+  "git_panel": {
+    "sort_by_path": true,
+    "tree_view": true,
   },
-  "telemetry": {
-    "diagnostics": false,
-    "metrics": false,
+
+  // Artificial intelligence.
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.3-codex",
+      "enable_thinking": false,
+    },
+    "default_profile": "ask",
   },
-  "theme": {
-    "mode": "system",
-    "light": "Adwaita Light",
-    "dark": "Adwaita Dark",
-  },
-  "wrap_guides": [80, 88],
 }
