@@ -2,7 +2,7 @@
 {{- $fontsDir := ".local/share/fonts"}}
 
 {{- if eq .os "windows" }}
-{{-   $fontsDir = joinPath (env "LOCALAPPDATA") "Microsoft" "Windows" "Fonts" }}
+{{-   $fontsDir = "AppData/Local/Microsoft/Windows/Fonts" }}
 {{- end -}}
 
 [adwaita_mono]
