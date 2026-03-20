@@ -60,7 +60,7 @@ NORMAL = '\033[0m'
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 
-BASH_ENV = "${XDG_CONFIG_HOME:-$HOME/.config}/bash/bash_env"
+BASH_ENV = "$HOME/.config/bash/bash_env"
 
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- if not (has $localBin (splitList .chezmoi.pathListSeparator (env "PATH"))) }}
