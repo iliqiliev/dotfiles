@@ -14,7 +14,7 @@ data
 .chezmoiscripts/linux/arch/**
 {{- end }}
 
-{{- if not (regexMatch "debian|ubuntu|android" .distro) }}
+{{- if not (has .distro (list "debian" "ubuntu" "android")) }}
 .chezmoiscripts/linux/debian/**
 {{- end }}
 
