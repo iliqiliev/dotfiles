@@ -5,7 +5,9 @@ $CHEZ_SUDO apt update -y
 
 # shellcheck disable=1012,2140
 AVAILABLE_PACKAGES=$(
-    comm -12 <(apt-cache pkgnames | sort) <(echo "{{ template "packages" . }}" | sort)
+    comm -12 \
+    <(apt-cache pkgnames | sort) \
+    <(echo "{{ template "packages" . }}" | tr " " "\n")
 )
 
 echo -e "${BLUE}Installing apt packages...${NORMAL}"
