@@ -1,9 +1,4 @@
 {{- $repo := "ryanoasis/nerd-fonts" }}
-{{- $fontsDir := ".local/share/fonts"}}
-
-{{- if eq .os "windows" }}
-{{-   $fontsDir = "AppData/Local/Microsoft/Windows/Fonts" }}
-{{- end }}
 
 {{- if not .installGui }}
 {{-   abortEmpty }}
@@ -15,7 +10,6 @@ url = {{ gitHubLatestReleaseAssetURL $repo "AdwaitaMono.tar.xz" | quote }}
 exact = false
 refreshPeriod = "672h"
 include = ["*.ttf"]
-targetPath = {{ $fontsDir | quote}}
 
 [ubuntu_mono]
 type = "archive"
@@ -23,4 +17,3 @@ url = {{ gitHubLatestReleaseAssetURL $repo "UbuntuMono.tar.xz" | quote }}
 exact = false
 refreshPeriod = "672h"
 include = ["*.ttf"]
-targetPath = {{ $fontsDir | quote}}

@@ -13,7 +13,7 @@
 
 {{- $fish := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
 
-[".local/bin/fish"]
+["fish"]
 type = "archive-file"
 path = "fish"
 executable = true
