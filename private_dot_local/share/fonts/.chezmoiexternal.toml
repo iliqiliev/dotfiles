@@ -1,9 +1,5 @@
 {{- $repo := "ryanoasis/nerd-fonts" }}
 
-{{- if not .installGui }}
-{{-   abortEmpty }}
-{{- end -}}
-
 [AdwaitaMono]
 type = "archive"
 url = {{ gitHubLatestReleaseAssetURL $repo "AdwaitaMono.tar.xz" | quote }}
