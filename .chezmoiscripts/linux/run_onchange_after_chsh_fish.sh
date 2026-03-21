@@ -1,7 +1,7 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
 if ! command -v chsh >/dev/null; then
-    echo -e "${RED}chsh command not found. Cannot change default shell.${NORMAL}"
+    echo -e "${RED}'chsh' command not found. Cannot change default shell.${NORMAL}"
     exit 0
 fi
 
