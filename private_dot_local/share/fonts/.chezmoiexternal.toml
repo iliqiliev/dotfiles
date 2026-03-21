@@ -4,14 +4,14 @@
 {{-   abortEmpty }}
 {{- end -}}
 
-[adwaita_mono]
+[AdwaitaMono]
 type = "archive"
 url = {{ gitHubLatestReleaseAssetURL $repo "AdwaitaMono.tar.xz" | quote }}
 exact = false
 refreshPeriod = "672h"
 include = ["*.ttf"]
 
-[ubuntu_mono]
+[UbuntuMono]
 type = "archive"
 url = {{ gitHubLatestReleaseAssetURL $repo "UbuntuMono.tar.xz" | quote }}
 exact = false
