@@ -9,6 +9,13 @@ if ! command -v gnome-extensions-cli >/dev/null; then
     fi
 
     uv tool install gnome-extensions-cli --with-requirements /dev/stdin <<<"pygobject"
+    echo -e "${GREEN}'gnome-extensions-cli' installed successfully.${NORMAL}"
+fi
+
+if gnome-extensions-cli --dbus &>/dev/null; then
+    gext_args=("--dbus")
+else
+    gext_args=("--filesystem")
 fi
 
 extensions=(
@@ -20,9 +27,9 @@ extensions=(
     "panelScroll@sun.wxg@gmail.com"               # Panel Scroll
 )
 
-gnome-extensions-cli install "${extensions[@]}"
+gnome-extensions-cli "${gext_args[@]}" install "${extensions[@]}"
 
-if ! gnome-extensions-cli --dbus &>/dev/null; then
+if test "${gext_args[0]}" = "--filesystem"; then
     echo -e "${YELLOW}Re-log to apply changes.${NORMAL}"
 fi
 
