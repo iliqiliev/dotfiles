@@ -1,0 +1,7 @@
+echo -e "${BLUE}Syncing apt database...${NORMAL}"
+apt update -y
+echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
+
+echo -e "${BLUE}Upgrading termux packages...${NORMAL}"
+yes | apt full-upgrade
+echo -e "${GREEN}Packages upgraded successfully.${NORMAL}"
