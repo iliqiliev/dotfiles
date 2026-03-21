@@ -2,6 +2,9 @@ $ErrorActionPreference = "Stop"
 
 # packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
 
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
+    + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
