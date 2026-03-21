@@ -100,4 +100,5 @@
     },
     "default_profile": "ask",
   },
+  "edit_predictions": { "mode": "subtle" },
 }
