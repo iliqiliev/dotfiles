@@ -1,0 +1,24 @@
+echo -e "${BLUE}Setting up GNOME extensions...${NORMAL}"
+
+if ! command -v gnome-extensions-cli >/dev/null; then
+    echo -e "${BLUE}'gnome-extensions-cli' is not installed. Installing it...${NORMAL}"
+
+    if ! command -v uv >/dev/null; then
+        echo -e "${RED}'uv' is not installed. Aborting.${NORMAL}"
+        exit 0
+    fi
+
+    uv tool install gnome-extensions-cli
+fi
+
+extensions=(
+    "AlphabeticalAppGrid@stuarthayhurst"          # Alphabetical App Grid
+    "app-hider@lynith.dev"                        # App Hider
+    "disable-menu-switching@selfmade.pl"          # Disable Menu Switching
+    "middleclickclose@paolo.tranquilli.gmail.com" # Quick Close in Overview
+    "panelScroll@sun.wxg@gmail.com"               # Panel Scroll
+)
+
+gnome-extensions-cli install "${extensions[@]}"
+
+echo -e "${GREEN}GNOME extension set up successfully.${NORMAL}"
