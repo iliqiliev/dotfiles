@@ -11,6 +11,7 @@ data
 {{- end }}
 
 {{- if ne .distro "android" }}
+.chezmoiscripts/linux/android/**
 .termux/**
 {{- end }}
 
@@ -18,7 +19,7 @@ data
 .chezmoiscripts/linux/arch/**
 {{- end }}
 
-{{- if not (has .distro (list "debian" "ubuntu" "android")) }}
+{{- if not (has .distro (list "debian" "ubuntu")) }}
 .chezmoiscripts/linux/debian/**
 {{- end }}
 
