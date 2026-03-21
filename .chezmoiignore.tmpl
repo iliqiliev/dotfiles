@@ -27,7 +27,7 @@ data
 .chezmoiscripts/linux/debian/**
 {{- end }}
 
-{{- if ne (env "XDG_CURRENT_DESKTOP") "GNOME" }}
+{{- if not (lookPath "gnome-shell") }}
 .chezmoiscripts/linux/gnome/**
 {{- end }}
 
