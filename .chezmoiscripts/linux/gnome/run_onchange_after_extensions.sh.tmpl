@@ -8,7 +8,7 @@ if ! command -v gnome-extensions-cli >/dev/null; then
         exit 0
     fi
 
-    uv tool install gnome-extensions-cli
+    uv tool install gnome-extensions-cli --with-requirements /dev/stdin <<<"pygobject"
 fi
 
 extensions=(
@@ -22,5 +22,8 @@ extensions=(
 
 gnome-extensions-cli install "${extensions[@]}"
 
-echo -e "${GREEN}GNOME extensions set up successfully."
-echo -e "${YELLOW}Re-log to apply changes.${NORMAL}"
+if ! gnome-extensions-cli --dbus &>/dev/null; then
+    echo -e "${YELLOW}Re-log to apply changes.${NORMAL}"
+fi
+
+echo -e "${GREEN}GNOME extensions set up successfully.${NORMAL}"
