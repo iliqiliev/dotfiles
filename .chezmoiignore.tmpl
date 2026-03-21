@@ -10,6 +10,10 @@ data
 .chezmoiscripts/linux/alpine/**
 {{- end }}
 
+{{- if ne .distro "android" }}
+.termux/**
+{{- end }}
+
 {{- if ne .distro "arch" }}
 .chezmoiscripts/linux/arch/**
 {{- end }}
