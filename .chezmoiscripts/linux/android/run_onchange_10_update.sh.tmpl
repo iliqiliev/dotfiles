@@ -3,5 +3,6 @@ apt update -y
 echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
 
 echo -e "${BLUE}Upgrading termux packages...${NORMAL}"
+set +o pipefail
 yes | apt full-upgrade
 echo -e "${GREEN}Packages upgraded successfully.${NORMAL}"
