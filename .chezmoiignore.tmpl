@@ -6,6 +6,10 @@ README.md
 data
 
 # Distro-specific scripts
+{{- if ne .os "linux" }}
+.chezmoiscripts/linux/**
+{{- end }}
+
 {{- if ne .distro "alpine" }}
 .chezmoiscripts/linux/alpine/**
 {{- end }}
@@ -23,8 +27,8 @@ data
 .chezmoiscripts/linux/debian/**
 {{- end }}
 
-{{- if ne .os "linux" }}
-.chezmoiscripts/linux/**
+{{- if ne (env "XDG_CURRENT_DESKTOP") "GNOME" }}
+.chezmoiscripts/linux/gnome/**
 {{- end }}
 
 {{- if ne .os "windows" }}
