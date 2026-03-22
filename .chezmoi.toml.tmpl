@@ -9,7 +9,10 @@
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- $isKvmGuest := eq (output "systemd-detect-virt" | trim) "kvm" }}
+{{- $isKvmGuest := false }}
+{{- if exec "systemd-detect-virt" "--vm" }}
+{{-   $isKvmGuest = eq (output "systemd-detect-virt" "--vm" | trim) "kvm" }}
+{{- end }}
 
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
