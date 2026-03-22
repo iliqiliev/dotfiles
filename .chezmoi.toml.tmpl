@@ -10,7 +10,7 @@
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
 {{- $isKvmGuest := false }}
-{{- if exec "systemd-detect-virt" "--vm" }}
+{{- if lookPath "systemd-detect-virt" }}
 {{-   $isKvmGuest = eq (output "systemd-detect-virt" "--vm" | trim) "kvm" }}
 {{- end }}
 
