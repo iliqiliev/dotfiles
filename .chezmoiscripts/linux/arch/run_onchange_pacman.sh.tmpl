@@ -4,7 +4,7 @@ if grep --quiet "chaotic-aur" /etc/pacman.conf; then
     echo -e "${GREEN}Chaotic-AUR is already installed.${NORMAL}"
 else
     CHAOTIC_KEY="3056513887B78AEB"
-    CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur/"
+    CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur"
 
     $CHEZ_SUDO pacman-key --init
 
