@@ -1,5 +1,3 @@
-# packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
-
 echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
     echo -e "${GREEN}Chaotic-AUR is already installed.${NORMAL}"
