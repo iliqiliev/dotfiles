@@ -33,5 +33,5 @@ echo -e "${GREEN}System updated successfully.${NORMAL}"
 
 echo -e "${BLUE}Installing pacman packages...${NORMAL}"
 # shellcheck disable=1083
-yay -S --needed --noconfirm {{ template "packages" . }}
+yay -S --needed --noconfirm --assume-installed="vulkan-driver" {{ template "packages" . }}
 echo -e "${GREEN}Packages installed successfully.${NORMAL}"
