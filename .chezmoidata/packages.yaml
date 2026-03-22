@@ -66,3 +66,6 @@ packagesBase:
 packagesGui:
   zed:
     apk: null
+packagesKvmGuest:
+  spice-vdagent:
+    scoop: null

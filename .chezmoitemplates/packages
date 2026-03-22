@@ -1,9 +1,13 @@
+{{- $packageManager := get .packageManagers .distro }}
 {{- $packages := .packagesBase }}
+
 {{- if .installGui }}
-{{-   $packages = merge $packages .packagesBase .packagesGui }}
+{{-   $packages = merge $packages .packagesGui }}
 {{- end }}
 
-{{- $packageManager := get .packageManagers .distro }}
+{{- if .isKvmGuest }}
+{{-   $packages = merge $packages .packagesKvmGuest }}
+{{- end }}
 
 {{- $result := list }}
 {{- range $package, $overrides := $packages }}
