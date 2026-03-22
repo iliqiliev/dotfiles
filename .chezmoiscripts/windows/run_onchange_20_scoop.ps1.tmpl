@@ -1,7 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-# packages.yaml hash: {{ includeTemplate "packages" . | sha256sum }}
-
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
@@ -14,7 +12,7 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 }
 
 Write-Host "Setting up scoop buckets." -ForegroundColor Blue
-scoop install git; if (!$?) { exit 1 }
+scoop install --no-update-scoop git; if (!$?) { exit 1 }
 scoop bucket add extras
 scoop bucket add sysinternals
 scoop bucket add nerd-fonts
