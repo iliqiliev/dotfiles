@@ -1,7 +1,7 @@
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
-{{- $distro := "" }}
 {{- $os := "" }}
+{{- $distro := "" }}
 {{- $sudo := "su root -c" }}
 {{- $isKvmGuest := false }}
 {{- $verticalResolution := 0 }}
@@ -12,13 +12,6 @@
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
 
-{{- if hasKey .chezmoi.osRelease "idLike" }}
-{{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
-{{- else if hasKey .chezmoi.osRelease "id" }}
-{{-   $distro = .chezmoi.osRelease.id }}
-{{- else if hasKey .chezmoi "os" }}
-{{-   $distro = .chezmoi.os }}
-{{- end }}
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- if not $isPersonal }}
@@ -35,6 +28,14 @@
 {{-   $os = "linux" }}
 {{- else if hasKey .chezmoi "os" }}
 {{-   $os = .chezmoi.os }}
+{{- end }}
+
+{{- if hasKey .chezmoi.osRelease "idLike" }}
+{{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
+{{- else if hasKey .chezmoi.osRelease "id" }}
+{{-   $distro = .chezmoi.osRelease.id }}
+{{- else if hasKey .chezmoi "os" }}
+{{-   $distro = .chezmoi.os }}
 {{- end }}
 
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
