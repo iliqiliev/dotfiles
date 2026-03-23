@@ -20,9 +20,7 @@
 {{- end }}
 
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- if lookPath "systemd-detect-virt" }}
-{{-   $isKvmGuest = eq (output "systemd-detect-virt" "--vm" | trim) "kvm" }}
-{{- end }}
+{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "systemd-detect-virt" | trim) }}
 
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{-   $os = "linux" }}
@@ -64,7 +62,7 @@ os = {{ $os | lower | quote }}
 
 isPersonal = {{ $isPersonal }}
 installGui= {{ $installGui }}
-isKvmGuest = {{ $isKvmGuest }}
+isKvmGuest = {{ eq $hypervisor "kvm" }}
 
 name = {{ $name | quote }}
 email = {{ $email | quote }}
