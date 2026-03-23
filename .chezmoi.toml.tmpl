@@ -52,6 +52,13 @@ email = {{ $email | quote }}
 
 {{- if lookPath "delta" }}
 
+[data.fonts]
+{{- if eq $os "windows" }}
+dir = 'AppData\Local\Microsoft\Windows\Fonts'
+{{- else }}
+dir = ".local/share/fonts"
+{{- end }}
+
 [diff]
 pager = "delta"
 

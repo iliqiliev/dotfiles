@@ -1,1 +1,0 @@
-{{- includeTemplate "private_dot_local/share/fonts/.chezmoiexternal.toml" . -}}
