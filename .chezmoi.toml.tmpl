@@ -37,7 +37,7 @@
 {{-   $sudo = "gsudo" }}
 {{- else if lookPath "sudo"}}
 {{-   $sudo = "sudo" }}
-{{- end -}}
+{{- end }}
 
 {{- $fontsDir := ".local/share/fonts" }}
 {{- $verticalResolution := 0 }}
@@ -49,7 +49,7 @@
 {{-   $fontsDir = "AppData\\Local\\Microsoft\\Windows\\Fonts" }}
 {{-   $verticalResolution = output "powershell" "-Command"
         "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
-{{- end }}
+{{- end -}}
 
 [data]
 distro = {{ $distro | lower | quote }}
