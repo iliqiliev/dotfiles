@@ -48,7 +48,7 @@
 {{- if eq $os "linux" }}
 {{-   $fontsDir = $fontsDir }}
 {{-   $verticalResolution = output "bash" "-c"
-        "grep -oP -m 1 \"(?<=,)\\d+\" /sys/class/graphics/*/virtual_size" | trim | atoi }}
+        "grep -oPs -m 1 \"(?<=,)\\d+\" /sys/class/graphics/*/virtual_size || echo 0" | trim | atoi }}
 {{- else if eq $os "windows" }}
 {{-   $fontsDir = "AppData\\Local\\Microsoft\\Windows\\Fonts" }}
 {{-   $verticalResolution = output "powershell" "-Command"
@@ -69,12 +69,12 @@ email = {{ $email | quote }}
 [data.fonts]
 dir = {{ $fontsDir | quote }}
 
-{{- if le $verticalResolution 800 }}
-size = {{ $fontSizeSmall }}
-{{- else if le $verticalResolution 1080 }}
+{{- if gt $verticalResolution 1080 }}
+size = {{ $fontSizeBig }}
+{{- else if or (gt $verticalResolution 800) (eq $verticalResolution 0) }}
 size = {{ $fontSizeMedium }}
 {{- else }}
-size = {{ $fontSizeBig }}
+size = {{ $fontSizeSmall }}
 {{- end }}
 
 {{- if lookPath "delta" }}
