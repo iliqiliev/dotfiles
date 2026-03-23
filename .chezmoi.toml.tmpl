@@ -19,7 +19,7 @@
 {{- end }}
 
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "systemd-detect-virt" | trim) }}
+{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
 
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{-   $os = "linux" }}
