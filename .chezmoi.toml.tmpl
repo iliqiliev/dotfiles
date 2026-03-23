@@ -1,4 +1,17 @@
+{{- $name := "Iliya Iliev" }}
+{{- $email := "iliq0000@proton.me" }}
 {{- $distro := "" }}
+{{- $os := "" }}
+{{- $sudo := "su root -c" }}
+{{- $isKvmGuest := false }}
+{{- $verticalResolution := 0 }}
+{{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
+{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
+{{- $fontsDir := ".local/share/fonts" }}
+{{- $fontSizeSmall := 12 }}
+{{- $fontSizeMedium := 16 }}
+{{- $fontSizeBig := 20 }}
+
 {{- if hasKey .chezmoi.osRelease "idLike" }}
 {{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else if hasKey .chezmoi.osRelease "id" }}
@@ -9,26 +22,21 @@
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- $isKvmGuest := false }}
 {{- if lookPath "systemd-detect-virt" }}
 {{-   $isKvmGuest = eq (output "systemd-detect-virt" "--vm" | trim) "kvm" }}
 {{- end }}
 
-{{- $name := "Iliya Iliev" }}
-{{- $email := "iliq0000@proton.me" }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
 {{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
 
-{{- $os := "" }}
 {{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 {{-   $os = "linux" }}
 {{- else if hasKey .chezmoi "os" }}
 {{-   $os = .chezmoi.os }}
 {{- end }}
 
-{{- $sudo := "su root -c" }}
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
 {{-   $sudo = "" }}
 {{- else if lookPath "doas"}}
@@ -39,8 +47,6 @@
 {{-   $sudo = "sudo" }}
 {{- end }}
 
-{{- $fontsDir := ".local/share/fonts" }}
-{{- $verticalResolution := 0 }}
 {{- if eq $os "linux" }}
 {{-   $fontsDir = $fontsDir }}
 {{-   $verticalResolution = output "bash" "-c"
@@ -64,10 +70,6 @@ email = {{ $email | quote }}
 
 [data.fonts]
 dir = {{ $fontsDir | quote }}
-
-{{- $fontSizeSmall := 12 }}
-{{- $fontSizeMedium := 16 }}
-{{- $fontSizeBig := 20 }}
 
 {{- if le $verticalResolution 800 }}
 size = {{ $fontSizeSmall }}
@@ -96,9 +98,8 @@ CHEZ_SUDO = {{ $sudo | quote }}
 
 BASH_ENV = "$HOME/.config/bash/bash_env"
 
-{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
-{{- if not (has $localBin (splitList .chezmoi.pathListSeparator (env "PATH"))) }}
-PATH = {{ join .chezmoi.pathListSeparator (list $localBin (env "PATH")) | quote }}
+{{- if not (has $localBin $pathList) }}
+PATH = {{ join .chezmoi.pathListSeparator (append $pathList $localBin) | quote }}
 {{ end }}
 
 [interpreters.fish]
