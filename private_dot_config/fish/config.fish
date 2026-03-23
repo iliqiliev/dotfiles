@@ -24,6 +24,7 @@ end
 # Cleaning up the home directory according to the XDG standard
 set --export TMPDIR                $XDG_RUNTIME_DIR
 set --export NUGET_PACKAGES        $XDG_CACHE_HOME/NuGetPackages
+set --export PYTHONPYCACHEPREFIX   $XDG_CACHE_HOME/python
 set --export ANDROID_USER_HOME     $XDG_DATA_HOME/android
 set --export ANDROID_EMULATOR_HOME $XDG_DATA_HOME/android
 set --export ANDROID_SDK_HOME      $XDG_DATA_HOME/android
