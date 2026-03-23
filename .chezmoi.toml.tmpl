@@ -3,14 +3,13 @@
 {{- $os := "" }}
 {{- $distro := "" }}
 {{- $sudo := "su root -c" }}
-{{- $isKvmGuest := false }}
 {{- $verticalResolution := 0 }}
-{{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
-{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- $fontsDir := ".local/share/fonts" }}
 {{- $fontSizeSmall := 12 }}
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
+{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
+{{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
 
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
