@@ -1,4 +1,0 @@
-{{ $isKvmGuest := and (lookPath "echo") (output "echo" "--vm" | trim) }}
-
-
-// {{ $isKvmGuest }}
