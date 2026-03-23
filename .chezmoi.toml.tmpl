@@ -43,8 +43,8 @@
 {{- $verticalResolution := 0 }}
 {{- if eq $os "linux" }}
 {{-   $fontsDir = $fontsDir }}
-{{-   $verticalResolution = output "grep" "-oP" "-m" "1"
-        "(?<=,)\\d+" "/sys/class/graphics/*/virtual_size" | trim | atoi }}
+{{-   $verticalResolution = output "bash" "-c"
+        "grep -oP -m 1 \"(?<=,)\\d+\" /sys/class/graphics/*/virtual_size" | trim | atoi }}
 {{- else if eq $os "windows" }}
 {{-   $fontsDir = "AppData\\Local\\Microsoft\\Windows\\Fonts" }}
 {{-   $verticalResolution = output "powershell" "-Command"
