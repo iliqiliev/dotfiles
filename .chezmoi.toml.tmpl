@@ -39,6 +39,18 @@
 {{-   $sudo = "sudo" }}
 {{- end -}}
 
+{{- $fontsDir := ".local/share/fonts" }}
+{{- $verticalResolution := 0 }}
+{{- if eq $os "linux" }}
+{{-   $fontsDir = $fontsDir }}
+{{-   $verticalResolution = output "grep" "-oP" "-m" "1"
+        "(?<=,)\\d+" "/sys/class/graphics/*/virtual_size" | trim | atoi }}
+{{- else if eq $os "windows" }}
+{{-   $fontsDir = "AppData\\Local\\Microsoft\\Windows\\Fonts" }}
+{{-   $verticalResolution = output "powershell" "-Command"
+        "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
+{{- end }}
+
 [data]
 distro = {{ $distro | lower | quote }}
 os = {{ $os | lower | quote }}
@@ -50,14 +62,22 @@ isKvmGuest = {{ $isKvmGuest }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
 
-{{- if lookPath "delta" }}
-
 [data.fonts]
-{{- if eq $os "windows" }}
-dir = 'AppData\Local\Microsoft\Windows\Fonts'
+dir = {{ $fontsDir | quote }}
+
+{{- $fontSizeSmall := 12 }}
+{{- $fontSizeMedium := 16 }}
+{{- $fontSizeBig := 20 }}
+
+{{- if le $verticalResolution 800 }}
+size = {{ $fontSizeSmall }}
+{{- else if le $verticalResolution 1080 }}
+size = {{ $fontSizeMedium }}
 {{- else }}
-dir = ".local/share/fonts"
+size = {{ $fontSizeBig }}
 {{- end }}
+
+{{- if lookPath "delta" }}
 
 [diff]
 pager = "delta"
