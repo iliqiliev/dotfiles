@@ -96,10 +96,7 @@ CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 
 BASH_ENV = "$HOME/.config/bash/bash_env"
-
-{{- if not (has $localBin $pathList) }}
-PATH = {{ join .chezmoi.pathListSeparator (append $pathList $localBin) | quote }}
-{{ end }}
+PATH = {{ join .chezmoi.pathListSeparator (uniq (append $pathList $localBin)) | quote }}
 
 [interpreters.fish]
 command = "fish"
