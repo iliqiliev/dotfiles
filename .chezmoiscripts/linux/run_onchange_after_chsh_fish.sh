@@ -5,33 +5,29 @@ if ! command -v chsh >/dev/null; then
     exit 0
 fi
 
-if test "$CHEZ_DISTRO" = "android"; then
-    if readlink .termux/shell | grep --quiet "fish"; then
-        echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
-        exit 0
-    fi
-
-    yes fish | chsh >/dev/null
-    echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
-    exit 0
-fi
-
-if grep --quiet "fish$" /etc/passwd; then
-    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
+if ! command -v fish >/dev/null; then
+    echo -e "${RED}Fish shell is not installed. Aborting.${NORMAL}"
     exit 0
 fi
 
 FISH_SHELL=/usr/bin/fish
 
+if {
+    readlink .termux/shell || true
+    cat /etc/passwd
+} | grep --quiet "${FISH_SHELL}$"; then
+    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
+    exit 0
+fi
+
+if test "$CHEZ_DISTRO" = "android"; then
+    yes fish | chsh >/dev/null
+    echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
+    exit 0
+fi
+
 if ! grep --fixed-strings --line-regexp --quiet $FISH_SHELL /etc/shells; then
-    echo -e "${RED}Fish shell is not available as valid login shell.${NORMAL}"
-
-    if command -v fish >/dev/null; then
-        echo -e "${YELLOW}It is installed but not listed in '/etc/shells'.${NORMAL}"
-    else
-        echo -e "${RED}It is not installed.${NORMAL}"
-    fi
-
+    echo -e "${RED}Fish shell is installed but not listed in '/etc/shells'.${NORMAL}"
     exit 0
 fi
 
@@ -41,5 +37,5 @@ if ! fish_version 4 0 0 "$FISH_SHELL"; then
     exit 0
 fi
 
-$CHEZ_SUDO chsh --shell "$FISH_SHELL" >/dev/null
+chsh --shell "$FISH_SHELL" >/dev/null
 echo -e "${GREEN}Shell changed to $FISH_SHELL successfully.${NORMAL}"
