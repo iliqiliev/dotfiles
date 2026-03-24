@@ -57,3 +57,7 @@ end
 
 
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
+
+for file in subconfig/*
+    source $file
+end
