@@ -1,9 +1,9 @@
-{{- $name := "Iliya Iliev" }}
-{{- $email := "iliq0000@proton.me" }}
 {{- $os := "unknown" }}
 {{- $distro := "unknown" }}
 {{- $sudo := "su root -c" }}
 {{- $verticalResolution := 0 }}
+{{- $name := "Iliya Iliev" }}
+{{- $email := "iliq0000@proton.me" }}
 {{- $fontsDir := ".local/share/fonts" }}
 {{- $fontSizeSmall := 12 }}
 {{- $fontSizeMedium := 16 }}
@@ -11,15 +11,6 @@
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
 
-
-{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
-{{- if not $isPersonal }}
-{{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
-{{- end }}
-
-{{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
 
 {{- if or (eq .chezmoi.os "linux" "android") }}
 {{-   $os = "linux" }}
@@ -55,16 +46,23 @@
         "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
 {{- end -}}
 
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
+{{- if not $isPersonal }}
+{{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
+{{- end }}
+
+{{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
+{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
+
 [data]
-distro = {{ $distro | lower | quote }}
 os = {{ $os | lower | quote }}
-
+distro = {{ $distro | lower | quote }}
 isPersonal = {{ $isPersonal }}
-installGui= {{ $installGui }}
-hypervisor = {{ $hypervisor | quote }}
-
 name = {{ $name | quote }}
 email = {{ $email | quote }}
+installGui= {{ $installGui }}
+hypervisor = {{ $hypervisor | quote }}
 
 [data.fonts]
 dir = {{ $fontsDir | quote }}
