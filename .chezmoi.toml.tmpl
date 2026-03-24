@@ -61,7 +61,7 @@ os = {{ $os | lower | quote }}
 
 isPersonal = {{ $isPersonal }}
 installGui= {{ $installGui }}
-isKvmGuest = {{ eq $hypervisor "kvm" }}
+hypervisor = {{ $hypervisor | quote }}
 
 name = {{ $name | quote }}
 email = {{ $email | quote }}

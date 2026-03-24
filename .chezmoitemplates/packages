@@ -5,8 +5,10 @@
 {{-   $packages = merge $packages .packagesGui }}
 {{- end }}
 
-{{- if .isKvmGuest }}
+{{- if eq .hypervisor "kvm" }}
 {{-   $packages = merge $packages .packagesKvmGuest }}
+{{- else if eq .hypervisor "oracle" }}
+{{-   $packages = merge $packages .packagesOracleGuest }}
 {{- end }}
 
 {{- $result := list }}

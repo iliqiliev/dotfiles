@@ -69,3 +69,7 @@ packagesGui:
 packagesKvmGuest:
   spice-vdagent:
     scoop: null
+packagesOracleGuest:
+  virtualbox-guest-utils:
+    apk: "virtualbox-guest-additions-x11" # for Wayland as well
+    scoop: null
