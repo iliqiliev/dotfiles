@@ -8,7 +8,7 @@ end
 
 if command --query eza
     alias ls "eza"
-    alias tree "eza --tree"
+    alias tree "eza -T"
 end
 
 if command --query fdfind

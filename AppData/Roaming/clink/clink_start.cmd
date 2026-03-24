@@ -6,5 +6,5 @@ WHERE /Q eza && (
     DOSKEY ls=eza $*
     DOSKEY ll=eza -l $*
     DOSKEY la=eza -la $*
-    DOSKEY tree=eza --tree $*
+    DOSKEY tree=eza -T $*
 )
