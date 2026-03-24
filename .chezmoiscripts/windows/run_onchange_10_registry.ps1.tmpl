@@ -8,5 +8,5 @@ Write-Host "Registry settings imported successfully." -ForegroundColor Green
 
 Write-Host "Restarting explorer.exe" -ForegroundColor Blue
 taskkill -f -im explorer.exe; if (!$?) { exit 1 }
-start explorer.exe; if (!$?) { exit 1 }
+Start-Process explorer.exe; if (!$?) { exit 1 }
 Write-Host "explorer.exe restarted successfully." -ForegroundColor Green
