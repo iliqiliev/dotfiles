@@ -44,7 +44,7 @@
 {{-   $fontsDir = "AppData\\Local\\Microsoft\\Windows\\Fonts" }}
 {{-   $verticalResolution = output "powershell" "-Command"
         "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
-{{- end -}}
+{{- end }}
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- if not $isPersonal }}
@@ -52,8 +52,9 @@
 {{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
 
+{{- if eq $distro "android" }}{{ $installGui := false }}{{ end }}
 {{- $installGui := promptBoolOnce . "installGui" "Install GUI applications" false }}
-{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
+{{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) -}}
 
 [data]
 os = {{ $os | lower | quote }}
