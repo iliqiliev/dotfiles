@@ -98,6 +98,9 @@ PATH = {{ join .chezmoi.pathListSeparator (uniq (append $pathList $localBin)) | 
 [interpreters.fish]
 command = "fish"
 
+[interpreters.ps1]
+command = "powershell"
+
 [interpreters.sh]
 command = "bash"
 args = ["-eu"]
