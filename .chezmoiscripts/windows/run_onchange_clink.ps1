@@ -1,7 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") `
-    + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+Update-Path
 
 Write-Host "Setting up clink autorun." -ForegroundColor Blue
 clink autorun install; if (!$?) { exit 1 }

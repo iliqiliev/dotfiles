@@ -100,7 +100,7 @@ command = "fish"
 
 [interpreters.ps1]
 command = "powershell"
-args = ['-NoProfile', '-File', 'data\profile_wrapper.ps1']
+args = ['-NoLogo', '-NoProfile', '-File', '{{ .chezmoi.sourceDir }}\data\profile_wrapper.ps1']
 
 [interpreters.sh]
 command = "bash"
