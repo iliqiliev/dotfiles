@@ -2,12 +2,12 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Setting registry settings..." -ForegroundColor Blue
 
-$REG_PATH = "HKCU:\Control Panel\Mouse"
+$REG_PATH = "HKCU:\Control Panel\Mouse" # Disable mouse acceleration.
 Set-ItemProperty $REG_PATH "MouseSpeed"      "0"
 Set-ItemProperty $REG_PATH "MouseThreshold1" "0"
 Set-ItemProperty $REG_PATH "MouseThreshold2" "0"
 
-$REG_PATH = "HKCU:\Environment"
+$REG_PATH = "HKCU:\Environment" # Set environment variables.
 Set-ItemProperty $REG_PATH "XDG_CACHE_HOME"      "%USERPROFILE%\.cache"                      -Type ExpandString
 Set-ItemProperty $REG_PATH "XDG_CONFIG_HOME"     "%USERPROFILE%\.config"                     -Type ExpandString
 Set-ItemProperty $REG_PATH "XDG_STATE_HOME"      "%USERPROFILE%\.local\state"                -Type ExpandString
@@ -29,16 +29,16 @@ Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50
 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" `
                  -Name "{2cc5ca98-6485-489a-920e-b3e88a6ccce3}" `
-                 -Value 1
+                 -Value 1 # Hide the 'Learn about this picture' icon from the desktop.
 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" `
                  -Name "Personal" `
-                 -Value "%APPDATA%" `
+                 -Value "%APPDATA%" ` # Move PowerShell's profile directory.
                  -Type ExpandString
 
 Write-Host "Registry settings imported successfully." -ForegroundColor Green
 
-# Write-Host "Restarting explorer.exe" -ForegroundColor Blue
-# taskkill -f -im explorer.exe; if (!$?) { exit 1 }
-# Start-Process explorer.exe
-# Write-Host "explorer.exe restarted successfully." -ForegroundColor Green
+Write-Host "Restarting explorer.exe" -ForegroundColor Blue
+taskkill -f -im explorer.exe; if (!$?) { exit 1 }
+Start-Process explorer.exe
+Write-Host "explorer.exe restarted successfully." -ForegroundColor Green
