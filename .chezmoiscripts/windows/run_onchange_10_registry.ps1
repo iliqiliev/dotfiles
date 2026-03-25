@@ -33,8 +33,8 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" `
                  -Name "Personal" `
-                 -Value "%APPDATA%" ` # Move PowerShell's profile directory.
-                 -Type ExpandString
+                 -Value "%APPDATA%" `
+                 -Type ExpandString # Move PowerShell's profile directory.
 
 Write-Host "Registry settings imported successfully." -ForegroundColor Green
 
