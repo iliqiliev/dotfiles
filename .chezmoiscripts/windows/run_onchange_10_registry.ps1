@@ -39,6 +39,6 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Write-Host "Registry settings imported successfully." -ForegroundColor Green
 
 Write-Host "Restarting explorer.exe" -ForegroundColor Blue
-taskkill -f -im explorer.exe; if (!$?) { exit 1 }
-Start-Process explorer.exe
+TASKKILL /F /IM "explorer.exe"; if (!$?) { exit 1 }
+Start-Process "explorer.exe"
 Write-Host "explorer.exe restarted successfully." -ForegroundColor Green
