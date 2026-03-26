@@ -2,11 +2,10 @@ echo -e "${BLUE}Syncing apt database...${NORMAL}"
 $CHEZ_SUDO apt update -y
 echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
 
-# shellcheck disable=1012,2140
 AVAILABLE_PACKAGES=$(
     comm -12 \
-    <(apt-cache pkgnames | sort) \
-    <(echo "{{ template "packages" . }}" | tr " " "\n")
+        <(apt-cache pkgnames | sort) \
+        <(echo "$PACKAGES" | tr " " "\n")
 )
 
 echo -e "${BLUE}Installing apt packages...${NORMAL}"
