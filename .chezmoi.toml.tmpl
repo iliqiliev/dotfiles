@@ -53,7 +53,7 @@
 {{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
 
-{{- $packageManager := get $packageManagerFile .distro }}
+{{- $packageManager := get $packageManagerFile $distro }}
 {{- $packages := $packageInfoFile.base }}
 {{- $installGui := and (ne $distro "android") (promptBoolOnce . "installGui" "Install GUI applications" false) }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) -}}
