@@ -88,11 +88,8 @@ GREEN  = '\033[32m'
 YELLOW = '\033[33m'
 BLUE   = '\033[34m'
 NORMAL = '\033[0m'
-
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
-
-BASH_ENV = "$HOME/.config/bash/bash_env"
 PATH = {{ join .chezmoi.pathListSeparator (uniq (append $pathList $localBin)) | quote }}
 
 [interpreters.fish]
