@@ -1,14 +1,14 @@
 {{- $packageManager := get .packageManagers .distro }}
-{{- $packages := .packagesBase }}
+{{- $packages := .packages.base }}
 
 {{- if .installGui }}
-{{-   $packages = merge $packages .packagesGui }}
+{{-   $packages = merge $packages .packages.gui }}
 {{- end }}
 
 {{- if eq .hypervisor "kvm" }}
-{{-   $packages = merge $packages .packagesKvmGuest }}
+{{-   $packages = merge $packages .packages.kvmGuest }}
 {{- else if eq .hypervisor "oracle" }}
-{{-   $packages = merge $packages .packagesOracleGuest }}
+{{-   $packages = merge $packages .packages.oracleGuest }}
 {{- end }}
 
 {{- $result := list }}
