@@ -58,7 +58,7 @@
 {{- $installGui := and (ne $distro "android") (promptBoolOnce . "installGui" "Install GUI applications" false) }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) -}}
 
-{{- if .installGui }}
+{{- if $installGui }}
 {{-   $packages = merge $packages $packageInfoFile.gui }}
 {{- end }}
 {{- if eq $hypervisor "kvm" }}
