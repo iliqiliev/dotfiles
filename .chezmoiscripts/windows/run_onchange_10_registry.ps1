@@ -8,7 +8,7 @@ Set-ItemProperty $REG_PATH "MouseThreshold1" "0"
 Set-ItemProperty $REG_PATH "MouseThreshold2" "0"
 
 $REG_PATH = "HKCU:\Environment" # Set environment variables.
-Set-ItemProperty $REG_PATH "CLINK_PROFILE"       "%APPDATA%\clink" # Clink expands the variable.
+Set-ItemProperty $REG_PATH "CLINK_PROFILE"       "%APPDATA%\clink"                           -Type ExpandString
 Set-ItemProperty $REG_PATH "XDG_CACHE_HOME"      "%USERPROFILE%\.cache"                      -Type ExpandString
 Set-ItemProperty $REG_PATH "XDG_CONFIG_HOME"     "%USERPROFILE%\.config"                     -Type ExpandString
 Set-ItemProperty $REG_PATH "XDG_STATE_HOME"      "%USERPROFILE%\.local\state"                -Type ExpandString
