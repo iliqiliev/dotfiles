@@ -10,7 +10,8 @@
 {{- $fontSizeBig := 20 }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
-
+{{- $packageManagerFile := fromYaml (include (joinPath .chezmoi.sourceDir "data/package_managers.yaml")) }}
+{{- $packageInfoFile := fromYaml (include (joinPath .chezmoi.sourceDir "data/packages.yaml")) }}
 
 {{- if or (eq .chezmoi.os "linux" "android") }}
 {{-   $os = "linux" }}
@@ -52,8 +53,29 @@
 {{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
 {{- end }}
 
+{{- $packageManager := get $packageManagerFile .distro }}
+{{- $packages := $packageInfoFile.base }}
 {{- $installGui := and (ne $distro "android") (promptBoolOnce . "installGui" "Install GUI applications" false) }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) -}}
+
+{{- if .installGui }}
+{{-   $packages = merge $packages $packageInfoFile.gui }}
+{{- end }}
+{{- if eq $hypervisor "kvm" }}
+{{-   $packages = merge $packages $packageInfoFile.kvmGuest }}
+{{- else if eq $hypervisor "oracle" }}
+{{-   $packages = merge $packages $packageInfoFile.oracleGuest }}
+{{- end }}
+
+{{- $currentPackages := list }}
+{{- range $package, $overrides := $packages }}
+{{-   if hasKey $overrides $packageManager }}
+{{-     $package = index $overrides $packageManager }}
+{{-   else if hasKey $overrides "*" }}
+{{-     $package = index $overrides "*" }}
+{{-   end }}
+{{-   $currentPackages = append $currentPackages $package }}
+{{- end }}
 
 [data]
 os = {{ $os | lower | quote }}
@@ -62,7 +84,6 @@ isPersonal = {{ $isPersonal }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
 installGui= {{ $installGui }}
-hypervisor = {{ $hypervisor | quote }}
 
 [data.fonts]
 dir = {{ $fontsDir | quote }}
@@ -90,6 +111,7 @@ BLUE   = '\033[34m'
 NORMAL = '\033[0m'
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
+PACKAGES = {{ join " " (sortAlpha (compact ($currentPackages))) | quote }}
 PATH = {{ join .chezmoi.pathListSeparator (uniq (append $pathList $localBin)) | quote }}
 
 [interpreters.fish]

@@ -1,7 +1,0 @@
-packageManagers:
-  alpine: apk
-  android: apt
-  arch: pacman
-  debian: apt
-  ubuntu: apt
-  windows: scoop
