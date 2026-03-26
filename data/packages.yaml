@@ -22,7 +22,8 @@ base:
     apk: "coreutils"
     scoop: "uutils-coreutils"
     "*": null
-  cowsay: {}
+  cowsay:
+    apk: null
   curl: {}
   ditto:
     "*": null
