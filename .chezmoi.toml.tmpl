@@ -10,8 +10,8 @@
 {{- $fontSizeBig := 20 }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
-{{- $packageManagerFile := fromYaml (include (joinPath .chezmoi.sourceDir "data/package_managers.yaml")) }}
-{{- $packageInfoFile := fromYaml (include (joinPath .chezmoi.sourceDir "data/packages.yaml")) }}
+{{- $packageManagerFile := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml")) }}
+{{- $packageInfoFile := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml")) }}
 
 {{- if or (eq .chezmoi.os "linux" "android") }}
 {{-   $os = "linux" }}
@@ -118,7 +118,7 @@ command = "fish"
 
 [interpreters.ps1]
 command = "powershell"
-args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/data/profile_wrapper.ps1"]
+args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoi/profile_wrapper.ps1"]
 
 [interpreters.sh]
 command = "bash"

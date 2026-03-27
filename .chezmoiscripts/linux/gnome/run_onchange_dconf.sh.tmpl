@@ -1,4 +1,4 @@
-# dconf.ini hash: {{ include "data/dconf.ini" | sha256sum }}
+# dconf.ini hash: {{ include ".chezmoi/dconf.ini" | sha256sum }}
 
 echo -e "${BLUE}Setting Dconf settings...${NORMAL}"
 
@@ -7,5 +7,5 @@ if ! command -v dconf >/dev/null; then
     exit 0
 fi
 
-dconf load / <"$CHEZMOI_SOURCE_DIR"/data/dconf.ini
+dconf load / <"$CHEZMOI_SOURCE_DIR"/.chezmoi/dconf.ini
 echo -e "${GREEN}Dconf configured successfully.${NORMAL}"
