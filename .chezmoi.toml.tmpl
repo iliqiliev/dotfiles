@@ -114,6 +114,9 @@ CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 PACKAGES = {{ join " " (sortAlpha (compact $currentPackages)) | quote }}
 PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) | quote }}
 
+[github]
+refreshPeriod = "24h"
+
 [interpreters.fish]
 command = "fish"
 
