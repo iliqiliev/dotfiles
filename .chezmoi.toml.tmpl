@@ -4,7 +4,6 @@
 {{- $verticalResolution := 0 }}
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
-{{- $fontsDir := ".local/share/fonts" }}
 {{- $fontSizeSmall := 12 }}
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
@@ -38,11 +37,9 @@
 {{- end }}
 
 {{- if eq $os "linux" }}
-{{-   $fontsDir = $fontsDir }}
 {{-   $verticalResolution = output "sh" "-c"
         "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | atoi }}
 {{- else if eq $os "windows" }}
-{{-   $fontsDir = "AppData/Local/Microsoft/Windows/Fonts" }}
 {{-   $verticalResolution = output "powershell" "-Command"
         "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
 {{- end }}
@@ -86,8 +83,6 @@ email = {{ $email | quote }}
 installGui= {{ $installGui }}
 
 [data.fonts]
-dir = {{ $fontsDir | quote }}
-
 {{- if gt $verticalResolution 1080 }}
 size = {{ $fontSizeBig }}
 {{- else if or (gt $verticalResolution 800) (eq $verticalResolution 0) }}

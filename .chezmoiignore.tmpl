@@ -8,6 +8,7 @@ data
 # Distro-specific scripts
 {{- if ne .os "linux" }}
 .chezmoiscripts/linux/**
+.local/share/fonts/**
 {{- end }}
 
 {{- if ne .distro "alpine" }}

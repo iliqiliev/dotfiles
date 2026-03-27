@@ -1,7 +1,7 @@
 {{- $repo := "ryanoasis/nerd-fonts" }}
 
 [AdwaitaMono]
-targetPath = {{ .fonts.dir | quote }}
+targetPath = "fonts"
 type = "archive"
 url = {{ gitHubLatestReleaseAssetURL $repo "AdwaitaMono.tar.xz" | quote }}
 exact = false
@@ -9,7 +9,7 @@ refreshPeriod = "672h"
 include = ["*.ttf"]
 
 [UbuntuMono]
-targetPath = {{ .fonts.dir | quote }}
+targetPath = "fonts"
 type = "archive"
 url = {{ gitHubLatestReleaseAssetURL $repo "UbuntuMono.tar.xz" | quote }}
 exact = false
