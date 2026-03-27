@@ -1,3 +1,11 @@
+echo -e "${BLUE}Setting Dconf settings...${NORMAL}"
+
+if ! command -v dconf >/dev/null; then
+    echo -e "${YELLOW}Dconf not found. Skipping Dconf settings.${NORMAL}"
+    exit 0
+fi
+
+dconf load / <<'EOF'
 [org/gnome/desktop/input-sources]
 per-window=true
 sources=[('xkb', 'us'), ('xkb', 'bg+phonetic')]
@@ -32,3 +40,6 @@ help=['']
 home=['<Super>e']
 mic-mute=['Scroll_Lock']
 volume-step=5
+EOF
+
+echo -e "${GREEN}Dconf configured successfully.${NORMAL}"
