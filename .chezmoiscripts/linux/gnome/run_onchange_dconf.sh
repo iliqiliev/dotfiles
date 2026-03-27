@@ -6,8 +6,11 @@ if ! command -v dconf >/dev/null; then
 fi
 
 # Input sources
+if test "$CHEZ_IS_PERSONAL" = "true"; then
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+fi
+
 dconf write /org/gnome/desktop/input-sources/per-window true
-dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
 
 # Interface
 dconf write /org/gnome/desktop/interface/gtk-enable-primary-paste false
