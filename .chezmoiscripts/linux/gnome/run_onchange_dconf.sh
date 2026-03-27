@@ -5,41 +5,39 @@ if ! command -v dconf >/dev/null; then
     exit 0
 fi
 
-dconf load / <<'EOF'
-[org/gnome/desktop/input-sources]
-per-window=true
-sources=[('xkb', 'us'), ('xkb', 'bg+phonetic')]
+# Input sources
+dconf write /org/gnome/desktop/input-sources/per-window true
+dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
 
-[org/gnome/desktop/interface]
-gtk-enable-primary-paste=false
+# Interface
+dconf write /org/gnome/desktop/interface/gtk-enable-primary-paste false
 
-[org/gnome/desktop/peripherals/mouse]
-accel-profile='flat'
+# Mouse
+dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
 
-[org/gnome/desktop/peripherals/keyboard]
-numlock-state=true
+# Keyboard
+dconf write /org/gnome/desktop/peripherals/keyboard/numlock-state true
 
-[org/gnome/desktop/wm/keybindings]
-screenshot=['Print']
-screenshot-window=['<Super>Print']
-show-desktop=['<Super>d']
-show-screenshot-ui=['<Shift><Super>s']
-switch-input-source=['<Alt>Shift_L']
-switch-input-source-backward=['<Shift>Alt_L']
+# WM keybindings
+dconf write /org/gnome/desktop/wm/keybindings/screenshot "['Print']"
+dconf write /org/gnome/desktop/wm/keybindings/screenshot-window "['<Super>Print']"
+dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
+dconf write /org/gnome/desktop/wm/keybindings/show-screenshot-ui "['<Shift><Super>s']"
+dconf write /org/gnome/desktop/wm/keybindings/switch-input-source "['<Alt>Shift_L']"
+dconf write /org/gnome/desktop/wm/keybindings/switch-input-source-backward "['<Shift>Alt_L']"
 
-[org/gnome/desktop/wm/preferences]
-action-middle-click-titlebar="minimize"
-mouse-button-modifier="<Super>"
-resize-with-right-button=true
+# WM preferences
+dconf write /org/gnome/desktop/wm/preferences/action-middle-click-titlebar "'minimize'"
+dconf write /org/gnome/desktop/wm/preferences/mouse-button-modifier "'<Super>'"
+dconf write /org/gnome/desktop/wm/preferences/resize-with-right-button true
 
-[org/gnome/mutter]
-attach-modal-dialog=false
+# Mutter
+dconf write /org/gnome/mutter/attach-modal-dialog false
 
-[org/gnome/settings-daemon/plugins/media-keys]
-help=['']
-home=['<Super>e']
-mic-mute=['Scroll_Lock']
-volume-step=5
-EOF
+# Media keys
+dconf write /org/gnome/settings-daemon/plugins/media-keys/help "['']"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/home "['<Super>e']"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/mic-mute "['Scroll_Lock']"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 
 echo -e "${GREEN}Dconf configured successfully.${NORMAL}"
