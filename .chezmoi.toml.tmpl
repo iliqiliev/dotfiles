@@ -49,8 +49,8 @@
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- if not $isPersonal }}
-{{-   $email = promptStringOnce . "email" "Email (for git)" "" | quote }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) | quote }}
+{{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) }}
 {{- end }}
 
 {{- $packageManager := get $packageManagerFile $distro }}
