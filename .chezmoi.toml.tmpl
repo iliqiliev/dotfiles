@@ -2,6 +2,7 @@
 {{- $distro := "unknown" }}
 {{- $sudo := "su root -c" }}
 {{- $verticalResolution := 0 }}
+{{- $zenPath := "" }}
 {{- $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
 {{- $fontSizeSmall := 12 }}
@@ -39,9 +40,11 @@
 {{- if eq $os "linux" }}
 {{-   $verticalResolution = output "sh" "-c"
         "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | atoi }}
+{{-   $zenPath = "/opt/zen-browser-bin" }}
 {{- else if eq $os "windows" }}
 {{-   $verticalResolution = output "powershell" "-Command"
         "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
+{{-   $zenPath = joinPath .chezmoi.homeDir "scoop" "apps" "zen-browser" "current" }}
 {{- end }}
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
@@ -81,6 +84,7 @@ isPersonal = {{ $isPersonal }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
 installGui= {{ $installGui }}
+zenPath = {{ $zenPath | quote }}
 
 [data.fonts]
 {{- if gt $verticalResolution 1080 }}

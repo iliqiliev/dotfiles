@@ -1,1 +1,16 @@
-{{- template "zen/profiles.ini" . -}}
+; chezmoi:template:left-delimiter=";{{"
+;{{- $profilePath := joinPath .chezmoi.homeDir ".config" "zen" "profile" -}}
+
+[Profile0]
+Name=;{{ .distro }}-;{{ .chezmoi.hostname }}
+IsRelative=0
+Path=;{{ $profilePath }}
+Default=1
+
+[General]
+StartWithLastProfile=1
+Version=2
+
+[Install;{{ mozillaInstallHash .zenPath }}]
+Default=;{{ $profilePath }}
+Locked=1
