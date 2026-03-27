@@ -18,5 +18,6 @@ scoop bucket add iliya https://github.com/iliqiliev/iliya-bucket
 Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 Write-Host "Installing scoop packages..." -ForegroundColor Blue
-scoop install --no-update-scoop $env:PACKAGES.Split(" ")
+$PACKAGES = $env:PACKAGES -split " "
+scoop install --no-update-scoop @PACKAGES
 Write-Host "Packages installed successfully." -ForegroundColor Green
