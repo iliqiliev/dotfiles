@@ -110,7 +110,7 @@ BLUE   = '\033[34m'
 NORMAL = '\033[0m'
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
-PACKAGES = {{ join " " (sortAlpha (compact ($currentPackages))) | quote }}
+PACKAGES = {{ join " " (sortAlpha (compact $currentPackages)) | quote }}
 PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) | quote }}
 
 [interpreters.fish]
