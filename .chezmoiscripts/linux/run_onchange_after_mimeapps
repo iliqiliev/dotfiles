@@ -2,6 +2,10 @@
 
 set -eu
 
+if test "$CHEZ_MANAGE_GUI" = "false"; then
+    exit 0
+fi
+
 if ! command -v xdg-mime >/dev/null; then
     exit 0
 fi

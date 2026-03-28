@@ -55,10 +55,10 @@
 
 {{- $packageManager := get $packageManagerFile $distro }}
 {{- $packages := $packageInfoFile.base }}
-{{- $installGui := and (ne $distro "android") (promptBoolOnce . "installGui" "Install GUI applications" false) }}
+{{- $manageGui := and (ne $distro "android") (promptBoolOnce . "manageGui" "Manage GUI applications" false) }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
 
-{{- if $installGui }}
+{{- if $manageGui }}
 {{-   $packages = merge $packages $packageInfoFile.gui }}
 {{- end }}
 {{- if eq $hypervisor "kvm" }}
@@ -83,7 +83,7 @@ distro = {{ $distro | lower | quote }}
 isPersonal = {{ $isPersonal }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
-installGui = {{ $installGui }}
+manageGui = {{ $manageGui }}
 zenPath = {{ $zenPath | quote }}
 
 [data.fonts]
@@ -111,6 +111,7 @@ NORMAL = '\033[0m'
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
+CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ join " " (sortAlpha (compact $currentPackages)) | quote }}
 PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) | quote }}
 
