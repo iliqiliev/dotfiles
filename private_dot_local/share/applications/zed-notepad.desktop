@@ -14,4 +14,4 @@ MimeType=text/plain;application/x-zerosize;x-scheme-handler/zed;
 Name=Zed (New Window)
 Comment=A high-performance, multiplayer code editor.
 Keywords=notepad;text;zed;
-Hidden=True
+NoDisplay=true
