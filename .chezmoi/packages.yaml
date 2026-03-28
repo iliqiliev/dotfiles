@@ -59,6 +59,8 @@ base:
   topgrade: {}
   uv: {}
   wget: {}
+  xdg-mime:
+    scoop: null
   yazi: {}
   zoxide: {}
 
