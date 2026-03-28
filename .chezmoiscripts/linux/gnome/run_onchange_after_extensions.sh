@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Setting up GNOME extensions...${NORMAL}"
 
 if ! command -v gnome-extensions-cli >/dev/null; then

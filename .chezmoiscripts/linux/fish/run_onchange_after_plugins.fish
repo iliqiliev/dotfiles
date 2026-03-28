@@ -1,3 +1,5 @@
+#!/usr/bin/env fish
+
 echo -e $BLUE"Installing fisher plugins..."$NORMAL
 
 if not type --query "fisher"

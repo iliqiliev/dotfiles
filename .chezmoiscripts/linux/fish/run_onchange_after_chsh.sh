@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
 if [[ $SHELL =~ fish$ ]] || grep --quiet "${FISH_SHELL}$" /etc/passwd; then

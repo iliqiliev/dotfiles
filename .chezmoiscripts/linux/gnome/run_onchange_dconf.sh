@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Setting Dconf settings...${NORMAL}"
 
 if ! command -v dconf >/dev/null; then

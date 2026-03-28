@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then

@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 if ! test -d /run/systemd/system; then
     exit 0
 fi

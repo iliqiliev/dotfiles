@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Setting up Termux storage...${NORMAL}"
 
 if ! command -v termux-setup-storage >/dev/null; then

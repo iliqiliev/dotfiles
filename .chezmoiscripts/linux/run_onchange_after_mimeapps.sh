@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 if ! command -v xdg-mime >/dev/null; then
     exit 0
 fi

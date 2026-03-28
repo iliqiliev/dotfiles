@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
 echo -e "${BLUE}Syncing apt database...${NORMAL}"
 apt update -y
 echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
