@@ -19,9 +19,7 @@ base:
     scoop: "clink-gizmos"
     "*": null
   coreutils:
-    apk: "coreutils"
     scoop: "uutils-coreutils"
-    "*": null
   cowsay:
     apk: null
   curl: {}
@@ -40,9 +38,6 @@ base:
   git-delta:
     apk: "delta"
     scoop: "delta"
-  gsudo:
-    scoop: "gsudo"
-    "*": null
   neovim: {}
   process-explorer:
     scoop: "process-explorer"
@@ -57,6 +52,8 @@ base:
   shellcheck: {}
   shfmt: {}
   starship: {}
+  sudo:
+    scoop: "gsudo"
   tealdeer:
     apk: null
   topgrade: {}
