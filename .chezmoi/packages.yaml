@@ -59,7 +59,7 @@ base:
   topgrade: {}
   uv: {}
   wget: {}
-  xdg-mime:
+  xdg-utils:
     scoop: null
   yazi: {}
   zoxide: {}
