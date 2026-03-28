@@ -13,14 +13,14 @@ if ! chezmoi="$(command -v chezmoi)"; then
     chezmoi_url="https://get.chezmoi.io/lb"
     chezmoi="${HOME}/.local/bin/chezmoi"
 
-    printf "%b\n" "${BLUE}Installing chezmoi to '${chezmoi}'${NORMAL}"
+    printf "${BLUE}%b\n${NORMAL}" "Installing chezmoi to '${chezmoi}'"
 
     if command -v curl >/dev/null; then
         chezmoi_install_script="$(curl -fsSL $chezmoi_url)"
     elif command -v wget >/dev/null; then
         chezmoi_install_script="$(wget -qO- $chezmoi_url)"
     else
-        printf "%b\n" "${RED}To install chezmoi, you must have curl or wget installed.${NORMAL}" >&2
+        printf "${RED}%b\n${NORMAL}" "To install chezmoi, you must have curl or wget installed." >&2
         exit 1
     fi
 
@@ -30,5 +30,5 @@ fi
 
 set -- init --apply iliqiliev
 
-printf "%b\n" "${GREEN}Running 'chezmoi $*'${NORMAL}" >&2
+printf "%b\n" "${GREEN}Running 'chezmoi $*'${NORMAL}"
 exec "$chezmoi" "$@"
