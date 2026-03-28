@@ -118,6 +118,9 @@ PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) |
 [github]
 refreshPeriod = "24h"
 
+[interpreters.bash]
+command = "bash"
+
 [interpreters.ps1]
 command = "powershell"
 args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoi/profile_wrapper.ps1"]
