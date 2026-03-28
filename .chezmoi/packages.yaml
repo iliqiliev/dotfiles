@@ -2,6 +2,8 @@ base:
   altsnap:
     scoop: "altsnap"
     "*": null
+  bash:
+    scoop: null
   bat: {}
   btop:
     scoop: null
