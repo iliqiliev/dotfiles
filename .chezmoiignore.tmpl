@@ -5,7 +5,7 @@ README.md
 # Distro-specific scripts
 {{- if ne .os "linux" }}
 .chezmoiscripts/linux/**
-.local/share/fonts/**
+.local/share/**
 {{- end }}
 
 {{- if ne .distro "alpine" }}
@@ -33,4 +33,10 @@ README.md
 .chezmoiscripts/windows/**
 AppData/**
 scoop/**
+{{- end }}
+
+# GUI-specific files
+{{- if not .installGui }}
+.config/zed/**
+.config/zen/**
 {{- end }}
