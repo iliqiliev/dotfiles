@@ -1,6 +1,6 @@
 echo -e "${BLUE}Setting up Termux storage...${NORMAL}"
 
-if ! command -v termux-setup-storage; then
+if ! command -v termux-setup-storage >/dev/null; then
     echo -e "${RED}'termux-setup-storage' command not found.${NORMAL}"
     exit 0
 fi
