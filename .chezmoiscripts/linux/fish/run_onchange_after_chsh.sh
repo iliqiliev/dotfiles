@@ -1,7 +1,7 @@
 echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
 
-if ! command -v chsh >/dev/null; then
-    echo -e "${RED}'chsh' command not found. Cannot change default shell.${NORMAL}"
+if [[ $SHELL =~ fish$ ]] || grep --quiet "${FISH_SHELL}$" /etc/passwd; then
+    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
     exit 0
 fi
 
@@ -10,15 +10,12 @@ if ! command -v fish >/dev/null; then
     exit 0
 fi
 
-FISH_SHELL=/usr/bin/fish
-
-if {
-    readlink .termux/shell || true
-    cat /etc/passwd
-} | grep --quiet "${FISH_SHELL}$"; then
-    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
+if ! command -v chsh >/dev/null; then
+    echo -e "${RED}'chsh' command not found. Cannot change default shell.${NORMAL}"
     exit 0
 fi
+
+FISH_SHELL=/usr/bin/fish
 
 if test "$CHEZ_DISTRO" = "android"; then
     yes fish | chsh >/dev/null
