@@ -118,8 +118,11 @@ PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) |
 [github]
 refreshPeriod = "24h"
 
-[interpreters.bash]
-command = "bash"
+{{- if eq $distro "android" }}
+[interpreters]
+""   = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "--"] }
+fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "--"] }
+{{- end }}
 
 [interpreters.ps1]
 command = "powershell"
