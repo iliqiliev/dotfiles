@@ -1,2 +1,2 @@
 [misc]
-disable = ["pip3", "self_update", "winget"]
+disable = ["microsoft_store", "pip3", "powershell", "self_update", "winget"]
