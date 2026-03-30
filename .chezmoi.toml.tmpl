@@ -103,13 +103,13 @@ pager = "delta"
 {{- end }}
 
 [env]
+BASH_ENV = "$CHEZMOI_SOURCE_DIR/.chezmoi/chezmoi.bash"
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ join " " (sortAlpha (compact $currentPackages)) | quote }}
 PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) | quote }}
-BASH_ENV = "{{ .chezmoi.sourceDir }}/.chezmoi/chezmoi.bash"
 
 [github]
 refreshPeriod = "24h"
