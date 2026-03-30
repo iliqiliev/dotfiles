@@ -6,9 +6,14 @@ if test "$CHEZ_MANAGE_GUI" = "false"; then
     exit 0
 fi
 
+print_blue "Setting Zed as the default text editor..."
+
 if ! command -v xdg-mime >/dev/null; then
+    print_yellow "'xdg-mime' not found. Skipping."
     exit 0
 fi
 
 xdg-mime install ~/.local/share/applications/zed-notepad.desktop
 xdg-mime default zed-notepad.desktop text/plain
+
+print_green "Default text editor set to Zed successfully."
