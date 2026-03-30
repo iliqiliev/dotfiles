@@ -1,4 +1,4 @@
-# For PowerShell Desktop
+# For PowerShell Core
 
 Set-PSReadlineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
