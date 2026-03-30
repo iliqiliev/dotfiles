@@ -2,7 +2,7 @@
 
 set -eu
 
-printf "${BLUE}%b\n${NORMAL}" "Installing apk packages..."
+print_blue "Installing apk packages..."
 # shellcheck disable=2086
 $CHEZ_SUDO apk add $PACKAGES
-printf "${GREEN}%b\n${NORMAL}" "Packages installed successfully."
+print_green "Packages installed successfully."

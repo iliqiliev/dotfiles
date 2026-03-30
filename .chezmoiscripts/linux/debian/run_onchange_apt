@@ -2,9 +2,9 @@
 
 set -eu
 
-echo -e "${BLUE}Syncing apt database...${NORMAL}"
+print_blue "Syncing apt database..."
 $CHEZ_SUDO apt update -y
-echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
+print_green "Apt database synced successfully."
 
 AVAILABLE_PACKAGES=$(
     comm -12 \
@@ -12,7 +12,7 @@ AVAILABLE_PACKAGES=$(
         <(echo "$PACKAGES" | tr " " "\n")
 )
 
-echo -e "${BLUE}Installing apt packages...${NORMAL}"
+print_blue "Installing apt packages..."
 # shellcheck disable=2086
 $CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES
-echo -e "${GREEN}Packages installed successfully.${NORMAL}"
+print_green "Packages installed successfully."

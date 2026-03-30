@@ -2,10 +2,10 @@
 
 set -eu
 
-echo -e "${BLUE}Setting Dconf settings...${NORMAL}"
+print_blue "Setting Dconf settings..."
 
 if ! command -v dconf >/dev/null; then
-    echo -e "${YELLOW}Dconf not found. Skipping Dconf settings.${NORMAL}"
+    print_yellow "Dconf not found. Skipping Dconf settings."
     exit 0
 fi
 
@@ -47,4 +47,4 @@ dconf write /org/gnome/settings-daemon/plugins/media-keys/home "['<Super>e']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/mic-mute "['Scroll_Lock']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 
-echo -e "${GREEN}Dconf configured successfully.${NORMAL}"
+print_green "Dconf configured successfully."

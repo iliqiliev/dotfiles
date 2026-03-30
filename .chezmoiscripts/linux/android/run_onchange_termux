@@ -2,13 +2,13 @@
 
 set -eu
 
-echo -e "${BLUE}Setting up Termux storage...${NORMAL}"
+print_blue "Setting up Termux storage..."
 
 if ! command -v termux-setup-storage >/dev/null; then
-    echo -e "${RED}'termux-setup-storage' command not found.${NORMAL}"
+    print_red "'termux-setup-storage' command not found."
     exit 0
 fi
 
 termux-setup-storage
 
-echo -e "${GREEN}Termux storage setup successfully.${NORMAL}"
+print_green "Termux storage setup successfully."

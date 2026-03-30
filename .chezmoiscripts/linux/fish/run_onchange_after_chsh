@@ -4,39 +4,39 @@ set -eu
 
 FISH_SHELL=/usr/bin/fish
 
-echo -e "${BLUE}Changing default shell to fish...${NORMAL}"
+print_blue "Changing default shell to fish..."
 
 if [[ $SHELL =~ fish$ ]] || grep --quiet "${FISH_SHELL}$" /etc/passwd; then
-    echo -e "${GREEN}Fish already default. Will not change it.${NORMAL}"
+    print_green "Fish already default. Will not change it."
     exit 0
 fi
 
 if ! command -v fish >/dev/null; then
-    echo -e "${RED}Fish shell is not installed. Aborting.${NORMAL}"
+    print_red "Fish shell is not installed. Aborting."
     exit 0
 fi
 
 if ! command -v chsh >/dev/null; then
-    echo -e "${RED}'chsh' command not found. Cannot change default shell.${NORMAL}"
+    print_red "'chsh' command not found. Cannot change default shell."
     exit 0
 fi
 
 if test "$CHEZ_DISTRO" = "android"; then
     yes fish | chsh >/dev/null
-    echo -e "${GREEN}Shell changed to fish successfully.${NORMAL}"
+    print_green "Shell changed to fish successfully."
     exit 0
 fi
 
 if ! grep --fixed-strings --line-regexp --quiet $FISH_SHELL /etc/shells; then
-    echo -e "${RED}Fish shell is installed but not listed in '/etc/shells'.${NORMAL}"
+    print_red "Fish shell is installed but not listed in '/etc/shells'."
     exit 0
 fi
 
 if ! fish_version 4 0 0 "$FISH_SHELL"; then
     fish_version="$($FISH_SHELL --version 2>&1)"
-    echo -e "${RED}${fish_version} is older than version 4.0.0, aborting.${NORMAL}"
+    print_red "$fish_version is older than version 4.0.0, aborting."
     exit 0
 fi
 
 chsh --shell "$FISH_SHELL" >/dev/null
-echo -e "${GREEN}Shell changed to $FISH_SHELL successfully.${NORMAL}"
+print_green "Shell changed to $FISH_SHELL successfully."

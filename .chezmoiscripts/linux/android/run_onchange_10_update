@@ -2,10 +2,10 @@
 
 set -eu
 
-echo -e "${BLUE}Syncing apt database...${NORMAL}"
+print_blue "Syncing apt database..."
 apt update -y
-echo -e "${GREEN}Apt database synced successfully.${NORMAL}"
+print_green "Apt database synced successfully."
 
-echo -e "${BLUE}Upgrading termux packages...${NORMAL}"
+print_blue "Upgrading termux packages..."
 yes | apt full-upgrade
-echo -e "${GREEN}Packages upgraded successfully.${NORMAL}"
+print_green "Packages upgraded successfully."

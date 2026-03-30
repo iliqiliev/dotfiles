@@ -6,10 +6,10 @@ if ! test -d /run/systemd/system; then
     exit 0
 fi
 
-echo -e "${BLUE}Setting up Sched_ext...${NORMAL}"
+print_blue "Setting up Sched_ext..."
 
 if systemctl is-active --quiet scx_loader; then
-    echo -e "${GREEN}Sched_ext is already configured.${NORMAL}"
+    print_green "Sched_ext is already configured."
     exit 0
 fi
 
@@ -84,4 +84,4 @@ server_mode = ["-s", "20000"]
 EOF
 
 $CHEZ_SUDO systemctl enable --now scx_loader
-echo -e "${GREEN}Sched_ext installed and enabled successfully.${NORMAL}"
+print_green "Sched_ext installed and enabled successfully."

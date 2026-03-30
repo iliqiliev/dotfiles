@@ -2,10 +2,10 @@
 
 set -eu
 
-echo -e "${BLUE}Installing Chaotic-AUR...${NORMAL}"
+print_blue "Installing Chaotic-AUR..."
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
-    echo -e "${GREEN}Chaotic-AUR is already installed.${NORMAL}"
+    print_green "Chaotic-AUR is already installed."
 else
     CHAOTIC_KEY="3056513887B78AEB"
     CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur"
@@ -24,18 +24,18 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 EOF
 
     $CHEZ_SUDO pacman -Sy --noconfirm
-    echo -e "${GREEN}Chaotic-AUR installed succesfully.${NORMAL}"
+    print_green "Chaotic-AUR installed succesfully."
 fi
 
-echo -e "${BLUE}Installing Yay AUR helper...${NORMAL}"
+print_blue "Installing Yay AUR helper..."
 $CHEZ_SUDO pacman -S --needed --noconfirm yay
-echo -e "${GREEN}Yay installed successfully.${NORMAL}"
+print_green "Yay installed successfully."
 
-echo -e "${BLUE}Updating system to avoid partially updated dependencies...${NORMAL}"
+print_blue "Updating system to avoid partially updated dependencies..."
 yay -Syu --noconfirm
-echo -e "${GREEN}System updated successfully.${NORMAL}"
+print_green "System updated successfully."
 
-echo -e "${BLUE}Installing pacman packages...${NORMAL}"
+print_blue "Installing pacman packages..."
 # shellcheck disable=2086
 yay -S --needed --noconfirm --assume-installed="vulkan-driver" $PACKAGES
-echo -e "${GREEN}Packages installed successfully.${NORMAL}"
+print_green "Packages installed successfully."
