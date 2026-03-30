@@ -28,11 +28,16 @@ EOF
 fi
 
 print_blue "Installing Yay AUR helper..."
-$CHEZ_SUDO pacman -S --needed --noconfirm yay
-print_green "Yay installed successfully."
+
+if command -v yay >/dev/null; then
+    print_green "Yay is already installed."
+else
+    $CHEZ_SUDO pacman -S --needed --noconfirm yay
+    print_green "Yay installed successfully."
+fi
 
 print_blue "Updating system to avoid partially updated dependencies..."
-yay -Syu --noconfirm
+yay -Syu --noconfirm --assume-installed="vulkan-driver"
 print_green "System updated successfully."
 
 print_blue "Installing pacman packages..."
