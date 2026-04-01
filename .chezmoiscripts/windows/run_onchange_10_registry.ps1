@@ -31,9 +31,8 @@ Set-ItemProperty $REG_PATH "HideFileExt"      0  # Show file extensions in explo
 Set-ItemProperty $REG_PATH "TaskbarAl"        0  # Align taskbar to the left.
 Set-ItemProperty $REG_PATH "TaskbarDa"        0  # Hide widgets from the taskbar.
 
-Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" `
-                 -Name "(Default)" `
-                 -Value "Restore the classic context menu in Windows 11."
+# Restore the classic context menu in Windows 11.
+New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" `
                  -Name "{2cc5ca98-6485-489a-920e-b3e88a6ccce3}" `
