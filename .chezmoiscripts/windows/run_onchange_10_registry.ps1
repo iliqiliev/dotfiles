@@ -4,16 +4,12 @@ Write-Host "Setting registry settings..." -ForegroundColor Blue
 
 
 $REG_PATH = "HKCU:\Environment" # Set environment variables.
-
 Set-ItemProperty $REG_PATH CLINK_PROFILE       "%APPDATA%\clink"                           -Type ExpandString
-
 Set-ItemProperty $REG_PATH XDG_CACHE_HOME      "%USERPROFILE%\.cache"                      -Type ExpandString
 Set-ItemProperty $REG_PATH PYTHONPYCACHEPREFIX "%USERPROFILE%\.cache\python"               -Type ExpandString
-
 Set-ItemProperty $REG_PATH XDG_CONFIG_HOME     "%USERPROFILE%\.config"                     -Type ExpandString
 Set-ItemProperty $REG_PATH BAT_CONFIG_PATH     "%USERPROFILE%\.config\bat\config"          -Type ExpandString
 Set-ItemProperty $REG_PATH TEALDEER_CONFIG_DIR "%USERPROFILE%\.config\tealdeer"            -Type ExpandString
-
 Set-ItemProperty $REG_PATH XDG_STATE_HOME      "%USERPROFILE%\.local\state"                -Type ExpandString
 Set-ItemProperty $REG_PATH HISTFILE            "%USERPROFILE%\.local\state\bash\history"   -Type ExpandString
 Set-ItemProperty $REG_PATH PYTHON_HISTORY      "%USERPROFILE%\.local\state\python_history" -Type ExpandString
@@ -24,6 +20,11 @@ Set-ItemProperty $REG_PATH MouseSpeed      "0"
 Set-ItemProperty $REG_PATH MouseThreshold1 "0"
 Set-ItemProperty $REG_PATH MouseThreshold2 "0"
 
+if ($env:CHEZ_IS_PERSONAL -eq "true") {
+    $REG_PATH = "HKCU:\Keyboard Layout\Preload"
+    Set-ItemProperty $REG_PATH 1 "00000409"  # English (US)
+    Set-ItemProperty $REG_PATH 2 "00020402"  # Bulgarian (Phonetic Traditional)
+}
 
 $REG_PATH = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 # Free Super+V shortcut for external clipboard manager.
