@@ -22,7 +22,7 @@ Set-ItemProperty $REG_PATH MouseThreshold2 "0"
 if ($env:CHEZ_IS_PERSONAL -eq "true") {
     $REG_PATH = "HKCU:\Keyboard Layout\Preload"
     Set-ItemProperty $REG_PATH 1 "00000409"  # English (US)
-    Set-ItemProperty $REG_PATH 2 "00020402"  # Bulgarian (Phonetic Traditional)
+    Set-ItemProperty $REG_PATH 2 "00040402"  # Bulgarian (Phonetic Traditional)
 }
 
 $REG_PATH = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
