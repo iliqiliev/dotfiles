@@ -14,7 +14,6 @@ Set-ItemProperty $REG_PATH XDG_STATE_HOME      "%USERPROFILE%\.local\state"     
 Set-ItemProperty $REG_PATH HISTFILE            "%USERPROFILE%\.local\state\bash\history"   -Type ExpandString
 Set-ItemProperty $REG_PATH PYTHON_HISTORY      "%USERPROFILE%\.local\state\python_history" -Type ExpandString
 
-
 $REG_PATH = "HKCU:\Control Panel\Mouse" # Disable mouse acceleration.
 Set-ItemProperty $REG_PATH MouseSpeed      "0"
 Set-ItemProperty $REG_PATH MouseThreshold1 "0"
