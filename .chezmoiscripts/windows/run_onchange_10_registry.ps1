@@ -38,7 +38,7 @@ Set-ItemProperty $REG_PATH "TaskbarAl"        0
 Set-ItemProperty $REG_PATH "TaskbarDa"        0 -ErrorAction SilentlyContinue
 
 
-New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" `
          -Force # Restore the classic context menu in Windows 11.
 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" `
