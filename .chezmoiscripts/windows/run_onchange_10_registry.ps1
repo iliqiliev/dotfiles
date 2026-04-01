@@ -35,7 +35,7 @@ Set-ItemProperty $REG_PATH "HideFileExt"      0
 # Align taskbar to the left.
 Set-ItemProperty $REG_PATH "TaskbarAl"        0
 # Hide widgets from the taskbar.
-Set-ItemProperty $REG_PATH "TaskbarDa"        0 -Error SilentlyContinue
+Set-ItemProperty $REG_PATH "TaskbarDa"        0 -ErrorAction SilentlyContinue
 
 
 New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
