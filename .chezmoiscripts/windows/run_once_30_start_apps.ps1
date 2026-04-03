@@ -1,5 +1,7 @@
 $ErrorActionPreference = "Stop"
 
+Update-Path
+
 $PROGRAMS = @(
     "AltSnap"
     "Ditto"
