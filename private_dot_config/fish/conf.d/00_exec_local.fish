@@ -1,0 +1,20 @@
+# If the system fish shell version is too old and there is a newer version
+# available at ~/.local/bin/fish, exec it to not break the system fish shell
+# with the syntax in the config files made for the newer versions
+
+set FISH_LOCAL ~/.local/bin/fish
+
+if fish_version 4 0 0 (status fish-path)
+    exit # current fish version is good enough
+end
+
+if set --query FISH_EXEC_LOCAL
+    exit # break infinite recursion
+end
+
+if not test -x "$FISH_LOCAL"
+    exit # local fish not found
+end
+
+set --export FISH_EXEC_LOCAL 1
+exec "$FISH_LOCAL"
