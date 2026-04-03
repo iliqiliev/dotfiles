@@ -13,3 +13,7 @@ WHERE /Q eza && (
     DOSKEY la=eza -la $*
     DOSKEY tree=eza -T $*
 )
+
+WHERE /Q fastfetch && (
+    DOSKEY ff=fastfetch $*
+)
