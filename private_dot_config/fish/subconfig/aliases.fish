@@ -1,3 +1,6 @@
+alias ccopy  "fish_clipboard_copy"
+alias cpaste "fish_clipboard_paste"
+
 if command --query adb && set --query XDG_DATA_HOME
     alias adb "HOME=$XDG_DATA_HOME/android command adb"
 end

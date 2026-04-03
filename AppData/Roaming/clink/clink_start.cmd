@@ -1,6 +1,11 @@
 @ECHO OFF
 
-WHERE /Q bat && DOSKEY cat=bat $*
+DOSKEY ccopy=clip $*
+DOSKEY cpaste=powershell -NoProfile -Command "Get-Clipboard"
+
+WHERE /Q bat && (
+    DOSKEY cat=bat $*
+)
 
 WHERE /Q eza && (
     DOSKEY ls=eza $*
