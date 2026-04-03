@@ -1,5 +1,7 @@
 @ECHO OFF
 
+DOSKEY cd=if "$1"=="" (cd /d "%USERPROFILE%") else (cd /d "$*")
+
 DOSKEY ccopy=clip $*
 DOSKEY cpaste=powershell -NoProfile -Command "Get-Clipboard"
 
