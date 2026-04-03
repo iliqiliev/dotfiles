@@ -32,11 +32,5 @@ if ! grep --fixed-strings --line-regexp --quiet $FISH_SHELL /etc/shells; then
     exit 0
 fi
 
-if ! fish_version 4 0 0 "$FISH_SHELL"; then
-    fish_version="$($FISH_SHELL --version 2>&1)"
-    print_red "$fish_version is older than version 4.0.0, aborting."
-    exit 0
-fi
-
 chsh --shell "$FISH_SHELL" >/dev/null
 print_green "Shell changed to $FISH_SHELL successfully."
