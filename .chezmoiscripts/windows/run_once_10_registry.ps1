@@ -37,6 +37,10 @@ Set-ItemProperty $REG_PATH TaskbarAl        0
 # Hide widgets from the taskbar. Key protected by UCPD: https://kolbi.cz/blog/2024/04/03/userchoice-protection-driver-ucpd-sys
 Set-ItemProperty $REG_PATH TaskbarDa        0 -ErrorAction SilentlyContinue
 
+$REG_PATH = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" # Autoruns.
+Set-ItemProperty $REG_PATH AltSnap "`"$env:USERPROFILE\scoop\apps\altsnap\current\AltSnap.exe`""
+Set-ItemProperty $REG_PATH Ditto     "$env:USERPROFILE\scoop\apps\ditto\current\Ditto.exe"
+
 
 New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" `
          -Force > $null # Restore the classic context menu in Windows 11.
