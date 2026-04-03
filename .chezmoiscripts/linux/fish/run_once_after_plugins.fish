@@ -8,7 +8,7 @@ if not type --query "fisher"
 end
 
 # Making fisher adopt itself
-contains -- jorgebucaran/fisher $_fisher_plugins
+contains jorgebucaran/fisher $_fisher_plugins
 or set --universal --append _fisher_plugins jorgebucaran/fisher
 
 fisher update > /dev/null || exit 1

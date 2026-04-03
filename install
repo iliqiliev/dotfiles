@@ -30,5 +30,5 @@ fi
 
 set -- init --apply iliqiliev
 
-printf "%b\n" "${GREEN}Running 'chezmoi $*'${NORMAL}"
+printf "${GREEN}%b\n${NORMAL}" "Running 'chezmoi $*' ..."
 exec "$chezmoi" "$@"
