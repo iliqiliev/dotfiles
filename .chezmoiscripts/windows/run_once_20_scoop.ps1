@@ -1,12 +1,9 @@
 $ErrorActionPreference = "Stop"
 
-Update-Path
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 	Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-
-    Update-Path
 }
 
 Write-Host "Setting up scoop buckets." -ForegroundColor Blue

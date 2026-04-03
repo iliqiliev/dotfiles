@@ -1,5 +1,6 @@
 $ErrorActionPreference = "Stop"
 
+
 Write-Host "Setting registry settings..." -ForegroundColor Blue
 
 

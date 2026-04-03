@@ -1,6 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-Update-Path
 
 Write-Host "Setting up clink autorun." -ForegroundColor Blue
 clink autorun install; if (!$?) { exit 1 }
