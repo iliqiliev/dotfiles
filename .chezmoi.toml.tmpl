@@ -123,3 +123,6 @@ fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "
 [interpreters.ps1]
 command = "powershell"
 args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoi/chezmoi.ps1"]
+
+[update]
+args = ["--init"]
