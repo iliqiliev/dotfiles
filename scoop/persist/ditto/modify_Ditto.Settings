@@ -1,0 +1,5 @@
+{{- /* chezmoi:modify-template */ -}}
+{{ fromIni .chezmoi.stdin
+   | setValueAtPath "Ditto.PlaySoundOnCopy" "C:\\Windows\\Media\\chimes.wav"
+   | setValueAtPath "Ditto.DittoHotKey" "2134"
+   | toIni }}
