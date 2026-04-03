@@ -1,6 +1,6 @@
-# If the system fish shell version is too old and there is a newer version
-# available at ~/.local/bin/fish, exec it to not break the system fish shell
-# with the syntax in the config files made for the newer versions
+# If the system fish shell version is too old and there one available
+# at ~/.local/bin/fish, exec it as to not break the system fish shell
+# with the syntax of the config files made for the newer fish versions
 
 set FISH_LOCAL ~/.local/bin/fish
 
