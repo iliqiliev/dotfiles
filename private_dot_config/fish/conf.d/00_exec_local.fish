@@ -14,9 +14,5 @@ if ~/.local/bin/fish_version 4 0 0 $fish_path
     exit # current fish version is good enough
 end
 
-if not test -x $FISH_LOCAL
-    exit # local fish not found
-end
-
 set --export FISH_EXEC_LOCAL 1
 exec ~/.local/bin/fish; or exit 1
