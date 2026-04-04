@@ -19,4 +19,4 @@ if not test -x $FISH_LOCAL
 end
 
 set --export FISH_EXEC_LOCAL 1
-eval exec $FISH_LOCAL
+exec ~/.local/bin/fish; or exit 1
