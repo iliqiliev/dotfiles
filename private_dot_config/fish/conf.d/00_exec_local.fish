@@ -3,8 +3,10 @@
 # with the syntax of the config files made for the newer fish versions
 
 set FISH_LOCAL ~/.local/bin/fish
+set _fish_pid %self
+set fish_path (readlink /proc/$_fish_pid/exe)
 
-if ~/.local/bin/fish_version 4 0 0 (status fish-path)
+if ~/.local/bin/fish_version 4 0 0 $fish_path
     exit # current fish version is good enough
 end
 
