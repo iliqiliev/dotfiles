@@ -4,7 +4,7 @@
 
 set FISH_LOCAL ~/.local/bin/fish
 
-if fish_version 4 0 0 (status fish-path)
+if ~/.local/bin/fish_version 4 0 0 (status fish-path)
     exit # current fish version is good enough
 end
 
