@@ -6,9 +6,7 @@ if set --query FISH_EXEC_LOCAL
     exit # break infinite recursion
 end
 
-set FISH_LOCAL ~/.local/bin/fish
-set _fish_pid %self
-set fish_path (readlink /proc/$_fish_pid/exe)
+set fish_path (readlink /proc/(echo %self)/exe)
 
 if ~/.local/bin/fish_version 4 0 0 $fish_path
     exit # current fish version is good enough
