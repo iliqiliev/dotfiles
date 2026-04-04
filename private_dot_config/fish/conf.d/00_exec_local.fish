@@ -14,9 +14,9 @@ if set --query FISH_EXEC_LOCAL
     exit # break infinite recursion
 end
 
-if not test -x "$FISH_LOCAL"
+if not test -x $FISH_LOCAL
     exit # local fish not found
 end
 
 set --export FISH_EXEC_LOCAL 1
-exec "$FISH_LOCAL"
+exec $FISH_LOCAL
