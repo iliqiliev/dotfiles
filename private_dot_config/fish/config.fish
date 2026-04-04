@@ -16,7 +16,7 @@ if command --query starship
     starship init fish | source
 end
 
-if command --query zoxide && string length --quiet $__fish_data_dir
+if command --query zoxide; and string length --quiet $__fish_data_dir
     zoxide init fish | source
 end
 
