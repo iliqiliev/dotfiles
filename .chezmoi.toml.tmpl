@@ -11,9 +11,9 @@
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
-{{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
-{{- $packageManagers := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml")) }}
-{{- $packageInfoFile := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml")) }}
+{{- $pathList := splitList .chezmoi.pathListSeparator (env "PATH") }}
+{{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
+{{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
 
 {{- if or (eq .chezmoi.os "linux" "android") }}
 {{-   $os = "linux" }}
@@ -44,8 +44,8 @@
         "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | atoi }}
 {{-   $zenPath = "/opt/zen-browser-bin" }}
 {{- else if eq $os "windows" }}
-{{-   $verticalResolution = output "powershell" "-Command"
-        "(gwmi Win32_VideoController).CurrentVerticalResolution" | trim | atoi }}
+{{-   $verticalResolution = output "powershell" "-NoProfile" "-Command"
+        "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | atoi }}
 {{-   $zenPath = joinPath .chezmoi.homeDir "scoop" "apps" "zen-browser" "current" }}
 {{- end }}
 
