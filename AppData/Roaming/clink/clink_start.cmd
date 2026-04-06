@@ -5,6 +5,8 @@ DOSKEY cd=if "$1"=="" (cd /d "%USERPROFILE%") else (cd /d "$*")
 DOSKEY ccopy=clip $*
 DOSKEY cpaste=powershell -NoProfile -Command "Get-Clipboard"
 
+DOSKEY cz=chezmoi $*
+
 WHERE /Q bat && (
     DOSKEY cat=bat $*
 )
