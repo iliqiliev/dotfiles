@@ -49,7 +49,7 @@
 {{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
 {{- end }}
 
-{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
 {{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
