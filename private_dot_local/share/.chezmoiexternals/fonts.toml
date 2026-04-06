@@ -1,0 +1,21 @@
+[AdwaitaMono]
+targetPath = "fonts"
+type = "archive"
+urls = [
+  "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/AdwaitaMono.tar.xz",
+  "https://sourceforge.net/projects/nerd-fonts.mirror/files/v3.4.0/AdwaitaMono.tar.xz"
+]
+checksum = "39b7598b2ec30111d1ace82b274809e5d0930e241683c1c91f5b4c7e64a975cf"
+exact = false
+include = ["*.ttf"]
+
+[UbuntuMono]
+targetPath = "fonts"
+type = "archive"
+urls = [
+  "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.tar.xz",
+  "https://sourceforge.net/projects/nerd-fonts.mirror/files/v3.4.0/UbuntuMono.tar.xz"
+]
+checksum = "a13cf890ef10517c59e812ced167245f2db47d37d2b03c9fb43ddef023a3e776"
+exact = false
+include = ["*.ttf"]
