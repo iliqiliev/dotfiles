@@ -1,7 +1,4 @@
 base:
-  altsnap:
-    scoop: "altsnap"
-    "*": null
   bash:
     scoop: null
   bat: {}
@@ -25,9 +22,6 @@ base:
   cowsay:
     apk: null
   curl: {}
-  ditto:
-    "*": null
-    scoop: "ditto"
   eza: {}
   fastfetch: {}
   fd:
@@ -41,9 +35,6 @@ base:
     apk: "delta"
     scoop: "delta"
   neovim: {}
-  process-explorer:
-    scoop: "process-explorer"
-    "*": null
   ripgrep: {}
   sfsu:
     scoop: "sfsu"
@@ -67,6 +58,15 @@ base:
   zoxide: {}
 
 gui:
+  altsnap:
+    scoop: "altsnap"
+    "*": null
+  ditto:
+    "*": null
+    scoop: "ditto"
+  process-explorer:
+    scoop: "process-explorer"
+    "*": null
   zed:
     apk: null
 
