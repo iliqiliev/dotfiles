@@ -62,8 +62,8 @@ gui:
     scoop: "altsnap"
     "*": null
   ditto:
-    "*": null
     scoop: "ditto"
+    "*": null
   process-explorer:
     scoop: "process-explorer"
     "*": null
