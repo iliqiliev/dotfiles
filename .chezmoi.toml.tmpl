@@ -11,7 +11,7 @@
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
-{{- $pathList := splitList .chezmoi.pathListSeparator (env "PATH") }}
+{{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
 {{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
 {{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
 
@@ -52,12 +52,12 @@
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" (splitList "@" $email | first) }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" splitList "@" $email | first }}
 {{- end }}
 
 {{- $manageGui := and
       (ne $distro "android")
-      (eq (env "container") "")
+      (env "container" | eq "")
       (promptBoolOnce . "manageGui" "Manage GUI applications" false)
 }}
 
@@ -116,8 +116,8 @@ CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
-PACKAGES = {{ join " " (sortAlpha (compact $currentPackages)) | quote }}
-PATH = {{ join .chezmoi.pathListSeparator (uniq (prepend $pathList $localBin)) | quote }}
+PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
+PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
 
 [github]
 refreshPeriod = "24h"
