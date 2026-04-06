@@ -10,7 +10,7 @@
 {{- $fontSizeSmall := 12 }}
 {{- $fontSizeMedium := 16 }}
 {{- $fontSizeBig := 20 }}
-{{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
+{{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
 {{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
 {{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
 {{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
@@ -46,7 +46,7 @@
 {{- else if eq $os "windows" }}
 {{-   $verticalResolution = output "powershell" "-NoProfile" "-Command"
         "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | atoi }}
-{{-   $zenPath = joinPath .chezmoi.homeDir "scoop" "apps" "zen-browser" "current" }}
+{{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
 {{- end }}
 
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
