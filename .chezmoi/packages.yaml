@@ -5,6 +5,11 @@ base:
   btop:
     scoop: null
   chezmoi: {}
+  chsh:
+    apk: "shadow"
+    apt: "passwd"
+    pacman: "util-linux"
+    scoop: null
   clink:
     scoop: "clink"
     "*": null
@@ -38,9 +43,6 @@ base:
   ripgrep: {}
   sfsu:
     scoop: "sfsu"
-    "*": null
-  shadow:
-    apk: "shadow"
     "*": null
   shellcheck: {}
   shfmt: {}
