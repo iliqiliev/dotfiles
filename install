@@ -28,7 +28,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     unset chezmoi_install_script chezmoi_url
 fi
 
-set -- init --apply iliqiliev
+set -- init --apply iliqiliev --depth 1
 
 printf "${GREEN}%b\n${NORMAL}" "Running 'chezmoi $*' ..."
 exec "$chezmoi" "$@"

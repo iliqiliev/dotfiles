@@ -11,7 +11,7 @@ My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing c
 
 ## With `chezmoi` installed:
 ```console
-chezmoi init --apply iliqiliev
+chezmoi init --apply iliqiliev --depth 1
 ```
 
 ## With any _POSIX_ shell or `fish`:
@@ -27,7 +27,7 @@ chezmoi init --apply iliqiliev
 ## With `PowerShell`:
 ```ps1
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-iex "&{$(irm get.chezmoi.io/ps1)} -b ~/.local/bin init --apply iliqiliev"
+iex "&{$(irm get.chezmoi.io/ps1)} -b ~/.local/bin init --apply iliqiliev --depth 1"
 ```
 
 # Helpful Links:
