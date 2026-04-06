@@ -1,10 +1,10 @@
 base:
   bash:
     scoop: null
-  bat: {}
+  bat:
   btop:
     scoop: null
-  chezmoi: {}
+  chezmoi:
   chsh:
     apk: "shadow"
     apt: "passwd"
@@ -26,38 +26,38 @@ base:
     scoop: "uutils-coreutils"
   cowsay:
     apk: null
-  curl: {}
-  eza: {}
-  fastfetch: {}
+  curl:
+  eza:
+  fastfetch:
   fd:
     apt: "fd-find"
   fish:
     scoop: null
-  fzf: {}
-  grep: {}
-  git: {}
+  fzf:
+  grep:
+  git:
   git-delta:
     apk: "delta"
     scoop: "delta"
-  neovim: {}
-  ripgrep: {}
+  neovim:
+  ripgrep:
   sfsu:
     scoop: "sfsu"
     "*": null
-  shellcheck: {}
-  shfmt: {}
-  starship: {}
+  shellcheck:
+  shfmt:
+  starship:
   sudo:
     scoop: "gsudo"
   tealdeer:
     apk: null
-  topgrade: {}
-  uv: {}
-  wget: {}
+  topgrade:
+  uv:
+  wget:
   xdg-utils:
     scoop: null
-  yazi: {}
-  zoxide: {}
+  yazi:
+  zoxide:
 
 gui:
   altsnap:

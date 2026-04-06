@@ -74,6 +74,7 @@
 
 {{- $currentPackages := list }}
 {{- range $package, $overrides := $packages }}
+{{- $overrides = $overrides | default dict }}
 {{-   if hasKey $overrides $packageManager }}
 {{-     $package = index $overrides $packageManager }}
 {{-   else if hasKey $overrides "*" }}
