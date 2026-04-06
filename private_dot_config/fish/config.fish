@@ -1,12 +1,7 @@
 # conf.d is loaded first
 
-if not status is-interactive
-    exit
-end
-
-if not set --query FISH_LOCAL_UPGRADE; and test -f ~/.local/bin/fish
-    set --export FISH_LOCAL_UPGRADE 1
-    exec ~/.local/bin/fish
+if not set --query FISH_LOCAL_UPGRADE; and not status is-interactive
+    source ~/.config/fish/conf.d/00_exec_local.fish
 end
 
 # Disabling fish greeting
