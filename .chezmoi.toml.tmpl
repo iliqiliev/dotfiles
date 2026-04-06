@@ -12,7 +12,7 @@
 {{- $fontSizeBig := 20 }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local" "bin" }}
 {{- $pathList := (splitList .chezmoi.pathListSeparator (env "PATH")) }}
-{{- $packageManagerFile := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml")) }}
+{{- $packageManagers := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml")) }}
 {{- $packageInfoFile := fromYaml (include (joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml")) }}
 
 {{- if or (eq .chezmoi.os "linux" "android") }}
@@ -61,7 +61,7 @@
       (promptBoolOnce . "manageGui" "Manage GUI applications" false)
 }}
 
-{{- $packageManager := get $packageManagerFile $distro }}
+{{- $packageManager := get $packageManagers $distro }}
 {{- $packages := $packageInfoFile.base }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
 
