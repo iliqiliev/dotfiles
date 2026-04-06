@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 
-if ((Get-CimInstance Win32_ComputerSystem).Manufacturer -notcontains "QEMU") {
+if ("QEMU" -inotin (Get-CimInstance Win32_ComputerSystem).Manufacturer) {
     exit 0
 }
 
