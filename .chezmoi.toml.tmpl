@@ -121,7 +121,7 @@ fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "
 {{- end }}
 
 [interpreters.ps1]
-command = "powershell"
+command = {{ lookPath "pwsh" | default "powershell" | quote }}
 args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoi/chezmoi.ps1"]
 
 [update]
