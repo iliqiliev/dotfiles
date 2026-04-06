@@ -1,6 +1,6 @@
 # conf.d is loaded first
 
-if not set --query FISH_LOCAL_UPGRADE; and not status --is-interactive
+if not set --query FISH_LOCAL_UPGRADE; and status --is-interactive
     source ~/.config/fish/conf.d/00_exec_local.fish
 end
 
