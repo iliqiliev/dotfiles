@@ -52,7 +52,7 @@
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you a Iliya Iliev" false }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" splitList "@" $email | first }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
 {{- end }}
 
 {{- $manageGui := and
