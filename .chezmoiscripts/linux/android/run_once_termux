@@ -21,5 +21,5 @@ find "$TERMUX_SRC" -type f | while IFS= read -r file_src; do
     rel="${file_src#"$TERMUX_SRC"/}"
     file_dst="$TERMUX_DST/$rel"
 
-    cp "$file_src" "$file_dst" --interactive --parents --verbose
+    cp "$file_src" "$file_dst" --interactive --verbose
 done
