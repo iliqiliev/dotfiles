@@ -2,6 +2,10 @@
 
 set -eu
 
+if test "$CHEZ_SUDO" = "false"; then
+    exit 0
+fi
+
 print_blue "Installing apk packages..."
 # shellcheck disable=2086
 $CHEZ_SUDO apk add $PACKAGES

@@ -2,6 +2,10 @@
 
 set -eu
 
+if test "$CHEZ_SUDO" = "false"; then
+    exit 0
+fi
+
 print_blue "Installing Chaotic-AUR..."
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then

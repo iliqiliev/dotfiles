@@ -2,6 +2,10 @@
 
 set -eu
 
+if test "$CHEZ_SUDO" = "false"; then
+    exit 0
+fi
+
 if ! test -d /run/systemd/system; then
     exit 0
 fi
