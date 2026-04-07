@@ -12,3 +12,14 @@ fi
 termux-setup-storage
 
 print_green "Termux storage setup successfully."
+
+print_blue "Copying files to Internal Storage..."
+TERMUX_SRC="$CHEZMOI_SOURCE_DIR/.chezmoi/termux"
+TERMUX_DST="$HOME"
+
+find "$TERMUX_SRC" -type f | while IFS= read -r file_src; do
+    rel="${file_src#"$TERMUX_SRC"/}"
+    file_dst="$TERMUX_DST/$rel"
+
+    cp "$file_src" "$file_dst" --interactive --parents --verbose
+done
