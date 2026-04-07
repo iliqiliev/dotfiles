@@ -7,25 +7,23 @@ end
 # Disabling fish greeting
 set --export fish_greeting
 
-if grep --quiet --no-messages amdgpu /proc/modules
-    set --export RUSTICL_ENABLE radeonsi
-    set --export LIBVA_DRIVER_NAME radeonsi
-end
-
-if command --query nvim
-    set --export EDITOR nvim
-end
-
-if command --query starship
-    starship init fish | source
-end
-
-if command --query zoxide; and string length --quiet $__fish_data_dir
-    zoxide init fish | source
-end
-
-
+# Add directories to PATH
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
+
+command --query nvim
+and set --export EDITOR nvim
+
+# Source configs for interactive sessions
+if status is-interactive
+
+    command --query starship
+    and starship init fish | source
+
+    command --query zoxide
+    and string length --quiet $__fish_data_dir
+    and zoxide init fish | source
+
+end
 
 # subconfig is loaded last
 for file in $__fish_config_dir/subconfig/*.fish
