@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
+# shellcheck disable=2016
+
+set -eu
 
 if test $# -ne 3 && test $# -ne 4; then
     echo "Usage: fish_version MAJOR MINOR PATCH [PATH]" >&2
     exit 2
 fi
 
-fish=${4:-$(command -v fish)}
+fish=$(command -v fish)
 if test -z "$fish"; then
     echo "Error: fish shell is not installed." >&2
     exit 127
 fi
 
-IFS=. read -r -a version_array <<<"$($fish --version 2>&1 | awk '{print $NF}')"
+IFS="." read -r -a version_array <<<"$($fish -c 'echo $FISH_VERSION')"
+
 if test ${#version_array[@]} -ne 3; then
     exit 1
 fi
