@@ -2,6 +2,10 @@ if not test -x /home/linuxbrew/.linuxbrew/bin/brew
     exit
 end
 
-eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)
+set HOMEBREW_PREFIX /home/linuxbrew/.linuxbrew
+
+$HOMEBREW_PREFIX/bin/brew shellenv fish | source
+source $HOMEBREW_PREFIX/Homebrew/Library/Homebrew/command-not-found/handler.fish
+
 set --export --append --path fish_complete_path \
-    /home/linuxbrew/.linuxbrew/share/fish/vendor_completions.d/
+    $HOMEBREW_PREFIX/share/fish/vendor_completions.d
