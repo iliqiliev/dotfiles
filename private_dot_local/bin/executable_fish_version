@@ -10,7 +10,7 @@ fi
 
 fish=${4:-$(command -v fish)}
 
-if test -z "$fish"; then
+if test -x "$fish"; then
     echo "Error: fish shell is not installed." >&2
     exit 127
 fi
