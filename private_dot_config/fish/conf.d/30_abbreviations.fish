@@ -1,4 +1,3 @@
-abbr config_fish "$EDITOR $HOME/.config/fish/config.fish"
 abbr cz "chezmoi"
 abbr ff "fastfetch"
 abbr fp "flatpak"

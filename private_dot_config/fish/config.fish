@@ -18,8 +18,3 @@ if status is-interactive
     command --query starship; and starship init fish | source
     command --query zoxide; and zoxide init fish | source
 end
-
-# subconfig is loaded last
-for file in $__fish_config_dir/subconfig/*.fish
-    source $file
-end
