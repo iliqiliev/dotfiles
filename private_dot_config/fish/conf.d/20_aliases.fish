@@ -19,5 +19,5 @@ if command --query fdfind
 end
 
 if command --query wget
-    alias wget "wget --hsts-file='$XDG_STATE_HOME/wget-hsts'"
+    alias wget 'wget --hsts-file="$XDG_STATE_HOME/wget-hsts"'
 end
