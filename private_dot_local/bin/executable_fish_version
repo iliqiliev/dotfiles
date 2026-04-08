@@ -16,7 +16,7 @@ if ! test -x "$fish_path"; then
     exit 127
 fi
 
-IFS="." read -r -a version_array <<<"$($fish_path -c 'echo $FISH_VERSION')"
+IFS="." read -r -a version_array <<<"$($fish_path --version 2>&1 | awk '{print $NF}')"
 
 if test ${#version_array[@]} -ne 3; then
     exit 1
