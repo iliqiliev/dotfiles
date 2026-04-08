@@ -8,6 +8,10 @@ end
 
 set --export FISH_LOCAL_UPGRADE 1
 
+if not status --is-interactive
+    exit
+end
+
 set fish_path (readlink /proc/(echo %self)/exe)
 
 if ~/.local/bin/fish_version 4 0 0 $fish_path
