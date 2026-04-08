@@ -11,7 +11,7 @@ fi
 major=$1 minor=$2 patch=$3
 fish_path=${4:-$(command -v fish)}
 
-if test -x "$fish_path"; then
+if ! test -x "$fish_path"; then
     echo "Error: fish shell is not installed." >&2
     exit 127
 fi
