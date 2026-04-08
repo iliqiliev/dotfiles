@@ -8,7 +8,8 @@ if test $# -ne 3 && test $# -ne 4; then
     exit 2
 fi
 
-fish=$(command -v fish)
+fish=${4:-$(command -v fish)}
+
 if test -z "$fish"; then
     echo "Error: fish shell is not installed." >&2
     exit 127
