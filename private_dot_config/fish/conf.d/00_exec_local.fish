@@ -14,7 +14,6 @@ if ~/.local/bin/fish_version 4 0 0 $fish_path
     exit # current fish version is good enough
 end
 
-set args (cat /proc/(echo %self)/cmdline | string split0)
-set args[1] ~/.local/bin/fish
+set args (cat /proc/(echo %self)/cmdline | tr "\0" "\n")
 
-exec $args
+exec ~/.local/bin/fish $args[2..-1]
