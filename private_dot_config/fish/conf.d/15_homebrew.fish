@@ -1,3 +1,3 @@
-if test -d /home/linuxbrew/.linuxbrew
+if test -x /home/linuxbrew/.linuxbrew/bin/brew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)
 end
