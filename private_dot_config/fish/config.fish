@@ -10,19 +10,13 @@ set --export fish_greeting
 # Add directories to PATH
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
 
-command --query nvim
-and set --export EDITOR nvim
+# Set neovim as EDITOR if available
+command --query nvim; and set --export EDITOR nvim
 
 # Source configs for interactive sessions
 if status is-interactive
-
-    command --query starship
-    and starship init fish | source
-
-    command --query zoxide
-    and string length --quiet $__fish_data_dir
-    and zoxide init fish | source
-
+    command --query starship; and starship init fish | source
+    command --query zoxide; and zoxide init fish | source
 end
 
 # subconfig is loaded last
