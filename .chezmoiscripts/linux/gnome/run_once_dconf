@@ -47,4 +47,7 @@ dconf write /org/gnome/settings-daemon/plugins/media-keys/home "['<Super>e']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/mic-mute "['Scroll_Lock']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 
+# Shell
+dconf write /org/gnome/shell/disable-extension-version-validation true
+
 print_green "Dconf configured successfully."
