@@ -1,11 +1,11 @@
 # conf.d is loaded first
 
-# Upgrade fish version if < 2.3 (doesn't load conf.d)
+# Upgrade fish version < 2.3 (does not load conf.d)
 if not set --query FISH_LOCAL_UPGRADE
     source ~/.config/fish/conf.d/00_exec_local.fish
 end
 
-# Disabling fish greeting
+# Disabling fish_greeting
 set --export fish_greeting
 
 # Add directories to PATH
