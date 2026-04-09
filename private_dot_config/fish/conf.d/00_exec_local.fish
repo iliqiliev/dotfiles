@@ -9,7 +9,8 @@ end
 set --export FISH_LOCAL_UPGRADE 1
 set __FISH_BREAK_RECURSION 1
 
-if status build-info &>/dev/null # build-info is available, fish version is >= 4.0.0
+# if build-info is available, the fish version is >= 4.0.0
+if status build-info 1>/dev/null 2>/dev/null
     exit
 end
 
