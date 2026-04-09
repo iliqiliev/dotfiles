@@ -8,13 +8,11 @@ end
 
 set --export FISH_LOCAL_UPGRADE 1
 set __FISH_BREAK_RECURSION 1
-set __fish_pid %self
-set fish_path (readlink /proc/$__fish_pid/exe)
 
-if ~/.local/bin/fish_version 4 0 0 $fish_path
-    exit # current fish version is good enough
+if status build-info &>/dev/null # build-info is available, fish version is >= 4.0.0
+    exit
 end
 
-set args (cat /proc/$__fish_pid/cmdline | tr "\0" "\n" | tail -n +2)
+set args (cat /proc/(echo %self)/cmdline | tr "\0" "\n" | tail -n +2)
 
 exec ~/.local/bin/fish $args

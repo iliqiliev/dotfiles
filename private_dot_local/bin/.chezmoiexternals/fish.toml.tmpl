@@ -1,13 +1,5 @@
-{{-
-  $fishVersion := joinPath
-    .chezmoi.sourceDir "private_dot_local/bin/executable_fish_version"
-}}
-{{-
-  if or
-    (ne .os "linux")
-    (not (lookPath "bash"))
-    (exec "bash" $fishVersion "4" "0" "0")
-}}
+# Do not install if not Linux or "status build-info" fails (added in fish v4.0.0)
+{{- if or (ne .os "linux") (exec "sh" "-c" "fish -c 'status build-info'") }}
 {{-   abortEmpty }}
 {{- end }}
 
