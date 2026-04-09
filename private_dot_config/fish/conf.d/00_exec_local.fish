@@ -9,8 +9,8 @@ end
 set --export FISH_LOCAL_UPGRADE 1
 set __FISH_BREAK_RECURSION 1
 
-# if build-info is available, the fish version is >= 4.0.0
-if status build-info 1>/dev/null 2>/dev/null
+# if fish version is >= 4.0.0
+if test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4
     exit
 end
 

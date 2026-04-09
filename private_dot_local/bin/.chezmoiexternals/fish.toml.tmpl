@@ -1,5 +1,5 @@
-{{- /* Do not install if not Linux or "status build-info" fails (added in fish v4.0.0) */}}
-{{- if or (ne .os "linux") (exec "sh" "-c" "fish -c 'status build-info'") }}
+{{- if or (ne .os "linux") (exec "sh" "-c"
+         "fish -c \"test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4\"") }}
 {{-   abortEmpty }}
 {{- end }}
 
