@@ -16,16 +16,18 @@ if ! chezmoi="$(command -v chezmoi)"; then
     printf "${BLUE}%b\n${NORMAL}" "Installing chezmoi to '${chezmoi}'"
 
     if command -v curl >/dev/null; then
-        chezmoi_install_script="$(curl -fsSL $chezmoi_url)"
+        chezmoi_script="$(curl -fsSL $chezmoi_url)"
     elif command -v wget >/dev/null; then
-        chezmoi_install_script="$(wget -qO- $chezmoi_url)"
+        chezmoi_script="$(wget -qO- $chezmoi_url)"
+    elif command -v openssl >/dev/null; then
+        chezmoi_script="$(printf 'GET /lb HTTP/1.0\nHost: get.chezmoi.io\n\n' | openssl s_client -quiet get.chezmoi.io:443 2>/dev/null)"
     else
         printf "${RED}%b\n${NORMAL}" "To install chezmoi, you must have curl or wget installed." >&2
         exit 1
     fi
 
-    sh -c "${chezmoi_install_script}"
-    unset chezmoi_install_script chezmoi_url
+    sh -c "${chezmoi_script}"
+    unset chezmoi_script chezmoi_url
 fi
 
 set -- init --apply iliqiliev --depth 1
