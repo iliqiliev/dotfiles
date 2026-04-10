@@ -134,5 +134,9 @@ fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "
 command = "powershell"
 args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoi/chezmoi.ps1"]
 
+[interpreters.py]
+command = "uv"
+args = ["run", "--script"]
+
 [update]
 args = ["--init"]
