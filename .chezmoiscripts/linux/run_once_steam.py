@@ -12,6 +12,13 @@ CS2 = "730"
 KCD2 = "1771300"
 
 
+class DefaultDict(dict[str, "str | DefaultDict"]):
+    def __missing__(self, key: str):
+        empty_dict = DefaultDict()
+        self[key] = empty_dict
+        return empty_dict
+
+
 localconfigs: set[Path] = set()
 
 for steam_root in (
@@ -22,10 +29,10 @@ for steam_root in (
 
 for path in localconfigs:
     with open(path) as localconfig:
-        parsed_vdf = parse(localconfig)
+        parsed_vdf = parse(localconfig, mapper=DefaultDict)
 
     id3 = path.parent.parent.name
-    system = parsed_vdf["UserLocalConfigStore"]["system"]
+    system = parsed_vdf["UserLocalConfigStore"]["System"]
     apps = parsed_vdf["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["apps"]
 
     system["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
