@@ -1,2 +1,6 @@
+[commands]
+"Chezmoi" = "chezmoi update --init"
+
 [misc]
-disable = ["microsoft_store", "pip3", "powershell", "self_update", "winget"]
+first = ["custom_commands"]
+disable = ["chezmoi", "microsoft_store", "pip3", "powershell", "self_update", "winget"]
