@@ -26,7 +26,7 @@ chezmoi init --apply iliqiliev --depth 1
 
 ## With `PowerShell`:
 ```ps1
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+Set-ExecutionPolicy Bypass -s Process; `
 iex "&{$(irm get.chezmoi.io/ps1)} -b ~/.local/bin init --apply iliqiliev --depth 1"
 ```
 
