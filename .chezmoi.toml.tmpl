@@ -50,7 +50,7 @@
 {{-   $sudo = "" }}
 {{- else if promptBoolOnce . "useSudo" "Use sudo" false }}
 {{-   if lookPath "doas" }}
-{{-		$sudo = "doas" }}
+{{-     $sudo = "doas" }}
 {{-   else if lookPath "gsudo" }}
 {{-     $sudo = "gsudo" }}
 {{-   else if lookPath "sudo" }}

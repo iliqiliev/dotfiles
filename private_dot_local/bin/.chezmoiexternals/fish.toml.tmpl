@@ -1,7 +1,7 @@
 {{- if or
-	(ne .os "linux")
-	(not (lookPath "fish"))
-	(exec "fish" "-c" "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4")
+    (ne .os "linux")
+    (not (lookPath "fish"))
+    (exec "fish" "-c" "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4")
 }}
 {{-   abortEmpty }}
 {{- end }}

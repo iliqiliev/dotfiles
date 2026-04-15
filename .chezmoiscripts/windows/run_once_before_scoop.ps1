@@ -9,7 +9,7 @@ $BUCKETS = @(
 )
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
-	Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
+    Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
