@@ -40,6 +40,9 @@ base:
     apk: "delta"
     scoop: "delta"
   neovim:
+  pwsh:
+    scoop: "pwsh"
+    "*": null
   ripgrep:
   sfsu:
     scoop: "sfsu"
@@ -68,6 +71,9 @@ gui:
     "*": null
   process-explorer:
     scoop: "process-explorer"
+    "*": null
+  windows-terminal:
+    scoop: "windows-terminal"
     "*": null
   zed:
     apk: null
