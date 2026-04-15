@@ -1,11 +1,6 @@
 alias ccopy  "fish_clipboard_copy"
 alias cpaste "fish_clipboard_paste"
 
-if command --query adb
-    mkdir --parents $XDG_DATA_HOME/android
-    alias adb "HOME=$XDG_DATA_HOME/android command adb"
-end
-
 if command --query bat
     alias cat "bat"
 end
@@ -17,8 +12,4 @@ end
 
 if command --query fdfind
     alias fd "fdfind"
-end
-
-if command --query wget
-    alias wget 'wget --hsts-file="$XDG_STATE_HOME/wget-hsts"'
 end
