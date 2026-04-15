@@ -8,6 +8,7 @@ $REG_PATH = "HKCU:\Environment" # Set environment variables.
 Set-ItemProperty $REG_PATH CLINK_PROFILE       "%APPDATA%\clink"                           -Type ExpandString
 Set-ItemProperty $REG_PATH XDG_CACHE_HOME      "%USERPROFILE%\.cache"                      -Type ExpandString
 Set-ItemProperty $REG_PATH PYTHONPYCACHEPREFIX "%USERPROFILE%\.cache\python"               -Type ExpandString
+Set-ItemProperty $REG_PATH RUFF_CACHE_DIR      "%USERPROFILE%\.cache\ruff"                 -Type ExpandString
 Set-ItemProperty $REG_PATH XDG_CONFIG_HOME     "%USERPROFILE%\.config"                     -Type ExpandString
 Set-ItemProperty $REG_PATH BAT_CONFIG_PATH     "%USERPROFILE%\.config\bat\config"          -Type ExpandString
 Set-ItemProperty $REG_PATH TEALDEER_CONFIG_DIR "%USERPROFILE%\.config\tealdeer"            -Type ExpandString
