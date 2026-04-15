@@ -47,6 +47,7 @@ Set-ItemProperty $REG_PATH Ditto     "$env:USERPROFILE\scoop\apps\ditto\current\
 New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' `
          -Force > $null # Restore the classic context menu in Windows 11.
 
+New-Item         -Path 'HKCU:\Software\Microsoft\Command Processor' -Force > $null
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Command Processor' `
                  -Name 'AutoRun' `
                  -Value '%USERPROFILE%\scoop\apps\clink\current\clink.bat inject --autorun'
