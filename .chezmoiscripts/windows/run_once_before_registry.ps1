@@ -68,7 +68,7 @@ Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' 
 
 Write-Host 'Registry settings imported successfully.' -ForegroundColor Green
 
-Write-Host 'Restarting explorer.exe' -ForegroundColor Blue
+Write-Host "Restarting 'explorer.exe'" -ForegroundColor Blue
 Stop-Process -Name 'explorer'
 Start-Process 'explorer' -ArgumentList '/factory,{682159d9-c321-47ca-b3f1-30e36b2ec8b9}'
-Write-Host 'explorer.exe restarted successfully.' -ForegroundColor Green
+Write-Host "'explorer.exe' restarted successfully." -ForegroundColor Green
