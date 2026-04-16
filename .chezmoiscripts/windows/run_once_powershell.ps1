@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 
-if (Get-ExecutionPolicy CurrentUser -eq "RemoteSigned") {
+if ((Get-ExecutionPolicy CurrentUser) -eq "RemoteSigned") {
     exit 0
 }
 
