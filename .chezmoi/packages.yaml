@@ -39,6 +39,7 @@ base:
   git-delta:
     apk: "delta"
     scoop: "delta"
+  jq:
   neovim:
   pwsh:
     scoop: "pwsh"

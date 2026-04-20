@@ -2,6 +2,22 @@
 
 set -eu
 
+function dconf_append {
+    key="$1" && new="$2"
+    current=$(dconf read "$key")
+    current=$(echo "${current:-"[]"}" | tr "'" '"')
+
+    if ! command -v jq; then
+        print_red "'jq' is not installed, cannot append '$new' to '$key'"
+        return
+    fi
+
+    updated=$(jq --null-input --argjson current "$current" --arg new "$new" \
+        '$current + [$new] | unique')
+
+    dconf write "$key" "$updated"
+}
+
 print_blue "Setting Dconf settings..."
 
 # Input sources
@@ -42,6 +58,12 @@ dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 
 # Shell extensions
 dconf write /org/gnome/shell/disable-extension-version-validation true
+## App Hider
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "avahi-discover.desktop"
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "bssh.desktop"
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "bvnc.desktop"
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "qv4l2.desktop"
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "qvidcap.desktop"
 ## Copyous
 dconf write /org/gnome/shell/keybindings/toggle-message-tray "[]"
 dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
