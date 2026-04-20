@@ -26,6 +26,7 @@ extensions=(
     "AlphabeticalAppGrid@stuarthayhurst"          # Alphabetical App Grid
     "app-hider@lynith.dev"                        # App Hider
     "appindicatorsupport@rgcjonas.gmail.com"      # AppIndicator and KStatusNotifierItem Support
+    "copyous@boerdereinar.dev"                    # Copyous
     "disable-menu-switching@selfmade.pl"          # Disable Menu Switching
     "middleclickclose@paolo.tranquilli.gmail.com" # Quick Close in Overview
     "panelScroll@sun.wxg@gmail.com"               # Panel Scroll
