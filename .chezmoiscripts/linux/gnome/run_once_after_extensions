@@ -12,7 +12,9 @@ if ! command -v gnome-extensions-cli >/dev/null; then
         exit 0
     fi
 
-    uv tool install gnome-extensions-cli --with-requirements /dev/stdin <<<"pygobject"
+    uv tool install gnome-extensions-cli --with "pygobject" ||
+        uv tool install gnome-extensions-cli
+
     print_green "'gnome-extensions-cli' installed successfully."
 fi
 
