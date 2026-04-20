@@ -7,7 +7,7 @@ function dconf_append {
     current=$(dconf read "$key")
     current=$(echo "${current:-"[]"}" | tr "'" '"')
 
-    if ! command -v jq; then
+    if ! command -v jq >/dev/null; then
         print_red "'jq' is not installed, cannot append '$new' to '$key'"
         return
     fi
@@ -15,7 +15,7 @@ function dconf_append {
     updated=$(jq --null-input --argjson current "$current" --arg new "$new" \
         '$current + [$new] | unique')
 
-    dconf write "$key" "$updated"
+    dconf write "$key" "$(echo "$updated" | tr '"' "'")"
 }
 
 print_blue "Setting Dconf settings..."
