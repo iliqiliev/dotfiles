@@ -51,7 +51,7 @@ dconf write /org/gnome/desktop/wm/preferences/resize-with-right-button true
 dconf write /org/gnome/mutter/attach-modal-dialog false
 
 # Media keys
-dconf write /org/gnome/settings-daemon/plugins/media-keys/help "[]"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/help "['']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/home "['<Super>e']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/mic-mute "['Scroll_Lock']"
 dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
@@ -65,7 +65,7 @@ dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "bvnc.desktop"
 dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "qv4l2.desktop"
 dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "qvidcap.desktop"
 ## Copyous
-dconf write /org/gnome/shell/keybindings/toggle-message-tray "[]"
+dconf write /org/gnome/shell/keybindings/toggle-message-tray "['']"
 dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
 dconf write /org/gnome/shell/extensions/copyous/sound "'hum'"
 
