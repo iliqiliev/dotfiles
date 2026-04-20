@@ -13,3 +13,7 @@ end
 if command --query fdfind
     alias fd "fdfind"
 end
+
+if command --query ip
+    alias ip "ip --color"
+end
