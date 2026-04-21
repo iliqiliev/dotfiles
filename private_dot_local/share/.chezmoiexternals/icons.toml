@@ -1,6 +1,6 @@
 [Morewaita]
 targetPath = "icons/Morewaita"
 type = "archive"
-url = "https://github.com/somepaulo/MoreWaita/refs/heads/main.tar.gz"
+url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.tar.gz"
 refreshPeriod = "672h"
 include = ["index.theme", "scalable/**", "symbolic/**", "AUTHORS", "LICENSE"]
