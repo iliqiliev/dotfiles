@@ -1,3 +1,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = false
+
+[battery]
+disabled = true
+
+[shell]
+disabled = false
+style = 'cyan bold'
