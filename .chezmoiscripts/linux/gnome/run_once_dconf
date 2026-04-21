@@ -57,11 +57,10 @@ dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 # Shell extensions
 dconf write /org/gnome/shell/disable-extension-version-validation true
 ## App Hider
-HIDDEN_APPS=(
-    "avahi-discover" "bssh" "btop" "bvnc" "nvim" "org.gnome.Settings"
-    "org.gnome.Extensions" "scrcpy" "scrcpy-console" "qv4l2" "qvidcap" "yazi"
-)
-for app in "${HIDDEN_APPS[@]}"; do
+for app in \
+  avahi-discover bssh btop bvnc nvim org.gnome.Settings org.gnome.Extensions \
+  scrcpy scrcpy-console qv4l2 qvidcap yazi
+do
     dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "${app}.desktop"
 done
 ## Copyous
