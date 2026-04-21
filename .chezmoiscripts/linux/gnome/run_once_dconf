@@ -3,17 +3,17 @@
 set -eu
 
 function dconf_append {
-    key="$1" && new="$2"
+    key="$1" && shift
     current=$(dconf read "$key")
     current=$(echo "${current:-"[]"}" | tr "'" '"')
 
     if ! command -v jq >/dev/null; then
-        print_red "'jq' is not installed, cannot append '$new' to '$key'"
+        print_red "'jq' is not installed, cannot append '$*' to '$key'" >&2
         return
     fi
 
-    updated=$(jq --null-input --argjson current "$current" --arg new "$new" \
-        '$current + [$new] | unique')
+    updated=$(jq '$current + ($ARGS.positional | map(. + ".desktop")) | unique' \
+        --argjson current "$current" --args "$@" --null-input)
 
     dconf write "$key" "$(echo "$updated" | tr '"' "'")"
 }
@@ -57,12 +57,9 @@ dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
 # Shell extensions
 dconf write /org/gnome/shell/disable-extension-version-validation true
 ## App Hider
-for app in \
-  avahi-discover bssh btop bvnc nvim org.gnome.Settings org.gnome.Extensions \
-  scrcpy scrcpy-console qv4l2 qvidcap yazi
-do
-    dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "${app}.desktop"
-done
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps \
+    avahi-discover bssh btop bvnc nvim org.gnome.Settings \
+    org.gnome.Extensions scrcpy scrcpy-console qv4l2 qvidcap yazi
 ## Copyous
 dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
 dconf write /org/gnome/shell/extensions/copyous/sound "'hum'"
