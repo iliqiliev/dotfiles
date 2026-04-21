@@ -1,5 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+add_newline = false
 continuation_prompt = "[.](bright-black) "
 
 [character]
