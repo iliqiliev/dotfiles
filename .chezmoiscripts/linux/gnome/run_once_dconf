@@ -28,6 +28,7 @@ dconf write /org/gnome/desktop/input-sources/per-window true
 # Interface
 dconf write /org/gnome/desktop/interface/gtk-enable-primary-paste false
 dconf write /org/gnome/desktop/interface/gtk-theme "'adw-gtk3'"
+dconf write /org/gnome/desktop/interface/icon-theme "'Morewaita'"
 
 # Mouse
 dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
