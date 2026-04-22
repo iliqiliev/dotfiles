@@ -67,3 +67,5 @@ Zorin = "zorn "
 
 [shell]
 disabled = false
+powershell_indicator = 'ps1'
+pwsh_indicator = 'psh'
