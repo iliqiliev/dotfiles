@@ -52,6 +52,11 @@ Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Command Processor' `
                  -Name 'AutoRun' `
                  -Value '%USERPROFILE%\scoop\apps\clink\current\clink.bat inject --autorun'
 
+New-Item  -Force -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' > $null
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' `
+                 -Name 'ShellExecute' `
+                 -Value 'qalculate-gtk' # Change the default app opened by the CALC key.
+
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' `
                  -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' `
                  -Value 1 # Hide the 'Learn about this picture' icon from the desktop.
