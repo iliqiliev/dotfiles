@@ -1,10 +1,10 @@
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
-$LOCAL_BIN = "$env:PATH\.local\bin"
+$LOCAL_BIN = "$env:Path\.local\bin"
 
-if ($env:PATH -notlike "*$LOCAL_BIN*") {
-    $env:PATH += ";$LOCAL_BIN"
+if ($env:Path -notlike "*$LOCAL_BIN*") {
+    $env:Path += ";$LOCAL_BIN"
 }
 
 . $args[0]
