@@ -11,7 +11,8 @@
   // Look & feel.
   "collaboration_panel": { "button": false },
   "colorize_brackets": true,
-  "project_panel": { "sort_order": "unicode" },
+  "outline_panel": { "dock": "left" },
+  "project_panel": { "dock": "left", "sort_order": "unicode" },
   "status_bar": { "show_active_file": true },
   "wrap_guides": [80, 88],
   "theme": {
@@ -89,11 +90,13 @@
 
   // Version control.
   "diff_view_style": "unified",
-  "git_panel": { "sort_by_path": true, "tree_view": true },
+  "git_panel": { "dock": "left", "sort_by_path": true, "tree_view": true },
 
   // Artificial intelligence.
   "edit_predictions": { "mode": "subtle" },
   "agent": {
+    "dock": "right",
+    "sidebar_side": "right",
     "default_model": { "provider": "copilot_chat", "model": "gpt-5.3-codex" },
     "default_profile": "ask",
   },
