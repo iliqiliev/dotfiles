@@ -2,8 +2,16 @@
 
 add_newline = false
 
+[battery]
+disabled = true
+
 [os]
 disabled = false
+
+[shell]
+disabled = false
+powershell_indicator = 'ps1'
+pwsh_indicator = 'psh'
 
 [os.symbols]
 AIX = "aix "
@@ -64,8 +72,3 @@ Uos = "uos "
 Void = "void "
 Windows = "win "
 Zorin = "zorn "
-
-[shell]
-disabled = false
-powershell_indicator = 'ps1'
-pwsh_indicator = 'psh'
