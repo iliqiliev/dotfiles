@@ -5,6 +5,9 @@ add_newline = false
 [battery]
 disabled = true
 
+[directory]
+fish_style_pwd_dir_length = 1
+
 [os]
 disabled = false
 
