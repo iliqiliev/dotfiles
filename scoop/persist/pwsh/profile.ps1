@@ -18,6 +18,10 @@ if (Get-Command eza -ErrorAction SilentlyContinue) {
     function la {eza -la @args}
     function tree {eza -T @args}
 }
+
+if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
+    Set-Alias 'rm' '~/scoop/apps/uutils-coreutils/current/rm.exe'
+}
 # Aliases end
 
 if (Get-Command starship -ErrorAction SilentlyContinue) {
