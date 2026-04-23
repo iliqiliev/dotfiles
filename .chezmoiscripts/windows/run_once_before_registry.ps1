@@ -61,11 +61,6 @@ Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
                  -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' `
                  -Value 1 # Hide the 'Learn about this picture' icon from the desktop.
 
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' `
-                 -Name 'Personal' `
-                 -Value '%APPDATA%' `
-                 -Type ExpandString # Move PowerShell's profile directory.
-
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' `
                  -Name 'SearchboxTaskbarMode' `
                  -Value 0 # Hide the taskbar search box.
