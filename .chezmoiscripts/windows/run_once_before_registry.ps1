@@ -45,6 +45,9 @@ $REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' # Autoruns.
 Set-ItemProperty $REG_PATH AltSnap "`"$env:USERPROFILE\scoop\apps\altsnap\current\AltSnap.exe`""
 Set-ItemProperty $REG_PATH Ditto     "$env:USERPROFILE\scoop\apps\ditto\current\Ditto.exe"
 
+$REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search'
+Set-ItemProperty $REG_PATH SearchboxTaskbarMode 0 # Hide the taskbar search box.
+Set-ItemProperty $REG_PATH BingSearchEnabled    0 # Disable Bing in Start search.
 
 New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' `
          -Force > $null # Restore the classic context menu in Windows 11.
@@ -62,11 +65,6 @@ Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' `
                  -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' `
                  -Value 1 # Hide the 'Learn about this picture' icon from the desktop.
-
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' `
-                 -Name 'SearchboxTaskbarMode' `
-                 -Value 0 # Hide the taskbar search box.
-
 
 Write-Host 'Registry settings imported successfully.' -ForegroundColor Green
 
