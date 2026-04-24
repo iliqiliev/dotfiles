@@ -9,5 +9,5 @@ Write-Host "Installing chezmoi to '$CHEZMOI'" -ForegroundColor Blue
 Invoke-Expression "&{$(Invoke-RestMethod $CHEZMOI_URL)} -BinDir $CHEZMOI_DIR"
 
 $CHEZMOI_ARGS = @('init', 'iliqiliev', '--apply', '--depth', '1')
-Write-Host "Running 'chezmoi $CHEZMOI_ARGS' ..." -ForegroundColor Blue
+Write-Host "Running 'chezmoi $CHEZMOI_ARGS' ..." -ForegroundColor Green
 & $CHEZMOI @CHEZMOI_ARGS
