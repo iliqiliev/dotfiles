@@ -120,6 +120,7 @@ CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
+PSExecutionPolicyPreference = "Bypass"
 
 [github]
 refreshPeriod = "24h"
