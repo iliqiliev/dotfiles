@@ -1,5 +1,6 @@
-Set-PSReadlineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler Ctrl+c RevertLine
+Set-PSReadlineKeyHandler Ctrl+d DeleteCharOrExit
+Set-PSReadLineKeyHandler Tab    MenuComplete
 
 # Aliases start
 Set-Alias 'ccopy' Set-Clipboard
