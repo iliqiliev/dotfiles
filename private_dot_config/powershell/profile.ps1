@@ -25,11 +25,11 @@ if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
 # Aliases end
 
 if (Get-Command starship -ErrorAction SilentlyContinue) {
-    Invoke-Expression (&starship init powershell)
+    starship init powershell | Invoke-Expression
 }
 
 if (Get-Command carapace -ErrorAction SilentlyContinue) {
     $env:CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
     Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
-    carapace _carapace | Out-String | Invoke-Expression
+    carapace _carapace powershell | Out-String | Invoke-Expression
 }
