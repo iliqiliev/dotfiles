@@ -3,6 +3,11 @@ $ErrorActionPreference = 'Stop'
 
 Write-Host 'Setting registry settings...' -ForegroundColor Blue
 
+if ($env:CHEZ_IS_PERSONAL -eq 'true') {
+    $REG_PATH = 'HKCU:\Keyboard Layout\Preload'
+    Set-ItemProperty $REG_PATH 1 '00000409'  # English (US)
+    Set-ItemProperty $REG_PATH 2 '00040402'  # Bulgarian (Phonetic Traditional)
+}
 
 $REG_PATH = 'HKCU:\Environment' # Set environment variables.
 Set-ItemProperty $REG_PATH CLINK_PROFILE       '%APPDATA%\clink'                           -Type ExpandString
@@ -20,12 +25,6 @@ $REG_PATH = 'HKCU:\Control Panel\Mouse' # Disable mouse acceleration.
 Set-ItemProperty $REG_PATH MouseSpeed      '0'
 Set-ItemProperty $REG_PATH MouseThreshold1 '0'
 Set-ItemProperty $REG_PATH MouseThreshold2 '0'
-
-if ($env:CHEZ_IS_PERSONAL -eq 'true') {
-    $REG_PATH = 'HKCU:\Keyboard Layout\Preload'
-    Set-ItemProperty $REG_PATH 1 '00000409'  # English (US)
-    Set-ItemProperty $REG_PATH 2 '00040402'  # Bulgarian (Phonetic Traditional)
-}
 
 $REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
 # Free Super+V shortcut for external clipboard manager.
