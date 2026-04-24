@@ -13,7 +13,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     host="get.chezmoi.io"
     chezmoi="${HOME}/.local/bin/chezmoi"
 
-    printf "${BLUE}%b\n${NORMAL}" "Installing chezmoi to '${chezmoi}' ..."
+    printf "${BLUE}%b\n${NORMAL}" "Downloading chezmoi to '${chezmoi}' ..."
 
     if command -v curl >/dev/null; then
         chezmoi_script="$(curl -fsSL $host)"
