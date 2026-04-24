@@ -39,6 +39,7 @@ Set-ItemProperty $REG_PATH TaskbarAl        0
 # Hide widgets from the taskbar. Key protected by UCPD: https://kolbi.cz/blog/2024/04/03/userchoice-protection-driver-ucpd-sys
 Set-ItemProperty $REG_PATH TaskbarDa        0 -ErrorAction SilentlyContinue
 # Add 'End task' button when right-clicking a program.
+New-Item  -Force $REG_PATH\TaskbarDeveloperSettings > $null
 Set-ItemProperty "$REG_PATH\TaskbarDeveloperSettings" TaskbarEndTask 1
 
 $REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' # Autoruns.
