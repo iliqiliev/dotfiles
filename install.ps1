@@ -9,12 +9,12 @@ $existing_chezmoi = Get-Command chezmoi -ErrorAction SilentlyContinue
 
 if ($existing_chezmoi) {
     $CHEZMOI = $existing_chezmoi.Path
-} elseif (Test-Path ~/.local/bin/chezmoi) {
-    $CHEZMOI = '~/.local/bin/chezmoi'
-} elseif (Test-Path ~/bin/chezmoi) {
-    $CHEZMOI = '~/bin/chezmoi'
+} elseif (Test-Path ~/.local/bin/chezmoi.exe) {
+    $CHEZMOI = '~/.local/bin/chezmoi.exe'
+} elseif (Test-Path ~/bin/chezmoi.exe) {
+    $CHEZMOI = '~/bin/chezmoi.exe'
 } else {
-    $CHEZMOI = "$CHEZMOI_DIR/chezmoi"
+    $CHEZMOI = "$CHEZMOI_DIR/chezmoi.exe"
     Write-Host "Downloading chezmoi to '$CHEZMOI' ..." -ForegroundColor Blue
     Invoke-Expression "&{$(Invoke-RestMethod $CHEZMOI_URL)} -BinDir $CHEZMOI_DIR"
 }
