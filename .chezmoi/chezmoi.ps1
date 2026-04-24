@@ -1,3 +1,10 @@
+function Restart-Explorer {
+    Write-Host "Restarting 'explorer.exe'" -ForegroundColor Blue
+    Stop-Process -Name 'explorer'
+    Start-Process 'explorer' -ArgumentList '/factory,{682159d9-c321-47ca-b3f1-30e36b2ec8b9}'
+    Write-Host "'explorer.exe' restarted successfully." -ForegroundColor Green
+}
+
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
