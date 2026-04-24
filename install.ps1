@@ -1,11 +1,13 @@
 #!/usr/bin/env pwsh
 
+$ErrorActionPreference = 'Stop'
+
 $CHEZMOI_URL = 'https://get.chezmoi.io/ps1'
 $CHEZMOI_DIR = '~/.local/bin'
 $CHEZMOI = "$CHEZMOI_DIR/chezmoi"
 
 
-Write-Host "Installing chezmoi to '$CHEZMOI'" -ForegroundColor Blue
+Write-Host "Installing chezmoi to '$CHEZMOI' ..." -ForegroundColor Blue
 Invoke-Expression "&{$(Invoke-RestMethod $CHEZMOI_URL)} -BinDir $CHEZMOI_DIR"
 
 $CHEZMOI_ARGS = @('init', 'iliqiliev', '--apply', '--depth', '1')
