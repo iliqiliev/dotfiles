@@ -17,11 +17,11 @@ chezmoi init --apply iliqiliev --depth 1
 ## With any _POSIX_ shell or `fish`:
 - Using `curl`:
   ```sh
-  sh -c "$(curl -L iliqiliev.me/dotfiles)"
+  curl -L iliqiliev.me/dotfiles | sh
   ```
 - Using `wget`:
   ```sh
-  sh -c "$(wget -O- iliqiliev.me/dotfiles)"
+  wget -O- iliqiliev.me/dotfiles | sh
   ```
 
 ## With `PowerShell`:
