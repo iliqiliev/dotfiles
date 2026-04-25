@@ -35,5 +35,6 @@ set_custom_icon ~/.local/share/nvim "folder-neovim"
 
 set_custom_icon ~/Documents/Code "folder-code"
 set_custom_icon ~/Pictures/Screenshots "folder-screenshot"
+set_custom_icon ~/Vaults "folder-private"
 
 print_green "Custom folder icons set up successfully."
