@@ -2,39 +2,46 @@
 
 set -eu
 
+
+FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places
+
 print_blue "Setting up custom folder icons..."
-
-function set_custom_icon {
-    FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places
-
-    if ! test -d "$1"; then
-        return 0
-    fi
-
-    if ! test -f "$FOLDER_ICONS/$2.svg"; then
-        print_red "Icon '$FOLDER_ICONS/$2.svg' not found." >&2
-        return 0
-    fi
-
-    gio set "$1" metadata::custom-icon-name "$2"
-}
 
 if ! command -v gio >/dev/null; then
     print_red "'gio' is not installed. Cannot change folder icons..."
     exit 0
 fi
 
-set_custom_icon ~/.config/GIMP "folder-gimp"
-set_custom_icon ~/.config/git "folder-git"
-set_custom_icon ~/.config/nvim "folder-neovim"
+declare -A custom_icons=(
+    [~/.config/GIMP]="folder-gimp"
+    [~/.config/git]="folder-git"
+    [~/.config/nvim]="folder-neovim"
 
-set_custom_icon ~/.local "folder-local"
-set_custom_icon ~/.local/share/android "folder-android"
-set_custom_icon ~/.local/share/flatpak "folder-flatpak"
-set_custom_icon ~/.local/share/nvim "folder-neovim"
+    [~/.local]="folder-local"
+    [~/.local/share/android]="folder-android"
+    [~/.local/share/flatpak]="folder-flatpak"
+    [~/.local/share/nvim]="folder-neovim"
 
-set_custom_icon ~/Documents/Code "folder-code"
-set_custom_icon ~/Pictures/Screenshots "folder-screenshot"
-set_custom_icon ~/Vaults "folder-private"
+    [~/Documents/Code]="folder-code"
+    [~/Pictures/Screenshots]="folder-screenshot"
+    [~/Vaults]="folder-private"
+)
+
+for folder in "${!custom_icons[@]}"; do
+
+    if ! test -d "$folder"; then
+        return 0
+    fi
+
+    icon="${custom_icons[$folder]}"
+
+    if ! test -f "$FOLDER_ICONS/$icon.svg"; then
+        print_red "Icon '$FOLDER_ICONS/$icon.svg' not found."
+        return 0
+    fi
+
+    gio set "$folder" metadata::custom-icon-name "$icon"
+
+done
 
 print_green "Custom folder icons set up successfully."
