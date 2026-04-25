@@ -14,7 +14,7 @@ My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing c
 chezmoi init --apply iliqiliev --depth 1
 ```
 
-## With any _POSIX_ shell or `fish`:
+## With any **Linux** shell:
 - Using `curl`:
   ```sh
   curl -L iliqiliev.me/dotfiles | sh
