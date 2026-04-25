@@ -2,10 +2,8 @@
 
 set -eu
 
-
-FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places
-
 print_blue "Setting up custom folder icons..."
+FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places
 
 if ! command -v gio >/dev/null; then
     print_red "'gio' is not installed. Cannot change folder icons..."
@@ -28,12 +26,9 @@ declare -A custom_icons=(
 )
 
 for folder in "${!custom_icons[@]}"; do
-
-    if ! test -d "$folder"; then
-        return 0
-    fi
-
     icon="${custom_icons[$folder]}"
+
+    test -d "$folder" || return 0
 
     if ! test -f "$FOLDER_ICONS/$icon.svg"; then
         print_red "Icon '$FOLDER_ICONS/$icon.svg' not found."
