@@ -1,7 +1,7 @@
 {{- /* Use 'chezmoi cat-config' to preview this file. */ -}}
 
-{{- $os := "unknown" }}
-{{- $distro := "unknown" }}
+{{- $os := .chezmoi.os }}
+{{- $distro := .chezmoi.os }}
 {{- $useSudo := true }}
 {{- $sudo := "su root -c" }}
 {{- $verticalResolution := 0 }}
@@ -16,18 +16,14 @@
 {{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
 {{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
 
-{{- if or (eq .chezmoi.os "linux" "android") }}
+{{- if eq $os "android" }}
 {{-   $os = "linux" }}
-{{- else if hasKey .chezmoi "os" }}
-{{-   $os = .chezmoi.os }}
 {{- end }}
 
 {{- if hasKey .chezmoi.osRelease "idLike" }}
 {{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else if hasKey .chezmoi.osRelease "id" }}
 {{-   $distro = .chezmoi.osRelease.id }}
-{{- else if hasKey .chezmoi "os" }}
-{{-   $distro = .chezmoi.os }}
 {{- end }}
 
 {{- if eq $os "linux" }}
