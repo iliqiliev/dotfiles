@@ -9,6 +9,9 @@ README.md
 .config/kitty/**
 .config/MangoHud/**
 .local/share/**
+{{- if not .manageGui }}
+Templates/**
+{{- end }}
 {{- end }}
 
 {{- if ne .distro "alpine" }}
