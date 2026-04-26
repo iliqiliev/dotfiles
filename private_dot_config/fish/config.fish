@@ -16,6 +16,8 @@ command --query nvim; and set --export EDITOR nvim
 
 # Source configs for interactive sessions
 if status is-interactive
+    # Silence warnings about unknown keys in config file on old starship versions
+    set --export STARSHIP_LOG error
     command --query starship; and starship init fish | source
     command --query zoxide; and zoxide init fish | source
 end
