@@ -25,6 +25,8 @@ foreach ($package_name in $PACKAGES) {
     $removed++
 }
 
+Write-Host "$($PACKAGES.Length) packages checked." -ForegroundColor Green
+
 if ($removed -eq 0) {
     Write-Host "No packages to debloat. :)" -ForegroundColor Green
     exit 0
