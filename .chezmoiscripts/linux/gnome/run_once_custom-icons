@@ -11,18 +11,28 @@ if ! command -v gio >/dev/null; then
 fi
 
 declare -A custom_icons=(
+    [~/.config/containers]="folder-podman"
+    [~/.config/gh]="folder-github"
     [~/.config/GIMP]="folder-gimp"
     [~/.config/git]="folder-git"
+    [~/.config/kitty]="folder-shell"
+    [~/.config/MangoHud]="folder-games"
+    [~/.config/nautilus]="folder-gnome"
     [~/.config/nvim]="folder-neovim"
 
     [~/.local]="folder-local"
     [~/.local/share/android]="folder-android"
     [~/.local/share/flatpak]="folder-flatpak"
+    [~/.local/share/gnome-shell]="folder-gnome"
+    [~/.local/share/gnome-shell/extensions]="folder-extensions"
     [~/.local/share/nvim]="folder-neovim"
 
     [~/Documents/Code]="folder-code"
+    [~/Pictures/Camera]="folder-camera"
+    [~/Pictures/GIMP]="folder-gimp"
     [~/Pictures/Screenshots]="folder-screenshot"
     [~/Vaults]="folder-private"
+    [~/Videos/Screencasts]="folder-screencast"
 )
 
 for folder in "${!custom_icons[@]}"; do
