@@ -8,11 +8,10 @@ disabled = true
 [directory]
 fish_style_pwd_dir_length = 1
 
-[env_var]
+[env_var.DEBUG]
 description = "Detect if 'DEBUG' env var is set"
 format = 'mode [$symbol DEBUG]($style) '
 symbol = '🐞'
-variable = 'DEBUG'
 
 [os]
 disabled = false
