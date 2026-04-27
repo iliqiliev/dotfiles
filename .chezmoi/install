@@ -22,7 +22,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     elif command -v openssl >/dev/null; then
         chezmoi_script="$(printf 'GET / HTTP/1.0\nHost:%s\n\n' $host | openssl s_client -quiet $host:443 2>/dev/null)"
     else
-        printf "${RED}%b\n${NORMAL}" "To install chezmoi, you must have curl or wget installed." >&2
+        printf "${RED}%b\n${NORMAL}" "To install chezmoi, you must have curl or wget installed."
         exit 1
     fi
 

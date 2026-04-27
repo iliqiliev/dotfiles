@@ -8,7 +8,7 @@ function dconf_append {
     current=$(echo "${current:-"[]"}" | tr "'" '"')
 
     if ! command -v jq >/dev/null; then
-        print_red "'jq' is not installed, cannot append '$*' to '$key'" >&2
+        print_red "'jq' is not installed, cannot append '$*' to '$key'"
         return
     fi
 
