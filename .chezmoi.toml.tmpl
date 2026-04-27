@@ -1,5 +1,13 @@
 {{- /* Use 'chezmoi cat-config' to preview this file. */ -}}
 
+{{- $name := "Iliya Iliev" }}
+{{- $email := "iliq0000@proton.me" }}
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
+{{- if not $isPersonal }}
+{{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
+{{- end }}
+
 {{- $os := .chezmoi.os }}
 {{- if eq $os "android" }}
 {{-   $os = "linux" }}
@@ -11,6 +19,12 @@
 {{- else if hasKey .chezmoi.osRelease "id" }}
 {{-   $distro = .chezmoi.osRelease.id }}
 {{- end }}
+
+{{- $manageGui := and
+      (ne $distro "android")
+      (env "container" | eq "")
+      (promptBoolOnce . "manageGui" "Manage GUI applications" false)
+}}
 
 {{- $useSudo := true }}{{/* useSudo is for caching the answer to promptBoolOnce */}}
 {{- $sudo := "su root -c" }}
@@ -39,20 +53,6 @@
         "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | atoi }}
 {{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
 {{- end }}
-
-{{- $name := "Iliya Iliev" }}
-{{- $email := "iliq0000@proton.me" }}
-{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
-{{- if not $isPersonal }}
-{{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
-{{- end }}
-
-{{- $manageGui := and
-      (ne $distro "android")
-      (env "container" | eq "")
-      (promptBoolOnce . "manageGui" "Manage GUI applications" false)
-}}
 
 {{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
 {{- $packageManager := get $packageManagers $distro }}
