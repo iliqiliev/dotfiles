@@ -28,11 +28,11 @@ declare -A custom_icons=(
 for folder in "${!custom_icons[@]}"; do
     icon="${custom_icons[$folder]}"
 
-    test -d "$folder" || return 0
+    test -d "$folder" || continue
 
     if ! test -f "$FOLDER_ICONS/$icon.svg"; then
         print_red "Icon '$FOLDER_ICONS/$icon.svg' not found."
-        return 0
+        continue
     fi
 
     gio set "$folder" metadata::custom-icon-name "$icon"
