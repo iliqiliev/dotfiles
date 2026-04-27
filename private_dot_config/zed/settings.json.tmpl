@@ -68,7 +68,6 @@
   "preferred_line_length": 88,
   "languages": {
     "Fish": { "formatter": { "external": { "command": "fish_indent" } } },
-    "PowerShell": { "format_on_save": "off" },
     "TOML": { "tab_size": 2 },
     "Shell Script": {
       "formatter": {
@@ -83,6 +82,15 @@
         "external": {
           "command": "tclfmt",
           "arguments": ["-", "--indent", "4"],
+        },
+      },
+    },
+  },
+  "lsp": {
+    "powershell-es": {
+      "settings": {
+        "powershell": {
+          "codeFormatting": { "openBraceOnSameLine": true, "ignoreOneLineBlock": true },
         },
       },
     },
