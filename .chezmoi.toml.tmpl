@@ -1,47 +1,19 @@
 {{- /* Use 'chezmoi cat-config' to preview this file. */ -}}
 
 {{- $os := .chezmoi.os }}
-{{- $distro := .chezmoi.os }}
-{{- $useSudo := true }}
-{{- $sudo := "su root -c" }}
-{{- $verticalResolution := 0 }}
-{{- $zenPath := "" }}
-{{- $name := "Iliya Iliev" }}
-{{- $email := "iliq0000@proton.me" }}
-{{- $fontSizeSmall := 12 }}
-{{- $fontSizeMedium := 16 }}
-{{- $fontSizeBig := 20 }}
-{{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
-{{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
-{{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
-{{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
-
 {{- if eq $os "android" }}
 {{-   $os = "linux" }}
 {{- end }}
 
+{{- $distro := .chezmoi.os }}
 {{- if hasKey .chezmoi.osRelease "idLike" }}
 {{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
 {{- else if hasKey .chezmoi.osRelease "id" }}
 {{-   $distro = .chezmoi.osRelease.id }}
 {{- end }}
 
-{{- if eq $os "linux" }}
-{{-   $verticalResolution = output "sh" "-c"
-        "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | atoi }}
-{{-   $zenPath = "/opt/zen-browser-bin" }}
-{{- else if eq $os "windows" }}
-{{-   $verticalResolution = output "powershell" "-NoProfile" "-Command"
-        "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | atoi }}
-{{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
-{{- end }}
-
-{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
-{{- if not $isPersonal }}
-{{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
-{{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
-{{- end }}
-
+{{- $useSudo := true }}{{/* useSudo is for caching the answer to promptBoolOnce */}}
+{{- $sudo := "su root -c" }}
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
 {{-   $sudo = "" }}
 {{- else if promptBoolOnce . "useSudo" "Use sudo" false }}
@@ -56,13 +28,35 @@
 {{-   $sudo = "false" }}
 {{- end }}
 
+{{- $verticalResolution := 0 }}
+{{- $zenPath := "" }}
+{{- if eq $os "linux" }}
+{{-   $verticalResolution = output "sh" "-c"
+        "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | atoi }}
+{{-   $zenPath = "/opt/zen-browser-bin" }}
+{{- else if eq $os "windows" }}
+{{-   $verticalResolution = output "powershell" "-NoProfile" "-Command"
+        "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | atoi }}
+{{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
+{{- end }}
+
+{{- $name := "Iliya Iliev" }}
+{{- $email := "iliq0000@proton.me" }}
+{{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
+{{- if not $isPersonal }}
+{{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
+{{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
+{{- end }}
+
 {{- $manageGui := and
       (ne $distro "android")
       (env "container" | eq "")
       (promptBoolOnce . "manageGui" "Manage GUI applications" false)
 }}
 
+{{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
 {{- $packageManager := get $packageManagers $distro }}
+{{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
 {{- $packages := $packageInfoFile.base }}
 {{- $hypervisor := and (lookPath "systemd-detect-virt") (output "sh" "-c" "systemd-detect-virt || true" | trim) }}
 
@@ -98,11 +92,11 @@ zenPath = {{ $zenPath | quote }}
 
 [data.fonts]
 {{- if gt $verticalResolution 1080 }}
-size = {{ $fontSizeBig }}
+size = 20 # detected big
 {{- else if or (gt $verticalResolution 800) (eq $verticalResolution 0) }}
-size = {{ $fontSizeMedium }}
+size = 16 # detected medium
 {{- else }}
-size = {{ $fontSizeSmall }}
+size = 12 # detected small
 {{- end }}
 
 [diff]
@@ -115,6 +109,8 @@ CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
+{{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
+{{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
 PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
 PSExecutionPolicyPreference = "Bypass"
 
