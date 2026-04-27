@@ -13,6 +13,7 @@ fi
 declare -A custom_icons=(
     [~/.cache]="folder-temp"
 
+    [~/.config]="folder-user"
     [~/.config/containers]="folder-podman"
     [~/.config/gh]="folder-github"
     [~/.config/GIMP]="folder-gimp"
@@ -30,6 +31,8 @@ declare -A custom_icons=(
     [~/.local/share/nvim]="folder-neovim"
 
     [~/.ssh]="folder-shell"
+
+    [~/.var]="folder-flatpak"
 
     [~/Documents/Code]="folder-code"
     [~/Pictures/Camera]="folder-camera"
