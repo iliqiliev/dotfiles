@@ -5,6 +5,7 @@ Write-Host 'Debloating...' -ForegroundColor Blue
 
 $removed = 0
 $PACKAGES = @(
+    'Microsoft.GetHelp'
     'Microsoft.WidgetsPlatformRuntime'
     'MicrosoftWindows.Client.WebExperience'
 )
