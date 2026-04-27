@@ -11,6 +11,8 @@ if ! command -v gio >/dev/null; then
 fi
 
 declare -A custom_icons=(
+    [~/.cache]="folder-temp"
+
     [~/.config/containers]="folder-podman"
     [~/.config/gh]="folder-github"
     [~/.config/GIMP]="folder-gimp"
@@ -26,6 +28,8 @@ declare -A custom_icons=(
     [~/.local/share/gnome-shell]="folder-gnome"
     [~/.local/share/gnome-shell/extensions]="folder-extensions"
     [~/.local/share/nvim]="folder-neovim"
+
+    [~/.ssh]="folder-shell"
 
     [~/Documents/Code]="folder-code"
     [~/Pictures/Camera]="folder-camera"
