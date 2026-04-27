@@ -51,21 +51,18 @@ Set-ItemProperty $REG_PATH SearchboxTaskbarMode 0 # Hide the taskbar search box.
 Set-ItemProperty $REG_PATH BingSearchEnabled    0 # Disable Bing in Start search.
 
 New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' `
-         -Force > $null # Restore the classic context menu in Windows 11.
+    -Force > $null # Restore the classic context menu in Windows 11.
 
 New-Item  -Force -Path 'HKCU:\Software\Microsoft\Command Processor' > $null
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Command Processor' `
-                 -Name 'AutoRun' `
-                 -Value '%USERPROFILE%\scoop\apps\clink\current\clink.bat inject --autorun'
+    -Name 'AutoRun' -Value '%USERPROFILE%\scoop\apps\clink\current\clink.bat inject --autorun'
 
 New-Item  -Force -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' > $null
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' `
-                 -Name 'ShellExecute' `
-                 -Value 'qalculate-gtk' # Change the default app opened by the CALC key.
+    -Name 'ShellExecute' -Value 'qalculate-gtk' # Change the app opened by the CALC key.
 
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' `
-                 -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' `
-                 -Value 1 # Hide the 'Learn about this picture' icon from the desktop.
+    -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' -Value 1 # Hide 'Learn about this picture' icon.
 
 Write-Host 'Registry settings imported successfully.' -ForegroundColor Green
 
