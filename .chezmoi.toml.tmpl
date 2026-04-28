@@ -13,12 +13,10 @@
 {{-   $os = "linux" }}
 {{- end }}
 
-{{- $distro := .chezmoi.os }}
-{{- if hasKey .chezmoi.osRelease "idLike" }}
-{{-   $distro = splitList " " .chezmoi.osRelease.idLike | last }}
-{{- else if hasKey .chezmoi.osRelease "id" }}
-{{-   $distro = .chezmoi.osRelease.id }}
-{{- end }}
+{{- $distro := coalesce (get .chezmoi.osRelease "idLike")
+                        (get .chezmoi.osRelease "id")
+                        (.chezmoi.os)
+                        | splitList " " | last }}
 
 {{- $manageGui := and
       (ne $distro "android")
