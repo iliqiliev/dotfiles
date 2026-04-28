@@ -98,6 +98,7 @@ size = 16 # detected medium
 {{- else }}
 size = 12 # detected small
 {{- end }}
+{{- printf " size from %dpx vertical resolution" $verticalResolution }}
 
 [diff]
 pager = {{ and (lookPath "delta") "delta" | quote }}
