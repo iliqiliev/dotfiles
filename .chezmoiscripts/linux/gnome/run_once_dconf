@@ -20,35 +20,35 @@ function dconf_append {
 
 print_blue "Setting Dconf settings..."
 
-# Input sources
+INPUT_SOURCES=/org/gnome/desktop/input-sources
 test "$CHEZ_IS_PERSONAL" = "true" &&
-    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
-dconf write /org/gnome/desktop/input-sources/per-window true
+    dconf write $INPUT_SOURCES/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+dconf write $INPUT_SOURCES/per-window true
 
-# Interface
-dconf write /org/gnome/desktop/interface/gtk-enable-primary-paste false
-dconf write /org/gnome/desktop/interface/gtk-theme "'adw-gtk3'"
-dconf write /org/gnome/desktop/interface/icon-theme "'Morewaita'"
+INTERFACE=/org/gnome/desktop/interface
+dconf write $INTERFACE/gtk-enable-primary-paste false
+dconf write $INTERFACE/gtk-theme "'adw-gtk3'"
+dconf write $INTERFACE/icon-theme "'Morewaita'"
 
-# Mouse
-dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
+MOUSE=/org/gnome/desktop/peripherals/mouse
+dconf write $MOUSE/accel-profile "'flat'"
 
-# Keyboard
-dconf write /org/gnome/desktop/peripherals/keyboard/numlock-state true
+KEYBOARD=/org/gnome/desktop/peripherals/keyboard
+dconf write $KEYBOARD/numlock-state true
 
-# WM keybindings
-dconf write /org/gnome/desktop/wm/keybindings/panel-run-dialog "['<Super>r']"
-dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
-dconf write /org/gnome/desktop/wm/keybindings/switch-input-source "['<Alt>Shift_L']"
-dconf write /org/gnome/desktop/wm/keybindings/switch-input-source-backward "['<Shift>Alt_L']"
+WM_KEYBINDINGS=/org/gnome/desktop/wm/keybindings
+dconf write $WM_KEYBINDINGS/panel-run-dialog "['<Super>r']"
+dconf write $WM_KEYBINDINGS/show-desktop "['<Super>d']"
+dconf write $WM_KEYBINDINGS/switch-input-source "['<Alt>Shift_L']"
+dconf write $WM_KEYBINDINGS/switch-input-source-backward "['<Shift>Alt_L']"
 
-# WM preferences
-dconf write /org/gnome/desktop/wm/preferences/action-middle-click-titlebar "'minimize'"
-dconf write /org/gnome/desktop/wm/preferences/mouse-button-modifier "'<Super>'"
-dconf write /org/gnome/desktop/wm/preferences/resize-with-right-button true
+WM_PREFERENCES=/org/gnome/desktop/wm/preferences
+dconf write $WM_PREFERENCES/action-middle-click-titlebar "'minimize'"
+dconf write $WM_PREFERENCES/mouse-button-modifier "'<Super>'"
+dconf write $WM_PREFERENCES/resize-with-right-button true
 
-# Mutter
-dconf write /org/gnome/mutter/attach-modal-dialogs false
+MUTTER=/org/gnome/mutter
+dconf write $MUTTER/attach-modal-dialogs false
 
 MEDIA_KEYS=/org/gnome/settings-daemon/plugins/media-keys
 dconf write $MEDIA_KEYS/help "['']"
@@ -59,24 +59,26 @@ dconf write $MEDIA_KEYS/reboot "['<Control><Alt>Delete']"
 dconf write $MEDIA_KEYS/shutdown "['<Shift><Control><Alt>Delete']"
 dconf write $MEDIA_KEYS/volume-step 5
 
-# Shell
-dconf write /org/gnome/shell/always-show-log-out true
-dconf write /org/gnome/shell/keybindings/toggle-message-tray "['']"
-dconf write /org/gnome/shell/keybindings/screenshot "['Print']"
-dconf write /org/gnome/shell/keybindings/screenshot-window "['<Super>Print']"
-dconf write /org/gnome/shell/keybindings/show-screenshot-ui "['<Shift><Super>s']"
-dconf write /org/gnome/shell/welcome-dialog-last-shown-version "67.0"
+SHELL=/org/gnome/shell
+dconf write $SHELL/always-show-log-out true
+dconf write $SHELL/disable-extension-version-validation true
+dconf write $SHELL/keybindings/toggle-message-tray "['']"
+dconf write $SHELL/keybindings/screenshot "['Print']"
+dconf write $SHELL/keybindings/screenshot-window "['<Super>Print']"
+dconf write $SHELL/keybindings/show-screenshot-ui "['<Shift><Super>s']"
+dconf write $SHELL/welcome-dialog-last-shown-version "67.0"
 
-# Shell extensions
-dconf write /org/gnome/shell/disable-extension-version-validation true
+SHELL_EXTENSIONS=/org/gnome/shell/extensions
+
 ## App Hider
 HIDDEN_APPS=(
     avahi-discover bssh btop bvnc nvim org.gnome.Settings org.gnome.Extensions
     scrcpy scrcpy-console qv4l2 qvidcap yazi
 )
-dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
+dconf_append $SHELL_EXTENSIONS/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
+
 ## Copyous
-dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
-dconf write /org/gnome/shell/extensions/copyous/sound "'hum'"
+dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
+dconf write $SHELL_EXTENSIONS/copyous/sound "'hum'"
 
 print_green "Dconf configured successfully."
