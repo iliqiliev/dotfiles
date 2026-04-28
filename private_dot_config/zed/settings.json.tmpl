@@ -14,6 +14,7 @@
   "outline_panel": { "dock": "left" },
   "project_panel": { "dock": "left", "sort_order": "unicode" },
   "status_bar": { "show_active_file": true },
+  "when_closing_with_no_tabs": "close_window",
   "wrap_guides": [80, 88],
   "theme": {
     "light": "Adwaita Light",
@@ -42,10 +43,6 @@
     "vscode-icons": true,
     "xml": true,
   },
-
-  // Disable auto-updates & telemetry.
-  "auto_update": false,
-  "telemetry": { "diagnostics": false, "metrics": false },
 
   // Integrated terminal.
   "terminal": {
@@ -100,6 +97,18 @@
   "diff_view_style": "unified",
   "git_panel": { "dock": "left", "sort_by_path": true, "tree_view": true },
 
+  // Profiles.
+  "profiles": {
+    "Notepad": {
+      // Not done.
+      "settings": { "theme": { "light": "One Light", "dark": "One Dark" } },
+    },
+  },
+
+  // Disable auto-updates & telemetry.
+  "auto_update": false,
+  "telemetry": { "diagnostics": false, "metrics": false },
+
   // Artificial intelligence.
   "edit_predictions": { "mode": "subtle" },
   "agent": {
@@ -107,12 +116,5 @@
     "sidebar_side": "right",
     "default_model": { "provider": "copilot_chat", "model": "gpt-5.3-codex" },
     "default_profile": "ask",
-  },
-
-  // Profiles.
-  "profiles": {
-    "Notepad": {
-      "settings": { "theme": { "light": "One Light", "dark": "One Dark" } },
-    },
   },
 }
