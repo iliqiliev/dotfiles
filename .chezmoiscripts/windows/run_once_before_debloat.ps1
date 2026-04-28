@@ -5,6 +5,7 @@ Write-Host 'Debloating...' -ForegroundColor Blue
 
 $removed = 0
 $PACKAGES = @(
+    'Microsoft.BingSearch'
     'Microsoft.GetHelp'
     'Microsoft.StartExperiencesApp'
     'Microsoft.WidgetsPlatformRuntime'
