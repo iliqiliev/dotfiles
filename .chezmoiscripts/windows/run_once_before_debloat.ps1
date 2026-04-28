@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 
-Write-Host 'Debloating...' -ForegroundColor Blue
+Write-Host 'Removing bloat packages...' -ForegroundColor Blue
 
 $removed = 0
 $PACKAGES = @(
@@ -13,16 +13,16 @@ $PACKAGES = @(
 )
 
 foreach ($package_name in $PACKAGES) {
-    Write-Host "Removing '$package_name' ..." -ForegroundColor Blue
+    Write-Host "Removing '$package_name' ... " -ForegroundColor Blue -NoNewline
     $package = Get-AppxPackage $package_name
 
     if (!$package) {
-        Write-Host "'$package_name' not found. Continuing." -ForegroundColor Green
+        Write-Host "Not found." -ForegroundColor Yellow
         continue
     }
 
     Remove-AppxPackage $package
-    Write-Host "'$package_name' successfully removed." -ForegroundColor Green
+    Write-Host "Done." -ForegroundColor Green
     $removed++
 }
 
