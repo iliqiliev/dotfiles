@@ -37,6 +37,7 @@ dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
 dconf write /org/gnome/desktop/peripherals/keyboard/numlock-state true
 
 # WM keybindings
+dconf write /org/gnome/desktop/wm/keybindings/panel-run-dialog "['<Super>r']"
 dconf write /org/gnome/desktop/wm/keybindings/show-desktop "['<Super>d']"
 dconf write /org/gnome/desktop/wm/keybindings/switch-input-source "['<Alt>Shift_L']"
 dconf write /org/gnome/desktop/wm/keybindings/switch-input-source-backward "['<Shift>Alt_L']"
@@ -49,26 +50,33 @@ dconf write /org/gnome/desktop/wm/preferences/resize-with-right-button true
 # Mutter
 dconf write /org/gnome/mutter/attach-modal-dialogs false
 
-# Media keys
-dconf write /org/gnome/settings-daemon/plugins/media-keys/help "['']"
-dconf write /org/gnome/settings-daemon/plugins/media-keys/home "['<Super>e']"
-dconf write /org/gnome/settings-daemon/plugins/media-keys/mic-mute "['Scroll_Lock']"
-dconf write /org/gnome/settings-daemon/plugins/media-keys/volume-step 5
+MEDIA_KEYS=/org/gnome/settings-daemon/plugins/media-keys
+dconf write $MEDIA_KEYS/help "['']"
+dconf write $MEDIA_KEYS/home "['<Super>e']"
+dconf write $MEDIA_KEYS/logout "['<Shift><Super>l']"
+dconf write $MEDIA_KEYS/mic-mute "['Scroll_Lock']"
+dconf write $MEDIA_KEYS/reboot "['<Control><Alt>Delete']"
+dconf write $MEDIA_KEYS/shutdown "['<Shift><Control><Alt>Delete']"
+dconf write $MEDIA_KEYS/volume-step 5
 
-# Shell extensions
-dconf write /org/gnome/shell/disable-extension-version-validation true
-## App Hider
-dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps \
-    avahi-discover bssh btop bvnc nvim org.gnome.Settings \
-    org.gnome.Extensions scrcpy scrcpy-console qv4l2 qvidcap yazi
-## Copyous
-dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
-dconf write /org/gnome/shell/extensions/copyous/sound "'hum'"
-
-# Shell keybindings
+# Shell
+dconf write /org/gnome/shell/always-show-log-out true
 dconf write /org/gnome/shell/keybindings/toggle-message-tray "['']"
 dconf write /org/gnome/shell/keybindings/screenshot "['Print']"
 dconf write /org/gnome/shell/keybindings/screenshot-window "['<Super>Print']"
 dconf write /org/gnome/shell/keybindings/show-screenshot-ui "['<Shift><Super>s']"
+dconf write /org/gnome/shell/welcome-dialog-last-shown-version "67.0"
+
+# Shell extensions
+dconf write /org/gnome/shell/disable-extension-version-validation true
+## App Hider
+HIDDEN_APPS=(
+    avahi-discover bssh btop bvnc nvim org.gnome.Settings org.gnome.Extensions
+    scrcpy scrcpy-console qv4l2 qvidcap yazi
+)
+dconf_append /org/gnome/shell/extensions/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
+## Copyous
+dconf write /org/gnome/shell/extensions/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
+dconf write /org/gnome/shell/extensions/copyous/sound "'hum'"
 
 print_green "Dconf configured successfully."
