@@ -1,6 +1,8 @@
-Set-PSReadLineKeyHandler Ctrl+c RevertLine
-Set-PSReadlineKeyHandler Ctrl+d DeleteCharOrExit
-Set-PSReadLineKeyHandler Tab    MenuComplete
+Set-PSReadLineKeyHandler Ctrl+c    RevertLine
+Set-PSReadlineKeyHandler Ctrl+d    DeleteCharOrExit
+Set-PSReadLineKeyHandler Tab       MenuComplete
+Set-PSReadlineKeyHandler UpArrow   HistorySearchBackward
+Set-PSReadlineKeyHandler DownArrow HistorySearchForward
 
 # Aliases start
 Set-Alias 'ccopy' Set-Clipboard
