@@ -4,7 +4,6 @@ Set-PSReadLineKeyHandler Tab       MenuComplete
 Set-PSReadlineKeyHandler UpArrow   HistorySearchBackward
 Set-PSReadlineKeyHandler DownArrow HistorySearchForward
 
-# Aliases start
 Set-Alias 'ccopy' Set-Clipboard
 Set-Alias 'cpaste' Get-Clipboard
 
@@ -17,15 +16,17 @@ if (Get-Command bat -ErrorAction SilentlyContinue) {
 
 if (Get-Command eza -ErrorAction SilentlyContinue) {
     Set-Alias 'ls' 'eza'
-    function ll {eza -l @args}
-    function la {eza -la @args}
-    function tree {eza -T @args}
+    function __ll {eza -l @args}
+    Set-Alias 'll' __ll
+    function __la {eza -la @args}
+    Set-Alias 'la' __la
+    function __tree {eza -T @args}
+    Set-Alias 'tree' __tree
 }
 
 if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
     Set-Alias 'rm' '~/scoop/apps/uutils-coreutils/current/rm.exe'
 }
-# Aliases end
 
 if (Get-Command carapace -ErrorAction SilentlyContinue) {
     $env:CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
