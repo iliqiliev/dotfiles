@@ -28,10 +28,18 @@ if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
     Set-Alias 'rm' '~/scoop/apps/uutils-coreutils/current/rm.exe'
 }
 
+if (Get-Command nvim -ErrorAction SilentlyContinue) {
+    $env:EDITOR = 'nvim'
+}
+
 if (Get-Command carapace -ErrorAction SilentlyContinue) {
     $env:CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
     Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
     carapace _carapace powershell | Out-String | Invoke-Expression
+}
+
+if (Get-Command direnv -ErrorAction SilentlyContinue) {
+    direnv hook pwsh | Out-String | Invoke-Expression
 }
 
 if (Get-Command starship -ErrorAction SilentlyContinue) {
