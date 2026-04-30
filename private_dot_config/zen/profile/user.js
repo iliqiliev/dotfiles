@@ -6,6 +6,8 @@ user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 /* Enable auto-scrolling with middle mouse button. */
 user_pref("general.autoScroll", true);
+/* Block websites from requesting notifications. */
+user_pref("permissions.default.desktop-notification", 2);
 /* Do not ask to save login details. */
 user_pref("signon.rememberSignons", false);
 /* Skip Zen's welcome screen. */
