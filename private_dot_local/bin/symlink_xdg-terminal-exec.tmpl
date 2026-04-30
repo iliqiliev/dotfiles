@@ -1,0 +1,29 @@
+{{- /* Fix 'Unable to find terminal required for application' */}}
+{{- /* https://unix.stackexchange.com/questions/707469 */}}
+
+{{- if not (lookPath "gnome-shell") }}
+{{-   abortEmpty }}
+{{- end }}
+
+{{- $gnomeHardcodedTerminals := list
+      "xdg-terminal-exec"
+      "kgx"
+      "gnome-terminal"
+      "mate-terminal"
+      "xfce4-terminal"
+      "tilix"
+      "konsole"
+      "nxterm"
+      "color-xterm"
+      "rxvt"
+      "dtterm"
+      "xterm"
+}}
+
+{{- range $gnomeHardcodedTerminals }}
+{{-   if lookPath . }}
+{{-     abortEmpty }}
+{{-   end }}
+{{- end }}
+
+{{- lookPath "kitty" }}
