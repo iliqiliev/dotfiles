@@ -112,9 +112,25 @@
   // Artificial intelligence.
   "edit_predictions": { "mode": "subtle" },
   "agent": {
+    "default_profile": "ask",
     "dock": "right",
     "sidebar_side": "right",
-    "default_model": { "provider": "copilot_chat", "model": "gpt-5.3-codex" },
-    "default_profile": "ask",
+    "default_model": {
+      "enable_thinking": false,
+      "model": "gemini-3.1-pro-preview",
+      "provider": "copilot_chat",
+    },
+    "favorite_models": [
+      {
+        "enable_thinking": false,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "copilot_chat",
+      },
+      {
+        "enable_thinking": true,
+        "model": "gpt-5.2-codex",
+        "provider": "copilot_chat",
+      },
+    ],
   },
 }
