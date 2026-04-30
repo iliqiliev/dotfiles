@@ -32,8 +32,8 @@
     "adguard-other-annoyances",
     "adguard-popup-overlays",
     "adguard-widgets",
-    "ublock-annoyances",
-    "BGR-0"
+    "ublock-annoyances"{{ if .isPersonal }},
+    "BGR-0"{{ end }}
   ],
   "whitelist": [
     "chrome-extension-scheme",
