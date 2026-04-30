@@ -1,6 +1,8 @@
 // chezmoi:template:left-delimiter="/*" right-delimiter="*/"
 
 /*- if .isPersonal -*/
+// Do not show a warning if the built-in password manager is disabled.
+user_pref("browser.preferences.config_warning.warningPasswordManager.dismissed", true);
 // Never ask to translate Bulgarian websites.
 user_pref("browser.translations.neverTranslateLanguages", "bg");
 // Do not ask to save credit card details.
