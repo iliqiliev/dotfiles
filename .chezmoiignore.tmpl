@@ -1,5 +1,3 @@
-# Install script and README.md
-install
 README.md
 
 # Distro-specific scripts
@@ -8,6 +6,8 @@ README.md
 .config/fish/**
 .config/kitty/**
 .config/MangoHud/**
+.config/topgrade.toml
+.config/zed/**
 .local/share/**
 Templates/**
 {{- end }}
@@ -42,7 +42,6 @@ scoop/**
 # GUI-specific files
 {{- if not .manageGui }}
 .chezmoiscripts/linux/gui/**
-.config/zed/**
 .config/zen/**
 .local/share/**
 Templates/**
