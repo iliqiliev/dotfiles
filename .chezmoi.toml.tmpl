@@ -24,11 +24,12 @@
       (promptBoolOnce . "manageGui" "Manage GUI applications" false)
 }}
 
-{{- $useSudo := true }}{{/* useSudo is for caching the answer to promptBoolOnce */}}
+{{- $useSudo := false }}{{/* useSudo is for caching the answer to promptBoolOnce */}}
 {{- $sudo := "su root -c" }}
 {{- if or (eq .chezmoi.uid "0") (eq $distro "android") }}
 {{-   $sudo = "" }}
 {{- else if promptBoolOnce . "useSudo" "Use sudo" false }}
+{{-   $useSudo = true }}
 {{-   if lookPath "doas" }}
 {{-     $sudo = "doas" }}
 {{-   else if lookPath "gsudo" }}
