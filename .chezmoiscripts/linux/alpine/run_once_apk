@@ -22,7 +22,7 @@ print_green "Apk database synced successfully."
 AVAILABLE_PACKAGES=$(
     comm -12 \
         <(apk search --queit | sort) \
-        <(tr " " "\n" <<<"$PACKAGES")
+        <(echo $PACKAGES | tr " " "\n")
 )
 
 print_blue "Installing apk packages..."
