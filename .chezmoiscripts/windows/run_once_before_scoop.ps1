@@ -35,6 +35,12 @@ foreach ($bucket in $BUCKETS) {
 Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 Write-Host "Installing scoop packages..." -ForegroundColor Blue
+
+$SCOOP_PACKAGES = (Get-ChildItem ~/scoop/buckets/*/bucket/*.json).BaseName
 $PACKAGES = $env:PACKAGES -split " "
-scoop install --no-update-scoop @PACKAGES
+$AVAILABLE_PACKAGES = (
+    Compare-Object $SCOOP_PACKAGES $PACKAGES -PassThru -IncludeEqual -ExcludeDifferent
+)
+
+scoop install --no-update-scoop @AVAILABLE_PACKAGES
 Write-Host "Packages installed successfully." -ForegroundColor Green
