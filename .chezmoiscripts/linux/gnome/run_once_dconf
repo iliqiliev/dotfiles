@@ -79,6 +79,6 @@ dconf_append $SHELL_EXTENSIONS/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
 
 ## Copyous
 dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
-dconf write $SHELL_EXTENSIONS/copyous/sound "'hum'"
+dconf write $SHELL_EXTENSIONS/copyous/sound "'message'"
 
 print_green "Dconf configured successfully."
