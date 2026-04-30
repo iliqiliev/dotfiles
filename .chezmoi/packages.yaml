@@ -1,6 +1,5 @@
 base:
   bash:
-    scoop: null
   bat:
   btop:
     scoop: null
@@ -9,7 +8,6 @@ base:
     apk: "shadow"
     apt: "passwd"
     pacman: "util-linux"
-    scoop: null
   clink:
     scoop: "clink"
     "*": null
@@ -31,7 +29,6 @@ base:
   fd:
     apt: "fd-find"
   fish:
-    scoop: null
   fzf:
   grep:
   git:
@@ -57,7 +54,6 @@ base:
   uv:
   wget:
   xdg-utils:
-    scoop: null
   yazi:
   zoxide:
 
@@ -78,9 +74,7 @@ gui:
 
 kvmGuest:
   spice-vdagent:
-    scoop: null
 
 oracleGuest:
   virtualbox-guest-utils:
     apk: "virtualbox-guest-additions-x11" # for Wayland as well
-    scoop: null
