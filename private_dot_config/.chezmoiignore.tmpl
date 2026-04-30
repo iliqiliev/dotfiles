@@ -1,0 +1,13 @@
+README.md
+
+{{- if ne .os "linux" }}
+fish
+kitty
+MangoHud
+topgrade.toml
+zed
+{{- end }}
+
+{{- if not .manageGui }}
+zen
+{{- end }}

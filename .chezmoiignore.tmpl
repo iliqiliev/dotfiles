@@ -1,15 +1,7 @@
 README.md
 
-# Distro-specific scripts
 {{- if ne .os "linux" }}
 .chezmoiscripts/linux/**
-.config/fish/**
-.config/kitty/**
-.config/MangoHud/**
-.config/topgrade.toml
-.config/zed/**
-.local/share/**
-Templates/**
 {{- end }}
 
 {{- if ne .distro "alpine" }}
@@ -18,7 +10,6 @@ Templates/**
 
 {{- if ne .distro "android" }}
 .chezmoiscripts/linux/android/**
-.termux/**
 {{- end }}
 
 {{- if ne .distro "arch" }}
@@ -33,16 +24,10 @@ Templates/**
 .chezmoiscripts/linux/gnome/**
 {{- end }}
 
-{{- if ne .os "windows" }}
-.chezmoiscripts/windows/**
-AppData/**
-scoop/**
-{{- end }}
-
-# GUI-specific files
 {{- if not .manageGui }}
 .chezmoiscripts/linux/gui/**
-.config/zen/**
-.local/share/**
-Templates/**
+{{- end }}
+
+{{- if ne .os "windows" }}
+.chezmoiscripts/windows/**
 {{- end }}
