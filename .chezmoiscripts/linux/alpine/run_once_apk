@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env ash
 
 set -eu
 
@@ -15,7 +15,17 @@ if command -v setup-apkrepos >/dev/null; then
     print_green "Community repository added successfully."
 fi
 
+print_blue "Syncing apk database..."
+$CHEZ_SUDO apk update
+print_green "Apk database synced successfully."
+
+AVAILABLE_PACKAGES=$(
+    comm -12 \
+        <(apk search --queit | sort) \
+        <(tr " " "\n" <<<"$PACKAGES")
+)
+
 print_blue "Installing apk packages..."
 # shellcheck disable=2086
-$CHEZ_SUDO apk add $PACKAGES
+$CHEZ_SUDO apk add $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."
