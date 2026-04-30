@@ -61,14 +61,14 @@
 {{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
 {{- $packages := $packageInfoFile.base }}
 {{- if $manageGui }}
-{{-   $packages = merge $packages $packageInfoFile.gui }}
+{{-   $packages = mergeOverwrite $packages $packageInfoFile.gui }}
 {{- end }}
 {{- if env "container" }}
 {{- /* Do not append guest packages. */}}
 {{- else if contains "Standard PC" $productName }}
-{{-   $packages = merge $packages $packageInfoFile.kvmGuest }}
+{{-   $packages = mergeOverwrite $packages $packageInfoFile.kvmGuest }}
 {{- else if eq $productName "VirtualBox" }}
-{{-   $packages = merge $packages $packageInfoFile.oracleGuest }}
+{{-   $packages = mergeOverwrite $packages $packageInfoFile.oracleGuest }}
 {{- end }}
 
 {{- $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml }}
