@@ -3,6 +3,10 @@
   "userSettings": {
     "cloudStorageEnabled": true,
     "contextMenuEnabled": false,
+    "externalLists": "https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt",
+    "importedLists": [
+      "https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt"
+    ],
     "showIconBadge": false
   },
   "selectedFilterLists": [
@@ -32,8 +36,9 @@
     "adguard-other-annoyances",
     "adguard-popup-overlays",
     "adguard-widgets",
-    "ublock-annoyances"{{ if .isPersonal }},
-    "BGR-0"{{ end }}
+    "ublock-annoyances",
+    {{- if .isPersonal }}"BGR-0",{{ end }}
+    "https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt"
   ],
   "whitelist": [
     "chrome-extension-scheme",
