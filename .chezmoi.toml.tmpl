@@ -63,7 +63,8 @@
 {{- if $manageGui }}
 {{-   $packages = merge $packages $packageInfoFile.gui }}
 {{- end }}
-{{- if ne (env "container") "" }}
+{{- if env "container" }}
+{{- /* Do not append guest packages. */ }}
 {{- else if contains "Standard PC" $productName }}
 {{-   $packages = merge $packages $packageInfoFile.kvmGuest }}
 {{- else if eq $productName "VirtualBox" }}
