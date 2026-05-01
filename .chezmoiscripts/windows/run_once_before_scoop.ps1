@@ -53,5 +53,6 @@ if ($AVAILABLE_USER_PACKAGES.Count -gt 0) {
 if (($AVAILABLE_SUDO_PACKAGES.Count -gt 0) -and ($env:CHEZ_SUDO -ne "false")) {
     Write-Host "Installing packages that require admin privileges..." -ForegroundColor Blue
     gsudo scoop install --no-update-scoop @AVAILABLE_SUDO_PACKAGES
+    if (!$?) { exit 1 }
     Write-Host "Admin packages installed successfully." -ForegroundColor Green
 }
