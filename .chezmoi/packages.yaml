@@ -74,6 +74,7 @@ gui:
 
 kvmGuest:
   spice-vdagent:
+    scoop: "virtio-guest-tools"
 
 oracleGuest:
   virtualbox-guest-utils:
