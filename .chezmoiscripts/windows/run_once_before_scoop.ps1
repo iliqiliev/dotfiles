@@ -35,23 +35,23 @@ foreach ($bucket in $BUCKETS) {
 Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 
-Write-Host "Installing scoop packages..." -ForegroundColor Blue
-
 $ALL_SCOOP_PACKAGES = (Get-ChildItem "~/scoop/buckets/*/bucket/*.json").BaseName
 $NEED_SUDO_PACKAGES = @("virtio-guest-tools")
 $REQUESTED_PACKAGES = $env:PACKAGES -split " "
 
 $AVAILABLE_PACKAGES = $REQUESTED_PACKAGES | Where-Object {$_ -in $ALL_SCOOP_PACKAGES}
 
-$AVAILABLE_USER_PACKAGES = $AVAILABLE_PACKAGES | Where-Object {$_ -notin $NEED_SUDO_PACKAGES}
-$AVAILABLE_SUDO_PACKAGES = $AVAILABLE_PACKAGES | Where-Object {$_ -in $NEED_SUDO_PACKAGES}
+$AVAILABLE_USER_PACKAGES = @($AVAILABLE_PACKAGES | Where-Object {$_ -notin $NEED_SUDO_PACKAGES})
+$AVAILABLE_SUDO_PACKAGES = @($AVAILABLE_PACKAGES | Where-Object {$_ -in $NEED_SUDO_PACKAGES})
 
-scoop install --no-update-scoop @AVAILABLE_USER_PACKAGES
-Write-Host "Packages installed successfully." -ForegroundColor Green
+if ($AVAILABLE_USER_PACKAGES.Count -gt 0) {
+    Write-Host "Installing scoop packages..." -ForegroundColor Blue
+    scoop install --no-update-scoop @AVAILABLE_USER_PACKAGES
+    Write-Host "Packages installed successfully." -ForegroundColor Green
+}
 
-if ($env:CHEZ_SUDO -eq "false") { exit 0 }
-if ($AVAILABLE_SUDO_PACKAGES.Length -eq 0) { exit 0 }
-
-Write-Host "Installing packages that require admin privileges..." -ForegroundColor Blue
-gsudo scoop install --no-update-scoop @AVAILABLE_SUDO_PACKAGES
-Write-Host "Admin packages installed successfully." -ForegroundColor Green
+if (($AVAILABLE_SUDO_PACKAGES.Count -gt 0) -and ($env:CHEZ_SUDO -ne "false")) {
+    Write-Host "Installing packages that require admin privileges..." -ForegroundColor Blue
+    gsudo scoop install --no-update-scoop @AVAILABLE_SUDO_PACKAGES
+    Write-Host "Admin packages installed successfully." -ForegroundColor Green
+}
