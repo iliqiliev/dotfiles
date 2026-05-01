@@ -5,10 +5,15 @@ Write-Host 'Removing bloat packages...' -ForegroundColor Blue
 
 $removed = 0
 $PACKAGES = @(
+    'Microsoft.BingNews'
     'Microsoft.BingSearch'
+    'Microsoft.BingWeather'
     'Microsoft.GetHelp'
+    'Microsoft.MicrosoftSolitaireCollection'
     'Microsoft.StartExperiencesApp'
+    'Microsoft.Todos'
     'Microsoft.WidgetsPlatformRuntime'
+    'Microsoft.WindowsFeedbackHub'
     'MicrosoftWindows.Client.WebExperience'
 )
 
