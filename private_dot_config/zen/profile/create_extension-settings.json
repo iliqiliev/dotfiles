@@ -44,16 +44,6 @@
           "enabled": true
         }
       ]
-    },
-    "addSite": {
-      "precedenceList": [
-        {
-          "id": "addon@darkreader.org",
-          "installDate": 1741184852046,
-          "value": { "shortcut": "Ctrl+Alt+D" },
-          "enabled": true
-        }
-      ]
     }
   }
 }
