@@ -21,8 +21,11 @@ function dconf_append {
 print_blue "Setting Dconf settings..."
 
 INPUT_SOURCES=/org/gnome/desktop/input-sources
-test "$CHEZ_IS_PERSONAL" = "true" &&
+
+if test "$CHEZ_IS_PERSONAL" = "true"; then
     dconf write $INPUT_SOURCES/sources "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+fi
+
 dconf write $INPUT_SOURCES/per-window true
 
 INTERFACE=/org/gnome/desktop/interface
