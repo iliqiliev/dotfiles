@@ -38,10 +38,6 @@ if (Get-Command carapace -ErrorAction SilentlyContinue) {
     carapace _carapace powershell | Out-String | Invoke-Expression
 }
 
-if (Get-Command direnv -ErrorAction SilentlyContinue) {
-    direnv hook pwsh | Out-String | Invoke-Expression
-}
-
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     starship init powershell | Invoke-Expression
 }
