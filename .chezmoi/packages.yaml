@@ -64,11 +64,10 @@ gui:
   ditto:
     scoop: "ditto"
     "*": null
+  kitty:
+    scoop: "windows-terminal"
   process-explorer:
     scoop: "process-explorer"
-    "*": null
-  windows-terminal:
-    scoop: "windows-terminal"
     "*": null
   zed:
 
