@@ -19,7 +19,7 @@ function Set-RegistryHKCU {
             Return 0
         }
 
-        New-Item -Confirm -Force -Path $PathName > $null
+        New-Item -Force -Path $PathName > $null
         Return 0
     }
 
@@ -32,10 +32,10 @@ function Set-RegistryHKCU {
     }
 
     if (-not (Test-Path $Path)) {
-        New-Item -Confirm -Force -Path $Path > $null
+        New-Item -Force -Path $Path > $null
     }
 
-    Set-ItemProperty -Confirm -Path $Path -Name $Name -Value $Value @TypeParam
+    Set-ItemProperty -Path $Path -Name $Name -Value $Value @TypeParam
 }
 
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") `
