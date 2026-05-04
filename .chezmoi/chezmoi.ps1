@@ -17,11 +17,11 @@ function Set-RegistryHKCU {
 
     if ($Value -eq $null) {
         if (Test-Path $PathName) {
-            Return 0
+            return
         }
 
         New-Item -Force -Path $PathName > $null
-        Return 0
+        return
     }
 
     $Path = Split-Path $PathName -Parent
