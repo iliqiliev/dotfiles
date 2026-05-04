@@ -12,7 +12,9 @@ if ! command -v gnome-extensions-cli >/dev/null; then
         exit 0
     fi
 
-    uv tool install gnome-extensions-cli --with "pygobject" ||
+    if ! uv tool install gnome-extensions-cli --with "pygobject" 2>/dev/null; then
+        print_yellow "Failed to install 'gnome-extensions-cli' with DBus backend."
+        print_blue "Trying with filesystem backend..."
         uv tool install gnome-extensions-cli
 
     print_green "'gnome-extensions-cli' installed successfully."
