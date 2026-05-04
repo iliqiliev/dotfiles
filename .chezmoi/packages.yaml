@@ -70,6 +70,8 @@ gui:
     scoop: "process-explorer"
     "*": null
   zed:
+  zen-browser-bin:
+    scoop: "zen-browser"
 
 guiGnome:
   gnome:
