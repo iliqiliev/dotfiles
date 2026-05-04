@@ -47,4 +47,6 @@ if ($env:Path -notlike "*$LOCAL_BIN*") {
     $env:Path += ";$LOCAL_BIN"
 }
 
-. $args[0]
+if ($args[0] -ne $null) {
+    . $args[0]
+}
