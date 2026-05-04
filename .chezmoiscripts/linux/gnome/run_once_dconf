@@ -78,8 +78,8 @@ SHELL_EXTENSIONS=/org/gnome/shell/extensions
 
 ## App Hider
 HIDDEN_APPS=(
-    avahi-discover bssh btop bvnc nvim org.gnome.Settings org.gnome.Extensions
-    scrcpy scrcpy-console qv4l2 qvidcap yazi
+    avahi-discover bssh btop bvnc lstopo nvim org.gnome.Settings
+    org.gnome.Extensions scrcpy scrcpy-console qv4l2 qvidcap yazi
 )
 dconf_append $SHELL_EXTENSIONS/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
 
