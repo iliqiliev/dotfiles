@@ -4,65 +4,59 @@ $ErrorActionPreference = 'Stop'
 Write-Host 'Setting registry settings...' -ForegroundColor Blue
 
 if ($env:CHEZ_IS_PERSONAL -eq 'true') {
-    $REG_PATH = 'HKCU:\Keyboard Layout\Preload'
-    Set-ItemProperty $REG_PATH 1 '00000409'  # English (US)
-    Set-ItemProperty $REG_PATH 2 '00040402'  # Bulgarian (Phonetic Traditional)
+    Set-RegistryHKCU 'Keyboard Layout\Preload\1' '00000409'  # English (US)
+    Set-RegistryHKCU 'Keyboard Layout\Preload\2' '00040402'  # Bulgarian (Phonetic Traditional)
 }
 
-$REG_PATH = 'HKCU:\Environment' # Set environment variables.
-Set-ItemProperty $REG_PATH CLINK_PROFILE       '%APPDATA%\clink'                           -Type ExpandString
-Set-ItemProperty $REG_PATH XDG_CACHE_HOME      '%USERPROFILE%\.cache'                      -Type ExpandString
-Set-ItemProperty $REG_PATH PYTHONPYCACHEPREFIX '%USERPROFILE%\.cache\python'               -Type ExpandString
-Set-ItemProperty $REG_PATH RUFF_CACHE_DIR      '%USERPROFILE%\.cache\ruff'                 -Type ExpandString
-Set-ItemProperty $REG_PATH XDG_CONFIG_HOME     '%USERPROFILE%\.config'                     -Type ExpandString
-Set-ItemProperty $REG_PATH BAT_CONFIG_PATH     '%USERPROFILE%\.config\bat\config'          -Type ExpandString
-Set-ItemProperty $REG_PATH TEALDEER_CONFIG_DIR '%USERPROFILE%\.config\tealdeer'            -Type ExpandString
-Set-ItemProperty $REG_PATH XDG_STATE_HOME      '%USERPROFILE%\.local\state'                -Type ExpandString
-Set-ItemProperty $REG_PATH HISTFILE            '%USERPROFILE%\.local\state\bash\history'   -Type ExpandString
-Set-ItemProperty $REG_PATH PYTHON_HISTORY      '%USERPROFILE%\.local\state\python_history' -Type ExpandString
-Set-ItemProperty $REG_PATH POWERSHELL_TELEMETRY_OPTOUT 1
+# Disable mouse acceleration.
+Set-RegistryHKCU 'Control Panel\Mouse\MouseSpeed'      '0'
+Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold1' '0'
+Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold2' '0'
 
-$REG_PATH = 'HKCU:\Control Panel\Mouse' # Disable mouse acceleration.
-Set-ItemProperty $REG_PATH MouseSpeed      '0'
-Set-ItemProperty $REG_PATH MouseThreshold1 '0'
-Set-ItemProperty $REG_PATH MouseThreshold2 '0'
+# Set environment variables.
+Set-RegistryHKCU 'Environment\CLINK_PROFILE'       '%APPDATA%\clink'
+Set-RegistryHKCU 'Environment\XDG_CACHE_HOME'      '%USERPROFILE%\.cache'
+Set-RegistryHKCU 'Environment\PYTHONPYCACHEPREFIX' '%USERPROFILE%\.cache\python'
+Set-RegistryHKCU 'Environment\RUFF_CACHE_DIR'      '%USERPROFILE%\.cache\ruff'
+Set-RegistryHKCU 'Environment\XDG_CONFIG_HOME'     '%USERPROFILE%\.config'
+Set-RegistryHKCU 'Environment\BAT_CONFIG_PATH'     '%USERPROFILE%\.config\bat\config'
+Set-RegistryHKCU 'Environment\TEALDEER_CONFIG_DIR' '%USERPROFILE%\.config\tealdeer'
+Set-RegistryHKCU 'Environment\XDG_STATE_HOME'      '%USERPROFILE%\.local\state'
+Set-RegistryHKCU 'Environment\HISTFILE'            '%USERPROFILE%\.local\state\bash\history'
+Set-RegistryHKCU "Environment\PYTHON_HISTORY"      '%USERPROFILE%\.local\state\python_history'
+Set-RegistryHKCU "Environment\POWERSHELL_TELEMETRY_OPTOUT" 1
 
-$REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+# Restore the classic context menu in Windows 11.
+Set-RegistryHKCU 'Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32'
+
+# Inject clink into cmd.
+Set-RegistryHKCU 'Software\Microsoft\Command Processor\AutoRun' 'clink inject --autorun'
+
+$EXPLORER = 'Software\Microsoft\Windows\CurrentVersion\Explorer'
 # Free Super+V shortcut for external clipboard manager.
-Set-ItemProperty $REG_PATH DisabledHotkeys 'V'
+Set-RegistryHKCU "$EXPLORER\Advanced\DisabledHotkeys" 'V'
 # Show hidden files and folders in explorer.
-Set-ItemProperty $REG_PATH Hidden           1
+Set-RegistryHKCU "$EXPLORER\Advanced\Hidden" 1
 # Show file extensions in explorer.
-Set-ItemProperty $REG_PATH HideFileExt      0
+Set-RegistryHKCU "$EXPLORER\Advanced\HideFileExt" 0
 # Align taskbar to the left.
-Set-ItemProperty $REG_PATH TaskbarAl        0
-# Hide widgets from the taskbar. Key protected by UCPD: https://kolbi.cz/blog/2024/04/03/userchoice-protection-driver-ucpd-sys
-Set-ItemProperty $REG_PATH TaskbarDa        0 -ErrorAction SilentlyContinue
+Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarAl" 0
+# Hide widgets from the taskbar. Key may be protected by the UCPD driver.
+Set-ItemProperty "$EXPLORER\Advanced\TaskbarDa" 0 -ErrorAction SilentlyContinue
 # Add 'End task' button when right-clicking a program.
-New-Item  -Force $REG_PATH\TaskbarDeveloperSettings > $null
-Set-ItemProperty "$REG_PATH\TaskbarDeveloperSettings" TaskbarEndTask 1
+Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDeveloperSettings\TaskbarEndTask" 1
+# Change the app opened by the CALC key.
+Set-RegistryHKCU "$EXPLORER\AppKey\18\ShellExecute" 'qalculate-gtk'
+# Hide 'Learn about this picture' icon.
+Set-RegistryHKCU "$EXPLORER\HideDesktopIcons\NewStartPanel\{2cc5ca98-6485-489a-920e-b3e88a6ccce3}" 1
 
-$REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' # Autoruns.
-Set-ItemProperty $REG_PATH AltSnap "`"$env:USERPROFILE\scoop\apps\altsnap\current\AltSnap.exe`""
-Set-ItemProperty $REG_PATH Ditto     "$env:USERPROFILE\scoop\apps\ditto\current\Ditto.exe"
+$AUTORUN = 'Software\Microsoft\Windows\CurrentVersion\Run'
+Set-RegistryHKCU "$AUTORUN\AltSnap" "`"$env:USERPROFILE\scoop\apps\altsnap\current\AltSnap.exe`""
+Set-RegistryHKCU "$AUTORUN\Ditto"     "$env:USERPROFILE\scoop\apps\ditto\current\Ditto.exe"
 
-$REG_PATH = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search'
-Set-ItemProperty $REG_PATH SearchboxTaskbarMode 0 # Hide the taskbar search box.
-Set-ItemProperty $REG_PATH BingSearchEnabled    0 # Disable Bing in Start search.
-
-New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' `
-    -Force > $null # Restore the classic context menu in Windows 11.
-
-New-Item  -Force -Path 'HKCU:\Software\Microsoft\Command Processor' > $null
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Command Processor' `
-    -Name 'AutoRun' -Value '%USERPROFILE%\scoop\apps\clink\current\clink.bat inject --autorun'
-
-New-Item  -Force -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' > $null
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AppKey\18' `
-    -Name 'ShellExecute' -Value 'qalculate-gtk' # Change the app opened by the CALC key.
-
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' `
-    -Name '{2cc5ca98-6485-489a-920e-b3e88a6ccce3}' -Value 1 # Hide 'Learn about this picture' icon.
+$SEARCH = 'Software\Microsoft\Windows\CurrentVersion\Search'
+Set-RegistryHKCU "$SEARCH\SearchboxTaskbarMode" 0 # Hide the taskbar search box.
+Set-RegistryHKCU "$SEARCH\BingSearchEnabled"    0 # Disable Bing in Start search.
 
 Write-Host 'Registry settings imported successfully.' -ForegroundColor Green
 
