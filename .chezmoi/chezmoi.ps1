@@ -9,7 +9,8 @@ function Set-RegistryHKCU {
     param (
         [Parameter(Mandatory)]
         [string]$PathName,
-                $Value
+
+        [object]$Value
     )
 
     $PathName = "HKCU:\$($PathName)"
