@@ -71,6 +71,11 @@ gui:
     "*": null
   zed:
 
+guiGnome:
+  gnome:
+    pacman: "gdm gnome-control-center"
+    scoop: null
+
 kvmGuest:
   spice-vdagent:
     scoop: "virtio-guest-tools"
