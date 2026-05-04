@@ -25,7 +25,7 @@ if test "$CHEZ_IS_PERSONAL" = "true"; then
         "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
 
     dconf write /org/gnome/shell/favorite-apps \
-        "['zen.desktop', 'kitty.desktop', 'org.gnome.Nautilus.desktop']"
+        "['zen.desktop', 'kitty.desktop', 'dev.zed.Zed.desktop']"
 fi
 
 INPUT_SOURCES=/org/gnome/desktop/input-sources
