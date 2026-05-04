@@ -78,4 +78,4 @@ kvmGuest:
 
 oracleGuest:
   virtualbox-guest-utils:
-    apk: "virtualbox-guest-additions-x11" # for Wayland as well
+    apk: "virtualbox-guest-additions virtualbox-guest-additions-x11"
