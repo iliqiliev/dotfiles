@@ -51,7 +51,8 @@
 {{-   $productFile := "/sys/devices/virtual/dmi/id/product_name" }}
 {{-   $productName = and (stat $productFile | default "") (include $productFile) | trim }}
 {{-   $zenPath = "/opt/zen-browser-bin" }}
-{{-   $installGnome = and $manageGui $useSudo (promptBoolOnce . "installGnome" "Install Gnome desktop" false) }}
+{{-   $gnomeInstalled := lookPath "gnome-shell" | ne "" }}
+{{-   $installGnome = and $manageGui $useSudo (or ($gnomeInstalled) (promptBoolOnce . "installGnome" "Install Gnome desktop" false)) }}
 {{- else if eq $os "windows" }}
 {{-   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height"}}
 {{-   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi }}
