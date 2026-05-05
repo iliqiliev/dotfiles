@@ -114,11 +114,12 @@ size = 12 # Detected small
 pager = {{ and (lookPath "delta") "delta" | quote }}
 
 [env]
-BASH_ENV = "$CHEZMOI_SOURCE_DIR/.chezmoi/chezmoi.bash"
+BASH_ENV = "$CHEZMOI_SOURCE_DIR/.chezmoi/env.sh"
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
+ENV = "$BASH_ENV"
 PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 {{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
 {{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
@@ -136,7 +137,7 @@ fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "
 
 [interpreters.ps1]
 command = "powershell"
-args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/chezmoi.ps1"]
+args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/env.ps1"]
 
 [interpreters.py]
 command = "uv"

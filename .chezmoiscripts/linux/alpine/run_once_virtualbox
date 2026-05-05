@@ -2,8 +2,6 @@
 
 set -eu
 
-. "$CHEZMOI_SOURCE_DIR/.chezmoi/chezmoi.bash"
-
 if ! rc-status &>/dev/null; then
     exit 0 # OpenRC is not running
 fi
