@@ -2,6 +2,8 @@
 
 set -eu
 
+. "$CHEZMOI_SOURCE_DIR/.chezmoi/env.sh"
+
 if test "$CHEZ_SUDO" = "false"; then
     exit 0
 fi
