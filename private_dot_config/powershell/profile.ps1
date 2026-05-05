@@ -39,7 +39,8 @@ if (Get-Command carapace -ErrorAction SilentlyContinue) {
 }
 
 if (Get-Command starship -ErrorAction SilentlyContinue) {
-    starship init powershell | Invoke-Expression
+    $STARSHIP_INIT = (starship init powershell --print-full-init) -join "`n"
+    Invoke-Expression $STARSHIP_INIT.Replace('\shims\', '\apps\starship\current\')
 }
 
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
