@@ -1,8 +1,9 @@
-{{- if or
-    (ne .os "linux")
-    (not (lookPath "fish"))
-    (exec "fish" "-c" "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4")
-}}
+{{- if ne .os "linux" }}
+{{-   abortEmpty }}
+{{- end }}
+
+{{- $VersionCheckCmd := "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4" }}
+{{- if and (lookPath "fish") (exec "fish" "-c" $VersionCheckCmd) }}
 {{-   abortEmpty }}
 {{- end }}
 
