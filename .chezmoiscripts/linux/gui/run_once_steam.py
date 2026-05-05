@@ -36,6 +36,7 @@ for path in localconfigs:
     system = parsed_vdf["UserLocalConfigStore"]["System"]
     apps = parsed_vdf["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["apps"]
 
+    system["InGameOverlayScreenshotHotKey"] = "KEY_NONE"
     system["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
 
     language = "-language 'Bulgarian'" if id3 == PERSONAL_ID3 else ""
