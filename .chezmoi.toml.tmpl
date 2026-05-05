@@ -114,15 +114,14 @@ size = 12 # Detected small
 [diff]
 pager = {{ and (lookPath "delta") "delta" | quote }}
 
+{{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
+{{  $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
 [env]
-BASH_ENV = "$CHEZMOI_SOURCE_DIR/.chezmoi/env.sh"
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
 CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
-{{- $localBin := joinPath .chezmoi.homeDir ".local/bin" }}
-{{- $pathList := env "PATH" | splitList .chezmoi.pathListSeparator }}
 PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
 PSExecutionPolicyPreference = "Bypass"
 

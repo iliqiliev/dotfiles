@@ -2,6 +2,9 @@
 
 set -eu
 
+# shellcheck source=.chezmoi/env.sh
+source ~/.local/share/chezmoi/.chezmoi/env.sh
+
 function dconf_append {
     key="$1" && shift
     current=$(dconf read "$key")

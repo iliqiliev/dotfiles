@@ -2,7 +2,8 @@
 
 set -eu
 
-. "$CHEZMOI_SOURCE_DIR/.chezmoi/env.sh"
+# shellcheck source=.chezmoi/env.sh
+source ~/.local/share/chezmoi/.chezmoi/env.sh
 
 if ! rc-status &>/dev/null; then
     exit 0 # OpenRC is not running

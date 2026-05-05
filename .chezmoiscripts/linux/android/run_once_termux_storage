@@ -2,6 +2,9 @@
 
 set -eu
 
+# shellcheck source=.chezmoi/env.sh
+source ~/.local/share/chezmoi/.chezmoi/env.sh
+
 if ! test -L "$HOME/storage/shared"; then
     print_blue "Setting up Termux storage..."
 

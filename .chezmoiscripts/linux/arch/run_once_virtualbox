@@ -2,6 +2,9 @@
 
 set -eu
 
+# shellcheck source=.chezmoi/env.sh
+source ~/.local/share/chezmoi/.chezmoi/env.sh
+
 if ! test -f /usr/lib/systemd/system/vboxservice.service; then
     exit 0
 fi
