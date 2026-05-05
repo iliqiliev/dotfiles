@@ -1,23 +1,23 @@
 #!/usr/bin/env sh
 
-NORMAL='\033[0m'
+ANSI_RESET='\033[0m'
 
 print_red() {
-    RED='\033[31m'
-    printf "${RED}%b\n${NORMAL}" "$*"
+    ANSI_BRIGHT_RED='\033[91m'
+    printf "${ANSI_BRIGHT_RED}%b\n${ANSI_RESET}" "$*"
 }
 
 print_green() {
-    GREEN='\033[32m'
-    printf "${GREEN}%b\n${NORMAL}" "$*"
+    ANSI_BRIGHT_GREEN='\033[92m'
+    printf "${ANSI_BRIGHT_GREEN}%b\n${ANSI_RESET}" "$*"
 }
 
 print_yellow() {
-    YELLOW='\033[33m'
-    printf "${YELLOW}%b\n${NORMAL}" "$*"
+    ANSI_BRIGHT_YELLOW='\033[93m'
+    printf "${ANSI_BRIGHT_YELLOW}%b\n${ANSI_RESET}" "$*"
 }
 
 print_blue() {
-    BLUE='\033[34m'
-    printf "${BLUE}%b\n${NORMAL}" "$*"
+    ANSI_BRIGHT_BLUE='\033[94m'
+    printf "${ANSI_BRIGHT_BLUE}%b\n${ANSI_RESET}" "$*"
 }
