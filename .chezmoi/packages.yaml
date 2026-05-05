@@ -76,7 +76,7 @@ gui:
 guiGnome:
   gnome:
     pacman: "gdm gnome-control-center"
-    scoop: null
+    "*": null
 
 kvmGuest:
   spice-vdagent:

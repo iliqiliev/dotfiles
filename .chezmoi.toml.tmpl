@@ -44,12 +44,14 @@
 {{- $verticalResolution := 0 }}
 {{- $zenPath := "" }}
 {{- $productName := "" }}
+{{- $installGnome := false }}
 {{- if eq $os "linux" }}
 {{-   $cmdArgs := list "-c" "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" }}
 {{-   $verticalResolution = outputList "sh" $cmdArgs | trim | atoi }}
 {{-   $productFile := "/sys/devices/virtual/dmi/id/product_name" }}
 {{-   $productName = and (stat $productFile | default "") (include $productFile) | trim }}
 {{-   $zenPath = "/opt/zen-browser-bin" }}
+{{-   $installGnome = and ($manageGui) (promptBoolOnce . "installGnome" "Install Gnome desktop" false) }}
 {{- else if eq $os "windows" }}
 {{-   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height"}}
 {{-   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi }}
@@ -62,9 +64,12 @@
 {{- $packages := $packageInfoFile.base }}
 {{- if $manageGui }}
 {{-   $packages = mergeOverwrite $packages $packageInfoFile.gui }}
+{{-   if $installGnome }}
+{{-     $packages = mergeOverwrite $packages $packageInfoFile.guiGnome }}
+{{-   end }}
 {{- end }}
 {{- if env "container" }}
-{{- /* Do not append guest packages. */}}
+{{- /* Do not install VM guest packages for containers. */}}
 {{- else if contains "Standard PC" $productName }}
 {{-   $packages = mergeOverwrite $packages $packageInfoFile.kvmGuest }}
 {{- else if eq $productName "VirtualBox" }}
@@ -93,6 +98,7 @@ name = {{ $name | quote }}
 email = {{ $email | quote }}
 manageGui = {{ $manageGui }}
 zenPath = {{ $zenPath | quote }}
+installGnome = {{ $installGnome }} # Linux only
 
 [data.fonts]
 {{- if gt $verticalResolution 1080 }}
