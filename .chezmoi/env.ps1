@@ -7,18 +7,14 @@ function Restart-Explorer {
 
 function Set-RegistryHKCU {
     param (
-        [Parameter(Mandatory)]
-        [string]$PathName,
-
-        [object]$Value
+        [Parameter(Mandatory)][string]$PathName,
+        [object]$Value = $null
     )
 
     $PathName = "HKCU:\$($PathName)"
 
-    if ($Value -eq $null) {
-        if (Test-Path $PathName) {
-            return
-        }
+    if ($null -eq $Value) {
+        if (Test-Path $PathName) { return }
 
         New-Item -Force -Path $PathName > $null
         return
@@ -26,15 +22,13 @@ function Set-RegistryHKCU {
 
     $Path = Split-Path $PathName -Parent
     $Name = Split-Path $PathName -Leaf
-    $TypeParam = @{}
-
-    if ($Value -match '%\S+%') {
-        $TypeParam.Type = 'ExpandString'
-    }
 
     if (-not (Test-Path $Path)) {
         New-Item -Force -Path $Path > $null
     }
+
+    $TypeParam = @{}
+    if ($Value -match '%\S+%') { $TypeParam.Type = 'ExpandString' }
 
     Set-ItemProperty -Path $Path -Name $Name -Value $Value @TypeParam
 }
@@ -48,6 +42,6 @@ if ($env:Path -notlike "*$LOCAL_BIN*") {
     $env:Path += ";$LOCAL_BIN"
 }
 
-if ($args[0] -ne $null) {
+if ($args.Count -gt 0) {
     . $args[0]
 }
