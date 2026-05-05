@@ -2,7 +2,7 @@
 
 # Upgrade fish version < 2.3 (does not load conf.d)
 if not set --query FISH_LOCAL_UPGRADE
-    source ~/.config/fish/conf.d/00_exec_local.fish
+    source ~/.config/fish/conf.d/00_upgrade.fish
 end
 
 # Disabling fish_greeting
