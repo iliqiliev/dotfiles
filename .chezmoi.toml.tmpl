@@ -53,9 +53,9 @@
 {{-   $productFile := "/sys/devices/virtual/dmi/id/product_name" }}
 {{-   $productName = and (stat $productFile | default "") (include $productFile) | trim }}
 {{- else if eq $os "windows" }}
-{{-   $cmdArgs := list "-nop" "-c" "Get-ItemPropertyValue HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" }}
+{{-   $cmdArgs := list "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" }}
 {{-   $productName = outputList "powershell" $cmdArgs | trim }}
-{{-   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height"}}
+{{-   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" }}
 {{-   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi }}
 {{- end }}
 
