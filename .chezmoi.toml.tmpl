@@ -92,16 +92,16 @@
 {{- end -}}
 
 [data]
-os = {{ $os | lower | quote }}
-distro = {{ $distro | lower | quote }}
-useSudo = {{ $useSudo }}
 isPersonal = {{ $isPersonal }}
 isWork = {{ $isWork }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
+os = {{ $os | lower | quote }}
+distro = {{ $distro | lower | quote }}
 manageGui = {{ $manageGui }}
-zenPath = {{ $zenPath | quote }}
+useSudo = {{ $useSudo }}
 installGnome = {{ $installGnome }} # Linux only
+zenPath = {{ $zenPath | quote }}
 
 [data.fonts]
 {{- if gt $verticalResolution 1080 }}
