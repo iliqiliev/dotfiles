@@ -11,6 +11,7 @@ disabled = true
 [directory]
 fish_style_pwd_dir_length = 1
 read_only = " ro"
+use_os_path_sep = false
 
 [env_var.DEBUG]
 description = "Detect if 'DEBUG' env var is set"
