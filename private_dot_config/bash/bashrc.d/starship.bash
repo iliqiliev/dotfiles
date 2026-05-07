@@ -1,8 +1,15 @@
-# shellcheck disable=all
+if test "$(uname)" = "Linux"; then
+
+    if command -v starship >/dev/null; then
+        eval -- "$(starship init bash --print-full-init)"
+    fi
+
+    return
+fi
 
 STARSHIP_SCOOP_PATH=~/scoop/apps/starship/current/starship.exe
 
-if test ! -x $STARSHIP_SCOOP_PATH >/dev/null; then
+if test ! -x $STARSHIP_SCOOP_PATH; then
     return
 fi
 
@@ -20,6 +27,7 @@ starship_preexec() {
     : "$PREV_LAST_ARG"
 }
 
+# shellcheck disable=all
 starship_precmd() {
     STARSHIP_CMD_STATUS=$? STARSHIP_PIPE_STATUS=("${PIPESTATUS[@]}")
     if [[ ${BLE_ATTACHED-} && ${#BLE_PIPESTATUS[@]} -gt 0 ]]; then
@@ -59,6 +67,7 @@ starship_precmd() {
     STARSHIP_PREEXEC_READY=true
 }
 
+# shellcheck disable=all
 # If the user appears to be using https://github.com/akinomyoga/ble.sh,
 # then hook our functions into their framework.
 if [[ ${BLE_VERSION-} && _ble_version -ge 400 ]]; then
