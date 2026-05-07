@@ -3,6 +3,7 @@
 {{  $name := "Iliya Iliev" }}
 {{- $email := "iliq0000@proton.me" }}
 {{- $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false }}
+{{- $isWork := and ($isPersonal) (env "USERDNSDOMAIN" | eq "AD.BTK.BG") }}
 {{- if not $isPersonal }}
 {{-   $email = promptStringOnce . "email" "Email (for git)" "" }}
 {{-   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) }}
@@ -42,7 +43,6 @@
 {{- end }}
 
 {{- $installGnome := false }}
-{{- $isWork := false }}
 {{- $productName := "" }}
 {{- $verticalResolution := 0 }}
 {{- $zenPath := "" }}
