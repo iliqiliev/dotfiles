@@ -1,3 +1,6 @@
+alias ll="ls -l"
+alias la="ls -la"
+
 if command -v bat >/dev/null; then
     alias cat="bat"
 fi
@@ -8,8 +11,6 @@ fi
 
 if command -v eza >/dev/null; then
     alias ls="eza"
-    alias ll="eza -l"
-    alias la="eza -la"
     alias tree="eza -T"
 fi
 
