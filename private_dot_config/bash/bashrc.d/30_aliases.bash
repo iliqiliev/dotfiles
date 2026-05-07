@@ -9,3 +9,7 @@ if command -v eza >/dev/null; then
     alias ls="eza"
     alias tree="eza -T"
 fi
+
+if command -v fdfind >/dev/null; then
+    alias fd="fdfind"
+fi
