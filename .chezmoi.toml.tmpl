@@ -45,7 +45,6 @@
 {{- $installGnome := false }}
 {{- $productName := "" }}
 {{- $verticalResolution := 0 }}
-{{- $zenPath := "" }}
 {{- if eq $os "linux" }}
 {{-   $gnomeInstalled := lookPath "gnome-shell" | ne "" }}
 {{-   $installGnome = and $manageGui $useSudo (or ($gnomeInstalled) (promptBoolOnce . "installGnome" "Install Gnome desktop" false)) }}
@@ -53,13 +52,11 @@
 {{-   $verticalResolution = outputList "sh" $cmdArgs | trim | atoi }}
 {{-   $productFile := "/sys/devices/virtual/dmi/id/product_name" }}
 {{-   $productName = and (stat $productFile | default "") (include $productFile) | trim }}
-{{-   $zenPath = "/opt/zen-browser-bin" }}
 {{- else if eq $os "windows" }}
 {{-   $cmdArgs := list "-nop" "-c" "Get-ItemPropertyValue HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" }}
 {{-   $productName = outputList "powershell" $cmdArgs | trim }}
 {{-   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height"}}
 {{-   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi }}
-{{-   $zenPath = joinPath .chezmoi.homeDir "scoop/apps/zen-browser/current" }}
 {{- end }}
 
 {{- $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml }}
@@ -101,7 +98,6 @@ distro = {{ $distro | lower | quote }}
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
 installGnome = {{ $installGnome }} # Linux only
-zenPath = {{ $zenPath | quote }}
 
 [data.fonts]
 {{- if gt $verticalResolution 1080 }}
