@@ -1,0 +1,6 @@
+if test -d ~/.config/bash/bashrc.d; then
+    for file in ~/.config/bash/bashrc.d/*.bash; do
+        # shellcheck source=/dev/null
+        source "$file"
+    done
+fi
