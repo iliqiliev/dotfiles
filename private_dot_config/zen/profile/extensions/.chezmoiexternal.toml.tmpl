@@ -5,10 +5,14 @@ refreshPeriod = "24h"
 
 {{- if .isPersonal }}
 
+{{- if not .isWork }}
+
 ["78272b6fa58f4a1abaac99321d503a20@proton.me.xpi"]
 type = "file"
 url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi"
 refreshPeriod = "24h"
+
+{{- end }}
 
 ["jid1-xUfzOsOFlzSOXg@jetpack.xpi"]
 type = "file"
