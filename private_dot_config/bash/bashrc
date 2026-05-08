@@ -10,15 +10,11 @@ if test -r ~/.local/share/blesh/ble.sh; then
 fi
 
 # Aliases
-command -v bat >/dev/null && alias cat="bat"
 alias ll="ls -l"
 alias la="ls -la"
+command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
+command -v bat >/dev/null && alias cat="bat"
 command -v fdfind >/dev/null && alias fd="fdfind"
-
-if command -v eza >/dev/null; then
-    alias ls="eza"
-    alias tree="eza -T"
-fi
 
 # Source starship.rs
 source -- ~/.config/bash/starship.bash
