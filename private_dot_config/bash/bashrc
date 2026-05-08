@@ -4,9 +4,6 @@
 # ignoredups, ignorespace, erasedups
 export HISTCONTROL=ignoreboth:erasedups
 
-# Add ~/.local/bin to PATH
-export PATH="$HOME/.local/bin:$PATH"
-
 # Source ble.sh
 if test -r ~/.local/share/blesh/ble.sh; then
     source -- ~/.local/share/blesh/ble.sh
