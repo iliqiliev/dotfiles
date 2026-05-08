@@ -1,34 +1,51 @@
-if test "$(uname)" = "Linux"; then
+STARSHIP_PATH=$(command -v starship)
 
-    if command -v starship >/dev/null; then
-        eval -- "$(starship init bash --print-full-init)"
-    fi
-
+if test ! -x "$STARSHIP_PATH"; then
     return
 fi
 
-STARSHIP_SCOOP_PATH=~/scoop/apps/starship/current/starship.exe
-
-if test ! -x $STARSHIP_SCOOP_PATH; then
-    return
+if test "$(uname)" = "Windows_NT"; then
+    STARSHIP_PATH=~/scoop/apps/starship/current/starship.exe
 fi
 
+# Below is the output of 'starship init bash --print-full-init'
+# Only the absolute path is replaced with $STARSHIP_PATH
+# ---------------------------------------------------------------------------- #
+
+# We use PROMPT_COMMAND and the DEBUG trap to generate timing information. We try
+# to avoid clobbering what we can, and try to give the user ways around our
+# clobbers, if it's unavoidable. For example, PROMPT_COMMAND is appended to,
+# and the DEBUG trap is layered with other traps, if it exists.
+
+# A bash quirk is that the DEBUG trap is fired every time a command runs, even
+# if it's later on in the pipeline. If uncorrected, this could cause bad timing
+# data for commands like `slow | slow | fast`, since the timer starts at the start
+# of the "fast" command.
+
+# To solve this, we set a flag `STARSHIP_PREEXEC_READY` when the prompt is
+# drawn, and only start the timer if this flag is present. That way, timing is
+# for the entire command, and not just a portion of it.
+
+# A way to set '$?', since bash does not allow assigning to '$?' directly
 function _starship_set_return() { return "${1:-0}"; }
 
+# Will be run before *every* command (even ones in pipes!)
 starship_preexec() {
-
+    # Save previous command's last argument, otherwise it will be set to "starship_preexec"
     local PREV_LAST_ARG=$1
 
+    # Avoid restarting the timer for commands in the same pipeline
     if [ "${STARSHIP_PREEXEC_READY:-}" = "true" ]; then
         STARSHIP_PREEXEC_READY=false
-        STARSHIP_START_TIME=$($STARSHIP_SCOOP_PATH time)
+        STARSHIP_START_TIME=$($STARSHIP_PATH time)
     fi
 
     : "$PREV_LAST_ARG"
 }
 
-# shellcheck disable=all
+# Will be run before the prompt is drawn
 starship_precmd() {
+    # Save the status, because commands in this pipeline will change $?
     STARSHIP_CMD_STATUS=$? STARSHIP_PIPE_STATUS=("${PIPESTATUS[@]}")
     if [[ ${BLE_ATTACHED-} && ${#BLE_PIPESTATUS[@]} -gt 0 ]]; then
         STARSHIP_PIPE_STATUS=("${BLE_PIPESTATUS[@]}")
@@ -37,14 +54,29 @@ starship_precmd() {
         STARSHIP_PIPE_STATUS=("${BP_PIPESTATUS[@]}")
     fi
 
+    # Due to a bug in certain Bash versions, any external process launched
+    # inside $PROMPT_COMMAND will be reported by `jobs` as a background job:
+    #
+    #   [1]  42135 Done                    /bin/echo
+    #
+    # This is a workaround - we run `jobs` once to clear out any completed jobs
+    # first, and then we run it again and count the number of jobs.
+    #
+    # More context: https://github.com/starship/starship/issues/5159
+    # Original bug: https://lists.gnu.org/archive/html/bug-bash/2022-07/msg00117.html
     jobs &>/dev/null
 
     local job NUM_JOBS=0 IFS=$' \t\n'
-
+    # Evaluate the number of jobs before running the preserved prompt command, so that tools
+    # like z/autojump, which background certain jobs, do not cause spurious background jobs
+    # to be displayed by starship. Also avoids forking to run `wc`, slightly improving perf.
     for job in $(jobs -p); do [[ $job ]] && ((NUM_JOBS++)); done
 
+    # Run the bash precmd function, if it's set. If not set, evaluates to no-op
     "${starship_precmd_user_func-:}"
 
+    # Set $? to the preserved value before running additional parts of the prompt
+    # command pipeline, which may rely on it.
     _starship_set_return "$STARSHIP_CMD_STATUS"
 
     if [[ -n "${STARSHIP_PROMPT_COMMAND-}" ]]; then
@@ -52,22 +84,21 @@ starship_precmd() {
     fi
 
     local -a ARGS=(--terminal-width="${COLUMNS}" --status="${STARSHIP_CMD_STATUS}" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --jobs="${NUM_JOBS}" --shlvl="${SHLVL}")
-
+    # Prepare the timer data, if needed.
     if [[ -n "${STARSHIP_START_TIME-}" ]]; then
-        STARSHIP_END_TIME=$($STARSHIP_SCOOP_PATH time)
+        STARSHIP_END_TIME=$($STARSHIP_PATH time)
         STARSHIP_DURATION=$((STARSHIP_END_TIME - STARSHIP_START_TIME))
         ARGS+=(--cmd-duration="${STARSHIP_DURATION}")
         STARSHIP_START_TIME=""
     fi
-    PS1="$($STARSHIP_SCOOP_PATH prompt "${ARGS[@]}")"
+    PS1="$($STARSHIP_PATH prompt "${ARGS[@]}")"
     if [[ ${BLE_ATTACHED-} ]]; then
         local nlns=${PS1//[!$'\n']/}
-        bleopt prompt_rps1="$nlns$($STARSHIP_SCOOP_PATH prompt --right "${ARGS[@]}")"
+        bleopt prompt_rps1="$nlns$($STARSHIP_PATH prompt --right "${ARGS[@]}")"
     fi
-    STARSHIP_PREEXEC_READY=true
+    STARSHIP_PREEXEC_READY=true # Signal that we can safely restart the timer
 }
 
-# shellcheck disable=all
 # If the user appears to be using https://github.com/akinomyoga/ble.sh,
 # then hook our functions into their framework.
 if [[ ${BLE_VERSION-} && _ble_version -ge 400 ]]; then
@@ -83,7 +114,7 @@ elif [[ -n "${bash_preexec_imported:-}" || -n "${__bp_imported:-}" || -n "${pree
 else
     if [[ -n "${BASH_VERSION-}" ]] && [[ "${BASH_VERSINFO[0]}" -gt 4 || ("${BASH_VERSINFO[0]}" -eq 4 && "${BASH_VERSINFO[1]}" -ge 4) ]]; then
         starship_preexec_ps0() {
-            $STARSHIP_SCOOP_PATH time
+            $STARSHIP_PATH time
         }
         # In order to set STARSHIP_START_TIME use an arithmetic expansion that evaluates to 0
         # To avoid printing anything, use the return value in an ${var:offset:length} substring expansion
@@ -126,7 +157,7 @@ fi
 shopt -s checkwinsize
 
 # Set up the start time and STARSHIP_SHELL, which controls shell-specific sequences
-STARSHIP_START_TIME=$($STARSHIP_SCOOP_PATH time)
+STARSHIP_START_TIME=$($STARSHIP_PATH time)
 export STARSHIP_SHELL="bash"
 
 # Set up the session key that will be used to store logs
@@ -135,4 +166,4 @@ STARSHIP_SESSION_KEY="${STARSHIP_SESSION_KEY}0000000000000000" # Pad it to 16+ c
 export STARSHIP_SESSION_KEY=${STARSHIP_SESSION_KEY:0:16}       # Trim to 16-digits if excess.
 
 # Set the continuation prompt
-PS2="$($STARSHIP_SCOOP_PATH prompt --continuation)"
+PS2="$($STARSHIP_PATH prompt --continuation)"
