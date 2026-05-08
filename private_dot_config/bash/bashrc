@@ -1,9 +1,24 @@
+# Do not check sourced files.
+# shellcheck source=/dev/null
+
 # ignoredups, ignorespace, erasedups
 export HISTCONTROL=ignoreboth:erasedups
 
-if test -d ~/.config/bash/bashrc.d; then
-    for file in ~/.config/bash/bashrc.d/*.bash; do
-        # shellcheck source=/dev/null
-        source "$file"
-    done
+# Source ble.sh
+if test -r ~/.local/share/blesh/ble.sh; then
+    source -- ~/.local/share/blesh/ble.sh
 fi
+
+# Aliases
+command -v bat >/dev/null && alias cat="bat"
+alias ll="ls -l"
+alias la="ls -la"
+command -v fdfind >/dev/null && alias fd="fdfind"
+
+if command -v eza >/dev/null; then
+    alias ls="eza"
+    alias tree="eza -T"
+fi
+
+# Source starship.rs
+source -- ~/.config/bash/starship.bash
