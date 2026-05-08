@@ -1,3 +1,5 @@
+set -eu
+
 if test ! -r ~/.local/share/blesh/ble.sh; then
     return
 fi
