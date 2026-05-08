@@ -1,11 +1,11 @@
-set -eu
-
 if test ! -r ~/.local/share/blesh/ble.sh; then
     return
 fi
 
 # shellcheck source=/dev/null
-source ~/.local/share/blesh/ble.sh
+if ! source ~/.local/share/blesh/ble.sh; then
+    return
+fi
 
 ble-sabbrev cz="chezmoi"
 ble-sabbrev ff="fastfetch"
