@@ -1,3 +1,7 @@
 {{- if or (ne .os "linux") (not .manageGui) }}
-share
+share/applications
+share/flatpak
+share/fonts
+share/icons
+share/themes
 {{- end }}

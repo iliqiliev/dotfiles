@@ -1,5 +1,5 @@
 [Morewaita]
-targetPath = "icons/Morewaita"
+targetPath = "Morewaita"
 type = "archive"
 url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.tar.gz"
 stripComponents = 1
