@@ -1,3 +1,6 @@
+# ignoredups, ignorespace, erasedups
+export HISTCONTROL=ignoreboth:erasedups
+
 if test -d ~/.config/bash/bashrc.d; then
     for file in ~/.config/bash/bashrc.d/*.bash; do
         # shellcheck source=/dev/null
