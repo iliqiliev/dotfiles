@@ -28,6 +28,8 @@ if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
     Set-Alias 'rm' '~/scoop/apps/uutils-coreutils/current/rm.exe'
 }
 
+$env:SHLVL = [int] $env:SHLVL + 1
+
 if (Get-Command nvim -ErrorAction SilentlyContinue) {
     $env:EDITOR = 'nvim'
 }

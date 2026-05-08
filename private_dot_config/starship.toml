@@ -26,6 +26,13 @@ fish_indicator = "><>"
 powershell_indicator = "ps1"
 pwsh_indicator = "psh"
 
+[shlvl]
+disabled = false
+symbol = "shlvl "
+
+# below is the 'plain-text-symbols' preset
+# modified categories are above
+
 [character]
 success_symbol = "[>](bold green)"
 error_symbol = "[x](bold red)"
@@ -310,9 +317,6 @@ symbol = "rs "
 
 [scala]
 symbol = "scala "
-
-[shlvl]
-symbol = "shlvl "
 
 [spack]
 symbol = "spack "
