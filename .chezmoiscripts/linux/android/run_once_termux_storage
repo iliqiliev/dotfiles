@@ -32,7 +32,7 @@ while read -r file_src; do
     cp "$file_src" "$file_dst"
     file_copied=true
 
-    echo -e "${file_src#"$HOME"} -> ${file_dst#"$HOME"}\n"
+    echo -e "~${file_src#"$HOME"} -> ~${file_dst#"$HOME"}\n"
 
 done < <(find "$TERMUX_SRC" -type f)
 
