@@ -26,7 +26,15 @@ find "$TERMUX_SRC" -type f | while IFS= read -r file_src; do
     relative_part="${file_src#"$TERMUX_SRC"/}"
     file_dst="$TERMUX_DST/$relative_part"
 
-    cp "$file_src" "$file_dst" --verbose
+    if cmp --quiet "$file_src" "$file_dst"; then
+        continue
+    fi
+
+    cp "$file_src" "$file_dst"
+
+    echo "$file_src"
+    echo "was copied to"
+    echo "$file_dst"
 done
 
 print_green "Termux files copied successfully."
