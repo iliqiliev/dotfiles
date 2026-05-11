@@ -14,16 +14,19 @@ Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold1' '0'
 Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold2' '0'
 
 # Set environment variables.
-Set-RegistryHKCU 'Environment\CLINK_PROFILE'       '%APPDATA%\clink'
 Set-RegistryHKCU 'Environment\XDG_CACHE_HOME'      '%USERPROFILE%\.cache'
+Set-RegistryHKCU 'Environment\XDG_CONFIG_HOME'     '%USERPROFILE%\.config'
+Set-RegistryHKCU 'Environment\XDG_DATA_HOME'       '%USERPROFILE%\.config\share'
+Set-RegistryHKCU 'Environment\XDG_STATE_HOME'      '%USERPROFILE%\.local\state'
+
 Set-RegistryHKCU 'Environment\PYTHONPYCACHEPREFIX' '%USERPROFILE%\.cache\python'
 Set-RegistryHKCU 'Environment\RUFF_CACHE_DIR'      '%USERPROFILE%\.cache\ruff'
-Set-RegistryHKCU 'Environment\XDG_CONFIG_HOME'     '%USERPROFILE%\.config'
 Set-RegistryHKCU 'Environment\BAT_CONFIG_PATH'     '%USERPROFILE%\.config\bat\config'
 Set-RegistryHKCU 'Environment\TEALDEER_CONFIG_DIR' '%USERPROFILE%\.config\tealdeer'
-Set-RegistryHKCU 'Environment\XDG_STATE_HOME'      '%USERPROFILE%\.local\state'
 Set-RegistryHKCU 'Environment\HISTFILE'            '%USERPROFILE%\.local\state\bash\history'
 Set-RegistryHKCU "Environment\PYTHON_HISTORY"      '%USERPROFILE%\.local\state\python_history'
+
+Set-RegistryHKCU 'Environment\CLINK_PROFILE' '%APPDATA%\clink'
 Set-RegistryHKCU "Environment\POWERSHELL_TELEMETRY_OPTOUT" 1
 
 # Restore the classic context menu in Windows 11.
