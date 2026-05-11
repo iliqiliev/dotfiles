@@ -19,12 +19,11 @@ fi
 
 print_blue "Copying files to Internal Storage..."
 
-TERMUX_SRC="$CHEZMOI_SOURCE_DIR/.chezmoi/termux"
-TERMUX_DST="$HOME"
+TERMUX_SRC="$HOME/.local/share/chezmoi/.chezmoi/termux"
 
 while read -r file_src; do
-    relative_part="${file_src#"$TERMUX_SRC"/}"
-    file_dst="$TERMUX_DST/$relative_part"
+
+    file_dst="$HOME/${file_src#"$TERMUX_SRC"/}"
 
     if cmp --quiet "$file_src" "$file_dst"; then
         continue
@@ -33,14 +32,12 @@ while read -r file_src; do
     cp "$file_src" "$file_dst"
     file_copied=true
 
-    echo "$file_src"
-    echo "was copied to"
-    echo "$file_dst"
-    echo
+    echo -e "${file_src#"$HOME"} -> ${file_dst#"$HOME"}\n"
+
 done < <(find "$TERMUX_SRC" -type f)
 
 if test -n "$file_copied"; then
-    echo -e "$ANSI_CURSOR_PREVIOUS_LINE"
+    echo -en "$ANSI_CURSOR_PREVIOUS_LINE"
 fi
 
 print_green "Termux files copied successfully."
