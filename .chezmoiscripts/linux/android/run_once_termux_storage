@@ -36,7 +36,7 @@ while read -r file_src; do
 
 done < <(find "$TERMUX_SRC" -type f)
 
-if test -n "$file_copied"; then
+if test -n "${file_copied-}"; then
     echo -en "$ANSI_CURSOR_PREVIOUS_LINE"
 fi
 
