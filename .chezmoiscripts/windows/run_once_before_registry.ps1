@@ -16,7 +16,7 @@ Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold2' '0'
 # Set environment variables.
 Set-RegistryHKCU 'Environment\XDG_CACHE_HOME'      '%USERPROFILE%\.cache'
 Set-RegistryHKCU 'Environment\XDG_CONFIG_HOME'     '%USERPROFILE%\.config'
-Set-RegistryHKCU 'Environment\XDG_DATA_HOME'       '%USERPROFILE%\.config\share'
+Set-RegistryHKCU 'Environment\XDG_DATA_HOME'       '%USERPROFILE%\.local\share'
 Set-RegistryHKCU 'Environment\XDG_STATE_HOME'      '%USERPROFILE%\.local\state'
 
 Set-RegistryHKCU 'Environment\PYTHONPYCACHEPREFIX' '%USERPROFILE%\.cache\python'
