@@ -19,11 +19,9 @@
                         (.chezmoi.os)
                         | splitList " " | last }}
 
-{{- $manageGui := and
-      (ne $distro "android")
-      (env "container" | eq "")
-      (promptBoolOnce . "manageGui" "Manage GUI applications" true)
-}}
+{{- $manageGui := and (ne $distro "android")
+                      (env "container" | eq "")
+                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) }}
 
 {{- $useSudo := false }}{{/* useSudo is for caching the answer to promptBoolOnce */}}
 {{- $sudo := "su root -c" }}
