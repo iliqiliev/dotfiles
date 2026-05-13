@@ -41,6 +41,11 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression $STARSHIP_INIT.Replace('\shims\', '\apps\starship\current\')
 }
 
+if (Get-Command uv, uvx -ErrorAction SilentlyContinue) {
+    uv generate-shell-completion powershell | Out-String | Invoke-Expression
+    uvx --generate-shell-completion powershell | Out-String | Invoke-Expression
+}
+
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
     zoxide init powershell | Out-String | Invoke-Expression
 }
