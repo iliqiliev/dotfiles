@@ -4,6 +4,7 @@
 # requires-python = ">=3.9"
 # dependencies = ["vdf"]
 # ///
+
 from pathlib import Path
 
 from vdf import dump, parse
