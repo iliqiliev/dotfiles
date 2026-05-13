@@ -12,8 +12,9 @@ cd
 if ! chezmoi="$(command -v chezmoi)"; then
     host="get.chezmoi.io"
     chezmoi="${HOME}/.local/bin/chezmoi"
+    chezmoi_dir="$(dirname "$chezmoi")"
 
-    printf "${BLUE}%b\n${NORMAL}" "Downloading chezmoi to '${chezmoi}' ..."
+    printf "${BLUE}%b\n${NORMAL}" "Downloading chezmoi to '${chezmoi_dir}' ..."
 
     if command -v curl >/dev/null; then
         chezmoi_script="$(curl -LSfs $host)"
@@ -26,7 +27,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
         exit 1
     fi
 
-    BINDIR="$(basename "$chezmoi")" sh -c "${chezmoi_script}"
+    BINDIR="$chezmoi_dir" sh -c "${chezmoi_script}"
 fi
 
 set -- init --apply iliqiliev --depth 1
