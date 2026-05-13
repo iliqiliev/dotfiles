@@ -10,6 +10,7 @@ from pathlib import Path
 from vdf import dump, parse
 
 PERSONAL_ID3 = "460410354"
+
 CS2 = "730"
 KCD2 = "1771300"
 
