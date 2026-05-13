@@ -121,11 +121,18 @@ PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator |
 PSExecutionPolicyPreference = "Bypass"
 
 {{- if eq $distro "android" }}
-[interpreters]
-""   = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "--"] }
-fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "--"] }
+[interpreters.""]
+command = 'sh'
+args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
+
+[interpreters.fish]
+command = 'sh'
+args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 {{- end }}
 
 [interpreters.ps1]
 command = "powershell"
 args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/env.ps1"]
+
+[interpreters.py]
+# Unset Python interpeter.
