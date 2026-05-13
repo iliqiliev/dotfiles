@@ -36,12 +36,6 @@ if (Get-Command nvim -ErrorAction SilentlyContinue) {
     $env:EDITOR = 'nvim'
 }
 
-if (Get-Command carapace -ErrorAction SilentlyContinue) {
-    $env:CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-    Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
-    carapace _carapace powershell | Out-String | Invoke-Expression
-}
-
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     $STARSHIP_INIT = (starship init powershell --print-full-init) -join "`n"
     Invoke-Expression $STARSHIP_INIT.Replace('\shims\', '\apps\starship\current\')
