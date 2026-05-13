@@ -116,7 +116,6 @@ pager = {{ and (lookPath "delta") "delta" | quote }}
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
-CHEZ_MANAGE_GUI = {{ $manageGui | quote }}
 PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
 PSExecutionPolicyPreference = "Bypass"
