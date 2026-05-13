@@ -16,7 +16,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     printf "${BLUE}%b\n${NORMAL}" "Downloading chezmoi to '${chezmoi}' ..."
 
     if command -v curl >/dev/null; then
-        chezmoi_script="$(curl -fsSL $host)"
+        chezmoi_script="$(curl -LSfs $host)"
     elif command -v wget >/dev/null; then
         chezmoi_script="$(wget -qO- $host)"
     elif command -v openssl >/dev/null; then
@@ -26,7 +26,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
         exit 1
     fi
 
-    BINDIR=~/.local/bin sh -c "${chezmoi_script}"
+    BINDIR="$(basename "$chezmoi")" sh -c "${chezmoi_script}"
 fi
 
 set -- init --apply iliqiliev --depth 1
