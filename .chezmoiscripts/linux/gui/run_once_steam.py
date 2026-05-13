@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run --script
+#!/usr/bin/env -S uv run --script --quiet
 #
 # /// script
 # requires-python = ">=3.9"
@@ -13,6 +13,13 @@ PERSONAL_ID3 = "460410354"
 
 CS2 = "730"
 KCD2 = "1771300"
+
+RESET = "\033[m"
+"ANSI reset sequence."
+BRIGHT_GREEN = "\033[92m"
+"ANSI bright green foreground sequence."
+BRIGHT_BLUE = "\033[94m"
+"ANSI bright blue foreground sequence."
 
 
 class DefaultDict(dict[str, "str | DefaultDict"]):
@@ -31,6 +38,9 @@ for steam_root in (
     localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
 
 for path in localconfigs:
+    short_path = path.relative_to(Path.home())
+    print(f"{BRIGHT_BLUE}Updating Steam config at ~/{short_path} ...{RESET}")
+
     with open(path) as localconfig:
         parsed_vdf = parse(localconfig, mapper=DefaultDict)
 
@@ -48,3 +58,5 @@ for path in localconfigs:
 
     with open(path, "w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
+
+    print(f"{BRIGHT_GREEN}Steam config updated successfully.{RESET}")
