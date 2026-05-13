@@ -120,9 +120,6 @@ PACKAGES = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 PATH = {{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator | quote }}
 PSExecutionPolicyPreference = "Bypass"
 
-[github]
-refreshPeriod = "24h"
-
 {{- if eq $distro "android" }}
 [interpreters]
 ""   = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "--"] }
@@ -132,7 +129,3 @@ fish = { command = "sh", args = ["-c", 'termux-fix-shebang "$1" && exec "$1"', "
 [interpreters.ps1]
 command = "powershell"
 args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/env.ps1"]
-
-[interpreters.py]
-command = "uv"
-args = ["run", "--quiet", "--script"]
