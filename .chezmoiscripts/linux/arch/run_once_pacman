@@ -31,7 +31,7 @@ Include = /etc/pacman.d/chaotic-mirrorlist
 EOF
 
     $CHEZ_SUDO pacman -Sy --noconfirm
-    print_green "Chaotic-AUR installed succesfully."
+    print_green "Chaotic-AUR installed successfully."
 fi
 
 print_blue "Installing Yay AUR helper..."
@@ -44,10 +44,10 @@ else
 fi
 
 print_blue "Updating system to avoid partially updated dependencies..."
-yay -Syu --noconfirm --assume-installed="vulkan-driver"
+yay -Syu --noconfirm
 print_green "System updated successfully."
 
 print_blue "Installing pacman packages..."
 # shellcheck disable=2086
-yay -S --needed --noconfirm --assume-installed="vulkan-driver" $PACKAGES
+yay -S --asexplicit --needed --noconfirm $PACKAGES
 print_green "Packages installed successfully."
