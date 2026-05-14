@@ -1,5 +1,11 @@
-# font size can be checked using 'chezmoi data'
+# Font size (in pts).
+# Determined by: chezmoi execute-template {{ "'{{ sub .fonts.size 4 }}'" }}
 font_size {{ sub .fonts.size 4 }}
 
-# top right bottom left
+# Prevent low contrast between foreground and background colors.
+# Possible values range from 0 to 21.
+text_fg_override_threshold="4.5 ratio"
+
+# The window padding (in pts).
+# Four values set top, right, bottom and left.
 window_padding_width 5 5 5 5
