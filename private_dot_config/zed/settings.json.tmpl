@@ -1,11 +1,11 @@
 {
-  // chezmoi:template:left-delimiter="null, //" right-delimiter="//"
+  // chezmoi:template:left-delimiter="/**" right-delimiter="**/"
   "$schema": "zed://schemas/settings",
 
   // Fonts.
-  "buffer_font_size": null, // .fonts.size //,
+  /** printf `"buffer_font_size": %d,` .fonts.size **/
+  /** printf `"ui_font_size": %d,` .fonts.size **/
   "buffer_font_family": "AdwaitaMono Nerd Font Mono",
-  "ui_font_size": null, // .fonts.size //,
   "ui_font_family": "UbuntuMono Nerd Font Mono",
 
   // Look & feel.
@@ -49,7 +49,7 @@
 
   // Integrated terminal.
   "terminal": {
-    "minimum_contrast": 67.0,
+    "minimum_contrast": 70,
     "env": {
       "GIT_EDITOR": "zed --wait",
     },
@@ -116,27 +116,17 @@
     "default_profile": "ask",
     "dock": "right",
     "sidebar_side": "right",
-    "default_model": {
-      "enable_thinking": false,
-      "model": "gemini-3.1-pro-preview",
-      "provider": "copilot_chat",
-    },
     "tool_permissions": {
       "tools": {
         "fetch": { "default": "allow" },
       },
     },
-    "favorite_models": [
-      {
-        "enable_thinking": false,
-        "model": "gemini-3.1-pro-preview",
-        "provider": "copilot_chat",
-      },
-      {
-        "enable_thinking": true,
-        "model": "gpt-5.2-codex",
-        "provider": "copilot_chat",
-      },
-    ],
+    /**- if .isPersonal **/
+    "default_model": {
+      "enable_thinking": false,
+      "model": "gemini-3.1-pro-preview",
+      "provider": "copilot_chat",
+    },
+    /**- end **/
   },
 }
