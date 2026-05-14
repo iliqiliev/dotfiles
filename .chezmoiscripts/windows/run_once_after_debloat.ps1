@@ -23,7 +23,6 @@ $PACKAGES = @(
 )
 
 $ADDITIONAL_PACKAGES = @(
-#   'Microsoft.MicrosoftEdge.Stable'
     "Microsoft.Paint"
     "Microsoft.OutlookForWindows"
     "MSTeams"
