@@ -15,15 +15,17 @@ user_pref("signon.rememberSignons", false);
 user_pref("browser.aboutConfig.showWarning", false);
 // Allow selecting a different default search engine in private mode.
 user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
+// Open previous windows and tabs on startup.
+user_pref("browser.startup.page", 3);
 // Enable auto-scrolling with middle mouse button.
 user_pref("general.autoScroll", true);
 // Change the device name used for Sync.
 user_pref("identity.fxaccounts.account.device.name", "/* .chezmoi.hostname */");
 // Block websites from requesting notifications.
 user_pref("permissions.default.desktop-notification", 2);
-// Skip Zen's welcome screen.
-user_pref("zen.welcome-screen.seen", true);
 // [Firefox] Use vertical tabs.
 user_pref("sidebar.verticalTabs", true);
 // [Firefox] Hide first-time vertical tabs helper.
 user_pref("sidebar.verticalTabs.dragToPinPromo.dismissed", true);
+// [Zen] Skip Zen's welcome screen.
+user_pref("zen.welcome-screen.seen", true);
