@@ -1,0 +1,6 @@
+; vim: filetype=ini
+
+[Ditto]
+DBPath3=Ditto.db
+DittoHotKey=2134
+PlaySoundOnCopy=C:\Windows\Media\chimes.wav
