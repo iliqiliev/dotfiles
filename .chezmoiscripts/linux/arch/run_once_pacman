@@ -44,11 +44,13 @@ else
     print_green "Yay installed successfully."
 fi
 
+YAY_ARGS=(--needed --noconfirm --sudoloop)
+
 print_blue "Updating system to avoid partially updated dependencies..."
-yay -Syu --noconfirm
+yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 
 print_blue "Installing pacman packages..."
 # shellcheck disable=2086
-yay -S --asexplicit --needed --noconfirm $PACKAGES
+yay -S --asexplicit $PACKAGES "${YAY_ARGS[@]}"
 print_green "Packages installed successfully."
