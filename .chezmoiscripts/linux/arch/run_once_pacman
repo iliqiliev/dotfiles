@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# vim: noexpandtab
 
 set -eu
 
@@ -24,11 +25,11 @@ else
 
     $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    cat <<'EOF' | $CHEZ_SUDO tee --append /etc/pacman.conf >/dev/null
+    cat <<-EOF | $CHEZ_SUDO tee --append /etc/pacman.conf >/dev/null
 
-[chaotic-aur]
-Include = /etc/pacman.d/chaotic-mirrorlist
-EOF
+	[chaotic-aur]
+	Include = /etc/pacman.d/chaotic-mirrorlist
+	EOF
 
     $CHEZ_SUDO pacman -Sy --noconfirm
     print_green "Chaotic-AUR installed successfully."
