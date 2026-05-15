@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Do not check sourced files.
 # shellcheck source=/dev/null
 

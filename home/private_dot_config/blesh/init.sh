@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Mimic behaviour of fish so that existing abbreviations can be used.
 function abbr() {
     local KEY="$1"
