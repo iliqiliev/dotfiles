@@ -14,7 +14,7 @@ fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
 # Set EDITOR and VIMRUNTIME if nvim is available
 if command --query nvim
     set --export EDITOR nvim
-    set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q')
+    set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
 end
 
 # Source configs for interactive sessions
