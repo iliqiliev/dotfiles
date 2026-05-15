@@ -2,9 +2,9 @@ name: ShellCheck
 
 on:
   push:
-    branches: [ "master" ] 
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ] 
+    branches: ["master"]
 
 jobs:
   shellcheck:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Run ShellCheck    
+      - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         env:
           SHELLCHECK_OPTS: --external-sources --enable=all

@@ -2,21 +2,19 @@ name: PSScriptAnalayzer
 
 on:
   push:
-    branches: [ "master" ] 
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   psscriptanalyzer:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Run PSScriptAnalyzer
-        uses: microsoft/psscriptanalyzer-action@main
-        with:
-          enableExit: true
-          path: .\
-          recurse: true
+        shell: pwsh
+        run: |
+          Invoke-ScriptAnalyzer -Path ./ -Recurse -EnableExit
