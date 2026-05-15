@@ -7,7 +7,7 @@ function abbr() {
 }
 
 # Set abbreviations.
-# shellcheck source=private_dot_config/fish/conf.d/30_abbreviations.fish
+# shellcheck source=home/private_dot_config/fish/conf.d/30_abbreviations.fish
 source ~/.config/fish/conf.d/30_abbreviations.fish
 
 # Expand abbreviations if they are the only input.
