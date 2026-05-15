@@ -29,7 +29,7 @@ Set-RegistryHKCU "Environment\PYTHON_HISTORY"      '%USERPROFILE%\.local\state\p
 
 Set-RegistryHKCU 'Environment\CLINK_PROFILE' '%APPDATA%\clink'
 Set-RegistryHKCU 'Environment\POWERSHELL_TELEMETRY_OPTOUT' 1
-Set-RegistryHKCU 'Environment\VIMRUNTIME' '~/scoop/apps/neovim/current/share/nvim/runtime'
+Set-RegistryHKCU 'Environment\VIMRUNTIME' "$env:USERPROFILE\scoop\apps\neovim\current\share\nvim\runtime"
 
 # Restore the classic context menu in Windows 11.
 Set-RegistryHKCU 'Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32'
