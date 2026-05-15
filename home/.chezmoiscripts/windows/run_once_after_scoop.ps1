@@ -1,14 +1,14 @@
 $ErrorActionPreference = "Stop"
 
 
-if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+if (!(Get-Command scoop -ErrorAction Ignore)) {
     Write-Host "Scoop not found. Installing it..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
 Write-Host "Setting up scoop buckets." -ForegroundColor Blue
 
-if (!(Get-Command git -ErrorAction SilentlyContinue)) {
+if (!(Get-Command git -ErrorAction Ignore)) {
     Write-Host "Git not found. Installing it..." -ForegroundColor Blue
     scoop install --no-update-scoop git
     Write-Host "Git installed successfully." -ForegroundColor Green

@@ -47,7 +47,7 @@ Set-RegistryHKCU "$EXPLORER\Advanced\HideFileExt" 0
 # Align taskbar to the left.
 Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarAl" 0
 # Hide widgets from the taskbar. Key may be protected by the UCPD driver.
-Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDa" 0 -ErrorAction SilentlyContinue
+Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDa" 0 -ErrorAction Ignore
 # Add 'End task' button when right-clicking a program.
 Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDeveloperSettings\TaskbarEndTask" 1
 # Change the app opened by the CALC key.

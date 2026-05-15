@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-if (!($CHEZMOI = (Get-Command chezmoi -ErrorAction SilentlyContinue).Path)) {
+if (!($CHEZMOI = (Get-Command chezmoi -ErrorAction Ignore).Path)) {
     $CHEZMOI = '~/.local/bin/chezmoi'
     $CHEZMOI_DIR = Split-Path $CHEZMOI -Parent
     $CHEZMOI_URL = 'https://get.chezmoi.io/ps1'
