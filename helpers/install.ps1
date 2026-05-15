@@ -2,23 +2,19 @@
 
 $ErrorActionPreference = 'Stop'
 
-$CHEZMOI_URL = 'https://get.chezmoi.io/ps1'
-$CHEZMOI_DIR = '~/.local/bin'
+if (!($CHEZMOI = (Get-Command chezmoi -ErrorAction SilentlyContinue).Path)) {
+    $CHEZMOI = '~/.local/bin/chezmoi'
+    $CHEZMOI_DIR = Split-Path $CHEZMOI -Parent
+    $CHEZMOI_URL = 'https://get.chezmoi.io/ps1'
 
-$existing_chezmoi = Get-Command chezmoi -ErrorAction SilentlyContinue
+    Write-Host "Downloading chezmoi to '$CHEZMOI_DIR' ..." -ForegroundColor Blue
 
-if ($existing_chezmoi) {
-    $CHEZMOI = $existing_chezmoi.Path
-} elseif (Test-Path ~/.local/bin/chezmoi.exe) {
-    $CHEZMOI = '~/.local/bin/chezmoi.exe'
-} elseif (Test-Path ~/bin/chezmoi.exe) {
-    $CHEZMOI = '~/bin/chezmoi.exe'
-} else {
-    $CHEZMOI = "$CHEZMOI_DIR/chezmoi.exe"
-    Write-Host "Downloading chezmoi to '$CHEZMOI' ..." -ForegroundColor Blue
-    Invoke-Expression "&{$(Invoke-RestMethod $CHEZMOI_URL)} -BinDir $CHEZMOI_DIR"
+    $CHEZMOI_INSTALLER = [ScriptBlock]::Create((Invoke-RestMethod $CHEZMOI_URL))
+
+    & $CHEZMOI_INSTALLER -BinDir $CHEZMOI_DIR
 }
 
 $CHEZMOI_ARGS = @('init', 'iliqiliev', '--apply', '--depth', '1')
+
 Write-Host "Running 'chezmoi $CHEZMOI_ARGS' ..." -ForegroundColor Green
 & $CHEZMOI @CHEZMOI_ARGS

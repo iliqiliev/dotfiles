@@ -2,35 +2,28 @@
 
 set -eu # exit on [e]rror and [u]nset variables
 
-NORMAL='\033[m'
-RED='\033[91m'
-GREEN='\033[92m'
-BLUE='\033[94m'
+if ! CHEZMOI="$(command -v chezmoi)"; then
+    CHEZMOI="${HOME}/.local/bin/chezmoi"
+    CHEZMOI_DIR="$(dirname "$CHEZMOI")"
+    CHEZMOI_URL="get.chezmoi.io"
 
-cd
-
-if ! chezmoi="$(command -v chezmoi)"; then
-    host="get.chezmoi.io"
-    chezmoi="${HOME}/.local/bin/chezmoi"
-    chezmoi_dir="$(dirname "$chezmoi")"
-
-    printf "${BLUE}%b\n${NORMAL}" "Downloading chezmoi to '${chezmoi_dir}' ..."
+    printf "\033[94m%b\n\033[m" "Downloading chezmoi to '${CHEZMOI_DIR}' ..."
 
     if command -v curl >/dev/null; then
-        chezmoi_script="$(curl -LSfs $host)"
+        CHEZMOI_INSTALLER="$(curl -LSfs $CHEZMOI_URL)"
     elif command -v wget >/dev/null; then
-        chezmoi_script="$(wget -qO- $host)"
+        CHEZMOI_INSTALLER="$(wget -qO- $CHEZMOI_URL)"
     elif command -v openssl >/dev/null; then
-        chezmoi_script="$(printf 'GET / HTTP/1.0\nHost:%s\n\n' $host | openssl s_client -quiet $host:443 2>/dev/null)"
+        CHEZMOI_INSTALLER="$(printf 'GET / HTTP/1.0\nHost:%s\n\n' $CHEZMOI_URL | openssl s_client -quiet $CHEZMOI_URL:443 2>/dev/null)"
     else
-        printf "${RED}%b\n${NORMAL}" "To install chezmoi, you must have curl or wget installed."
+        printf "\033[91m%b\n\033[m" "To install chezmoi, you must have curl or wget installed."
         exit 1
     fi
 
-    BINDIR="$chezmoi_dir" sh -c "${chezmoi_script}"
+    BINDIR="$CHEZMOI_DIR" sh -c "${CHEZMOI_INSTALLER}"
 fi
 
 set -- init --apply iliqiliev --depth 1
 
-printf "${GREEN}%b\n${NORMAL}" "Running 'chezmoi $*' ..."
-exec "$chezmoi" "$@"
+printf "\033[92m%b\n\033[m" "Running 'chezmoi $*' ..."
+"$CHEZMOI" "$@"
