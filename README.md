@@ -1,4 +1,5 @@
 [![ShellCheck](https://github.com/iliqiliev/dotfiles/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/iliqiliev/dotfiles/actions/workflows/shellcheck.yml)
+[![PSScriptAnalayzer](https://github.com/iliqiliev/dotfiles/actions/workflows/psscriptanalyzer.yml/badge.svg)](https://github.com/iliqiliev/dotfiles/actions/workflows/psscriptanalyzer.yml)
 
 My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing crazy.
 
