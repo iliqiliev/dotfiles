@@ -1,4 +1,4 @@
-name: Find bugs in shell scripts. 
+name: ShellCheck
 
 on:
   push:
