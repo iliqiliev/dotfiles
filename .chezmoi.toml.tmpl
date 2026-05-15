@@ -135,7 +135,7 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 
 [interpreters.ps1]
 command = "powershell"
-args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir -}}/.chezmoi/env.ps1"]
+args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/env.ps1"]
 
 [interpreters.py]
 # Unset Python interpeter.
