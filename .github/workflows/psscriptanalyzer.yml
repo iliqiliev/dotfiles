@@ -21,4 +21,5 @@ jobs:
             -EnableExit `
             -ExcludeRule PSAvoidUsingInvokeExpression `
             -Path ./ `
-            -Recurse
+            -Recurse `
+            | Format-List
