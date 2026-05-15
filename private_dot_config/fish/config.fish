@@ -11,8 +11,11 @@ set --export fish_greeting
 # Add directories to PATH
 fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
 
-# Set neovim as EDITOR if available
-command --query nvim; and set --export EDITOR nvim
+# Set EDITOR and VIMRUNTIME if nvim is available
+if command --query nvim
+    set --export EDITOR nvim
+    set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q')
+end
 
 # Source configs for interactive sessions
 if status is-interactive
