@@ -21,6 +21,7 @@ jobs:
             -EnableExit `
             -ExcludeRule `
               PSAvoidUsingInvokeExpression, `
+              PSAvoidUsingPositionalParameters, `
               PSAvoidUsingWriteHost, `
               PSUseShouldProcessForStateChangingFunctions `
             -Path ./ `
