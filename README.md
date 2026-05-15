@@ -1,3 +1,5 @@
+[![ShellCheck](https://github.com/iliqiliev/dotfiles/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/iliqiliev/dotfiles/actions/workflows/shellcheck.yml)
+
 My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing crazy.
 
 <a href="https://codeberg.org/iliqiliev/dotfiles">
