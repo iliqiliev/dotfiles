@@ -1,3 +1,5 @@
+# shellcheck disable=all
+
 STARSHIP_PATH=$(command -v starship)
 
 if test ! -x "$STARSHIP_PATH"; then
