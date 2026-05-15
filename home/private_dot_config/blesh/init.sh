@@ -5,7 +5,7 @@ function abbr() {
     local KEY="$1"
     local VALUE="$2"
     # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A77-Completion#user-content-sec-sabbrev
-    ble-sabbrev "$KEY"="$VALUE"
+    ble-sabbrev "${KEY}"="${VALUE}"
 }
 
 # Set abbreviations.
