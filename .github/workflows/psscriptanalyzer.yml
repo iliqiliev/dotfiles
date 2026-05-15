@@ -1,4 +1,4 @@
-name: Find bugs in powershell scripts. 
+name: PSScriptAnalayzer
 
 on:
   push:
@@ -17,5 +17,6 @@ jobs:
       - name: Run PSScriptAnalyzer
         uses: microsoft/psscriptanalyzer-action@main
         with:
+          enableExit: true
           path: .\
           recurse: true
