@@ -2,8 +2,8 @@
 
 set -eu
 
-# shellcheck source=.chezmoi/env.sh
-source ~/.local/share/chezmoi/.chezmoi/env.sh
+# shellcheck source=helpers/env.sh
+source ~/.local/share/chezmoi/helpers/env.sh
 
 print_blue "Setting up custom folder icons..."
 FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places

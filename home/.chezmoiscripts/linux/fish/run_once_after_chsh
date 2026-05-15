@@ -2,8 +2,8 @@
 
 set -eu
 
-# shellcheck source=.chezmoi/env.sh
-source ~/.local/share/chezmoi/.chezmoi/env.sh
+# shellcheck source=helpers/env.sh
+source ~/.local/share/chezmoi/helpers/env.sh
 
 FISH_SHELL=/usr/bin/fish
 

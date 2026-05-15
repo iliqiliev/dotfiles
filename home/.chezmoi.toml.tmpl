@@ -57,7 +57,7 @@
 {{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
 {{ end -}}
 
-{{ $packageInfoFile := joinPath .chezmoi.sourceDir ".chezmoi/packages.yaml" | include | fromYaml -}}
+{{ $packageInfoFile := joinPath .chezmoi.workingTree "helpers/packages.yaml" | include | fromYaml -}}
 {{ $packages := $packageInfoFile.base -}}
 {{ if $manageGui -}}
 {{   $packages = mergeOverwrite $packages $packageInfoFile.gui -}}
@@ -73,7 +73,7 @@
 {{   $packages = mergeOverwrite $packages $packageInfoFile.oracleGuest -}}
 {{ end -}}
 
-{{ $packageManagers := joinPath .chezmoi.sourceDir ".chezmoi/package_managers.yaml" | include | fromYaml -}}
+{{ $packageManagers := joinPath .chezmoi.workingTree "helpers/package_managers.yaml" | include | fromYaml -}}
 {{ $packageManager := get $packageManagers $distro -}}
 {{ $currentPackages := list -}}
 {{ range $package, $overrides := $packages -}}
@@ -135,7 +135,7 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 
 [interpreters.ps1]
 command = "powershell"
-args = ["-nol", "-nop", "-f", "{{ .chezmoi.sourceDir }}/.chezmoi/env.ps1"]
+args = ["-nol", "-nop", "-f", "{{ .chezmoi.workingTree }}/helpers/env.ps1"]
 
 [interpreters.py]
 # Unset Python interpeter.
