@@ -1,0 +1,24 @@
+{{ if not .isPersonal -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+bind MOUSE5 lastinv // Switch to last weapon.
+bind H drop // Drop weapon.
+
+bind 4 slot6  // High-explosive.
+bind Q slot7  // Flashbang.
+bind T slot8  // Smoke.
+bind G slot9  // Decoy.
+bind F slot10 // Molotov/Incendiary.
+
+bind N noclip // Move through walls.
+
+// Crosshair.
+cl_crosshair_t  1
+cl_crosshairdot 1
+
+// View model.
+viewmodel_fov 60
+viewmodel_offset_x -2
+viewmodel_offset_y -2
+viewmodel_offset_z -2

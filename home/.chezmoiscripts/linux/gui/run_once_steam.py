@@ -52,7 +52,7 @@ for path in localconfigs:
     system["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
 
     language = "-language 'Bulgarian'" if id3 == PERSONAL_ID3 else ""
-    apps[CS2]["LaunchOptions"] = f"gamemoderun %command% {language}".strip()
+    apps[CS2]["LaunchOptions"] = f"gamemoderun %command% +exec user.cfg {language}"
 
     apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
 
