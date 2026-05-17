@@ -7,7 +7,7 @@
 
 from pathlib import Path
 
-from vdf import dump, parse
+from vdf import dump, parse  # pyright: ignore[reportMissingImports]
 
 PERSONAL_ID3 = "460410354"
 
