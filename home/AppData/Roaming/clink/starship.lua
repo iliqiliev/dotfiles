@@ -1,3 +1,8 @@
+local starship_exe = string.format(
+   '"%s/scoop/apps/starship/current/starship.exe"',
+   os.getenv("USERPROFILE")
+)
+
 ---@diagnostic disable
 
 local starship_prompt = clink.promptfilter(5)
@@ -28,8 +33,7 @@ end)
 
 function starship_prompt:filter(prompt)
    return io.popenyield(
-      os.getenv("USERPROFILE")
-         .. "/scoop/apps/starship/current/starship.exe"
+      starship_exe
          .. " prompt"
          .. " --status="
          .. os.geterrorlevel()
