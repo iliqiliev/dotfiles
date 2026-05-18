@@ -14,9 +14,6 @@ base:
   clink-completions:
     scoop: "clink-completions"
     "*": null
-  clink-flex-prompt:
-    scoop: "clink-flex-prompt"
-    "*": null
   clink-gizmos:
     scoop: "clink-gizmos"
     "*": null
