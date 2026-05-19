@@ -25,7 +25,7 @@ else
 
     $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    $CHEZ_SUDO cat >>/etc/pacman.conf <<-EOF
+    $CHEZ_SUDO dd conv=notrunc oflag=append status=none of=/etc/pacman.conf <<-EOF
 
 	[chaotic-aur]
 	Include = /etc/pacman.d/chaotic-mirrorlist
