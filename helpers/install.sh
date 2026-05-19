@@ -21,7 +21,7 @@ if ! CHEZMOI="$(command -v chezmoi)"; then
     BINDIR="${CHEZMOI_DIR}" sh -c "${CHEZMOI_INSTALLER}"
 fi
 
-set -- init --apply iliqiliev --depth 1
+set -- init iliqiliev --apply --depth 1
 
 printf "\033[92m%b\n\033[m" "Running 'chezmoi $*' ..."
 "${CHEZMOI}" "$@"
