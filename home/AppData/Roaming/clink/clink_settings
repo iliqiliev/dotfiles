@@ -2,6 +2,10 @@
 # type: boolean
 autosuggest.hint = False
 
+# name: Show a suggestion in a muted color
+# type: boolean
+autosuggest.inline = True
+
 # name: Auto-update the Clink program files
 # type: enum
 # options: off,check,prompt,auto
@@ -124,3 +128,4 @@ tilde.autoexpand = True
 # name: Show a tip when Clink starts
 # type: boolean
 tips.enable = False
+
