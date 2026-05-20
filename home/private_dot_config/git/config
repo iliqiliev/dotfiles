@@ -1,18 +1,9 @@
-[user]
-    email = {{ .email }}
-    name = {{ .name }}
+[include]
+    path = delta
+    path = user
 
 [core]
     eol = lf
-{{- if lookPath "delta" }}
-    pager = delta
-
-[interactive]
-    diffFilter = delta --color-only
-
-[delta]
-    navigate = true
-{{- end }}
 
 [merge]
     conflictstyle = diff3
@@ -23,7 +14,6 @@
 [url "https://codeberg.org/"]
     insteadOf = "cb:"
 
-{{ if lookPath "gh" -}}
 [credential "https://github.com"]
     helper =
     helper = !gh auth git-credential
@@ -31,4 +21,3 @@
 [credential "https://gist.github.com"]
     helper =
     helper = !gh auth git-credential
-{{- end }}

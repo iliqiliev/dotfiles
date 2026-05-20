@@ -1,0 +1,12 @@
+{{ if not (lookPath "delta") -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
