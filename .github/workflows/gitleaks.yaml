@@ -13,6 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
+          # Fetch all history for all branches and tags.
           fetch-depth: 0
 
       - name: Run gitleaks
