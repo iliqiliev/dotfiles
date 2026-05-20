@@ -1,6 +1,6 @@
 [user]
-    email = {{ .email | quote }}
-    name = {{ .name | quote }}
+    email = {{ .email }}
+    name = {{ .name }}
 
 [core]
     eol = lf
@@ -12,7 +12,6 @@
 
 [delta]
     navigate = true
-
 {{- end }}
 
 [merge]
@@ -24,8 +23,7 @@
 [url "https://codeberg.org/"]
     insteadOf = "cb:"
 
-{{- if lookPath "gh" }}
-
+{{ if lookPath "gh" -}}
 [credential "https://github.com"]
     helper =
     helper = !gh auth git-credential
@@ -33,5 +31,4 @@
 [credential "https://gist.github.com"]
     helper =
     helper = !gh auth git-credential
-
 {{- end }}
