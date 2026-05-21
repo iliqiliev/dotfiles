@@ -33,6 +33,7 @@ base:
     apk: "delta"
     scoop: "delta"
   jq:
+  less:
   neovim:
   pwsh:
     scoop: "pwsh"
