@@ -14,8 +14,9 @@ fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
 # Set EDITOR and VIMRUNTIME if nvim is available
 if command --query nvim
     set --export EDITOR nvim
+    set --export LESS "-FJMRXix4 --mouse --use-color"
     set --export MANPAGER nvim +Man!
-    set --export PAGER nvim -R -M
+    set --export PAGER less
     set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
 end
 
