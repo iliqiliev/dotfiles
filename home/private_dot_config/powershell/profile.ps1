@@ -1,3 +1,5 @@
+$env:SHLVL = [int] $env:SHLVL + 1
+
 Set-PSReadLineKeyHandler Ctrl+c    RevertLine
 Set-PSReadlineKeyHandler Ctrl+d    DeleteCharOrExit
 Set-PSReadLineKeyHandler Tab       MenuComplete
@@ -28,12 +30,6 @@ if (Get-Command eza -ErrorAction Ignore) {
 
 if (Test-Path '~/scoop/apps/uutils-coreutils/current' ) {
     Set-Alias 'rm' '~/scoop/apps/uutils-coreutils/current/rm.exe'
-}
-
-$env:SHLVL = [int] $env:SHLVL + 1
-
-if (Get-Command nvim -ErrorAction Ignore) {
-    $env:EDITOR = 'nvim'
 }
 
 if (Get-Command starship -ErrorAction Ignore) {

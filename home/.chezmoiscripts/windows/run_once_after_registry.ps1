@@ -28,6 +28,7 @@ Set-RegistryHKCU 'Environment\HISTFILE'            '%USERPROFILE%\.local\state\b
 Set-RegistryHKCU "Environment\PYTHON_HISTORY"      '%USERPROFILE%\.local\state\python_history'
 
 Set-RegistryHKCU 'Environment\CLINK_PROFILE' '%APPDATA%\clink'
+Set-RegistryHKCU 'Environment\EDITOR' 'nvim'
 Set-RegistryHKCU 'Environment\MANPAGER' 'nvim +Man!'
 Set-RegistryHKCU 'Environment\PAGER' 'nvim -R -M'
 Set-RegistryHKCU 'Environment\POWERSHELL_TELEMETRY_OPTOUT' 1
