@@ -11,6 +11,7 @@ require("conform").setup({
    },
 
    formatters_by_ft = {
+      fish = { "fish_indent" },
       lua = { "stylua" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
       sh = { "shfmt" },
