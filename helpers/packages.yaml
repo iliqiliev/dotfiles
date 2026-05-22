@@ -47,8 +47,11 @@ base:
   starship:
   sudo:
     scoop: "gsudo"
+  tar:
   tealdeer:
   topgrade:
+  tree-sitter-cli:
+    scoop: "tree-sitter"
   uv:
   wget:
   xdg-utils:
