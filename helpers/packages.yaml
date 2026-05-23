@@ -33,6 +33,7 @@ base:
     apk: "delta"
     scoop: "delta"
   jq:
+  kitty-terminfo:
   less:
   neovim:
   pwsh:
