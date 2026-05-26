@@ -5,4 +5,10 @@
       "ctrl-shift-c": "collab_panel::ToggleFocus",
     },
   },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "ctrl-h": "project_panel::ToggleHideHidden",
+    },
+  },
 ]
