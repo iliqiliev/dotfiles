@@ -61,31 +61,13 @@ require("ensure").setup({
    install = true, -- Install tools on startup.
    plugins = { -- Enabled plugins.
       "ensure.plugin.mason",
-      "ensure.plugin.lsp",
       "ensure.plugin.treesitter",
       "ensure.plugin.conform",
+      "ensure.plugin.lsp",
       -- "ensure.plugin.lint",
    },
 
-   -- nvim-lspconfig:
-   lsp = {
-      enable = { -- Servers to enable.
-         -- Bash/sh.
-         "bashls",
-         -- Fish.
-         "fish_lsp",
-         -- Lua.
-         "lua_ls",
-         -- Python.
-         "basedpyright",
-         -- TCL.
-         "tclsp",
-         -- TOML.
-         "tombi",
-      },
-   },
-
-   -- nvim-treesitter:
+   -- nvim-treesitter parsers:
    parsers = {
       "bash",
       "fish",
@@ -95,7 +77,7 @@ require("ensure").setup({
       "toml",
    },
 
-   -- conform.nvim:
+   -- conform.nvim formatters:
    formatters = {
       sh = { "shfmt" },
       fish = { "fish_indent" },
@@ -104,5 +86,17 @@ require("ensure").setup({
       tcl = { "tclfmt" },
       toml = { "tombi" },
       ["_"] = { "trim_whitespace" },
+   },
+
+   -- nvim-lspconfig servers:
+   lsp = {
+      enable = { -- Servers to enable.
+         "bashls", -- Bash/sh.
+         "fish_lsp", -- Fish.
+         "lua_ls", -- Lua.
+         "basedpyright", -- Python.
+         "tclsp", -- TCL.
+         "tombi", -- TOML.
+      },
    },
 })
