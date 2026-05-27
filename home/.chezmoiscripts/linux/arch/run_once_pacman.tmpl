@@ -51,6 +51,5 @@ yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 
 print_blue "Installing pacman packages..."
-# shellcheck disable=2086
-yay -S --asexplicit $PACKAGES "${YAY_ARGS[@]}"
+yay -S "${YAY_ARGS[@]}" --asexplicit  -- {{ .packages }}
 print_green "Packages installed successfully."
