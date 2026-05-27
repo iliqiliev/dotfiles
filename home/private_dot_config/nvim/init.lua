@@ -28,6 +28,12 @@ vim.pack.add({
 vim.g.adwaita_transparent = true -- Makes the background transparent.
 vim.cmd("colorscheme adwaita")
 
+-- lualine.nvim:
+require("lualine").setup({})
+
+-- nvim-autopairs:
+require("nvim-autopairs").setup({})
+
 -- mason.nvim:
 require("mason").setup()
 
@@ -100,9 +106,3 @@ require("ensure").setup({
       ["_"] = { "trim_whitespace" },
    },
 })
-
--- nvim-autopairs:
-require("nvim-autopairs").setup({})
-
--- lualine.nvim:
-require("lualine").setup({})
