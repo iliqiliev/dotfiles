@@ -51,6 +51,7 @@ $AVAILABLE_SUDO_PACKAGES = @($AVAILABLE_PACKAGES | Where-Object {$_ -in $NEED_SU
 if ($AVAILABLE_USER_PACKAGES.Count -gt 0) {
     Write-Host "Installing scoop packages..." -ForegroundColor Blue
     scoop install --no-update-scoop @AVAILABLE_USER_PACKAGES
+    if (!$?) { exit 1 }
     Write-Host "Packages installed successfully." -ForegroundColor Green
 }
 
