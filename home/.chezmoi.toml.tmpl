@@ -9,15 +9,15 @@
 {{   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) -}}
 {{ end -}}
 
-{{ $os := .chezmoi.os -}}
+{{ $os := .chezmoi.os | lower -}}
 {{ if eq $os "android" -}}
 {{   $os = "linux" -}}
 {{ end -}}
 
 {{ $distro := coalesce (get .chezmoi.osRelease "idLike")
-                        (get .chezmoi.osRelease "id")
-                        (.chezmoi.os)
-                        | splitList " " | last -}}
+                       (get .chezmoi.osRelease "id")
+                       (.chezmoi.os)
+                       | splitList " " | last | lower -}}
 
 {{ $manageGui := and (ne $distro "android")
                       (env "container" | eq "")
@@ -91,8 +91,8 @@ isPersonal = {{ $isPersonal }}
 isWork = {{ $isWork }}
 name = {{ $name | quote }}
 email = {{ $email | quote }}
-os = {{ $os | lower | quote }}
-distro = {{ $distro | lower | quote }}
+os = {{ $os | quote }}
+distro = {{ $distro | quote }}
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
 installGnome = {{ $installGnome }} # Linux only
