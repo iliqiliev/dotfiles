@@ -49,6 +49,7 @@ base:
   sudo:
     scoop: "gsudo"
   tar:
+    scoop: null
   tealdeer:
   topgrade:
   tree-sitter-cli:
