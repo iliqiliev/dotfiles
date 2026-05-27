@@ -41,7 +41,7 @@ Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 $ALL_SCOOP_PACKAGES = (Get-ChildItem "~/scoop/buckets/*/bucket/*.json").BaseName
 $NEED_SUDO_PACKAGES = @("virtio-guest-tools")
-$REQUESTED_PACKAGES = $env:PACKAGES -split " "
+$REQUESTED_PACKAGES = @({{ .packages | splitList " " | quoteList | join ", " }})
 
 $AVAILABLE_PACKAGES = $REQUESTED_PACKAGES | Where-Object {$_ -in $ALL_SCOOP_PACKAGES}
 

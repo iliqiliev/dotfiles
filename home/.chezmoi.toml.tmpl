@@ -96,6 +96,7 @@ distro = {{ $distro | quote }}
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
 installGnome = {{ $installGnome }} # Linux only
+packages = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 
 [data.fonts]
 {{ $size := 0 -}}
