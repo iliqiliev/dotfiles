@@ -32,6 +32,13 @@ vim.cmd("colorscheme adwaita")
 require("mason").setup()
 
 -- conform.nvim:
+vim.keymap.set(
+   { "n", "v" },
+   "<Leader>f",
+   require("conform").format,
+   { desc = "Format Buffer" }
+)
+
 require("conform").setup({
    default_format_opts = {
       async = true,
@@ -41,37 +48,7 @@ require("conform").setup({
    formatters = {
       shfmt = { append_args = { "--indent", "4" } },
    },
-
-   formatters_by_ft = {
-      fish = { "fish_indent" },
-      lua = { "stylua" },
-      python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-      sh = { "shfmt" },
-      tcl = { "tclfmt" },
-      toml = { "tombi" },
-      ["_"] = { "trim_whitespace" },
-   },
 })
-
-vim.keymap.set(
-   { "n", "v" },
-   "<Leader>f",
-   require("conform").format,
-   { desc = "Format Buffer" }
-)
-
--- nvim-lspconfig:
-vim.lsp.enable({
-   "basedpyright", -- Python.
-   "bashls", -- Bash/sh.
-   "fish_lsp", -- Fish.
-   "lua_ls", -- Lua.
-   "tclsp", -- TCL.
-   "tombi", -- TOML.
-})
-
--- nvim-treesitter:
--- TODO: setup
 
 -- ensure.nvim:
 require("ensure").setup({
@@ -83,6 +60,45 @@ require("ensure").setup({
       "ensure.plugin.conform",
       -- "ensure.plugin.lint",
    },
+
+   -- nvim-lspconfig:
+   lsp = {
+      enable = { -- Servers to enable.
+         -- Bash/sh.
+         "bashls",
+         -- Fish.
+         "fish_lsp",
+         -- Lua.
+         "lua_ls",
+         -- Python.
+         "basedpyright",
+         -- TCL.
+         "tclsp",
+         -- TOML.
+         "tombi",
+      },
+   },
+
+   -- nvim-treesitter:
+   parsers = {
+      "bash",
+      "fish",
+      "lua",
+      "python",
+      "tcl",
+      "toml",
+   },
+
+   -- conform.nvim:
+   formatters = {
+      sh = { "shfmt" },
+      fish = { "fish_indent" },
+      lua = { "stylua" },
+      python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+      tcl = { "tclfmt" },
+      toml = { "tombi" },
+      ["_"] = { "trim_whitespace" },
+   },
 })
 
 -- nvim-autopairs:
@@ -90,6 +106,3 @@ require("nvim-autopairs").setup({})
 
 -- lualine.nvim:
 require("lualine").setup({})
-
--- chezmoi.vim:
--- <No setup required.>
