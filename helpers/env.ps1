@@ -33,14 +33,9 @@ function Set-RegistryHKCU {
     Set-ItemProperty -Path $Path -Name $Name -Value $Value @TypeParam
 }
 
+# Refresh PATH.
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-
-$LOCAL_BIN = "$env:USERPROFILE\.local\bin"
-
-if ($env:Path -notlike "*$LOCAL_BIN*") {
-    $env:Path += ";$LOCAL_BIN"
-}
 
 if ($args.Count -gt 0) {
     . $args[0]
