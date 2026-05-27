@@ -81,7 +81,7 @@ require("ensure").setup({
       sh = { lsp_format = "prefer", "shfmt" },
       fish = { lsp_format = "prefer", "fish_indent" },
       lua = { "stylua" },
-      powershell = { lsp_format = "prefer" },
+      ps1 = { lsp_format = "prefer" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
       tcl = { lsp_format = "prefer", "tclfmt" },
       toml = { lsp_format = "prefer", "tombi" },
@@ -98,6 +98,18 @@ require("ensure").setup({
          "basedpyright", -- Python.
          "tclsp", -- TCL.
          "tombi", -- TOML.
+      },
+      powershell_es = {
+         bundle_path = vim.fn.stdpath("data")
+            .. "/mason/packages/powershell-editor-services",
+         settings = {
+            powershell = {
+               codeFormatting = {
+                  openBraceOnSameLine = true,
+                  ignoreOneLineBlock = true,
+               },
+            },
+         },
       },
    },
 })
