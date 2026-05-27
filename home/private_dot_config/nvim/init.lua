@@ -85,7 +85,8 @@ require("ensure").setup({
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
       tcl = { lsp_format = "prefer", "tclfmt" },
       toml = { lsp_format = "prefer", "tombi" },
-      ["_"] = { "trim_whitespace" },
+      ["*"] = { "injected" }, -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
+      ["_"] = { "trim_whitespace" }, -- For filetypes without a defined formatter.
    },
 
    -- nvim-lspconfig servers:
