@@ -70,6 +70,7 @@ require("ensure").setup({
       "bash",
       "fish",
       "lua",
+      "powershell",
       "python",
       "tcl",
       "toml",
@@ -77,12 +78,13 @@ require("ensure").setup({
 
    -- conform.nvim formatters:
    formatters = {
-      sh = { "shfmt" },
-      fish = { "fish_indent" },
+      sh = { lsp_format = "prefer", "shfmt" },
+      fish = { lsp_format = "prefer", "fish_indent" },
       lua = { "stylua" },
+      powershell = { lsp_format = "prefer" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-      tcl = { "tclfmt" },
-      toml = { "tombi" },
+      tcl = { lsp_format = "prefer", "tclfmt" },
+      toml = { lsp_format = "prefer", "tombi" },
       ["_"] = { "trim_whitespace" },
    },
 
@@ -92,6 +94,7 @@ require("ensure").setup({
          "bashls", -- Bash/sh.
          "fish_lsp", -- Fish.
          "lua_ls", -- Lua.
+         "powershell_es", -- Powershell.
          "basedpyright", -- Python.
          "tclsp", -- TCL.
          "tombi", -- TOML.
