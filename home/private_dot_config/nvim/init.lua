@@ -36,23 +36,18 @@ require("nvim-autopairs").setup({})
 require("mason").setup()
 
 -- conform.nvim:
+require("conform").setup({
+   default_format_opts = { async = true, lsp_format = "fallback" },
+   formatters = {
+      shfmt = { append_args = { "--indent", "4" } },
+   },
+})
 vim.keymap.set(
    { "n", "v" },
    "<Leader>f",
    require("conform").format,
    { desc = "Format Buffer" }
 )
-
-require("conform").setup({
-   default_format_opts = {
-      async = true,
-      lsp_format = "fallback",
-   },
-
-   formatters = {
-      shfmt = { append_args = { "--indent", "4" } },
-   },
-})
 
 -- ensure.nvim:
 require("ensure").setup({
