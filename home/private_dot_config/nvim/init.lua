@@ -10,6 +10,14 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the 'wildchar'.
 
 -- Plugins.
+if not vim.pack then
+   vim.notify(
+      "Neovim version is older than 0.12, plugins will not be installed.",
+      vim.log.levels.WARN
+   )
+   return
+end
+
 vim.pack.add({
    "https://github.com/alker0/chezmoi.vim",
    "https://github.com/mason-org/mason.nvim",
