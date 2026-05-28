@@ -16,7 +16,7 @@ print_green "Apt database synced successfully."
 AVAILABLE_PACKAGES=$(
     comm -12 \
         <(apt-cache pkgnames | sort) \
-        <(tr " " "\n" <<<"$PACKAGES")
+        <(tr " " "\n" <<<'{{ .packages }}')
 )
 
 print_blue "Installing apt packages..."
