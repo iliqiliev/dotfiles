@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 
-$PACKAGES = @(
+$BLOAT_PACKAGES = @(
     'Clipchamp.Clipchamp'
     'Microsoft.BingNews'
     'Microsoft.BingSearch'
@@ -22,7 +22,7 @@ $PACKAGES = @(
     'MicrosoftWindows.Client.WebExperience'
 )
 
-$ADDITIONAL_PACKAGES = @(
+$DEEPER_BLOAT_PACKAGES = @(
     "Microsoft.Paint"
     "Microsoft.OutlookForWindows"
     "MSTeams"
@@ -35,12 +35,12 @@ $deep_debloat = $host.UI.PromptForChoice(
     1
 ) -eq 0
 
-if ($deep_debloat) { $PACKAGES += $ADDITIONAL_PACKAGES }
+if ($deep_debloat) { $BLOAT_PACKAGES += $DEEPER_BLOAT_PACKAGES }
 
 Write-Host 'Removing bloat packages...' -ForegroundColor Blue
 
 $removed = 0
-foreach ($package_name in $PACKAGES) {
+foreach ($package_name in $BLOAT_PACKAGES) {
     Write-Host "Removing '$package_name' ... " -ForegroundColor Blue -NoNewline
     $package = Get-AppxPackage $package_name
 
@@ -54,7 +54,7 @@ foreach ($package_name in $PACKAGES) {
     $removed++
 }
 
-Write-Host "$($PACKAGES.Length) packages checked." -ForegroundColor Green
+Write-Host "$($BLOAT_PACKAGES.Length) packages checked." -ForegroundColor Green
 
 if ($removed -eq 0) {
     Write-Host "No packages to debloat. :)" -ForegroundColor Green
