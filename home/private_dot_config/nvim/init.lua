@@ -11,15 +11,15 @@ vim.opt.wildmode = "longest:full,full" -- Completion mode used for the 'wildchar
 
 -- Plugins.
 vim.pack.add({
-   "https://github.com/Mofiqul/adwaita.nvim",
-   "https://github.com/mason-org/mason.nvim",
-   "https://github.com/stevearc/conform.nvim",
-   "https://github.com/neovim/nvim-lspconfig",
-   "https://github.com/nvim-treesitter/nvim-treesitter",
-   "https://github.com/noirbizarre/ensure.nvim",
-   "https://github.com/windwp/nvim-autopairs",
-   "https://github.com/nvim-lualine/lualine.nvim",
    "https://github.com/alker0/chezmoi.vim",
+   "https://github.com/mason-org/mason.nvim",
+   "https://github.com/Mofiqul/adwaita.nvim",
+   "https://github.com/neovim/nvim-lspconfig",
+   "https://github.com/noirbizarre/ensure.nvim",
+   "https://github.com/nvim-lualine/lualine.nvim",
+   "https://github.com/nvim-treesitter/nvim-treesitter",
+   "https://github.com/stevearc/conform.nvim",
+   "https://github.com/windwp/nvim-autopairs",
 })
 
 -- adwaita.nvim:
