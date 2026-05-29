@@ -52,7 +52,7 @@ require("lualine").setup({})
 require("nvim-autopairs").setup({})
 
 -- mason.nvim:
-require("mason").setup()
+require("mason").setup({})
 
 -- conform.nvim:
 require("conform").setup({
