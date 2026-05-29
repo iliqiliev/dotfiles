@@ -5,6 +5,7 @@ vim.g["chezmoi#use_tmp_buffer"] = true -- For better chezmoi filetype detection.
 
 -- Options.
 vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a <Tab>.
+vim.opt.number = true -- Print the line number in front of each line.
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the 'wildchar'.
