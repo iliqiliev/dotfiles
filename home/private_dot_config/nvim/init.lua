@@ -1,14 +1,17 @@
 -- Variables.
-vim.g.mapleader = " " -- This is used as the value of the special string <Leader>.
-vim.g.maplocalleader = "\\" -- Like <Leader> but for mappings which are local to a buffer.
-vim.g["chezmoi#use_tmp_buffer"] = true -- For better chezmoi filetype detection.
+vim.g.mapleader = " " -- This is used as the value of the special string `<Leader>`.
+vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local to a buffer.
+vim.g["chezmoi#use_tmp_buffer"] = true -- For better `chezmoi` filetype detection.
 
 -- Options.
-vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a <Tab>.
+vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
+vim.opt.ignorecase = true -- Ignore case in search patterns.
 vim.opt.number = true -- Print the line number in front of each line.
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
-vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
-vim.opt.wildmode = "longest:full,full" -- Completion mode used for the 'wildchar'.
+vim.opt.smartcase = true -- Override `ignorecase` if the pattern contains upper case letters.
+vim.opt.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
+vim.opt.undofile = true -- Persist undo history accross sessions.
+vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
 -- Plugins.
 local plugins = {
@@ -71,7 +74,7 @@ require("ensure").setup({
       -- "ensure.plugin.lint",
    },
 
-   -- nvim-treesitter parsers:
+   -- `nvim-treesitter` parsers:
    parsers = {
       "bash",
       "fish",
@@ -82,7 +85,7 @@ require("ensure").setup({
       "toml",
    },
 
-   -- conform.nvim formatters:
+   -- `conform.nvim` formatters:
    formatters = {
       sh = { lsp_format = "prefer", "shfmt" },
       fish = { lsp_format = "prefer", "fish_indent" },
@@ -95,7 +98,7 @@ require("ensure").setup({
       ["_"] = { "trim_whitespace" }, -- For filetypes without a defined formatter.
    },
 
-   -- nvim-lspconfig servers:
+   -- `nvim-lspconfig` servers:
    lsp = {
       enable = { -- Servers to enable.
          "bashls", -- Bash/sh.
