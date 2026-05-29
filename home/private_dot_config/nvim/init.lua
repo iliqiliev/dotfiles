@@ -10,15 +10,7 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the 'wildchar'.
 
 -- Plugins.
-if not vim.pack then
-   vim.notify(
-      "Neovim version is older than 0.12, plugins will not be installed.",
-      vim.log.levels.WARN
-   )
-   return
-end
-
-vim.pack.add({
+local plugins = {
    "https://github.com/alker0/chezmoi.vim",
    "https://github.com/mason-org/mason.nvim",
    "https://github.com/Mofiqul/adwaita.nvim",
@@ -28,7 +20,17 @@ vim.pack.add({
    "https://github.com/nvim-treesitter/nvim-treesitter",
    "https://github.com/stevearc/conform.nvim",
    "https://github.com/windwp/nvim-autopairs",
-})
+}
+
+if not vim.pack then
+   vim.notify(
+      "Neovim version is older than 0.12, plugins will not be installed.",
+      vim.log.levels.WARN
+   )
+   return
+end
+
+vim.pack.add(plugins)
 
 -- adwaita.nvim:
 vim.g.adwaita_transparent = true -- Makes the background transparent.
