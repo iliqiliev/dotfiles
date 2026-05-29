@@ -1,4 +1,8 @@
 -- Variables.
+vim.g.loaded_node_provider = 0 -- Disable the Node.js provider.
+vim.g.loaded_perl_provider = 0 -- Disable the Perl provider.
+vim.g.loaded_python3_provider = 0 -- Disable the Python 3 provider.
+vim.g.loaded_ruby_provider = 0 -- Disable the Ruby provider.
 vim.g.mapleader = " " -- This is used as the value of the special string `<Leader>`.
 vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local to a buffer.
 vim.g["chezmoi#use_tmp_buffer"] = true -- For better `chezmoi` filetype detection.
