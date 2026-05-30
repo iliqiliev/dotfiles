@@ -31,15 +31,15 @@ local plugins = {
    "https://github.com/windwp/nvim-autopairs",
 }
 
-if not vim.pack then
-   vim.notify(
-      "Neovim version is older than 0.12, plugins will not be installed.",
-      vim.log.levels.WARN
-   )
-   return
+if vim.pack then
+   vim.pack.add(plugins)
+else
+   vim.cmd.echo('"`vim.pack` is not available, falling back to `mini.deps`."')
+   local mini_deps = require("mini-deps")
+   for _, plugin in ipairs(plugins) do
+      mini_deps.add(plugin)
+   end
 end
-
-vim.pack.add(plugins)
 
 -- adwaita.nvim:
 vim.g.adwaita_transparent = true -- Makes the background transparent.
