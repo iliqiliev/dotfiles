@@ -5,22 +5,6 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-function dconf_append {
-    key="$1" && shift
-    current=$(dconf read "$key")
-    current=$(echo "${current:-"[]"}" | tr "'" '"')
-
-    if ! command -v jq >/dev/null; then
-        print_red "'jq' is not installed, cannot append '$*' to '$key'"
-        return
-    fi
-
-    updated=$(jq '$current + ($ARGS.positional | map(. + ".desktop")) | unique' \
-        --argjson current "$current" --args "$@" --null-input)
-
-    dconf write "$key" "$(echo "$updated" | tr '"' "'")"
-}
-
 print_blue "Setting Dconf settings..."
 
 if test "$CHEZ_IS_PERSONAL" = "true"; then
@@ -68,6 +52,26 @@ dconf write $MEDIA_KEYS/reboot "['<Control><Alt>Delete']"
 dconf write $MEDIA_KEYS/shutdown "['<Shift><Control><Alt>Delete']"
 dconf write $MEDIA_KEYS/volume-step 5
 
+CUSTOM_KEYBINDS=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+dconf write $CUSTOM_KEYBINDS/custom0/name "'Task Manager'"
+dconf write $CUSTOM_KEYBINDS/custom0/binding "'<Shift><Control>Escape'"
+dconf write $CUSTOM_KEYBINDS/custom0/command "'io.missioncenter.MissionCenter'"
+dconf write $CUSTOM_KEYBINDS/custom1/name "'Optical Character Recognition'"
+dconf write $CUSTOM_KEYBINDS/custom1/binding "'<Super>C'"
+dconf write $CUSTOM_KEYBINDS/custom1/command "'com.github.dynobo.normcap'"
+dconf write $CUSTOM_KEYBINDS/custom2/name "'Cartridges Game Launcher'"
+dconf write $CUSTOM_KEYBINDS/custom2/binding "'<Super>G'"
+dconf write $CUSTOM_KEYBINDS/custom2/command "'page.kramo.Cartridges'"
+dconf write $CUSTOM_KEYBINDS/custom3/name "'Force Quit Window Selector'"
+dconf write $CUSTOM_KEYBINDS/custom3/binding "'<Super>X'"
+dconf write $CUSTOM_KEYBINDS/custom3/command "'gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow'"
+dconf write $CUSTOM_KEYBINDS "[
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/',
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/',
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/',
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/'
+]"
+
 SHELL=/org/gnome/shell
 dconf write $SHELL/always-show-log-out true
 dconf write $SHELL/disable-extension-version-validation true
@@ -80,11 +84,12 @@ dconf write $SHELL/welcome-dialog-last-shown-version "67.0"
 SHELL_EXTENSIONS=/org/gnome/shell/extensions
 
 ## App Hider
-HIDDEN_APPS=(
-    avahi-discover bssh btop bvnc lstopo nvim org.gnome.Settings
-    org.gnome.Extensions scrcpy scrcpy-console qv4l2 qvidcap yazi
-)
-dconf_append $SHELL_EXTENSIONS/app-hider/hidden-apps "${HIDDEN_APPS[@]}"
+dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
+    'avahi-discover.desktop', 'bssh.desktop', 'btop.desktop', 'bvnc.desktop',
+    'lstopo.desktop', 'nvim.desktop', 'org.gnome.Extensions.desktop',
+    'org.gnome.Settings.desktop', 'qv4l2.desktop', 'qvidcap.desktop',
+    'scrcpy-console.desktop', 'scrcpy.desktop', 'yazi.desktop'
+]"
 
 ## Copyous
 dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
