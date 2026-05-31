@@ -95,4 +95,7 @@ dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
 dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
 dconf write $SHELL_EXTENSIONS/copyous/sound "'message'"
 
+## Force Quit
+dconf write $SHELL_EXTENSIONS/forcequit/hide-button true
+
 print_green "Dconf configured successfully."
