@@ -44,7 +44,7 @@ else
     print_green "Yay installed successfully."
 fi
 
-YAY_ARGS=(--color=auto --needed --noconfirm --sudoloop)
+YAY_ARGS=(--color=auto --needed --noconfirm)
 
 print_blue "Updating system to avoid partially updated dependencies..."
 yay -Syu "${YAY_ARGS[@]}"
