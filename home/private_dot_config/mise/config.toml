@@ -10,6 +10,9 @@
 "core:tree-sitter" = "latest"
 "core:uv" = "latest"
 "npm:basedpyright" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:fish-lsp" = "latest"
+"pipx:tclint" = "latest"
 
 [settings.npm]
 package_manager = "bun"
