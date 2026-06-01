@@ -72,6 +72,8 @@ vim.lsp.config("powershell_es", {
    },
 })
 
+vim.lsp.config("tclsp", { filetypes = { "tcl" } })
+
 require("conform").setup({
    default_format_opts = { async = true, lsp_format = "fallback" },
 
