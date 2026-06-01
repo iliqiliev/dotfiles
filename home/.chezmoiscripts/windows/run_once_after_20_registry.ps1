@@ -8,6 +8,9 @@ if ($env:CHEZ_IS_PERSONAL -eq 'true') {
     Set-RegistryHKCU 'Keyboard Layout\Preload\2' '00040402'  # Bulgarian (Phonetic Traditional)
 }
 
+# Add 'mise' shims to PATH.
+Update-UserPathVar '.local\share\mise\shims'
+
 # Disable mouse acceleration.
 Set-RegistryHKCU 'Control Panel\Mouse\MouseSpeed'      '0'
 Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold1' '0'
