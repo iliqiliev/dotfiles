@@ -1,4 +1,5 @@
 [tools]
+"core:bun" = "latest"
 "core:lua-language-server" = "latest"
 "core:ruff" = "latest"
 "core:shellcheck" = "latest"
@@ -7,3 +8,7 @@
 "core:tombi" = "latest"
 "core:tree-sitter" = "latest"
 "core:uv" = "latest"
+"npm:basedpyright" = "latest"
+
+[settings.npm]
+package_manager = "bun"
