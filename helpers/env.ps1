@@ -33,6 +33,27 @@ function Set-RegistryHKCU {
     Set-ItemProperty -Path $Path -Name $Name -Value $Value @TypeParam
 }
 
+function Update-UserPathVar {
+    param (
+        [Parameter(Mandatory)][string]$NewPath
+    )
+
+    $OldFullPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    $NewPath = [IO.Path]::GetFullPath($NewPath)
+
+    if ($OldFullPath -like "*$NewPath*") {
+        return
+    }
+
+    $NewFullPath = $OldFullPath + ";" + $NewPath
+
+    Set-ItemProperty `
+        -Path "HKCU:\Environment" `
+        -Name "Path" `
+        -Value $NewFullPath `
+        -Type ExpandString
+}
+
 # Refresh PATH.
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") `
     + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
