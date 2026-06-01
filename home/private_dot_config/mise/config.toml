@@ -1,6 +1,7 @@
 [tools]
 "core:bun" = "latest"
 "core:lua-language-server" = "latest"
+"core:node" = "latest"
 "core:ruff" = "latest"
 "core:shellcheck" = "latest"
 "core:shfmt" = "latest"
