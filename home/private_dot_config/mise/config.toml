@@ -14,5 +14,11 @@
 "npm:fish-lsp" = "latest"
 "pipx:tclint" = "latest"
 
+[settings.node]
+compile = false
+
 [settings.npm]
 package_manager = "bun"
+
+[settings.python]
+compile = false
