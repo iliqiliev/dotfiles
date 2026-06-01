@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# shellcheck source=helpers/env.sh
+source ~/.local/share/chezmoi/helpers/env.sh
+
+print_blue "Installing dev tools using 'mise' ..."
+
+if ! command -v mise >/dev/null; then
+    print_red "'mise' is not installed. Aborting."
+    exit 0
+fi
+
+mise install
+
+print_green "Dev tools installed successfully."
