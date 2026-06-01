@@ -34,7 +34,6 @@ base:
     scoop: "delta"
   kitty-terminfo:
   less:
-  mise:
   neovim:
   pwsh:
     scoop: "pwsh"
