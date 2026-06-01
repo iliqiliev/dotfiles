@@ -34,6 +34,7 @@ base:
     scoop: "delta"
   kitty-terminfo:
   less:
+  mise:
   neovim:
   pwsh:
     scoop: "pwsh"
@@ -42,8 +43,6 @@ base:
   sfsu:
     scoop: "sfsu"
     "*": null
-  shellcheck:
-  shfmt:
   starship:
   sudo:
     scoop: "gsudo"
@@ -51,9 +50,6 @@ base:
     scoop: null
   tealdeer:
   topgrade:
-  tree-sitter-cli:
-    scoop: "tree-sitter"
-  uv:
   wget:
   xdg-utils:
   yazi:
