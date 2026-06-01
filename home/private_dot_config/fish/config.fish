@@ -9,7 +9,10 @@ end
 set --export fish_greeting
 
 # Add directories to PATH
-fish_add_path $HOME/.local/bin /var/lib/flatpak/exports/bin/
+fish_add_path \
+    $HOME/.local/bin \
+    $HOME/.local/share/mise/shims \
+    /var/lib/flatpak/exports/bin
 
 # Set EDITOR and VIMRUNTIME if nvim is available
 if command --query nvim
