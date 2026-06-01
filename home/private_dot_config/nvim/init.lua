@@ -19,75 +19,67 @@ vim.opt.undofile = true -- Persist undo history accross sessions.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
 -- Plugins.
-local plugins = {
-   "https://github.com/alker0/chezmoi.vim",
-   "https://github.com/mason-org/mason.nvim",
-   "https://github.com/Mofiqul/adwaita.nvim",
-   "https://github.com/neovim/nvim-lspconfig",
-   "https://github.com/noirbizarre/ensure.nvim",
-   "https://github.com/nvim-lualine/lualine.nvim",
-   "https://github.com/nvim-treesitter/nvim-treesitter",
-   "https://github.com/stevearc/conform.nvim",
-   "https://github.com/windwp/nvim-autopairs",
-}
-
 if not vim.pack then
    return
 end
 
-vim.pack.add(plugins)
+vim.pack.add({
+   "https://github.com/alker0/chezmoi.vim",
+   "https://github.com/Mofiqul/adwaita.nvim",
+   "https://github.com/neovim/nvim-lspconfig",
+   "https://github.com/nvim-lualine/lualine.nvim",
+   "https://github.com/nvim-treesitter/nvim-treesitter",
+   "https://github.com/stevearc/conform.nvim",
+   "https://github.com/windwp/nvim-autopairs",
+})
 
--- adwaita.nvim:
 vim.g.adwaita_transparent = true -- Makes the background transparent.
 vim.cmd.colorscheme("adwaita")
 
--- lualine.nvim:
 require("lualine").setup({})
 
--- nvim-autopairs:
 require("nvim-autopairs").setup({})
 
--- mason.nvim:
-require("mason").setup({})
+require("nvim-treesitter").install({
+   "bash",
+   "fish",
+   "lua",
+   "powershell",
+   "python",
+   "tcl",
+   "toml",
+})
 
--- conform.nvim:
+vim.lsp.enable({
+   "bashls", -- Bash/sh.
+   "fish_lsp", -- Fish.
+   "lua_ls", -- Lua.
+   "powershell_es", -- Powershell.
+   "basedpyright", -- Python.
+   "tclsp", -- TCL.
+   "tombi", -- TOML.
+})
+
+vim.lsp.config("powershell_es", {
+   bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+   settings = {
+      powershell = {
+         codeFormatting = {
+            openBraceOnSameLine = true,
+            ignoreOneLineBlock = true,
+         },
+      },
+   },
+})
+
 require("conform").setup({
    default_format_opts = { async = true, lsp_format = "fallback" },
+
    formatters = {
       shfmt = { append_args = { "--indent", "4" } },
    },
-})
-vim.keymap.set(
-   { "n", "v" },
-   "<Leader>f",
-   require("conform").format,
-   { desc = "Format Buffer" }
-)
 
--- ensure.nvim:
-require("ensure").setup({
-   install = true, -- Install tools on startup.
-   plugins = { -- Enabled plugins.
-      "ensure.plugin.mason",
-      "ensure.plugin.treesitter",
-      "ensure.plugin.conform",
-      "ensure.plugin.lsp",
-      -- "ensure.plugin.lint",
-   },
-
-   -- `nvim-treesitter` parsers:
-   parsers = {
-      "bash",
-      "fish",
-      "lua",
-      "powershell",
-      "python",
-      "tcl",
-      "toml",
-   },
-
-   -- `conform.nvim` formatters:
-   formatters = {
+   formatters_by_ft = {
       sh = { lsp_format = "prefer", "shfmt" },
       fish = { lsp_format = "prefer", "fish_indent" },
       lua = { "stylua" },
@@ -98,29 +90,11 @@ require("ensure").setup({
       ["*"] = { "injected" }, -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
       ["_"] = { "trim_whitespace" }, -- For filetypes without a defined formatter.
    },
-
-   -- `nvim-lspconfig` servers:
-   lsp = {
-      enable = { -- Servers to enable.
-         "bashls", -- Bash/sh.
-         "fish_lsp", -- Fish.
-         "lua_ls", -- Lua.
-         "powershell_es", -- Powershell.
-         "basedpyright", -- Python.
-         "tclsp", -- TCL.
-         "tombi", -- TOML.
-      },
-      powershell_es = {
-         bundle_path = vim.fn.stdpath("data")
-            .. "/mason/packages/powershell-editor-services",
-         settings = {
-            powershell = {
-               codeFormatting = {
-                  openBraceOnSameLine = true,
-                  ignoreOneLineBlock = true,
-               },
-            },
-         },
-      },
-   },
 })
+
+vim.keymap.set(
+   { "n", "v" },
+   "<Leader>f",
+   require("conform").format,
+   { desc = "Format Buffer" }
+)
