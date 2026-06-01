@@ -1,0 +1,9 @@
+[tools]
+lua-language-server = "latest"
+ruff = "latest"
+shellcheck = "latest"
+shfmt = "latest"
+stylua = "latest"
+tombi = "latest"
+tree-sitter = "latest"
+uv = "latest"
