@@ -27,7 +27,7 @@
 {{ $sudo := "su root -c" -}}
 {{ if or (eq .chezmoi.uid "0") (eq $distro "android") -}}
 {{   $sudo = "" -}}
-{{ else if promptBoolOnce . "useSudo" "Use sudo" true -}}
+{{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
 {{   $useSudo = true -}}
 {{   if lookPath "doas" -}}
 {{     $sudo = "doas" -}}
