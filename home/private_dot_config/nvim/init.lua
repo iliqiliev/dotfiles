@@ -61,7 +61,9 @@ vim.lsp.enable({
 })
 
 vim.lsp.config("powershell_es", {
-   bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+   bundle_path = vim.trim(
+      vim.fn.system("mise where github:PowerShell/PowerShellEditorServices")
+   ),
    settings = {
       powershell = {
          codeFormatting = {
