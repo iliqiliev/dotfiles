@@ -1,5 +1,4 @@
 [tools]
-"core:bun" = "latest"
 "core:lua-language-server" = "latest"
 "core:node" = "latest"
 "core:ruff" = "latest"
@@ -16,9 +15,6 @@
 
 [settings.node]
 compile = false
-
-[settings.npm]
-package_manager = "bun"
 
 [settings.python]
 compile = false
