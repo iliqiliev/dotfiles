@@ -5,7 +5,7 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-print_blue "Setting Dconf settings..."
+print_blue "Setting Dconf settings ..."
 
 if test "$CHEZ_IS_PERSONAL" = "true"; then
     dconf write /org/gnome/desktop/input-sources/sources \

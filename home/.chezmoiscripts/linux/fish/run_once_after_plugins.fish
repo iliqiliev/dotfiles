@@ -1,9 +1,9 @@
 #!/usr/bin/env fish
 
-echo "$(set_color brblue)Installing fisher plugins...$(set_color normal)"
+echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
 
 if not type --query "fisher"
-    echo "$(set_color brred)Fisher is not installed. Aborting...$(set_color normal)"
+    echo "$(set_color brred)Fisher is not installed. Aborting ...$(set_color normal)"
     exit 0
 end
 

@@ -5,7 +5,7 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-print_blue "Setting Zed as the default text editor..."
+print_blue "Setting Zed as the default text editor ..."
 
 if ! command -v xdg-mime >/dev/null; then
     print_yellow "'xdg-mime' not found. Skipping."

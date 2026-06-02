@@ -13,7 +13,7 @@ if ! test -d /run/systemd/system; then
     exit 0
 fi
 
-print_blue "Setting up Sched_ext..."
+print_blue "Setting up Sched_ext ..."
 
 if systemctl is-active --quiet scx_loader; then
     print_green "Sched_ext is already configured."

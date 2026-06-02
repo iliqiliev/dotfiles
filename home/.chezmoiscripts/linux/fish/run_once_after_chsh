@@ -7,7 +7,7 @@ source ~/.local/share/chezmoi/helpers/env.sh
 
 FISH_SHELL=/usr/bin/fish
 
-print_blue "Changing default shell to fish..."
+print_blue "Changing default shell to fish ..."
 
 if [[ $SHELL =~ fish$ ]] || grep --quiet "${FISH_SHELL}$" /etc/passwd; then
     print_green "Fish already default. Will not change it."

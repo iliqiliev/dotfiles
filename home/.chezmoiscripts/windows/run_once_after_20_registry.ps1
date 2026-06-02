@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 
-Write-Host 'Setting registry settings...' -ForegroundColor Blue
+Write-Host 'Setting registry settings ...' -ForegroundColor Blue
 
 if ($env:CHEZ_IS_PERSONAL -eq 'true') {
     Set-RegistryHKCU 'Keyboard Layout\Preload\1' '00000409'  # English (US)

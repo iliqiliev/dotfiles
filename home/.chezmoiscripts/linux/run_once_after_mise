@@ -8,7 +8,7 @@ source ~/.local/share/chezmoi/helpers/env.sh
 print_blue "Installing development tools using 'mise' ..."
 
 if ! command -v mise >/dev/null; then
-    print_blue "'mise' is not installed. Installing..."
+    print_blue "'mise' is not installed. Installing ..."
     curl -LSfs https://mise.run | sh
     print_green "'mise' installed successfully."
 fi

@@ -5,11 +5,11 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-print_blue "Setting up custom folder icons..."
+print_blue "Setting up custom folder icons ..."
 FOLDER_ICONS=~/.local/share/icons/Morewaita/scalable/places
 
 if ! command -v gio >/dev/null; then
-    print_red "'gio' is not installed. Cannot change folder icons..."
+    print_red "'gio' is not installed. Cannot change folder icons ..."
     exit 0
 fi
 

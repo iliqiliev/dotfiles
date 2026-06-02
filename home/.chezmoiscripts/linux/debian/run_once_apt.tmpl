@@ -9,7 +9,7 @@ if test "$CHEZ_SUDO" = "false"; then
     exit 0
 fi
 
-print_blue "Syncing apt database..."
+print_blue "Syncing apt database ..."
 $CHEZ_SUDO apt update -y
 print_green "Apt database synced successfully."
 
@@ -19,7 +19,7 @@ AVAILABLE_PACKAGES=$(
         <(tr " " "\n" <<<'{{ .packages }}')
 )
 
-print_blue "Installing apt packages..."
+print_blue "Installing apt packages ..."
 # shellcheck disable=2086
 $CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."

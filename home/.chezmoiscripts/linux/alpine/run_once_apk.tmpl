@@ -11,12 +11,12 @@ fi
 
 # Not available in containers.
 if command -v setup-apkrepos >/dev/null; then
-    print_blue "Adding community repository..."
+    print_blue "Adding community repository ..."
     $CHEZ_SUDO setup-apkrepos -c -1
     print_green "Community repository added successfully."
 fi
 
-print_blue "Syncing apk database..."
+print_blue "Syncing apk database ..."
 $CHEZ_SUDO apk update
 print_green "Apk database synced successfully."
 
@@ -26,7 +26,7 @@ AVAILABLE_PACKAGES=$(
         <(echo '{{ .packages }}' | tr " " "\n")
 )
 
-print_blue "Installing apk packages..."
+print_blue "Installing apk packages ..."
 # shellcheck disable=2086
 $CHEZ_SUDO apk add $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."

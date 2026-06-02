@@ -37,7 +37,7 @@ $deep_debloat = $host.UI.PromptForChoice(
 
 if ($deep_debloat) { $BLOAT_PACKAGES += $DEEPER_BLOAT_PACKAGES }
 
-Write-Host 'Removing bloat packages...' -ForegroundColor Blue
+Write-Host 'Removing bloat packages ...' -ForegroundColor Blue
 
 $removed = 0
 foreach ($package_name in $BLOAT_PACKAGES) {

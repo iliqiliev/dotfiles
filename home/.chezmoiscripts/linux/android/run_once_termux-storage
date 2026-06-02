@@ -6,7 +6,7 @@ set -eu
 source ~/.local/share/chezmoi/helpers/env.sh
 
 if ! test -L "$HOME/storage/shared"; then
-    print_blue "Setting up Termux storage..."
+    print_blue "Setting up Termux storage ..."
 
     if ! command -v termux-setup-storage >/dev/null; then
         print_red "'termux-setup-storage' command not found."
@@ -17,7 +17,7 @@ if ! test -L "$HOME/storage/shared"; then
     print_green "Termux storage setup successfully."
 fi
 
-print_blue "Copying files to Internal Storage..."
+print_blue "Copying files to Internal Storage ..."
 
 TERMUX_SRC="$HOME/.local/share/chezmoi/helpers/termux"
 

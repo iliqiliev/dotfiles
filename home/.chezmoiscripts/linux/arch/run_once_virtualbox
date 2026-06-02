@@ -9,7 +9,7 @@ if ! test -f /usr/lib/systemd/system/vboxservice.service; then
     exit 0
 fi
 
-print_blue "Setting up VirtualBox systemd service..."
+print_blue "Setting up VirtualBox systemd service ..."
 $CHEZ_SUDO systemctl enable --now "vboxservice.service"
 print_green "VirtualBox systemd service set up successfully."
 
@@ -17,7 +17,7 @@ if ! command -v VBoxClient-all >/dev/null; then
     exit 0
 fi
 
-print_blue "Ensuring VirtualBox user session services are started..."
+print_blue "Ensuring VirtualBox user session services are started ..."
 
 if ! VBoxClient-all >/dev/null; then
     print_yellow "Failed to start VirtualBox user session services."

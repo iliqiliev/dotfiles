@@ -10,7 +10,7 @@ if test "$CHEZ_SUDO" = "false"; then
     exit 0
 fi
 
-print_blue "Installing Chaotic-AUR..."
+print_blue "Installing Chaotic-AUR ..."
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
     print_green "Chaotic-AUR is already installed."
@@ -35,7 +35,7 @@ else
     print_green "Chaotic-AUR installed successfully."
 fi
 
-print_blue "Installing Yay AUR helper..."
+print_blue "Installing Yay AUR helper ..."
 
 if command -v yay >/dev/null; then
     print_green "Yay is already installed."
@@ -46,10 +46,10 @@ fi
 
 YAY_ARGS=(--color=auto --needed --noconfirm)
 
-print_blue "Updating system to avoid partially updated dependencies..."
+print_blue "Updating system to avoid partially updated dependencies ..."
 yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 
-print_blue "Installing pacman packages..."
+print_blue "Installing pacman packages ..."
 yay -S "${YAY_ARGS[@]}" --asexplicit  -- {{ .packages }}
 print_green "Packages installed successfully."
