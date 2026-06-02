@@ -8,6 +8,7 @@
 "core:tombi" = "latest"
 "core:tree-sitter" = "latest"
 "core:uv" = "latest"
+"github:PowerShell/PowerShellEditorServices" = "latest"
 "npm:basedpyright" = "latest"
 "npm:bash-language-server" = "latest"
 "npm:fish-lsp" = "latest"
