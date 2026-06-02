@@ -2,9 +2,12 @@ name: PSScriptAnalayzer
 
 on:
   push:
-    branches: ["master"]
+    paths:
+      - "**.ps1"
   pull_request:
-    branches: ["master"]
+    paths:
+      - "**.ps1"
+  workflow_dispatch:
 
 jobs:
   psscriptanalyzer:

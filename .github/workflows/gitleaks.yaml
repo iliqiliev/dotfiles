@@ -19,5 +19,5 @@ jobs:
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
-          #  gitleaks-action uses this to call a GitHub API to comment on PRs.
+          #  The action uses this to call a GitHub API to comment on PRs.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
