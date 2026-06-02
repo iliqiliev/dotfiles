@@ -2,9 +2,9 @@
 
 set -eu
 
-{{- if ne .distro "android" }}
-{{-   abortEmpty }}
-{{- end }}
+if test "$CHEZ_DISTRO" != "android"; then
+    exit 0
+fi
 
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
