@@ -1,13 +1,15 @@
 $ErrorActionPreference = 'Stop'
 
 
-Write-Host "Installing dev tools using 'mise' ..." -ForegroundColor Blue
+Write-Host "Installing development tools using 'mise' ..." -ForegroundColor Blue
 
 if (!(Get-Command mise -ErrorAction Ignore)) {
-    Write-Host "'mise' is not installed. Aborting." -ForegroundColor Red
-    exit 0
+    Write-Host "'mise' is not installed. Installing ..." -ForegroundColor Blue
+    scoop install mise
+    if (!$?) { exit 1 }
+    Write-Host "'mise' installed successfully." -ForegroundColor Green
 }
 
 mise install
 
-Write-Host "Dev tools installed successfully." -ForegroundColor Green
+Write-Host "Development tools installed successfully." -ForegroundColor Green
