@@ -2,6 +2,10 @@
 
 set -eu
 
+{{- if not (has .distro (list "android" "debian" "ubuntu")) }}
+{{-   abortEmpty }}
+{{- end }}
+
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
@@ -12,6 +16,14 @@ fi
 print_blue "Syncing apt database ..."
 $CHEZ_SUDO apt update -y
 print_green "Apt database synced successfully."
+
+{{- if eq .distro "android" }}
+
+print_blue "Upgrading termux packages ..."
+yes | apt full-upgrade
+print_green "Packages upgraded successfully."
+
+{{- end }}
 
 AVAILABLE_PACKAGES=$(
     comm -12 \
