@@ -1,6 +1,5 @@
 $ErrorActionPreference = 'Stop'
 
-
 $BLOAT_PACKAGES = @(
     'Clipchamp.Clipchamp'
     'Microsoft.BingNews'

@@ -1,6 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-
 $PROGRAMS = @(
     "AltSnap"
     "Ditto"

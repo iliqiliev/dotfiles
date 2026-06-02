@@ -1,6 +1,5 @@
 $ErrorActionPreference = 'Stop'
 
-
 Write-Host 'Setting registry settings ...' -ForegroundColor Blue
 
 if ($env:CHEZ_IS_PERSONAL -eq 'true') {

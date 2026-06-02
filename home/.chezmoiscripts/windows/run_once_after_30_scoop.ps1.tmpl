@@ -1,6 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-
 if (!(Get-Command scoop -ErrorAction Ignore)) {
     Write-Host "Scoop not found. Installing it ..." -ForegroundColor Blue
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
