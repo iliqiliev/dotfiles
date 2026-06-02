@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+set -eu
+
+# shellcheck source=helpers/env.sh
+. ~/.local/share/chezmoi/helpers/env.sh
+
+if test -f /usr/lib/systemd/system/vboxservice.service; then
+
+    print_blue "Setting up VirtualBox systemd service ..."
+    $CHEZ_SUDO systemctl enable --now "vboxservice.service"
+    print_green "VirtualBox systemd service set up successfully."
+
+    if ! command -v VBoxClient-all >/dev/null; then
+        exit 0
+    fi
+
+    print_blue "Ensuring VirtualBox user session services are started ..."
+
+    if ! VBoxClient-all >/dev/null; then
+        print_yellow "Failed to start VirtualBox user session services."
+        print_yellow "Continuing anyway as it is not critical."
+        exit 0
+    fi
+
+    print_green "VirtualBox user session services started successfully."
+
+elif rc-status >/dev/null 2>&1 && test -f /etc/init.d/virtualbox-guest-additions; then
+
+    print_blue "Setting up VirtualBox guest additions ..."
+    $CHEZ_SUDO rc-service virtualbox-guest-additions start
+    $CHEZ_SUDO rc-update add virtualbox-guest-additions boot
+    print_green "VirtualBox guest additions set up successfully."
+
+    if test -f /etc/init.d/virtualbox-drm-client; then
+        print_blue "Setting up additional graphics service ..."
+        $CHEZ_SUDO rc-service virtualbox-drm-client start
+        $CHEZ_SUDO rc-update add virtualbox-drm-client default
+        print_green "Additional graphics service set up successfully."
+    fi
+
+fi
