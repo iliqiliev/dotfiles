@@ -5,6 +5,10 @@
 # dependencies = ["vdf"]
 # ///
 
+{{- if or (not .manageGui) (not (lookPath "uv")) }}
+{{-  abortEmpty }}
+{{- end }}
+
 from pathlib import Path
 
 from vdf import dump, parse  # pyright: ignore[reportMissingImports]
