@@ -50,7 +50,7 @@ fi
 
 YAY_ARGS=(--color=auto --needed --noconfirm)
 
-print_blue "Updating system to avoid partially updated dependencies ..."
+print_blue "Updating system to avoid dependency mismatches ..."
 yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 

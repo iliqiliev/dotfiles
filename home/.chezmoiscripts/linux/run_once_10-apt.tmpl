@@ -19,7 +19,7 @@ print_green "Apt database synced successfully."
 
 {{- if eq .distro "android" }}
 
-print_blue "Upgrading termux packages ..."
+print_blue "Updating system to avoid dependency mismatches ..."
 yes | apt full-upgrade
 print_green "Packages upgraded successfully."
 
