@@ -4,10 +4,6 @@ README.md
 .chezmoiscripts/linux/**
 {{- end }}
 
-{{- if ne .distro "arch" }}
-.chezmoiscripts/linux/arch/**
-{{- end }}
-
 {{- if not (lookPath "gnome-shell") }}
 .chezmoiscripts/linux/gnome/**
 {{- end }}

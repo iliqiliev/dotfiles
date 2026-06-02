@@ -2,6 +2,10 @@
 
 set -eu
 
+{{- if ne .distro "arch" }}
+{{-   abortEmpty }}
+{{- end }}
+
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
