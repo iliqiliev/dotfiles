@@ -1,4 +1,5 @@
 -- Variables.
+vim.g.adwaita_transparent = true -- Makes the `adwaita.nvim` background transparent.
 vim.g.loaded_node_provider = 0 -- Disable the Node.js provider.
 vim.g.loaded_perl_provider = 0 -- Disable the Perl provider.
 vim.g.loaded_python3_provider = 0 -- Disable the Python 3 provider.
@@ -22,7 +23,7 @@ vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar
 vim.cmd([[
    aunmenu PopUp.How-to\ disable\ mouse
    aunmenu PopUp.-2-
-]]) -- Hide "How to disable mouse" from the right click menu.
+]]) -- Hide "How-to disable mouse" from the right click menu.
 
 -- Plugins.
 if not vim.pack then
@@ -31,6 +32,7 @@ end
 
 vim.pack.add({
    "https://github.com/alker0/chezmoi.vim",
+   "https://github.com/folke/lazydev.nvim",
    "https://github.com/Mofiqul/adwaita.nvim",
    "https://github.com/neovim/nvim-lspconfig",
    "https://github.com/nvim-lualine/lualine.nvim",
@@ -39,7 +41,8 @@ vim.pack.add({
    "https://github.com/windwp/nvim-autopairs",
 })
 
-vim.g.adwaita_transparent = true -- Makes the background transparent.
+require("lazydev").setup({})
+
 vim.cmd.colorscheme("adwaita")
 
 require("lualine").setup({})
