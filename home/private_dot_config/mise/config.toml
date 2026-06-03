@@ -7,6 +7,7 @@
 "core:stylua" = "latest"
 "core:tombi" = "latest"
 "core:tree-sitter" = "latest"
+"core:usage" = "latest"
 "core:uv" = "latest"
 "github:PowerShell/PowerShellEditorServices" = "latest"
 "npm:basedpyright" = "latest"
