@@ -1,9 +1,15 @@
+# vim: filetype=chezmoitmpl
+
 {{- if ne .os "linux" }}
 fish
 kitty
 MangoHud
 topgrade.toml
 zed
+{{- end }}
+
+{{- if eq .os "android" }}
+mise
 {{- end }}
 
 {{- if not .manageGui }}
