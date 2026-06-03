@@ -10,7 +10,7 @@ print_blue "Installing development tools using 'mise' ..."
 
 if ! command -v mise >/dev/null; then
     print_blue "'mise' is not installed. Installing ..."
-    curl -LSfs https://mise.run | sh
+    curl -LSfs https://mise.run | MISE_QUIET=1 sh
     print_green "'mise' installed successfully."
 fi
 
