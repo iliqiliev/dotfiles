@@ -1,4 +1,2 @@
-# vim: filetype=ini
-
 [System Bus Policy]
 org.freedesktop.login1=talk

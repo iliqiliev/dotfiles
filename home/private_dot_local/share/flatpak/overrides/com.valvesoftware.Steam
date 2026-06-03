@@ -1,5 +1,3 @@
-# vim: filetype=ini
-
 [Context]
 filesystems=xdg-config/vkBasalt:ro;xdg-config/MangoHud:ro
 
