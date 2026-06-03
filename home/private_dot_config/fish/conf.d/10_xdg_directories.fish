@@ -19,12 +19,11 @@ end
 
 set --export TMPDIR $XDG_RUNTIME_DIR
 
-set --export NPM_CONFIG_CACHE $XDG_CACHE_HOME/npm
 set --export NUGET_PACKAGES $XDG_CACHE_HOME/NuGetPackages
 set --export RUFF_CACHE_DIR $XDG_CACHE_HOME/ruff
 set --export PYTHONPYCACHEPREFIX $XDG_CACHE_HOME/python
 
-set --export NPM_CONFIG_INIT_MODULE $XDG_CONFIG_HOME/npm/config/npm-init.js
+set --export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 
 set --export ANDROID_USER_HOME $XDG_DATA_HOME/android
 set --export ANDROID_EMULATOR_HOME $XDG_DATA_HOME/android
@@ -34,8 +33,6 @@ set --export ADB_VENDOR_KEYS $XDG_DATA_HOME/android
 set --export CARGO_HOME $XDG_DATA_HOME/cargo
 set --export GNUPGHOME $XDG_DATA_HOME/gnupg
 set --export WINEPREFIX $XDG_DATA_HOME/wine
-
-set --export NPM_CONFIG_TMP $XDG_RUNTIME_DIR/npm
 
 set --export HISTFILE $XDG_STATE_HOME/bash/history
 set --export LESSHISTFILE $XDG_STATE_HOME/less/history
