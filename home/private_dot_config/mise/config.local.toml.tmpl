@@ -1,0 +1,8 @@
+# vim: filetype=toml
+# chezmoi:template:left-delimiter="# {{"
+# {{- if ne .distro "android" }}
+# {{-   abortEmpty }}
+# {{- end }}
+
+[settings]
+enable_tools = []
