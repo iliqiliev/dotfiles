@@ -1,13 +1,15 @@
 #!/usr/bin/env -S uv run --script --quiet
+# vim: filetype=py
+#
+# {{- if or (not .manageGui) (not (lookPath "uv")) }}
+# {{-  abortEmpty }}
+# {{- end }}
 #
 # /// script
 # requires-python = ">=3.9"
 # dependencies = ["vdf"]
 # ///
 
-{{- if or (not .manageGui) (not (lookPath "uv")) }}
-{{-  abortEmpty }}
-{{- end }}
 
 from pathlib import Path
 
