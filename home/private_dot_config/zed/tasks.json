@@ -1,0 +1,14 @@
+[
+  {
+    "label": "git diff HEAD $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["diff", "HEAD", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "git diff $ZED_GIT_SHA_SHORT HEAD",
+    "command": "git",
+    "args": ["diff", "$ZED_GIT_SHA", "HEAD"],
+    "tags": ["git-command"],
+  },
+]
