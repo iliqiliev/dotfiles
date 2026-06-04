@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# mise config.toml hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
 
 set -eu
 
@@ -12,8 +11,14 @@ if ! command -v mise >/dev/null; then
     print_blue "'mise' is not installed. Installing ..."
     curl -LSfs https://mise.run | MISE_QUIET=1 sh
     print_green "'mise' installed successfully."
+else
+    print_blue "Checking for new 'mise' version ..."
+    # trigger weekly check using week number: {{ div now.YearDay 7 }}
+    mise self-update --yes --silent
+    print_green "'mise' is up to date."
 fi
 
+# mise config.toml hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
 mise install
 
 print_green "Development tools installed successfully."
