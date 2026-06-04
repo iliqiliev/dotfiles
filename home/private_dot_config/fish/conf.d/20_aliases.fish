@@ -14,6 +14,6 @@ if command --query fdfind
     alias fd fdfind
 end
 
-if test "$TERM" = "xterm-kitty"
+if test "$TERM" = xterm-kitty
     alias ssh "kitten ssh"
 end
