@@ -1,5 +1,3 @@
-# mise config.toml hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
-
 $ErrorActionPreference = 'Stop'
 
 Write-Host "Installing development tools using 'mise' ..." -ForegroundColor Blue
@@ -11,6 +9,7 @@ if (!(Get-Command mise -ErrorAction Ignore)) {
     Write-Host "'mise' installed successfully." -ForegroundColor Green
 }
 
+# mise config.toml hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
 mise install
 
 Write-Host "Development tools installed successfully." -ForegroundColor Green

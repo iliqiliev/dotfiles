@@ -1,5 +1,4 @@
 #!/usr/bin/env fish
-# fish_plugins hash: {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 
 echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
 
@@ -12,5 +11,7 @@ end
 contains jorgebucaran/fisher $_fisher_plugins
 or set --universal --append _fisher_plugins jorgebucaran/fisher
 
+# fish_plugins hash: {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 fisher update > /dev/null || exit 1
+
 echo "$(set_color brgreen)Installed $(count (fisher list)) fish plugins.$(set_color normal)"
