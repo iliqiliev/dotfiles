@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+# vim: filetype=sh
+# chezmoi:template:left-delimiter="# {{"
+# {{- if not (has .distro (list "android" "debian" "ubuntu")) }}
+# {{-   abortEmpty }}
+# {{- end }}
 
 set -eu
-
-{{- if not (has .distro (list "android" "debian" "ubuntu")) }}
-{{-   abortEmpty }}
-{{- end }}
 
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
