@@ -29,7 +29,7 @@ print_green "Packages upgraded successfully."
 AVAILABLE_PACKAGES=$(
     comm -12 \
         <(apt-cache pkgnames | sort) \
-        <(tr " " "\n" <<<'{{ .packages }}')
+        <(tr " " "\n" <<<'# {{ .packages }}')
 )
 
 print_blue "Installing apt packages ..."
