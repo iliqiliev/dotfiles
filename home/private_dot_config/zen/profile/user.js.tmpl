@@ -1,7 +1,7 @@
-// chezmoi:template:left-delimiter="/*" right-delimiter="*/"
+// chezmoi:template:left-delimiter="/**" right-delimiter="**/"
 // vim: filetype=javascript
 
-/* if .isPersonal -*/
+/** if .isPersonal -**/
 // Do not show a warning if the built-in password manager is disabled.
 user_pref("browser.preferences.config_warning.warningPasswordManager.dismissed", true);
 // Always show the bookmarks toolbar.
@@ -12,7 +12,7 @@ user_pref("browser.translations.neverTranslateLanguages", "bg");
 user_pref("extensions.formautofill.creditCards.enabled", false);
 // Do not ask to save login details.
 user_pref("signon.rememberSignons", false);
-/*- end */
+/**- end **/
 
 // Show a warning when opening about:config.
 user_pref("browser.aboutConfig.showWarning", false);
@@ -23,7 +23,7 @@ user_pref("browser.startup.page", 3);
 // Enable auto-scrolling with middle mouse button.
 user_pref("general.autoScroll", true);
 // Change the device name used for Sync.
-user_pref("identity.fxaccounts.account.device.name", "/* .chezmoi.hostname */");
+user_pref("identity.fxaccounts.account.device.name", "/** .chezmoi.hostname **/");
 // Block websites from requesting notifications.
 user_pref("permissions.default.desktop-notification", 2);
 // [Firefox] Use vertical tabs.
