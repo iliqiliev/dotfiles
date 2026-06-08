@@ -60,19 +60,17 @@ require("nvim-treesitter").install({
 })
 
 vim.lsp.enable({
-   "bashls", -- Bash/sh.
-   "fish_lsp", -- Fish.
-   "lua_ls", -- Lua.
-   "powershell_es", -- Powershell.
-   "basedpyright", -- Python.
-   "tclsp", -- TCL.
-   "tombi", -- TOML.
+   "bashls",
+   "fish_lsp",
+   "lua_ls",
+   "powershell_es",
+   "basedpyright",
+   "tclsp",
+   "tombi",
 })
 
 vim.lsp.config("powershell_es", {
-   bundle_path = vim.trim(
-      vim.fn.system("mise where github:PowerShell/PowerShellEditorServices")
-   ),
+   bundle_path = vim.trim(vim.fn.system("mise where powershell-es")),
    settings = {
       powershell = {
          codeFormatting = {
