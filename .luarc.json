@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "checkThirdParty": "Disable",
+    "library": [
+      "$VIMRUNTIME",
+      "$XDG_DATA_HOME/nvim/site/pack",
+      "$XDG_DATA_HOME/nvim-data/site/pack"
+    ]
+  }
+}
