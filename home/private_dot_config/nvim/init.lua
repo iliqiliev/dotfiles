@@ -69,20 +69,6 @@ vim.lsp.enable({
    "tombi",
 })
 
-vim.lsp.config("powershell_es", {
-   bundle_path = vim.trim(vim.fn.system("mise where powershell-es")),
-   settings = {
-      powershell = {
-         codeFormatting = {
-            openBraceOnSameLine = true,
-            ignoreOneLineBlock = true,
-         },
-      },
-   },
-})
-
-vim.lsp.config("tclsp", { filetypes = { "tcl" } })
-
 require("conform").setup({
    default_format_opts = { async = true, lsp_format = "fallback" },
 
