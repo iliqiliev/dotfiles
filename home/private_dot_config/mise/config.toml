@@ -1,18 +1,27 @@
+[tool_alias]
+basedpyright = "npm:basedpyright"
+bashls = "npm:bash-language-server"
+fish-lsp = "npm:fish-lsp"
+powershell-es = "github:PowerShell/PowerShellEditorServices"
+tclint = "pipx:tclint"
+
 [tools]
-"core:lua-language-server" = "latest"
-"core:node" = "latest"
-"core:ruff" = "latest"
-"core:shellcheck" = "latest"
-"core:shfmt" = "latest"
-"core:stylua" = "latest"
-"core:tombi" = "latest"
-"core:tree-sitter" = "latest"
-"core:uv" = "latest"
-"github:PowerShell/PowerShellEditorServices" = "latest"
-"npm:basedpyright" = "latest"
-"npm:bash-language-server" = "latest"
-"npm:fish-lsp" = "latest"
-"pipx:tclint" = "latest"
+# Core:
+lua-language-server = "latest"
+node = "latest"
+ruff = "latest"
+shellcheck = "latest"
+shfmt = "latest"
+stylua = "latest"
+tombi = "latest"
+tree-sitter = "latest"
+uv = "latest"
+# Non-core:
+basedpyright = "latest"
+bashls = "latest"
+fish-lsp = "latest"
+powershell-es = "latest"
+tclint = "latest"
 
 [settings.node]
 compile = false
