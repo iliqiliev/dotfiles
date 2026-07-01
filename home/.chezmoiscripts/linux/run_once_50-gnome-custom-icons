@@ -56,7 +56,6 @@ declare -A custom_icons=(
 
     [~/.var]="folder-flatpak"
 
-    [~/Documents/Code]="folder-code"
     [~/Pictures/Camera]="folder-camera"
     [~/Pictures/GIMP]="folder-gimp"
     [~/Pictures/Screenshots]="folder-screenshot"
