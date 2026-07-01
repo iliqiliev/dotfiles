@@ -89,10 +89,23 @@ SHELL_EXTENSIONS=/org/gnome/shell/extensions
 
 ## App Hider
 dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
-    'avahi-discover.desktop', 'bssh.desktop', 'btop.desktop', 'bvnc.desktop',
-    'lstopo.desktop', 'nvim.desktop', 'org.gnome.Extensions.desktop',
-    'org.gnome.Settings.desktop', 'qv4l2.desktop', 'qvidcap.desktop',
-    'scrcpy-console.desktop', 'scrcpy.desktop', 'yazi.desktop'
+    'avahi-discover.desktop',
+    'assistant.desktop',
+    'bssh.desktop',
+    'btop.desktop',
+    'bvnc.desktop',
+    'designer.desktop',
+    'linguist.desktop',
+    'lstopo.desktop',
+    'nvim.desktop',
+    'org.gnome.Extensions.desktop',
+    'org.gnome.Settings.desktop',
+    'qdbusviewer.desktop',
+    'qv4l2.desktop',
+    'qvidcap.desktop',
+    'scrcpy-console.desktop',
+    'scrcpy.desktop',
+    'yazi.desktop'
 ]"
 
 ## Copyous
