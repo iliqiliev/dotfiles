@@ -3,25 +3,27 @@
 # Do not check sourced files.
 # shellcheck source=/dev/null
 
-# ignoredups, ignorespace, erasedups
+# ignoredups, ignorespace, erasedups.
 export HISTCONTROL=ignoreboth:erasedups
 
-# Source ble.sh
+# Source ble.sh.
 if test -r ~/.local/share/blesh/ble.sh; then
     source -- ~/.local/share/blesh/ble.sh
 fi
 
-# Aliases
+# Aliases:
 alias ll="ls -l"
 alias la="ls -la"
 command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
 command -v bat >/dev/null && alias cat="bat"
 command -v fdfind >/dev/null && alias fd="fdfind"
 
-# Initialize starship.rs
-# Sourcing from file to speed-up prompt when installed from scoop
-source -- ~/.config/bash/starship.bash
+# Initialize starship.rs.
+if command -v starship >/dev/null; then
+    eval -- "$(starship init bash --print-full-init)"
+fi
 
-# Initialize zoxide
-# Sourcing the Linux version because the Windows version does not support brush shell
-source -- ~/.config/bash/zoxide.bash
+# Initialize zoxide.
+if command -v zoxide >/dev/null; then
+    eval -- "$(zoxide init bash)"
+fi
