@@ -26,7 +26,7 @@ Set-RegistryHKCU 'Environment\PYTHONPYCACHEPREFIX' '%USERPROFILE%\.cache\python'
 Set-RegistryHKCU 'Environment\RUFF_CACHE_DIR' '%USERPROFILE%\.cache\ruff'
 Set-RegistryHKCU 'Environment\BAT_CONFIG_PATH' '%USERPROFILE%\.config\bat\config'
 Set-RegistryHKCU 'Environment\TEALDEER_CONFIG_DIR' '%USERPROFILE%\.config\tealdeer'
-Set-RegistryHKCU 'Environment\NPM_CONFIG_USERCONFIG' 'USERPROFILE%\.config\npm\npmrc'
+Set-RegistryHKCU 'Environment\NPM_CONFIG_USERCONFIG' '%USERPROFILE%\.config\npm\npmrc'
 Set-RegistryHKCU 'Environment\HISTFILE' '%USERPROFILE%\.local\state\bash\history'
 Set-RegistryHKCU 'Environment\PYTHON_HISTORY' '%USERPROFILE%\.local\state\python_history'
 
