@@ -12,4 +12,4 @@ end
 
 set args (cat /proc/(echo %self)/cmdline | tr "\0" "\n" | tail -n +2)
 
-exec ~/.local/bin/fish $args
+exec ~/.local/bin/fish $args 2>&1
