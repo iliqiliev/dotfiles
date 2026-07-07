@@ -24,7 +24,12 @@ set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
 if command --query nvim
     set --export EDITOR nvim
     set --export MANPAGER nvim +Man!
-    set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
+
+    if not set --query VIMRUNTIME; or not test -d $VIMRUNTIME
+        # @fish-lsp-disable-next-line 2003
+        set -Ux VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
+    end
+
 end
 
 # Source configs for interactive sessions.
