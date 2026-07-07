@@ -34,14 +34,25 @@ function Set-RegistryHKCU {
 }
 
 function Update-UserPathVar {
+    <#
+    .SYNOPSIS
+        Adds a directory to the user's PATH environment variable.
+
+    .PARAMETER NewPath
+        $HOME relative path to add to the PATH environment variable.
+
+    .EXAMPLE
+        Update-UserPathVar '.local\share\mise\shims'
+    #>
+
     param (
         [Parameter(Mandatory)][string]$NewPath
     )
 
     $OldFullPath = [Environment]::GetEnvironmentVariable("Path", "User")
-    $NewPath = [IO.Path]::GetFullPath($NewPath)
+    $NewPath = [IO.Path]::GetFullPath((Join-Path $HOME $NewPath))
 
-    if ($OldFullPath -like "*$NewPath*") {
+    if (";$OldFullPath;" -like "*;$NewPath;*") {
         return
     }
 
