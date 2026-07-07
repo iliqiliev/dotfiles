@@ -57,35 +57,6 @@
 {{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
 {{ end -}}
 
-{{ $packageInfoFile := joinPath .chezmoi.workingTree "helpers/packages.yaml" | include | fromYaml -}}
-{{ $packages := $packageInfoFile.base -}}
-{{ if $manageGui -}}
-{{   $packages = mergeOverwrite $packages $packageInfoFile.gui -}}
-{{   if $installGnome -}}
-{{     $packages = mergeOverwrite $packages $packageInfoFile.guiGnome -}}
-{{   end -}}
-{{ end -}}
-{{ if env "container" -}}
-{{/* Do not install VM guest packages for containers. */}}
-{{ else if contains "Standard PC" $productName -}}
-{{   $packages = mergeOverwrite $packages $packageInfoFile.kvmGuest -}}
-{{ else if eq $productName "VirtualBox" -}}
-{{   $packages = mergeOverwrite $packages $packageInfoFile.oracleGuest -}}
-{{ end -}}
-
-{{ $packageManagers := joinPath .chezmoi.workingTree "helpers/package_managers.yaml" | include | fromYaml -}}
-{{ $packageManager := get $packageManagers $distro -}}
-{{ $currentPackages := list -}}
-{{ range $package, $overrides := $packages -}}
-{{   $overrides = $overrides | default dict -}}
-{{   if hasKey $overrides $packageManager -}}
-{{     $package = index $overrides $packageManager -}}
-{{   else if hasKey $overrides "*" -}}
-{{     $package = index $overrides "*" -}}
-{{   end -}}
-{{   $currentPackages = append $currentPackages $package -}}
-{{ end -}}
-
 [data]
 isPersonal = {{ $isPersonal }}
 isWork = {{ $isWork }}
@@ -95,8 +66,8 @@ os = {{ $os | quote }}
 distro = {{ $distro | quote }}
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
+productName = {{ $productName | quote }}
 installGnome = {{ $installGnome }} # Linux only
-packages = {{ compact $currentPackages | sortAlpha | join " " | quote }}
 
 [data.fonts]
 {{ $size := 0 -}}

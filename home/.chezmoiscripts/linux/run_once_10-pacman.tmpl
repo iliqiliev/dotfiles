@@ -55,5 +55,5 @@ yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 
 print_blue "Installing pacman packages ..."
-yay -S "${YAY_ARGS[@]}" --asexplicit -- # {{ .packages }}
+yay -S "${YAY_ARGS[@]}" --asexplicit -- # {{ template "packages" . }}
 print_green "Packages installed successfully."

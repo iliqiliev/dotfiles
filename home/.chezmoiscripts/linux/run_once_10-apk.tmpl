@@ -28,7 +28,7 @@ print_green "Apk database synced successfully."
 AVAILABLE_PACKAGES=$(
     comm -12 \
         <(apk search --quiet | sort) \
-        <(echo '# {{ .packages }}' | tr " " "\n")
+        <(echo '# {{ template "packages" . }}' | tr " " "\n")
 )
 
 print_blue "Installing apk packages ..."

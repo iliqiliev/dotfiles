@@ -1,0 +1,30 @@
+{{ $packageManager := index .packageManagers .distro -}}
+{{ $requestedPackages := .packages.base -}}
+{{ $finalPackages := list -}}
+
+{{ if .manageGui -}}
+{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.gui -}}
+{{   if .installGnome -}}
+{{     $requestedPackages = mergeOverwrite $requestedPackages .packages.guiGnome -}}
+{{   end -}}
+{{ end -}}
+
+{{ if env "container" -}}
+{{/* This comment acts as NOOP. Do not install VM guest packages in containers. */}}
+{{ else if contains "Standard PC" .productName -}}
+{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.kvmGuest -}}
+{{ else if eq .productName "VirtualBox" -}}
+{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.oracleGuest -}}
+{{ end -}}
+
+{{ range $package, $overrides := $requestedPackages -}}
+{{   $overrides = $overrides | default dict -}}
+{{   if hasKey $overrides $packageManager -}}
+{{     $package = index $overrides $packageManager -}}
+{{   else if hasKey $overrides "*" -}}
+{{     $package = index $overrides "*" -}}
+{{   end -}}
+{{   $finalPackages = append $finalPackages $package -}}
+{{ end -}}
+
+{{ compact $finalPackages | sortAlpha | join " " -}}
