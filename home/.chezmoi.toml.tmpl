@@ -66,8 +66,8 @@ os = {{ $os | quote }}
 distro = {{ $distro | quote }}
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
-productName = {{ $productName | quote }}
 installGnome = {{ $installGnome }} # Linux only
+productName = {{ $productName | quote }}
 
 [data.fonts]
 {{ $size := 0 -}}
@@ -84,9 +84,9 @@ size = {{ $size }}
 [diff]
 pager = {{ and (lookPath "delta") "delta" | quote }}
 
+[env]
 {{ $localBin := joinPath .chezmoi.homeDir ".local/bin" -}}
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
-[env]
 CHEZ_DISTRO = {{ $distro | quote }}
 CHEZ_SUDO = {{ $sudo | quote }}
 CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
