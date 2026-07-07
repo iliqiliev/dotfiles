@@ -15,7 +15,7 @@ if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd;
     exit 0
 fi
 
-if ! command -v fish >/dev/null; then
+if ! test -x "${FISH_PATH}"; then
     print_red "Fish shell is not installed. Aborting."
     exit 0
 fi
