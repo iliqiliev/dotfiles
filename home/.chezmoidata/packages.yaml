@@ -35,6 +35,9 @@ packages:
       scoop: "delta"
     kitty-terminfo:
     less:
+    libatomic:
+      apt: "libatomic1" # Needed by `mise`, `node` specifically.
+      "*": null
     neovim:
     pwsh:
       scoop: "pwsh"
