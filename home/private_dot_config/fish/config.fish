@@ -16,12 +16,14 @@ fish_add_path \
     $HOME/.local/share/mise/shims \
     /var/lib/flatpak/exports/bin
 
-# Set `EDITOR` and `VIMRUNTIME` if neovim is installed.
+# Set and configure default pager.
+set --export PAGER less
+set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
+
+# Set `EDITOR` and related variables if `neovim` is installed.
 if command --query nvim
     set --export EDITOR nvim
-    set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
     set --export MANPAGER nvim +Man!
-    set --export PAGER less
     set --export VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
 end
 
