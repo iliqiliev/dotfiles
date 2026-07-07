@@ -32,7 +32,7 @@ Set-RegistryHKCU 'Environment\PYTHON_HISTORY' '%USERPROFILE%\.local\state\python
 
 Set-RegistryHKCU 'Environment\CLINK_PROFILE' '%APPDATA%\clink'
 Set-RegistryHKCU 'Environment\EDITOR' 'nvim'
-Set-RegistryHKCU 'Environment\LESS' '-FMRXix4 --mouse --use-color  --wheel-lines=3'
+Set-RegistryHKCU 'Environment\LESS' '-FMRXix4 --mouse --use-color --wheel-lines=3'
 Set-RegistryHKCU 'Environment\MANPAGER' 'nvim +Man!'
 Set-RegistryHKCU 'Environment\PAGER' 'less'
 Set-RegistryHKCU 'Environment\POWERSHELL_TELEMETRY_OPTOUT' '1'
