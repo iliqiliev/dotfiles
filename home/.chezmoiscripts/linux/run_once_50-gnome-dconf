@@ -76,14 +76,14 @@ dconf write $CUSTOM_KEYBINDS "[
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/'
 ]"
 
-SHELL=/org/gnome/shell
-dconf write $SHELL/always-show-log-out true
-dconf write $SHELL/disable-extension-version-validation true
-dconf write $SHELL/keybindings/toggle-message-tray "['']"
-dconf write $SHELL/keybindings/screenshot "['Print']"
-dconf write $SHELL/keybindings/screenshot-window "['<Super>Print']"
-dconf write $SHELL/keybindings/show-screenshot-ui "['<Shift><Super>s']"
-dconf write $SHELL/welcome-dialog-last-shown-version "67.0"
+GNOME_SHELL=/org/gnome/shell
+dconf write $GNOME_SHELL/always-show-log-out true
+dconf write $GNOME_SHELL/disable-extension-version-validation true
+dconf write $GNOME_SHELL/keybindings/toggle-message-tray "['']"
+dconf write $GNOME_SHELL/keybindings/screenshot "['Print']"
+dconf write $GNOME_SHELL/keybindings/screenshot-window "['<Super>Print']"
+dconf write $GNOME_SHELL/keybindings/show-screenshot-ui "['<Shift><Super>s']"
+dconf write $GNOME_SHELL/welcome-dialog-last-shown-version "67.0"
 
 SHELL_EXTENSIONS=/org/gnome/shell/extensions
 
