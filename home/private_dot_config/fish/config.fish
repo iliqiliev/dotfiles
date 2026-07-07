@@ -25,7 +25,7 @@ if command --query nvim
     set --export EDITOR nvim
     set --export MANPAGER nvim +Man!
 
-    if not set --query VIMRUNTIME; or not test -d $VIMRUNTIME
+    if not set --query VIMRUNTIME; or not test -d "$VIMRUNTIME"
         # @fish-lsp-disable-next-line 2003
         set -Ux VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
     end
