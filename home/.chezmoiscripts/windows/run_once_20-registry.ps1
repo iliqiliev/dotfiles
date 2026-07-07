@@ -35,7 +35,7 @@ Set-RegistryHKCU 'Environment\EDITOR' 'nvim'
 Set-RegistryHKCU 'Environment\LESS' '-FMRXix4 --mouse --use-color  --wheel-lines=3'
 Set-RegistryHKCU 'Environment\MANPAGER' 'nvim +Man!'
 Set-RegistryHKCU 'Environment\PAGER' 'less'
-Set-RegistryHKCU 'Environment\POWERSHELL_TELEMETRY_OPTOUT' 1
+Set-RegistryHKCU 'Environment\POWERSHELL_TELEMETRY_OPTOUT' '1'
 Set-RegistryHKCU 'Environment\VIMRUNTIME' "$env:USERPROFILE\scoop\apps\neovim\current\share\nvim\runtime"
 
 # Restore the classic context menu in Windows 11.
