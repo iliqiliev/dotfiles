@@ -5,11 +5,12 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-FISH_SHELL=/usr/bin/fish
+FISH_PATH=/usr/bin/fish
+USER=$(id -un)
 
 print_blue "Changing default shell to fish ..."
 
-if [[ $SHELL =~ fish$ ]] || grep --quiet "${FISH_SHELL}$" /etc/passwd; then
+if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd; then
     print_green "Fish already default. Will not change it."
     exit 0
 fi
@@ -30,10 +31,10 @@ if test "$CHEZ_DISTRO" = "android"; then
     exit 0
 fi
 
-if ! grep --fixed-strings --line-regexp --quiet $FISH_SHELL /etc/shells; then
+if ! grep --fixed-strings --line-regexp --quiet "$FISH_PATH" /etc/shells; then
     print_red "Fish shell is installed but not listed in '/etc/shells'."
     exit 0
 fi
 
-chsh --shell "$FISH_SHELL" >/dev/null
-print_green "Shell changed to $FISH_SHELL successfully."
+chsh --shell "$FISH_PATH" "$USER" >/dev/null
+print_green "Shell changed to $FISH_PATH successfully."
