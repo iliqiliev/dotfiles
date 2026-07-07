@@ -28,8 +28,8 @@ $DEEPER_BLOAT_PACKAGES = @(
 )
 
 $deep_debloat = $host.UI.PromptForChoice(
-    "Perform deep debloat?",
-    "This will remove packages like Edge, OneDrive, Teams, etc.",
+    "Perform deeper debloat?",
+    "This will remove the following packages:`n > $($DEEPER_BLOAT_PACKAGES -join "`n > ")",
     @("&Yes", "&No"),
     1
 ) -eq 0
