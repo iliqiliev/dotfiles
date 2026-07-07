@@ -1,12 +1,13 @@
 [tool_alias]
 basedpyright = "npm:basedpyright"
 bashls = "npm:bash-language-server"
+fish = "aqua:fish-shell/fish-shell"
 fish-lsp = "npm:fish-lsp"
 powershell-es = "github:PowerShell/PowerShellEditorServices"
 tclint = "pipx:tclint"
 
 [tools]
-# Core:
+# Core Tools:
 lua-language-server = "latest"
 node = "latest"
 ruff = "latest"
@@ -16,7 +17,7 @@ stylua = "latest"
 tombi = "latest"
 tree-sitter = "latest"
 uv = "latest"
-# Non-core:
+# Aliased Tools:
 basedpyright = "latest"
 bashls = "latest"
 fish-lsp = "latest"
