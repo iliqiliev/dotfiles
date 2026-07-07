@@ -3,18 +3,18 @@
 {{ $finalPackages := list -}}
 
 {{ if .manageGui -}}
-{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.gui -}}
+{{   $requestedPackages = merge $requestedPackages .packages.gui -}}
 {{   if .installGnome -}}
-{{     $requestedPackages = mergeOverwrite $requestedPackages .packages.guiGnome -}}
+{{     $requestedPackages = merge $requestedPackages .packages.guiGnome -}}
 {{   end -}}
 {{ end -}}
 
 {{ if env "container" -}}
 {{/* This comment acts as NOOP. Do not install VM guest packages in containers. */}}
 {{ else if contains "Standard PC" .productName -}}
-{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.kvmGuest -}}
+{{   $requestedPackages = merge $requestedPackages .packages.kvmGuest -}}
 {{ else if eq .productName "VirtualBox" -}}
-{{   $requestedPackages = mergeOverwrite $requestedPackages .packages.oracleGuest -}}
+{{   $requestedPackages = merge $requestedPackages .packages.oracleGuest -}}
 {{ end -}}
 
 {{ range $package, $overrides := $requestedPackages -}}
