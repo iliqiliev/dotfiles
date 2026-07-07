@@ -2,12 +2,8 @@
 # at ~/.local/bin/fish, exec it as to not break the system fish shell
 # with the syntax of the config files made for the newer fish versions
 
-if set --query __FISH_BREAK_RECURSION
-    exit # break infinite recursion
-end
-
+set --query FISH_LOCAL_UPGRADE; and exit
 set --export FISH_LOCAL_UPGRADE 1
-set __FISH_BREAK_RECURSION 1
 
 # if fish version is >= 4.0.0
 if test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4
