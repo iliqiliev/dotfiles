@@ -1,0 +1,7 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+
+# Beginning of `chezmoi` managed universal variables.
+# Disable fish_greeting.
+SETUVAR fish_greeting:\x1d
+# End of `chezmoi` managed universal variables.

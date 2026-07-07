@@ -5,11 +5,6 @@ if not set --query FISH_LOCAL_UPGRADE
     source ~/.config/fish/conf.d/00_upgrade.fish
 end
 
-# Disabling fish_greeting.
-set --export fish_greeting
-# Disable automatic activation of `mise` vendor_conf.d script.
-set --export MISE_FISH_AUTO_ACTIVATE 0
-
 # Add directories to `PATH`.
 fish_add_path \
     $HOME/.local/bin \
