@@ -5,6 +5,10 @@ set -eu
 # shellcheck source=helpers/env.sh
 . ~/.local/share/chezmoi/helpers/env.sh
 
+if test "$CHEZ_SUDO" = "false"; then
+    exit 0
+fi
+
 if test -f /usr/lib/systemd/system/vboxservice.service; then
 
     print_blue "Setting up VirtualBox systemd service ..."
