@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu # exit on [e]rror and [u]nset variables
+set -eu # Exit on [e]rror and [u]nset variables.
 
 if ! CHEZMOI="$(command -v chezmoi)"; then
     CHEZMOI="${HOME}/.local/bin/chezmoi"

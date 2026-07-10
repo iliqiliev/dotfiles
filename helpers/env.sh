@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 export ANSI_RESET='\033[m'
 export ANSI_BRIGHT_RED='\033[91m'
 export ANSI_BRIGHT_GREEN='\033[92m'
