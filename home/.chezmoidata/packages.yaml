@@ -9,13 +9,7 @@ packages:
       apt: "passwd"
       pacman: "util-linux"
     clink:
-      scoop: "clink"
-      "*": null
-    clink-completions:
-      scoop: "clink-completions"
-      "*": null
-    clink-gizmos:
-      scoop: "clink-gizmos"
+      scoop: "clink clink-completions clink-gizmos"
       "*": null
     coreutils:
       scoop: "uutils-coreutils"
