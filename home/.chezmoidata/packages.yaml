@@ -3,7 +3,6 @@ packages:
     bash:
     bat:
     btop:
-      scoop: null
     chezmoi:
     chsh:
       apk: "shadow"
