@@ -48,6 +48,8 @@ MUTTER=/org/gnome/mutter
 dconf write $MUTTER/attach-modal-dialogs false
 
 MEDIA_KEYS=/org/gnome/settings-daemon/plugins/media-keys
+dconf write $MEDIA_KEYS/calculator "['Calculator']"
+dconf write $MEDIA_KEYS/control-center "['<Control><Super>comma']"
 dconf write $MEDIA_KEYS/help "['']"
 dconf write $MEDIA_KEYS/home "['<Super>e']"
 dconf write $MEDIA_KEYS/logout "['<Shift><Super>l']"
