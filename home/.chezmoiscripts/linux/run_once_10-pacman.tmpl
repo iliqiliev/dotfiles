@@ -44,7 +44,7 @@ print_blue "Installing Yay AUR helper ..."
 if command -v yay >/dev/null; then
     print_green "Yay is already installed."
 else
-    $CHEZ_SUDO pacman -S --needed --noconfirm yay
+    $CHEZ_SUDO pacman -S --noconfirm yay
     print_green "Yay installed successfully."
 fi
 
@@ -54,6 +54,13 @@ print_blue "Updating system to avoid dependency mismatches ..."
 yay -Syu "${YAY_ARGS[@]}"
 print_green "System updated successfully."
 
+AVAILABLE_PACKAGES=$(
+    comm -12 \
+        <(yay -Slq --repo | sort) \
+        <(tr " " "\n" <<<'# {{ template "packages" . }}')
+)
+
 print_blue "Installing pacman packages ..."
-yay -S "${YAY_ARGS[@]}" --asexplicit -- # {{ template "packages" . }}
+# shellcheck disable=SC2086
+yay -S "${YAY_ARGS[@]}" --asexplicit -- $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."
