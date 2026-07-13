@@ -49,7 +49,7 @@ packages:
     wget:
     xdg-utils:
     yazi:
-      pacman: "yazi ttf-nerd-fonts-symbols" # `ttf-font-nerd` provider.
+      pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
     zoxide:
 
   gui:
@@ -65,13 +65,14 @@ packages:
       scoop: "process-explorer"
       "*": null
     zed:
-      pacman: "zed vulkan-swrast" # `vulkan-driver` provider.
+      pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
     zen-browser-bin:
       scoop: "zen-browser"
 
   guiGnome:
     gnome:
-      pacman: "gdm gnome-control-center"
+      pacman: "gdm gnome-shell gnome-control-center"
+      apt: "gdm3 gnome-shell gnome-control-center"
       "*": null
 
   kvmGuest:
