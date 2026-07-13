@@ -24,7 +24,7 @@
 {{   else if hasKey $overrides "*" -}}
 {{     $package = index $overrides "*" -}}
 {{   end -}}
-{{   $finalPackages = append $finalPackages $package -}}
+{{   $finalPackages = concat $finalPackages (splitList " " $package) -}}
 {{ end -}}
 
 {{ compact $finalPackages | sortAlpha | join " " -}}
