@@ -17,14 +17,18 @@ if not set --query XDG_RUNTIME_DIR
     set --export XDG_RUNTIME_DIR $XDG_CACHE_HOME
 end
 
+# $XDG_RUNTIME_DIR
 set --export TMPDIR $XDG_RUNTIME_DIR
 
+# $XDG_CACHE_HOME
 set --export NUGET_PACKAGES $XDG_CACHE_HOME/NuGetPackages
 set --export RUFF_CACHE_DIR $XDG_CACHE_HOME/ruff
 set --export PYTHONPYCACHEPREFIX $XDG_CACHE_HOME/python
 
+# $XDG_CONFIG_HOME
 set --export NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 
+# $XDG_DATA_HOME
 set --export ANDROID_USER_HOME $XDG_DATA_HOME/android
 set --export ANDROID_EMULATOR_HOME $XDG_DATA_HOME/android
 set --export ANDROID_SDK_HOME $XDG_DATA_HOME/android
@@ -33,8 +37,11 @@ set --export ADB_VENDOR_KEYS $XDG_DATA_HOME/android
 set --export CARGO_HOME $XDG_DATA_HOME/cargo
 set --export GNUPGHOME $XDG_DATA_HOME/gnupg
 set --export RUSTUP_HOME $XDG_DATA_HOME/rustup
+set --export TERMINFO $XDG_DATA_HOME/terminfo
+set --export TERMINFO_DIRS $TERMINFO:/usr/share/terminfo
 set --export WINEPREFIX $XDG_DATA_HOME/wine
 
+# $XDG_STATE_HOME
 set --export HISTFILE $XDG_STATE_HOME/bash/history
 set --export LESSHISTFILE $XDG_STATE_HOME/less/history
 set --export PYTHON_HISTORY $XDG_STATE_HOME/python_history
