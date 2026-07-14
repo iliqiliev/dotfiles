@@ -20,7 +20,7 @@ else
     print_blue "Checking for new 'mise' version ..."
     # trigger weekly check using week number: # {{ div now.YearDay 7 }}
     mise self-update --yes 1>/dev/null
-    print_green "'mise' is up to date."
+    print_green "'mise' is up to date. [$(mise version)]"
 fi
 
 # mise config.toml hash: # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
