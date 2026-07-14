@@ -1,10 +1,12 @@
 [tool_alias]
+# Used Aliases:
 basedpyright = "npm:basedpyright"
 bashls = "npm:bash-language-server"
-fish = "aqua:fish-shell/fish-shell"
 fish-lsp = "npm:fish-lsp"
 powershell-es = "github:PowerShell/PowerShellEditorServices"
 tclint = "pipx:tclint"
+# Unused Aliases:
+fish = "aqua:fish-shell/fish-shell"
 
 [tools]
 # Core Tools:
