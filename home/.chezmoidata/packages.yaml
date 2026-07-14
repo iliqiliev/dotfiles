@@ -73,7 +73,7 @@ packages:
     gnome:
       pacman: "gdm gnome-shell gnome-control-center"
       apt: "gdm3 gnome-shell gnome-control-center"
-      "*": null
+      apk: "gdm gnome-shell gnome-control-center"
 
   kvmGuest:
     spice-vdagent:
