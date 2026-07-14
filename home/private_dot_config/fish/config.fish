@@ -19,6 +19,7 @@ set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
 if command --query nvim
     set --export EDITOR nvim
     set --export MANPAGER nvim +Man!
+    set --export SUDO_EDITOR (command --search nvim)
 
     if not set --query VIMRUNTIME; or not test -d "$VIMRUNTIME"
         # @fish-lsp-disable-next-line 2003
