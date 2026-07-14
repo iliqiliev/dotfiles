@@ -32,6 +32,7 @@ set --export ANDROID_SDK_ROOT $XDG_DATA_HOME/android
 set --export ADB_VENDOR_KEYS $XDG_DATA_HOME/android
 set --export CARGO_HOME $XDG_DATA_HOME/cargo
 set --export GNUPGHOME $XDG_DATA_HOME/gnupg
+set --export RUSTUP_HOME $XDG_DATA_HOME/rustup
 set --export WINEPREFIX $XDG_DATA_HOME/wine
 
 set --export HISTFILE $XDG_STATE_HOME/bash/history
