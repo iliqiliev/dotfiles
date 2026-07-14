@@ -56,7 +56,7 @@ print_green "System updated successfully."
 
 AVAILABLE_PACKAGES=$(
     comm -12 \
-        <(yay -Slq --repo | sort) \
+        <(pacman -Slq | sort) \
         <(tr " " "\n" <<<'# {{ template "packages" . }}')
 )
 
