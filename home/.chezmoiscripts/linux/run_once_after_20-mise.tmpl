@@ -10,20 +10,20 @@ set -eu
 # shellcheck source=helpers/env.sh
 source ~/.local/share/chezmoi/helpers/env.sh
 
-print_blue "Installing development tools using 'mise' ..."
-
 if ! command -v mise >/dev/null; then
     print_blue "'mise' is not installed. Installing ..."
     curl -LSfs https://mise.run | MISE_QUIET=1 sh
     print_green "'mise' installed successfully."
 else
-    print_blue "Checking for new 'mise' version ..."
-    # trigger weekly check using week number: # {{ div now.YearDay 7 }}
+    print_blue "[$(mise version)] Checking for new 'mise' version ..."
+    # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
     mise self-update --yes 1>/dev/null
-    print_green "'mise' is up to date. [$(mise version)]"
+    print_green "[$(mise version)] 'mise' is up to date."
 fi
+~
+print_blue "Installing development tools using 'mise' ..."
 
-# mise config.toml hash: # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
+# config.toml hash: # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
 mise install
 
 print_green "Development tools installed successfully."
