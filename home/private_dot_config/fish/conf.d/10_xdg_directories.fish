@@ -38,7 +38,7 @@ set --export CARGO_HOME $XDG_DATA_HOME/cargo
 set --export GNUPGHOME $XDG_DATA_HOME/gnupg
 set --export RUSTUP_HOME $XDG_DATA_HOME/rustup
 set --export TERMINFO $XDG_DATA_HOME/terminfo
-set --export TERMINFO_DIRS $TERMINFO:/usr/share/terminfo
+set --export --path TERMINFO_DIRS $TERMINFO /usr/share/terminfo
 set --export WINEPREFIX $XDG_DATA_HOME/wine
 
 # $XDG_STATE_HOME
