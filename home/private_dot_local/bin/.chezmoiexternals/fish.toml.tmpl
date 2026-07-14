@@ -1,17 +1,14 @@
-{{- if ne .os "linux" }}
-{{-   abortEmpty }}
-{{- end }}
-
+{{- $fish := "/usr/bin/fish"}}
 {{- $VersionCheckCmd := "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4" }}
-{{- if and (lookPath "fish") (exec "fish" "-c" $VersionCheckCmd) }}
+
+{{- if and (lookPath $fish) (exec $fish "-c" $VersionCheckCmd) }}
 {{-   abortEmpty }}
 {{- end }}
-
-{{- $fish := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
 
 ["fish"]
 type = "archive-file"
 path = "fish"
 executable = true
-url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $fish | quote }}
+{{- $asset := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
+url = {{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset | quote }}
 refreshPeriod = "672h"
