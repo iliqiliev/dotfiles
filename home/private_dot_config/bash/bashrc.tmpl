@@ -2,10 +2,8 @@
 # vim: filetype=sh
 # chezmoi:template:left-delimiter="# {{"
 
-# Do not check sourced files.
-
 function abbr() {
-    # Mimic behaviour of fish so that existing abbreviations can be used.
+    # Mimic behaviour of `fish` so that existing abbreviations can be used.
     local KEY="$1"
     local VALUE="$2"
 
@@ -21,7 +19,7 @@ function abbr() {
 # ignoredups, ignorespace, erasedups.
 export HISTCONTROL=ignoreboth:erasedups
 
-# Source ble.sh.
+# Source `ble.sh`.
 if test -r ~/.local/share/blesh/ble.sh; then
     # shellcheck source=/dev/null
     source -- ~/.local/share/blesh/ble.sh
