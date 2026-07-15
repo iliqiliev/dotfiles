@@ -2,6 +2,7 @@
 # Used Aliases:
 basedpyright = "npm:basedpyright"
 bashls = "npm:bash-language-server"
+brush = "cargo:brush-shell"
 fish-lsp = "npm:fish-lsp"
 powershell-es = "github:PowerShell/PowerShellEditorServices"
 tclint = "pipx:tclint"
@@ -10,6 +11,7 @@ fish = "aqua:fish-shell/fish-shell"
 
 [tools]
 # Core Tools:
+cargo-binstall = "latest"
 lua-language-server = "latest"
 node = "latest"
 ruff = "latest"
@@ -22,6 +24,7 @@ uv = "latest"
 # Aliased Tools:
 basedpyright = "latest"
 bashls = "latest"
+brush = { version = "latest", os = "windows" }
 fish-lsp = "latest"
 powershell-es = "latest"
 tclint = "latest"
@@ -31,3 +34,7 @@ compile = false
 
 [settings.python]
 compile = false
+
+[settings.cargo]
+binstall_only = true
+binstall_quickinstall = true
