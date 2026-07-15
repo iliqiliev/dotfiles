@@ -14,8 +14,8 @@ fi
 # Aliases:
 alias ll="ls -l"
 alias la="ls -la"
-command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
 command -v bat >/dev/null && alias cat="bat"
+command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
 command -v fdfind >/dev/null && alias fd="fdfind"
 
 # Initialize starship.rs.
