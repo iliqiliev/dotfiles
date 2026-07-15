@@ -3,22 +3,40 @@
 # chezmoi:template:left-delimiter="# {{"
 
 # Do not check sourced files.
-# shellcheck source=/dev/null
+
+function abbr() {
+    # Mimic behaviour of fish so that existing abbreviations can be used.
+    local KEY="$1"
+    local VALUE="$2"
+
+    # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A77-Completion#user-content-sec-sabbrev
+    if declare -F ble-sabbrev >/dev/null; then
+        ble-sabbrev "${KEY}"="${VALUE}"
+    else
+        # shellcheck disable=SC2139
+        alias "${KEY}"="${VALUE}"
+    fi
+}
 
 # ignoredups, ignorespace, erasedups.
 export HISTCONTROL=ignoreboth:erasedups
 
 # Source ble.sh.
 if test -r ~/.local/share/blesh/ble.sh; then
+    # shellcheck source=/dev/null
     source -- ~/.local/share/blesh/ble.sh
 fi
 
-# Aliases:
-alias ll="ls -l"
-alias la="ls -la"
 command -v bat >/dev/null && alias cat="bat"
 command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
 command -v fdfind >/dev/null && alias fd="fdfind"
+
+# Abbreviations/Aliases:
+# shellcheck source=home/private_dot_config/fish/conf.d/30_abbreviations.fish
+source ~/.config/bash/abbreviations
+abbr .. "cd .."
+abbr ll "ls -l"
+abbr la "ls -la"
 
 # Initialize starship.rs.
 eval -- "$(starship init bash --print-full-init 2>/dev/null || true)"
@@ -27,7 +45,5 @@ eval -- "$(starship init bash --print-full-init 2>/dev/null || true)"
 eval -- "$(zoxide init bash || true)" 2>/dev/null
 # {{ if eq .os "windows" -}}
 # Fix zoxide using `cygpath` with `brush` shell.
-function __zoxide_pwd() {
-    \builtin pwd -L
-}
+function __zoxide_pwd() { \builtin pwd -L; }
 # {{ end -}}
