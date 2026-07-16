@@ -12,6 +12,7 @@ XDG_DATA_HOME = "$HOME/.local/share"
 XDG_STATE_HOME = "$HOME/.local/state"
 # Environment Variables:
 NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"  # For `node`.
+POWERSHELL_TELEMETRY_OPTOUT = "1"  # For `powershell` if installed.
 
 [tool_alias]
 # Used Aliases:
