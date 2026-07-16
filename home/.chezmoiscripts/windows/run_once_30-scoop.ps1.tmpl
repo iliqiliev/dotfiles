@@ -2,7 +2,17 @@ $ErrorActionPreference = "Stop"
 
 if (!(Get-Command scoop -ErrorAction Ignore)) {
     Write-Host "Scoop not found. Installing it ..." -ForegroundColor Blue
-    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = [Security.Principal.WindowsPrincipal] $identity
+    $adminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
+    $IsAdmin = $principal.IsInRole($adminRole)
+
+    if ($IsAdmin) {
+        Invoke-Expression "& {$(Invoke-RestMethod -Uri https://get.scoop.sh)} -RunAsAdmin"
+    } else {
+        Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    }
 } else {
     Write-Host "Updating scoop buckets ..." -ForegroundColor Blue
     scoop update
@@ -40,7 +50,7 @@ Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 $ALL_SCOOP_PACKAGES = (Get-ChildItem "~/scoop/buckets/*/bucket/*.json").BaseName
 $NEED_SUDO_PACKAGES = @("virtio-guest-tools")
-$REQUESTED_PACKAGES = "{{ template "packages" . }}" -split " "
+$REQUESTED_PACKAGES = "{{ template `packages` . }}" -split " "
 
 $AVAILABLE_PACKAGES = $REQUESTED_PACKAGES | Where-Object {$_ -in $ALL_SCOOP_PACKAGES}
 
