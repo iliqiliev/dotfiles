@@ -43,7 +43,6 @@ packages:
     tar:
       scoop: null
     tealdeer:
-    topgrade:
     wget:
     xdg-utils:
     yazi:

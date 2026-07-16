@@ -19,6 +19,7 @@ shellcheck = "latest"
 shfmt = "latest"
 stylua = "latest"
 tombi = "latest"
+topgrade = "latest"
 tree-sitter = "latest"
 uv = "latest"
 # Aliased Tools:

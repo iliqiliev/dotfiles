@@ -2,7 +2,7 @@
 "Chezmoi" = "chezmoi update --init"
 
 [misc]
-# first = ["custom_commands"] # not supported until 17.3.0 - breaks config parsing
+first = ["custom_commands"]
 disable = [
   "chezmoi",
   "microsoft_store",
