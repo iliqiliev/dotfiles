@@ -1,6 +1,7 @@
 packages:
   base:
     bash:
+      scoop: null
     bat:
     btop:
     chezmoi:
@@ -8,9 +9,6 @@ packages:
       apk: "shadow"
       apt: "passwd"
       pacman: "util-linux"
-    clink:
-      scoop: "clink clink-completions clink-gizmos"
-      "*": null
     coreutils:
       scoop: "uutils-coreutils"
     cowsay:

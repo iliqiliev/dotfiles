@@ -1,4 +1,0 @@
-["zoxide.lua"]
-type = "file"
-url = "https://raw.githubusercontent.com/shunsambongi/clink-zoxide/master/zoxide.lua"
-refreshPeriod = "672h"

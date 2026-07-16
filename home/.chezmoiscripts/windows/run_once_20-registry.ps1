@@ -36,7 +36,6 @@ Set-RegistryHKCU 'Environment\RUSTUP_HOME' '%USERPROFILE%\.local\share\rustup'
 Set-RegistryHKCU 'Environment\HISTFILE' '%USERPROFILE%\.local\state\bash\history'
 Set-RegistryHKCU 'Environment\PYTHON_HISTORY' '%USERPROFILE%\.local\state\python_history'
 ## Environmental variables.
-Set-RegistryHKCU 'Environment\CLINK_PROFILE' '%APPDATA%\clink'
 Set-RegistryHKCU 'Environment\EDITOR' 'nvim'
 Set-RegistryHKCU 'Environment\LESS' '-FMRXix4 --mouse --use-color --wheel-lines=3'
 Set-RegistryHKCU 'Environment\MANPAGER' 'nvim +Man!'
@@ -46,9 +45,6 @@ Set-RegistryHKCU 'Environment\VIMRUNTIME' "$env:USERPROFILE\scoop\apps\neovim\cu
 
 # Restore the classic context menu in Windows 11.
 Set-RegistryHKCU 'Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32'
-
-# Inject clink into cmd.
-Set-RegistryHKCU 'Software\Microsoft\Command Processor\AutoRun' 'clink inject --autorun'
 
 $EXPLORER = 'Software\Microsoft\Windows\CurrentVersion\Explorer'
 # Free Super+V shortcut for external clipboard manager.
