@@ -30,9 +30,6 @@ packages:
       apt: "libatomic1" # Needed by `mise`, `node` specifically.
       "*": null
     neovim:
-    pwsh:
-      scoop: "pwsh"
-      "*": null
     ripgrep:
     sfsu:
       scoop: "sfsu"

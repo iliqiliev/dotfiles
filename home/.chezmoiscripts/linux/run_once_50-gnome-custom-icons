@@ -32,7 +32,6 @@ declare -A custom_icons=(
     [~/.config/MangoHud]="folder-games"
     [~/.config/nautilus]="folder-gnome"
     [~/.config/nvim]="folder-neovim"
-    [~/.config/powershell]="folder-shell"
     [~/.config/yay]="folder-archlinux"
     [~/.config/zed]="folder-code"
     [~/.config/zen]="folder-globe"
@@ -48,7 +47,6 @@ declare -A custom_icons=(
     [~/.local/share/keyrings]="folder-private"
     [~/.local/share/nautilus]="folder-gnome"
     [~/.local/share/nvim]="folder-neovim"
-    [~/.local/share/powershell]="folder-shell"
     [~/.local/share/uv]="folder-python"
     [~/.local/share/zed]="folder-code"
 
