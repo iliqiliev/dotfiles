@@ -1,7 +1,3 @@
-{{- if ne .os "linux" }}
+{{- if or (ne .os "linux") (not .manageGui) }}
 **
-{{- end }}
-
-{{- if not .manageGui }}
-app/com.valvesoftware.Steam
 {{- end }}
