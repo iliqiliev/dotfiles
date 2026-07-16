@@ -1,4 +1,5 @@
 {{- if ne .os "linux" }}
+blesh
 fish
 kitty
 MangoHud
@@ -7,5 +8,6 @@ zed
 {{- end }}
 
 {{- if not .manageGui }}
+zed
 zen
 {{- end }}
