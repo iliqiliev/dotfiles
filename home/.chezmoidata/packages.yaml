@@ -31,8 +31,8 @@ packages:
     less:
     neovim:
     ripgrep:
-    sfsu:
-      scoop: "sfsu"
+    scoop:
+      scoop: "sfsu vcredist"
       "*": null
     starship:
     sudo:
