@@ -1,4 +1,4 @@
-$env:SHLVL = [int]$env:SHLVL + 1
+$env:SHLVL = [int] $env:SHLVL + 1
 
 Set-PSReadLineKeyHandler Ctrl+c    RevertLine
 Set-PSReadlineKeyHandler Ctrl+d    DeleteCharOrExit
