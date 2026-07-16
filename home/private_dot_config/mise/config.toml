@@ -1,6 +1,18 @@
 [bootstrap.packages]
 "apt:libatomic1" = "latest"  # Required by `node`.
 
+[env]
+# $HOME is not set on Windows.
+HOME = { default = "$USERPROFILE" }
+# XDG User Directories:
+XDG_BIN_HOME = "$HOME/.local/bin"
+XDG_CACHE_HOME = "$HOME/.cache"
+XDG_CONFIG_HOME = "$HOME/.config"
+XDG_DATA_HOME = "$HOME/.local/share"
+XDG_STATE_HOME = "$HOME/.local/state"
+# Environment Variables:
+NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"  # For `node`.
+
 [tool_alias]
 # Used Aliases:
 basedpyright = "npm:basedpyright"
@@ -24,6 +36,7 @@ stylua = "latest"
 tombi = "latest"
 topgrade = "latest"
 tree-sitter = "latest"
+usage = "latest"
 uv = "latest"
 # Aliased Tools:
 basedpyright = "latest"
