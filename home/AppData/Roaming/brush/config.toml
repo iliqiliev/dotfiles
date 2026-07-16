@@ -1,0 +1,5 @@
+[ui]
+syntax-highlighting = true
+
+[experimental]
+terminal-shell-integration = true
