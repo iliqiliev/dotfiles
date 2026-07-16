@@ -1,3 +1,7 @@
+{{ if or (ne .os "linux") (not .manageGui) -}}
+{{   abortEmpty -}}
+{{ end -}}
+
 [Morewaita]
 targetPath = "Morewaita"
 type = "archive"
