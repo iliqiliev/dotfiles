@@ -1,0 +1,27 @@
+{{ $ext := "zip" -}}
+{{ $arch := "x64" -}}
+
+{{ if eq .os "linux" -}}
+{{   $ext = "tar.xz" -}}
+{{ else if eq .os "windows" -}}
+{{   $ext = "zip" -}}
+{{ else -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+{{ if eq .chezmoi.arch "amd64" -}}
+{{   $arch = "x64" -}}
+{{ else if eq .chezmoi.arch "arm64" -}}
+{{   $arch = "arm64" -}}
+{{ else if eq .chezmoi.arch "arm" -}}
+{{   $arch = "armv7" -}}
+{{ else -}}
+{{   abortEmpty -}}
+{{- end -}}
+
+["mise"]
+type = "archive-file"
+path = "mise/bin/mise"
+executable = true
+{{ $asset := printf "mise-v*.*.*-%s-%s.%s" .os $arch $ext -}}
+url = {{ gitHubLatestReleaseAssetURL "jdx/mise" $asset | quote }}
