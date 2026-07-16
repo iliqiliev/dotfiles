@@ -55,7 +55,7 @@ packages:
       scoop: "ditto"
       "*": null
     kitty:
-      scoop: "windows-terminal"
+      scoop: "konsole-nightly"
     process-explorer:
       scoop: "process-explorer"
       "*": null
