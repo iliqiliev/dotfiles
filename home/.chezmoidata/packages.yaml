@@ -29,9 +29,6 @@ packages:
     kitty-terminfo:
       scoop: null
     less:
-    libatomic:
-      apt: "libatomic1" # Needed by `mise`, `node` specifically.
-      "*": null
     neovim:
     ripgrep:
     sfsu:

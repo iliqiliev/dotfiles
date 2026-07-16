@@ -24,6 +24,6 @@ fi
 print_blue "Installing development tools using 'mise' ..."
 
 # config.toml hash: # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
-mise install
+mise bootstrap
 
 print_green "Development tools installed successfully."

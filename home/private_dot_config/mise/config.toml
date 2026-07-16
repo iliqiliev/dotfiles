@@ -1,3 +1,6 @@
+[bootstrap.packages]
+"apt:libatomic1" = "latest"  # Required by `node`.
+
 [tool_alias]
 # Used Aliases:
 basedpyright = "npm:basedpyright"
