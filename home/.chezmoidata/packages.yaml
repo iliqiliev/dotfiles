@@ -9,6 +9,7 @@ packages:
       apk: "shadow"
       apt: "passwd"
       pacman: "util-linux"
+      scoop: null
     coreutils:
       scoop: "uutils-coreutils"
     cowsay:
@@ -18,6 +19,7 @@ packages:
     fd:
       apt: "fd-find"
     fish:
+      scoop: null
     fzf:
     grep:
     git:
@@ -25,6 +27,7 @@ packages:
       apk: "delta"
       scoop: "delta"
     kitty-terminfo:
+      scoop: null
     less:
     libatomic:
       apt: "libatomic1" # Needed by `mise`, `node` specifically.
@@ -42,6 +45,7 @@ packages:
     tealdeer:
     wget:
     xdg-utils:
+      scoop: null
     yazi:
       pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
     zoxide:
@@ -68,6 +72,7 @@ packages:
       pacman: "gdm gnome-shell gnome-control-center"
       apt: "gdm3 gnome-shell gnome-control-center"
       apk: "gdm gnome-shell gnome-control-center"
+      scoop: null
 
   kvmGuest:
     spice-vdagent:
@@ -76,3 +81,4 @@ packages:
   oracleGuest:
     virtualbox-guest-utils:
       apk: "virtualbox-guest-additions virtualbox-guest-additions-x11"
+      scoop: null
