@@ -1,3 +1,7 @@
+{{ if or (ne .os "linux") (not .manageGui) -}}
+{{   abortEmpty -}}
+{{ end -}}
+
 [adw-gtk3]
 targetPath = "themes"
 type = "archive"
