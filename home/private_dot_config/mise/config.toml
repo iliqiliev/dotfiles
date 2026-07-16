@@ -5,7 +5,6 @@
 # $HOME is not set on Windows.
 HOME = { default = "$USERPROFILE" }
 # XDG User Directories:
-XDG_BIN_HOME = "$HOME/.local/bin"
 XDG_CACHE_HOME = "$HOME/.cache"
 XDG_CONFIG_HOME = "$HOME/.config"
 XDG_DATA_HOME = "$HOME/.local/share"

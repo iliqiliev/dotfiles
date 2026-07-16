@@ -17,7 +17,6 @@ Set-RegistryHKCU 'Control Panel\Mouse\MouseThreshold2' '0'
 
 # Set environment variables.
 ## XDG Directories.
-Set-RegistryHKCU 'Environment\XDG_BIN_HOME' '%USERPROFILE%\.local\bin'
 Set-RegistryHKCU 'Environment\XDG_CACHE_HOME' '%USERPROFILE%\.cache'
 Set-RegistryHKCU 'Environment\XDG_CONFIG_HOME' '%USERPROFILE%\.config'
 Set-RegistryHKCU 'Environment\XDG_DATA_HOME' '%USERPROFILE%\.local\share'
