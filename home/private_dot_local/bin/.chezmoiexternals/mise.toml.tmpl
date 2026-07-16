@@ -1,5 +1,6 @@
 {{ $ext := "zip" -}}
 {{ $arch := "x64" -}}
+{{ $mise := "mise" -}}
 
 {{ if eq .os "linux" -}}
 {{   $ext = "tar.xz" -}}
@@ -19,9 +20,13 @@
 {{   abortEmpty -}}
 {{- end -}}
 
-["mise"]
+{{ if eq .os "windows" -}}
+{{   $mise = "mise.exe" -}}
+{{ end -}}
+
+["{{ $mise }}"]
 type = "archive-file"
-path = "mise/bin/mise"
+path = "mise/bin/{{ $mise }}"
 executable = true
 {{ $asset := printf "mise-v*.*.*-%s-%s.%s" .os $arch $ext -}}
 url = {{ gitHubLatestReleaseAssetURL "jdx/mise" $asset | quote }}
