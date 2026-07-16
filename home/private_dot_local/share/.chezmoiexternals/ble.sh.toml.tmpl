@@ -1,3 +1,7 @@
+{{ if ne .os "linux" -}}
+{{   abortEmpty -}}
+{{ end -}}
+
 ["ble.sh"]
 targetPath = "blesh"
 type = "archive"
