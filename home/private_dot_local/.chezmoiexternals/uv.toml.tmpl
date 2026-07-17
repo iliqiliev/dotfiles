@@ -1,7 +1,7 @@
 {{ $components := -1 -}}
 {{ $arch := "" -}}
-{{ $ext := "" -}}
 {{ $libc := "" -}}
+{{ $ext := "" -}}
 
 {{ if eq .chezmoi.arch "amd64" -}}
 {{   $arch = "x86_64" -}}
@@ -13,12 +13,12 @@
 
 {{ if eq .os "linux" -}}
 {{   $components = 1 -}}
-{{   $ext = "tar.gz" -}}
 {{   $libc = "musl" -}}
+{{   $ext = "tar.gz" -}}
 {{ else if eq .os "windows" -}}
 {{   $components = 0 -}}
-{{   $ext = "zip" -}}
 {{   $libc = "msvc" -}}
+{{   $ext = "zip" -}}
 {{ else -}}
 {{   abortEmpty -}}
 {{ end -}}
