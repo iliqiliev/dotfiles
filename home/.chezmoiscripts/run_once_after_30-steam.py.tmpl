@@ -12,7 +12,6 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
-from collections import defaultdict
 from pathlib import Path
 
 from rich import print as rich_print
@@ -24,6 +23,16 @@ CS2 = "730"
 KCD2 = "1771300"
 
 
+class DefaultDict(dict[str, "str | DefaultDict"]):
+    """A nested default dictionary."""
+
+    def __missing__(self, key: str) -> "DefaultDict":
+        """Return a new empty DefaultDict when a key is missing."""
+        empty_dict = DefaultDict()
+        self[key] = empty_dict
+        return empty_dict
+
+
 localconfigs: set[Path] = set()
 
 for steam_root in (
@@ -33,11 +42,10 @@ for steam_root in (
     localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
 
 for path in localconfigs:
-    short_path = path.relative_to(Path.home())
-    rich_print(f"[blue]Updating [i]Steam[/i] config at [i]~/{short_path}[/i] ...")
+    rich_print("[blue]Updating [i]Steam[/i] config ...")
 
     with path.open() as localconfig:
-        parsed_vdf = parse(localconfig, mapper=defaultdict)
+        parsed_vdf = parse(localconfig, mapper=DefaultDict)
 
     id3 = path.parent.parent.name
     system = parsed_vdf["UserLocalConfigStore"]["System"]
@@ -54,4 +62,6 @@ for path in localconfigs:
     with path.open("w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    rich_print("[green][i]Steam[/i] config updated successfully.")
+    home = Path.home()
+    rich_path = f"[link={path.as_uri()}][i]'~/{path.relative_to(home)}'[/i][/link]"
+    rich_print(f"[green]{rich_path} updated successfully.")
