@@ -8,7 +8,7 @@
 # ///
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (not (lookPath "uv")) (eq .distro "android") -}}
+# {{ if eq .distro "android" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
