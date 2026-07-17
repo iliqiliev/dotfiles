@@ -60,14 +60,14 @@
 [data]
 isPersonal = {{ $isPersonal }}
 isWork = {{ $isWork }}
-name = {{ $name | quote }}
-email = {{ $email | quote }}
-os = {{ $os | quote }}
-distro = {{ $distro | quote }}
+name = "{{ $name }}"
+email = "{{ $email }}"
+os = "{{ $os }}"
+distro = "{{ $distro }}"
 manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
 installGnome = {{ $installGnome }} # Linux only
-productName = {{ $productName | quote }}
+productName = "{{ $productName }}"
 
 [data.fonts]
 {{ $size := 0 -}}
@@ -82,14 +82,14 @@ productName = {{ $productName | quote }}
 size = {{ $size }}
 
 [diff]
-pager = {{ and (lookPath "delta") "delta" | quote }}
+pager = "{{ and (lookPath "delta") "delta" }}"
 
 [env]
 {{ $localBin := joinPath .chezmoi.homeDir ".local/bin" -}}
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
-CHEZ_DISTRO = {{ $distro | quote }}
-CHEZ_SUDO = {{ $sudo | quote }}
-CHEZ_IS_PERSONAL = {{ $isPersonal | quote }}
+CHEZ_DISTRO = "{{ $distro }}"
+CHEZ_SUDO = "{{ $sudo }}"
+CHEZ_IS_PERSONAL = "{{ $isPersonal }}"
 PATH = '{{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator }}'
 PSExecutionPolicyPreference = "Bypass"
 

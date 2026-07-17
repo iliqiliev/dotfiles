@@ -27,4 +27,4 @@ include = ["mise/bin/*"]
 exclude = ["mise/bin/mise.d"]
 executable = true
 {{ $asset := printf "mise-v*.*.*-%s-%s.%s" .os $arch $ext -}}
-url = {{ gitHubLatestReleaseAssetURL "jdx/mise" $asset | quote }}
+url = "{{ gitHubLatestReleaseAssetURL "jdx/mise" $asset }}"
