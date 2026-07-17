@@ -1,0 +1,29 @@
+[project]
+name = "dotfiles"
+version = "1.0.0"
+requires-python = ">=3.9"
+
+dependencies = [
+  "rich",
+  "vdf",
+]
+
+[tool.ruff]
+format.docstring-code-format = true
+lint.select = ["ALL"]
+lint.ignore = [
+  "D203",  # Conflicts with another rule.
+  "D213",  # Conflicts with another rule.
+  "ERA001",  # Allow commented-out code because `vim` modeline causes false positives.
+  "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
+  "S603",  # No need to validate `subprocess` commands.
+  "S607",  # No need to specify `subprocess` full executable path.
+]
+
+[tool.uv]
+python-preference = "system"
+environments = [
+  "sys_platform == 'android' and implementation_name == 'cpython'",
+  "sys_platform == 'linux' and implementation_name == 'cpython'",
+  "sys_platform == 'win32' and implementation_name == 'cpython'",
+]

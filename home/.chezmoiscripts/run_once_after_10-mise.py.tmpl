@@ -1,4 +1,11 @@
+"""Setup a development environment using `mise`."""
+
 # vim: filetype=py
+
+# /// script
+# requires-python = ">=3.9"
+# dependencies = ["rich"]
+# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (not (lookPath "uv")) (eq .distro "android") -}}
@@ -9,15 +16,15 @@ from shutil import which
 from subprocess import DEVNULL, PIPE, run
 from sys import exit as sys_exit
 
-from helpers import print_blue, print_green, print_red, print_yellow
+from rich import print as rich_print
 
-print_blue("Installing development tools using 'mise' ...")
+rich_print("[blue]Installing development tools using 'mise' ...")
 
 if which("mise") is None:
-    print_red("'mise' is not installed. Abborting ...")
+    rich_print("[red]'mise' is not installed. Abborting ...")
     sys_exit(0)
 
-print_blue("Checking for new 'mise' version ...")
+rich_print("[blue]Checking for new 'mise' version ...")
 
 old_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
@@ -25,21 +32,21 @@ run(("mise", "self-update", "--yes"), stdout=DEVNULL, check=True)
 new_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
 
 if old_version == new_version:
-    print_green(f"'mise' is already up to date: {old_version}")
+    rich_print(f"[green]'mise' is already up to date: {old_version}")
 else:
-    print_green("'mise' updated successfully.")
-    print_yellow(f"Old: {old_version}")
-    print_green(f"New: {new_version}")
+    rich_print("[green]'mise' updated successfully.")
+    rich_print(f"[yellow]Old: {old_version}")
+    rich_print(f"[green]New: {new_version}")
 
 # Trigger re-run on config change by hashing the config file:
 # # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
 
 cmd = ("mise", "bootstrap", "packages", "status", "--missing")
 if run(cmd, stdout=DEVNULL).returncode != 0:
-    print_blue("Installing 'mise' bootstrap packages ...")
+    rich_print("[blue]Installing 'mise' bootstrap packages ...")
     run(("mise", "bootstrap", "packages", "apply"), check=True)
-    print_green("Bootstrap packages installed successfully.")
+    rich_print("[green]Bootstrap packages installed successfully.")
 
 run(("mise", "install"), check=True)
 
-print_green("Development tools installed successfully.")
+rich_print("[green]Development tools installed successfully.")

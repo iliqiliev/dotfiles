@@ -1,8 +1,10 @@
+"""Find and update `Steam` config files."""
+
 # vim: filetype=py
 
 # /// script
 # requires-python = ">=3.9"
-# dependencies = ["vdf"]
+# dependencies = ["rich", "vdf"]
 # ///
 
 # chezmoi:template:left-delimiter="# {{"
@@ -10,23 +12,16 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
+from collections import defaultdict
 from pathlib import Path
 
-from vdf import dump, parse  # pyright: ignore[reportMissingImports]
-
-from helpers import print_blue, print_green
+from rich import print as rich_print
+from vdf import dump, parse
 
 PERSONAL_ID3 = "460410354"
 
 CS2 = "730"
 KCD2 = "1771300"
-
-
-class DefaultDict(dict[str, "str | DefaultDict"]):
-    def __missing__(self, key: str):
-        empty_dict = DefaultDict()
-        self[key] = empty_dict
-        return empty_dict
 
 
 localconfigs: set[Path] = set()
@@ -39,10 +34,10 @@ for steam_root in (
 
 for path in localconfigs:
     short_path = path.relative_to(Path.home())
-    print_blue(f"Updating Steam config at ~/{short_path} ...")
+    rich_print(f"[blue]Updating Steam config at ~/{short_path} ...")
 
-    with open(path) as localconfig:
-        parsed_vdf = parse(localconfig, mapper=DefaultDict)
+    with path.open() as localconfig:
+        parsed_vdf = parse(localconfig, mapper=defaultdict)
 
     id3 = path.parent.parent.name
     system = parsed_vdf["UserLocalConfigStore"]["System"]
@@ -56,7 +51,7 @@ for path in localconfigs:
 
     apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
 
-    with open(path, "w") as localconfig:
+    with path.open("w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    print_green("Steam config updated successfully.")
+    rich_print("[green]Steam config updated successfully.")
