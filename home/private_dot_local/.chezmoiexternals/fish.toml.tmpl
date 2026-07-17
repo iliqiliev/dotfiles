@@ -11,7 +11,7 @@
 
 ["fish"]
 type = "archive-file"
-path = "fish"
+path = "bin/fish"
 executable = true
 {{ $asset := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
 url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
