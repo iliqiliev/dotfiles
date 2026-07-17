@@ -32,7 +32,7 @@ packages:
     neovim:
     ripgrep:
     scoop:
-      scoop: "sfsu vcredist"
+      scoop: "sfsu vcredist-aio"
       "*": null
     starship:
     sudo:
