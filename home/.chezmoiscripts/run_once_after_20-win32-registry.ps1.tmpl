@@ -1,3 +1,8 @@
+# chezmoi:template:left-delimiter="# {{"
+# {{ if ne .os "windows" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'Setting registry settings ...' -ForegroundColor Blue

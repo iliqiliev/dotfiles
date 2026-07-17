@@ -1,3 +1,8 @@
+# chezmoi:template:left-delimiter="# {{"
+# {{ if ne .os "windows" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
 $ErrorActionPreference = "Stop"
 
 if (!(Get-Command scoop -ErrorAction Ignore)) {
@@ -50,7 +55,7 @@ Write-Host "Scoop buckets added successfully." -ForegroundColor Green
 
 $ALL_SCOOP_PACKAGES = (Get-ChildItem "~/scoop/buckets/*/bucket/*.json").BaseName
 $NEED_SUDO_PACKAGES = @("vcredist-aio", "virtio-guest-tools")
-$REQUESTED_PACKAGES = "{{ template `packages` . }}" -split " "
+$REQUESTED_PACKAGES = "# {{ template `packages` . }}" -split " "
 
 $AVAILABLE_PACKAGES = $REQUESTED_PACKAGES | Where-Object {$_ -in $ALL_SCOOP_PACKAGES}
 
