@@ -6,7 +6,7 @@
 # ///
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (not .manageGui) (not (lookPath "uv")) -}}
+# {{ if or (not (lookPath "uv")) (not .manageGui) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
