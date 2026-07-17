@@ -1,5 +1,5 @@
-#!/usr/bin/env -S uv run --script --quiet
 # vim: filetype=py
+
 # /// script
 # requires-python = ">=3.9"
 # dependencies = ["vdf"]
@@ -14,17 +14,12 @@ from pathlib import Path
 
 from vdf import dump, parse  # pyright: ignore[reportMissingImports]
 
+from helpers import BRIGHT_BLUE, BRIGHT_GREEN, RESET
+
 PERSONAL_ID3 = "460410354"
 
 CS2 = "730"
 KCD2 = "1771300"
-
-RESET = "\033[m"
-"ANSI reset sequence."
-BRIGHT_GREEN = "\033[92m"
-"ANSI bright green foreground sequence."
-BRIGHT_BLUE = "\033[94m"
-"ANSI bright blue foreground sequence."
 
 
 class DefaultDict(dict[str, "str | DefaultDict"]):

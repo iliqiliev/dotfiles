@@ -1,0 +1,6 @@
+RESET = "\033[m"
+"ANSI reset sequence."
+BRIGHT_GREEN = "\033[92m"
+"ANSI bright green foreground sequence."
+BRIGHT_BLUE = "\033[94m"
+"ANSI bright blue foreground sequence."
