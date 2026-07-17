@@ -87,11 +87,13 @@ pager = "{{ and (lookPath "delta") "delta" }}"
 [env]
 {{ $localBin := joinPath .chezmoi.homeDir ".local/bin" -}}
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
+{{ $pathList := prepend $pathList $localBin -}}
 CHEZ_DISTRO = "{{ $distro }}"
 CHEZ_SUDO = "{{ $sudo }}"
 CHEZ_IS_PERSONAL = "{{ $isPersonal }}"
-PATH = '{{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator }}'
+PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PSExecutionPolicyPreference = "Bypass"
+PYTHONPATH = '{{ .chezmoi.workingTree }}'
 
 [github]
 refreshPeriod = "5m"
@@ -113,4 +115,4 @@ args = ["-nol", "-nop", "-f", "{{ .chezmoi.workingTree }}/helpers/env.ps1"]
 
 [interpreters.py]
 command = "uv"
-args = ["run", "--script", "--quiet"]
+args = ["run", "--quiet"]
