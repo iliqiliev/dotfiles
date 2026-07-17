@@ -5,6 +5,7 @@
 # dependencies = ["vdf"]
 # ///
 
+# chezmoi:template:left-delimiter="# {{"
 # {{ if or (not .manageGui) (not (lookPath "uv")) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
