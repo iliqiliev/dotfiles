@@ -18,24 +18,27 @@ from sys import exit as sys_exit
 
 from rich import print as rich_print
 
-rich_print("[blue]Installing development tools using 'mise' ...")
+mise: str = "[i][link=https://mise.jdx.dev/]mise[/link][/i]"
+
+
+rich_print(f"[blue]Installing development tools using {mise} ...")
 
 if which("mise") is None:
-    rich_print("[red]'mise' is not installed. Abborting ...")
+    rich_print(f"[red]{mise} is not installed. Abborting ...")
     sys_exit(0)
 
-rich_print("[blue]Checking for new 'mise' version ...")
+rich_print(f"[blue]Checking for new {mise} version ...")
 
-old_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
+old_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
 run(("mise", "self-update", "--yes"), stdout=DEVNULL, check=True)
-new_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
+new_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 
 if old_version == new_version:
-    rich_print(f"[green]'mise' is already up to date: {old_version}")
+    rich_print(f"[green]{mise} is already up to date: {old_version}")
 else:
-    rich_print("[green]'mise' updated successfully.")
-    rich_print(f"[yellow]Old: {old_version}")
+    rich_print(f"[green]{mise} updated successfully.")
+    rich_print(f"[yellow]Old: [strike]{old_version}")
     rich_print(f"[green]New: {new_version}")
 
 # Trigger re-run on config change by hashing the config file:
@@ -43,7 +46,7 @@ else:
 
 cmd = ("mise", "bootstrap", "packages", "status", "--missing")
 if run(cmd, stdout=DEVNULL).returncode != 0:
-    rich_print("[blue]Installing 'mise' bootstrap packages ...")
+    rich_print(f"[blue]Installing {mise} bootstrap packages ...")
     run(("mise", "bootstrap", "packages", "apply"), check=True)
     rich_print("[green]Bootstrap packages installed successfully.")
 
