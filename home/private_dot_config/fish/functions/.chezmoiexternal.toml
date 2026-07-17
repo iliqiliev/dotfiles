@@ -1,4 +1,4 @@
 ["fisher.fish"]
-# `fisher` updates itself after installation.
 type = "file"
 url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
+# `fisher` updates itself after installation.

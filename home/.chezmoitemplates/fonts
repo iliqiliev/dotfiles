@@ -1,4 +1,4 @@
-[AdwaitaMono]
+["AdwaitaMono"]
 targetPath = "fonts"
 type = "archive"
 include = ["*NerdFontMono-*.ttf"]
@@ -8,7 +8,7 @@ urls = [
   "https://sourceforge.net/projects/nerd-fonts.mirror/files/v3.4.0/AdwaitaMono.tar.xz"
 ]
 
-[UbuntuMono]
+["UbuntuMono"]
 targetPath = "fonts"
 type = "archive"
 include = ["*NerdFontMono-*.ttf"]

@@ -2,10 +2,16 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-[Morewaita]
+["Morewaita"]
 targetPath = "icons/Morewaita"
 type = "archive"
-url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.tar.gz"
 stripComponents = 1
-include = ["*/index.theme", "*/scalable/**", "*/symbolic/**", "*/AUTHORS", "*/LICENSE"]
+include = [
+  "MoreWaita-main/AUTHORS",
+  "MoreWaita-main/LICENSE",
+  "MoreWaita-main/index.theme",
+  "MoreWaita-main/scalable/**",
+  "MoreWaita-main/symbolic/**"
+]
+url = "https://github.com/somepaulo/MoreWaita/archive/refs/heads/main.tar.gz"
 refreshPeriod = "672h"
