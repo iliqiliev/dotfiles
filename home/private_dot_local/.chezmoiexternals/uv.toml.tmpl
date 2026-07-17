@@ -1,0 +1,32 @@
+{{ $components := -1 -}}
+{{ $arch := "" -}}
+{{ $ext := "" -}}
+{{ $libc := "" -}}
+
+{{ if eq .chezmoi.arch "amd64" -}}
+{{   $arch = "x86_64" -}}
+{{ else if eq .chezmoi.arch "arm64" -}}
+{{   $arch = "aarch64" -}}
+{{ else -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+{{ if eq .os "linux" -}}
+{{   $components = 1 -}}
+{{   $ext = "tar.gz" -}}
+{{   $libc = "musl" -}}
+{{ else if eq .os "windows" -}}
+{{   $components = 0 -}}
+{{   $ext = "zip" -}}
+{{   $libc = "msvc" -}}
+{{ else -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+["uv"]
+targetPath = "bin"
+type = "archive"
+stripComponents = {{ $components }}
+executable = true
+{{ $asset := printf "uv-%s-*-%s-%s.%s" $arch .os $libc $ext -}}
+url = "{{ gitHubLatestReleaseAssetURL "astral-sh/uv" $asset }}"

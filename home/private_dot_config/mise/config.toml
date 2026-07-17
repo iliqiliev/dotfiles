@@ -37,7 +37,6 @@ tombi = "latest"
 topgrade = "latest"
 tree-sitter = "latest"
 usage = "latest"
-uv = "latest"
 # Aliased Tools:
 basedpyright = "latest"
 bashls = "latest"
