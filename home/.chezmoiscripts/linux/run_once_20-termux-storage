@@ -7,7 +7,7 @@ if test "$CHEZ_DISTRO" != "android"; then
 fi
 
 # shellcheck source=helpers/env.sh
-source ~/.local/share/chezmoi/helpers/env.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/env.sh
 
 if ! test -L "$HOME/storage/shared"; then
     print_blue "Setting up Termux storage ..."
@@ -23,7 +23,7 @@ fi
 
 print_blue "Copying files to Internal Storage ..."
 
-TERMUX_SRC="$HOME/.local/share/chezmoi/helpers/termux"
+TERMUX_SRC="$CHEZMOI_WORKING_TREE"/termux
 
 while read -r file_src; do
 
