@@ -8,8 +8,8 @@
 
 set -eu
 
-# shellcheck source=helpers/env.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/env.sh
+# shellcheck source=helpers/helpers.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
 if test "$CHEZ_SUDO" = "false"; then
     exit 0

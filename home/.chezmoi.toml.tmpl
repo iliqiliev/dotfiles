@@ -111,7 +111,7 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 
 [interpreters.ps1]
 command = "powershell"
-args = ["-nol", "-nop", "-f", "{{ .chezmoi.workingTree }}/helpers/env.ps1"]
+args = ["-nol", "-nop", "-f", "{{ .chezmoi.workingTree }}/helpers/helpers.ps1"]
 
 [interpreters.py]
 command = "uv"

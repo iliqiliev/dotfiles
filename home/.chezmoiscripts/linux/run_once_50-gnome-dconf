@@ -6,8 +6,8 @@ if ! command -v gnome-shell >/dev/null; then
     exit 0
 fi
 
-# shellcheck source=helpers/env.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/env.sh
+# shellcheck source=helpers/helpers.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
 print_blue "Setting Dconf settings ..."
 
