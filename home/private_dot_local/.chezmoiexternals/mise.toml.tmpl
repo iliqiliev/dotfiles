@@ -1,6 +1,7 @@
-{{ $arch := "" -}}
-{{ $ext := "" -}}
 {{ $mise := "" -}}
+{{ $arch := "" -}}
+{{ $libc := "" -}}
+{{ $ext := "" -}}
 
 {{ if eq .chezmoi.arch "amd64" -}}
 {{   $arch = "x64" -}}
@@ -11,16 +12,18 @@
 {{ end -}}
 
 {{ if eq .os "linux" -}}
-{{   $ext = "tar.xz" -}}
 {{   $mise = "mise" -}}
+{{   $libc = "-musl" -}}
+{{   $ext = "tar.xz" -}}
 {{ else if eq .os "windows" -}}
-{{   $ext = "zip" -}}
 {{   $mise = "mise.exe" -}}
+{{   $libc = "" -}}
+{{   $ext = "zip" -}}
 {{ else -}}
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ $asset := printf "mise-v*.*.*-%s-%s.%s" .os $arch $ext -}}
+{{ $asset := printf "mise-v*.*.*-%s-%s%s.%s" .os $arch $libc $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
 
 ["bin/{{ $mise }}"]
