@@ -14,7 +14,7 @@ from pathlib import Path
 
 from vdf import dump, parse  # pyright: ignore[reportMissingImports]
 
-from helpers import BRIGHT_BLUE, BRIGHT_GREEN, RESET
+from helpers import print_blue, print_green
 
 PERSONAL_ID3 = "460410354"
 
@@ -39,7 +39,7 @@ for steam_root in (
 
 for path in localconfigs:
     short_path = path.relative_to(Path.home())
-    print(f"{BRIGHT_BLUE}Updating Steam config at ~/{short_path} ...{RESET}")
+    print_blue(f"Updating Steam config at ~/{short_path} ...")
 
     with open(path) as localconfig:
         parsed_vdf = parse(localconfig, mapper=DefaultDict)
@@ -59,4 +59,4 @@ for path in localconfigs:
     with open(path, "w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    print(f"{BRIGHT_GREEN}Steam config updated successfully.{RESET}")
+    print_green("Steam config updated successfully.")

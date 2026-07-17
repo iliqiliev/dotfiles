@@ -1,11 +1,13 @@
 from .helpers import (
-    BRIGHT_BLUE,
-    BRIGHT_GREEN,
-    RESET,
+    print_blue,
+    print_green,
+    print_red,
+    print_yellow,
 )
 
 __all__ = [
-    "BRIGHT_BLUE",
-    "BRIGHT_GREEN",
-    "RESET",
+    "print_blue",
+    "print_green",
+    "print_red",
+    "print_yellow",
 ]
