@@ -1,6 +1,5 @@
-{{ $ext := "zip" -}}
-{{ $arch := "x64" -}}
-{{ $mise := "mise" -}}
+{{ $ext := "" -}}
+{{ $arch := "" -}}
 
 {{ if eq .os "linux" -}}
 {{   $ext = "tar.xz" -}}
@@ -20,13 +19,12 @@
 {{   abortEmpty -}}
 {{- end -}}
 
-{{ if eq .os "windows" -}}
-{{   $mise = "mise.exe" -}}
-{{ end -}}
-
-["{{ $mise }}"]
-type = "archive-file"
-path = "mise/bin/{{ $mise }}"
+["mise"]
+targetPath = "../bin"
+type = "archive"
+stripComponents = 2
+include = ["mise/bin/*"]
+exclude = ["mise/bin/mise.d"]
 executable = true
 {{ $asset := printf "mise-v*.*.*-%s-%s.%s" .os $arch $ext -}}
 url = {{ gitHubLatestReleaseAssetURL "jdx/mise" $asset | quote }}
