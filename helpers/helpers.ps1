@@ -38,7 +38,7 @@ function Update-UserPathVar {
     .SYNOPSIS
         Adds a directory to the user's PATH environment variable.
 
-    .PARAMETER NewPath
+    .PARAMETER NewPathValue
         $HOME relative path to add to the PATH environment variable.
 
     .EXAMPLE
@@ -46,20 +46,23 @@ function Update-UserPathVar {
     #>
 
     param (
-        [Parameter(Mandatory)][string]$NewPath
+        [Parameter(Mandatory)][string]$NewPathValue
     )
 
-    $OldFullPath = [Environment]::GetEnvironmentVariable("Path", "User")
-    $NewPath = [IO.Path]::GetFullPath((Join-Path $HOME $NewPath))
+    $Environment = "HKCU:\Environment"
+    $DoNotExpand = [Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames
 
-    if (";$OldFullPath;" -like "*;$NewPath;*") {
+    $OldFullPath = (Get-Item $Environment).GetValue("Path", "", $DoNotExpand)
+    $NewPathValue = "%USERPROFILE%\$NewPathValue"
+
+    if (";$OldFullPath;" -like "*;$NewPathValue;*") {
         return
     }
 
-    $NewFullPath = $OldFullPath + ";" + $NewPath
+    $NewFullPath = $OldFullPath.TrimEnd(';')  + ";" + $NewPathValue
 
     Set-ItemProperty `
-        -Path "HKCU:\Environment" `
+        -Path $Environment `
         -Name "Path" `
         -Value $NewFullPath `
         -Type ExpandString

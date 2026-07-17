@@ -12,7 +12,9 @@ if ($env:CHEZ_IS_PERSONAL -eq 'true') {
     Set-RegistryHKCU 'Keyboard Layout\Preload\2' '00040402'  # Bulgarian (Phonetic Traditional)
 }
 
-# Add 'mise' shims to PATH.
+# Add '~/.local/bin' to PATH.
+Update-UserPathVar '.\local\bin'
+# Add `mise` shims to PATH.
 Update-UserPathVar '.local\share\mise\shims'
 
 # Disable mouse acceleration.
@@ -58,7 +60,7 @@ Set-RegistryHKCU "$EXPLORER\Advanced\Hidden" 1
 Set-RegistryHKCU "$EXPLORER\Advanced\HideFileExt" 0
 # Align taskbar to the left.
 Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarAl" 0
-# Hide widgets from the taskbar. Key may be protected by the UCPD driver.
+# Hide widgets from the taskbar. Key may be protected by the `UCPD driver`.
 Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDa" 0 -ErrorAction SilentlyContinue
 # Add 'End task' button when right-clicking a program.
 Set-RegistryHKCU "$EXPLORER\Advanced\TaskbarDeveloperSettings\TaskbarEndTask" 1
