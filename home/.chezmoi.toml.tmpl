@@ -93,6 +93,9 @@ CHEZ_IS_PERSONAL = "{{ $isPersonal }}"
 PATH = '{{ prepend $pathList $localBin | uniq | join .chezmoi.pathListSeparator }}'
 PSExecutionPolicyPreference = "Bypass"
 
+[github]
+refreshPeriod = "5m"
+
 {{ if eq $distro "android" -}}
 [interpreters.""]
 command = 'sh'
