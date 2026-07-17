@@ -2,12 +2,12 @@
 
 set -eu
 
-# shellcheck source=helpers/env.sh
-. ~/.local/share/chezmoi/helpers/env.sh
-
 if test "$CHEZ_SUDO" = "false"; then
     exit 0
 fi
+
+# shellcheck source=helpers/env.sh
+. "$CHEZMOI_WORKING_TREE"/helpers/env.sh
 
 if test -f /usr/lib/systemd/system/vboxservice.service; then
 

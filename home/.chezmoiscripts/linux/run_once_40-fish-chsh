@@ -3,7 +3,7 @@
 set -eu
 
 # shellcheck source=helpers/env.sh
-source ~/.local/share/chezmoi/helpers/env.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/env.sh
 
 FISH_PATH=/usr/bin/fish
 USER=$(id -un)
