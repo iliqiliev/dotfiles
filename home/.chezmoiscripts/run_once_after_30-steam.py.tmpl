@@ -34,7 +34,7 @@ for steam_root in (
 
 for path in localconfigs:
     short_path = path.relative_to(Path.home())
-    rich_print(f"[blue]Updating Steam config at ~/{short_path} ...")
+    rich_print(f"[blue]Updating [i]Steam[/i] config at [i]~/{short_path}[/i] ...")
 
     with path.open() as localconfig:
         parsed_vdf = parse(localconfig, mapper=defaultdict)
@@ -54,4 +54,4 @@ for path in localconfigs:
     with path.open("w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    rich_print("[green]Steam config updated successfully.")
+    rich_print("[green][i]Steam[/i] config updated successfully.")
