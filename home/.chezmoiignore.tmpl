@@ -1,7 +1,7 @@
-{{- if ne .os "linux" }}
+{{ if ne .os "linux" -}}
 .chezmoiscripts/linux/**
-{{- end }}
+{{ end -}}
 
-{{- if ne .os "windows" }}
+{{ if ne .os "windows" -}}
 .chezmoiscripts/windows/**
-{{- end }}
+{{ end -}}

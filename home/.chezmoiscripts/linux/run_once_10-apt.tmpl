@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # vim: filetype=sh
+
 # chezmoi:template:left-delimiter="# {{"
-# {{- if not (has .distro (list "android" "debian" "ubuntu")) }}
-# {{-   abortEmpty }}
-# {{- end }}
+# {{ if not (has .distro (list "android" "debian" "ubuntu")) -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 
 set -eu
 
@@ -21,13 +22,13 @@ print_blue "Syncing apt database ..."
 $CHEZ_SUDO apt update -y
 print_green "Apt database synced successfully."
 
-# {{- if eq .distro "android" }}
+# {{ if eq .distro "android" -}}
 
 print_blue "Updating system to avoid dependency mismatches ..."
 yes | apt full-upgrade
 print_green "Packages upgraded successfully."
 
-# {{- end }}
+# {{ end -}}
 
 AVAILABLE_PACKAGES=$(
     comm -12 \
