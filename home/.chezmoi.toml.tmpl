@@ -55,6 +55,7 @@
 {{   $productName = outputList "powershell" $cmdArgs | trim -}}
 {{   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
 {{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
+{{   $_ := exec "powershell" "-nop" "-c" "Set-ExecutionPolicy" "Bypass" "CurrentUser" -}}
 {{ end -}}
 
 [data]
@@ -92,7 +93,6 @@ CHEZ_DISTRO = "{{ $distro }}"
 CHEZ_SUDO = "{{ $sudo }}"
 CHEZ_IS_PERSONAL = "{{ $isPersonal }}"
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
-PSExecutionPolicyPreference = "Bypass"
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
 
 [github]
@@ -106,8 +106,7 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 [interpreters.fish]
 command = 'sh'
 args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
-
-{{ end -}}
+{{- end }}
 
 [interpreters.ps1]
 command = "powershell"
