@@ -112,4 +112,5 @@ command = "powershell"
 args = ["-nol", "-nop", "-f", "{{ .chezmoi.workingTree }}/helpers/env.ps1"]
 
 [interpreters.py]
-# Unset Python interpeter.
+command = "uv"
+args = ["run", "--script", "--quiet"]
