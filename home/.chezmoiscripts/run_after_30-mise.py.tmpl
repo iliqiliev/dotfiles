@@ -8,7 +8,7 @@
 # {{ end -}}
 
 from shutil import which
-from subprocess import DEVNULL, run
+from subprocess import DEVNULL, PIPE, run
 from sys import exit as sys_exit
 
 from helpers import print_blue, print_green, print_red, print_yellow
@@ -21,10 +21,10 @@ if which("mise") is None:
 
 print_blue("Checking for new 'mise' version ...")
 
-old_version = run(("mise", "version"), capture_output=True).stdout.decode().rstrip()
+old_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
 run(("mise", "self-update", "--yes"), stdout=DEVNULL, check=True)
-new_version = run(("mise", "version"), capture_output=True).stdout.decode().rstrip()
+new_version = run(("mise", "version"), stdout=PIPE).stdout.decode().rstrip()
 
 if old_version == new_version:
     print_green(f"'mise' is already up to date: {old_version}")
@@ -35,6 +35,13 @@ else:
 
 # Trigger re-run on config change by hashing the config file:
 # # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
-run(("mise", "bootstrap"), check=True)
+
+cmd = ("mise", "bootstrap", "packages", "status", "--missing")
+if run(cmd, stdout=DEVNULL).returncode != 0:
+    print_blue("Installing 'mise' bootstrap packages ...")
+    run(("mise", "bootstrap", "packages", "apply"), check=True)
+    print_green("Bootstrap packages installed successfully.")
+
+run(("mise", "install"), check=True)
 
 print_green("Development tools installed successfully.")
