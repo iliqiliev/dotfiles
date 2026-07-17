@@ -25,7 +25,6 @@
 
 ["bin/{{ $mise }}"]
 type = "archive-file"
-stripComponents = 2
 path = "mise/bin/{{ $mise }}"
 executable = true
 url = "{{ $url }}"
@@ -33,7 +32,6 @@ url = "{{ $url }}"
 {{ if eq .os "windows" -}}
 ["bin/mise-shim.exe"]
 type = "archive-file"
-stripComponents = 2
 path = "mise/bin/mise-shim.exe"
 executable = true
 url = "{{ $url }}"
