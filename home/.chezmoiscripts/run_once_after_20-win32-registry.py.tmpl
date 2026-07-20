@@ -15,7 +15,7 @@
 from contextlib import suppress
 from os import environ as env
 from shutil import which
-from subprocess import Popen, run
+from subprocess import DEVNULL, Popen, run
 from winreg import (
     HKEY_CURRENT_USER,
     REG_DWORD,
@@ -77,10 +77,10 @@ def registry_path_append(new_path: str) -> None:
 
 def restart_explorer() -> None:
     """Restart `explorer.exe`."""
-    rich_print("[bright_blue]Restarting 'explorer.exe' ...")
-    run(("TASKKILL", "/F", "/IM", "explorer.exe"))
+    rich_print("[bright_blue]Restarting 'explorer.exe' ...", end=" ")
+    run(("TASKKILL", "/F", "/IM", "explorer.exe"), stdout=DEVNULL)
     Popen("explorer.exe")
-    rich_print("[bright_green]'explorer.exe' restarted successfully.")
+    rich_print("[bright_green]Done.")
 
 
 XDG_CACHE_HOME = r"%USERPROFILE%\.cache"
