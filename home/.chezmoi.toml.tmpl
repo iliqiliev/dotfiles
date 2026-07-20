@@ -58,6 +58,8 @@
 {{   $_ := exec "powershell" "-nop" "-c" "Set-ExecutionPolicy" "Bypass" "CurrentUser" -}}
 {{ end -}}
 
+tempDir = "{{ env "XDG_RUNTIME_DIR" | default "~/.cache" }}"
+
 [data]
 isPersonal = {{ $isPersonal }}
 isWork = {{ $isWork }}
@@ -106,7 +108,8 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 [interpreters.fish]
 command = 'sh'
 args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
-{{- end }}
+
+{{ end -}}
 
 [interpreters.ps1]
 command = "powershell"
