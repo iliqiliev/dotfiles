@@ -79,7 +79,7 @@ for bucket in BUCKETS:
 
 rich_print("[bright_green]'scoop' buckets added successfully.")
 
-all_packages = {package.name for package in BUCKETS_DIR.glob("*/bucket/*.json")}
+all_packages = {package.stem for package in BUCKETS_DIR.glob("*/bucket/*.json")}
 needed_packages = set("# {{ template `packages` . }}".split())  # noqa: SIM905
 
 available_packages = needed_packages.intersection(all_packages)
