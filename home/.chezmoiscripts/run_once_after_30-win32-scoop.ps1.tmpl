@@ -1,77 +1,103 @@
+"""Install packages using `scoop`."""
+
+# vim: filetype=py
+
+# /// script
+# requires-python = ">=3.9"
+# dependencies = ["rich"]
+# ///
+
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .os "windows" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-$ErrorActionPreference = "Stop"
+from ctypes import WinDLL
+from os import getenv
+from pathlib import Path
+from shutil import which
+from subprocess import run
+from tempfile import NamedTemporaryFile
+from urllib.request import urlopen
 
-if (!(Get-Command scoop -ErrorAction Ignore)) {
-    Write-Host "Scoop not found. Installing it ..." -ForegroundColor Blue
+from rich import print as rich_print
 
-    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
-    $principal = [Security.Principal.WindowsPrincipal] $identity
-    $adminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
-    $IsAdmin = $principal.IsInRole($adminRole)
 
-    if ($IsAdmin) {
-        Invoke-Expression "& {$(Invoke-RestMethod -Uri https://get.scoop.sh)} -RunAsAdmin"
-    } else {
-        Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-    }
-} else {
-    Write-Host "Updating scoop buckets ..." -ForegroundColor Blue
-    scoop update
-    Write-Host "Scoop buckets updated successfully." -ForegroundColor Green
-}
+def is_admin() -> bool:
+    """Check if the current process is running with admin privileges."""
+    return WinDLL("shell32").IsUserAnAdmin() == 1
 
-Write-Host "Setting up scoop buckets." -ForegroundColor Blue
 
-if (!(Get-Command git -ErrorAction Ignore)) {
-    Write-Host "Git not found. Installing it ..." -ForegroundColor Blue
-    scoop install --no-update-scoop git
-    Write-Host "Git installed successfully." -ForegroundColor Green
-}
+def install_scoop() -> None:
+    """Install Scoop using the official installer script."""
+    with urlopen("https://get.scoop.sh") as scoop_response:
+        scoop_contents: bytes = scoop_response.read()
 
-$BUCKETS = @(
-    "extras"
-    "sysinternals"
-    "versions"
-    "iliya https://github.com/iliqiliev/iliya-bucket"
+    with NamedTemporaryFile(suffix=".ps1") as scoop_script:
+        scoop_script.write(scoop_contents)
+
+        cmd = ["powershell", "-NoProfile", "-File", scoop_script.name]
+        if is_admin():
+            cmd.append("-RunAsAdmin")
+
+        run(cmd, check=True)
+
+
+BUCKETS_DIR = Path.home() / "scoop" / "buckets"
+BUCKETS = (
+    ("extras", ""),
+    ("sysinternals", ""),
+    ("versions", ""),
+    ("iliya", "https://github.com/iliqiliev/iliya-bucket"),
 )
+CHEZ_SUDO = getenv("CHEZ_SUDO")
+NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
+SCOOP = "scoop.cmd"
 
-foreach ($bucket in $BUCKETS) {
-    $name, $url = $bucket.Split(" ", 2)
 
-    if (Test-Path "~/scoop/buckets/$name" -PathType Container) {
-        Write-Host "The $name bucket is added already." -ForegroundColor Green
+if which(SCOOP) is None:
+    rich_print("[bright_blue]Scoop not found. Installing it ...")
+    install_scoop()
+else:
+    rich_print("[bright_blue]Updating 'scoop' buckets ...")
+    run((SCOOP, "update"), check=True)
+    rich_print("[bright_blue]'scoop' buckets updated successfully.")
+
+rich_print("[bright_blue]Setting up 'scoop' buckets ...")
+
+if which("git") is None:
+    rich_print("[bright_blue]Git not found. Installing it ...")
+    run((SCOOP, "install", "--no-update-scoop", "git"), check=True)
+    rich_print("[bright_green]Git installed successfully.")
+
+for bucket in BUCKETS:
+    name, url = bucket
+
+    if (BUCKETS_DIR / name).is_dir():
+        rich_print(f"[bright_green]The '{name}' bucket exists already.")
         continue
-    }
 
-    scoop bucket add $name $url
-}
+    run((SCOOP, "bucket", "add", name, url), check=True)
 
-Write-Host "Scoop buckets added successfully." -ForegroundColor Green
+rich_print("[bright_green]'scoop' buckets added successfully.")
 
+all_packages = {package.name for package in BUCKETS_DIR.glob("*/bucket/*.json")}
+needed_packages = set("# {{ template `packages` . }}".split())  # noqa: SIM905
 
-$ALL_SCOOP_PACKAGES = (Get-ChildItem "~/scoop/buckets/*/bucket/*.json").BaseName
-$NEED_SUDO_PACKAGES = @("vcredist-aio", "virtio-guest-tools")
-$REQUESTED_PACKAGES = "# {{ template `packages` . }}" -split " "
+available_packages = needed_packages.intersection(all_packages)
 
-$AVAILABLE_PACKAGES = $REQUESTED_PACKAGES | Where-Object {$_ -in $ALL_SCOOP_PACKAGES}
+user_packages = available_packages.difference(NEED_SUDO_PACKAGES)
+sudo_packages = available_packages.intersection(NEED_SUDO_PACKAGES)
 
-$AVAILABLE_USER_PACKAGES = @($AVAILABLE_PACKAGES | Where-Object {$_ -notin $NEED_SUDO_PACKAGES})
-$AVAILABLE_SUDO_PACKAGES = @($AVAILABLE_PACKAGES | Where-Object {$_ -in $NEED_SUDO_PACKAGES})
+if user_packages:
+    rich_print("[bright_blue]Installing 'scoop' packages ...")
+    run((SCOOP, "install", "--no-update-scoop", *user_packages), check=True)
+    rich_print("[bright_green]Packages installed successfully.")
 
-if ($AVAILABLE_USER_PACKAGES.Count -gt 0) {
-    Write-Host "Installing scoop packages ..." -ForegroundColor Blue
-    scoop install --no-update-scoop @AVAILABLE_USER_PACKAGES
-    if (!$?) { exit 1 }
-    Write-Host "Packages installed successfully." -ForegroundColor Green
-}
-
-if (($AVAILABLE_SUDO_PACKAGES.Count -gt 0) -and ($env:CHEZ_SUDO -ne "false")) {
-    Write-Host "Installing packages that require admin privileges ..." -ForegroundColor Blue
-    gsudo scoop install --no-update-scoop @AVAILABLE_SUDO_PACKAGES
-    if (!$?) { exit 1 }
-    Write-Host "Admin packages installed successfully." -ForegroundColor Green
-}
+if sudo_packages and CHEZ_SUDO != "false":
+    rich_print("[bright_blue]Installing packages that require admin privileges ...")
+    cmd = [SCOOP, "install", "--no-update-scoop", *sudo_packages]
+    if CHEZ_SUDO:
+        cmd.insert(0, CHEZ_SUDO)
+    run(cmd, check=True)
+    rich_print("[bright_green]Admin packages installed successfully")
