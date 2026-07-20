@@ -49,7 +49,7 @@ BUCKETS = (
 )
 CHEZ_SUDO = getenv("CHEZ_SUDO")
 NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
-SCOOP = "scoop.cmd"
+SCOOP = Path.home() / "scoop" / "shims" / "scoop.cmd"
 
 
 if which(SCOOP) is None:
