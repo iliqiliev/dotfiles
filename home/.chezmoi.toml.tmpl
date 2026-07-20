@@ -25,7 +25,7 @@
 
 {{ $useSudo := false -}}{{/* useSudo is for caching the answer to promptBoolOnce */ -}}
 {{ $sudo := "su root -c" -}}
-{{ if or (eq .chezmoi.uid "0") (eq $distro "android") -}}
+{{ if or (eq .chezmoi.uid "0") (hasSuffix "-500" .chezmoi.uid) (eq $distro "android") -}}
 {{   $sudo = "" -}}
 {{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
 {{   $useSudo = true -}}
