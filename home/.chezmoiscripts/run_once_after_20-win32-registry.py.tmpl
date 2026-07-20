@@ -13,6 +13,7 @@
 # {{ end -}}
 
 from contextlib import suppress
+from os import environ as env
 from shutil import which
 from subprocess import Popen, run
 from winreg import (
@@ -98,6 +99,7 @@ SEARCH = r"Software\Microsoft\Windows\CurrentVersion\Search"
 rich_print("[bright_blue]Setting registry settings ...")
 
 # Add directories to `%PATH%`.
+registry_path_append(rf"{env['USERPROFILE']}\scoop\shims")
 registry_path_append(r"%USERPROFILE%\.local\bin")
 registry_path_append(r"%USERPROFILE%\.local\share\mise\shims")
 
