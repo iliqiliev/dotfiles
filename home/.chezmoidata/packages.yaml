@@ -59,6 +59,10 @@ packages:
     process-explorer:
       scoop: "process-explorer"
       "*": null
+    qalculate:
+      apk: "qalculate-gtk"
+      apt: "qalculate-gtk"
+      pacman: "qalculate-gtk"
     zed:
       pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
     zen-browser-bin:
