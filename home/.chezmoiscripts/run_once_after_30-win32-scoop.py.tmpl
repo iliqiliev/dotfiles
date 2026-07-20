@@ -42,9 +42,9 @@ def install_scoop() -> None:
 
 BUCKETS_DIR = Path.home() / "scoop" / "buckets"
 BUCKETS = (
-    ("extras", ""),
-    ("sysinternals", ""),
-    ("versions", ""),
+    ("extras", None),
+    ("sysinternals", None),
+    ("versions", None),
     ("iliya", "https://github.com/iliqiliev/iliya-bucket"),
 )
 CHEZ_SUDO = getenv("CHEZ_SUDO")
@@ -74,7 +74,8 @@ for bucket in BUCKETS:
         rich_print(f"[bright_green]The '{name}' bucket exists already.")
         continue
 
-    run((SCOOP, "bucket", "add", name, url), check=True)
+    cmd = (SCOOP, "bucket", "add", name, url)
+    run(tuple(filter(None, cmd)), check=True)
 
 rich_print("[bright_green]'scoop' buckets added successfully.")
 
@@ -93,8 +94,8 @@ if user_packages:
 
 if sudo_packages and CHEZ_SUDO != "false":
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
-    cmd = [SCOOP, "install", "--no-update-scoop", *sudo_packages]
-    if CHEZ_SUDO:
-        cmd.insert(0, CHEZ_SUDO)
-    run(cmd, check=True)
+
+    cmd = (CHEZ_SUDO, SCOOP, "install", "--no-update-scoop", *sudo_packages)
+    run(tuple(filter(None, cmd)), check=True)
+
     rich_print("[bright_green]Admin packages installed successfully")
