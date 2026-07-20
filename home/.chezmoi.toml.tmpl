@@ -31,7 +31,7 @@
 {{   $useSudo = true -}}
 {{   if lookPath "doas" -}}
 {{     $sudo = "doas" -}}
-{{   else if lookPath "gsudo" -}}
+{{   else if eq $os "windows" -}}
 {{     $sudo = "gsudo" -}}
 {{   else if lookPath "sudo" -}}
 {{     $sudo = "sudo" -}}
