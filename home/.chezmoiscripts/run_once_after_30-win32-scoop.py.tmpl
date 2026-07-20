@@ -17,7 +17,6 @@ from os import getenv
 from pathlib import Path
 from shutil import which
 from subprocess import run
-from tempfile import NamedTemporaryFile
 from urllib.request import urlopen
 
 from rich import print as rich_print
@@ -30,17 +29,16 @@ def is_admin() -> bool:
 
 def install_scoop() -> None:
     """Install Scoop using the official installer script."""
+    scoop_script = Path.home() / ".cache" / "scoop-installer.ps1"
+
     with urlopen("https://get.scoop.sh") as scoop_response:
-        scoop_contents: bytes = scoop_response.read()
+        scoop_script.write_bytes(scoop_response.read())
 
-    with NamedTemporaryFile(suffix=".ps1") as scoop_script:
-        scoop_script.write(scoop_contents)
+    cmd = ["powershell", "-NoProfile", "-File", scoop_script]
+    if is_admin():
+        cmd.append("-RunAsAdmin")
 
-        cmd = ["powershell", "-NoProfile", "-File", scoop_script.name]
-        if is_admin():
-            cmd.append("-RunAsAdmin")
-
-        run(cmd, check=True)
+    run(cmd, check=True)
 
 
 BUCKETS_DIR = Path.home() / "scoop" / "buckets"
