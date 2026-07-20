@@ -50,7 +50,7 @@ def registry_path_append(new_path: str) -> None:
 
 def registry_set_data(
     path: str,
-    name: str,
+    name: "str | None",
     data: "str | int",
     reg_type: "int | None" = None,
 ) -> None:
@@ -133,6 +133,10 @@ registry_set_data("Environment", "EDITOR", "nvim")
 registry_set_data("Environment", "MANPAGER", "nvim +Man!")
 vimruntime = r"%USERPROFILE%\scoop\apps\neovim\current\share\nvim\runtime"
 registry_set_data("Environment", "VIMRUNTIME", vimruntime)
+
+# Restore the classic context menu in Windows 11.
+path = r"Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+registry_set_data(path, name=None, data="")
 
 # Free Super+V shortcut for external clipboard manager.
 registry_set_data(rf"{EXPLORER}\Advanced", "DisabledHotkeys", "V")
