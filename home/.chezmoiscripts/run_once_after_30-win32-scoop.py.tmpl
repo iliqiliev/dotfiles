@@ -17,8 +17,8 @@ from os import getenv
 from pathlib import Path
 from shutil import which
 from subprocess import run
-from urllib.request import urlopen
 
+from requests import get as requests_get
 from rich import print as rich_print
 
 
@@ -30,9 +30,8 @@ def is_admin() -> bool:
 def install_scoop() -> None:
     """Install Scoop using the official installer script."""
     scoop_script = Path.home() / ".cache" / "scoop-installer.ps1"
-
-    with urlopen("https://get.scoop.sh") as scoop_response:
-        scoop_script.write_bytes(scoop_response.read())
+    scoop_response = requests_get("https://get.scoop.sh", timeout=10)
+    scoop_script.write_bytes(scoop_response.content)
 
     cmd = ["powershell", "-NoProfile", "-File", scoop_script]
     if is_admin():
