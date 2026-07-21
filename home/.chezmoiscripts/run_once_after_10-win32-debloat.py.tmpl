@@ -1,0 +1,105 @@
+"""Debloat Windows."""
+
+# vim: filetype=py
+
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#   "rich",
+#   "winrt-Windows.ApplicationModel",
+#   "winrt-Windows.Foundation.Collections",
+#   "winrt-Windows.Management.Deployment",
+# ]
+# ///
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if ne .os "windows" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+from asyncio import run as asyncio_run
+from sys import exit as sys_exit
+from sys import path
+
+from rich import print as rich_print
+from rich.prompt import Confirm
+from winrt.windows.management.deployment import PackageManager
+
+path.append("# {{ .chezmoi.workingTree }}")
+from helpers import restart_explorer
+
+BLOAT_PACKAGES = {
+    "Clipchamp.Clipchamp",
+    "Microsoft.BingNews",
+    "Microsoft.BingSearch",
+    "Microsoft.BingWeather",
+    "Microsoft.GetHelp",
+    "Microsoft.MicrosoftSolitaireCollection",
+    "Microsoft.MicrosoftStickyNotes",
+    "Microsoft.PowerAutomateDesktop",
+    "Microsoft.StartExperiencesApp",
+    "Microsoft.Todos",
+    "Microsoft.WidgetsPlatformRuntime",
+    "Microsoft.Windows.DevHome",
+    "Microsoft.WindowsAlarms",
+    "Microsoft.WindowsFeedbackHub",
+    "Microsoft.WindowsSoundRecorder",
+    "Microsoft.YourPhone",
+    "Microsoft.ZuneMusic",
+    "MicrosoftCorporationII.QuickAssist",
+    "MicrosoftWindows.Client.WebExperience",
+}
+
+DEEP_BLOAT_PACKAGES = {
+    "Microsoft.Paint",
+    "Microsoft.OutlookForWindows",
+    "MSTeams",
+}
+
+SEPARATOR = "\n > "
+PROMPT = f"""\
+Perform deeper debloat?
+This will remove the following packages:\
+{SEPARATOR}{SEPARATOR.join(sorted(DEEP_BLOAT_PACKAGES))}
+Accept?\
+"""
+
+
+async def main() -> None:
+    """Debloat Windows."""
+    package_manager = PackageManager()
+
+    if Confirm.ask(PROMPT, default=False):
+        BLOAT_PACKAGES.update(DEEP_BLOAT_PACKAGES)
+
+    rich_print("[bright_blue]Removing bloat packages ...")
+
+    installed_packages = {
+        pkg.id.name: pkg
+        for pkg in package_manager.find_packages_by_user_security_id("")
+    }
+
+    removed: int = 0
+    for package_name in sorted(BLOAT_PACKAGES):
+        if (package := installed_packages.get(package_name)) is None:
+            continue
+
+        rich_print(f"[bright_blue]Removing '{package.display_name}' ...", end=" ")
+        await package_manager.remove_package_async(package.id.full_name)
+
+        rich_print("[bright_green]Done.")
+        removed += 1
+
+    rich_print(f"[bright_green]{len(BLOAT_PACKAGES)} packages checked.")
+
+    if removed == 0:
+        rich_print("[bright_green]No packages to debloat. :)")
+        sys_exit(0)
+
+    rich_print(f"[bright_green]{removed} packages debloated.")
+
+    restart_explorer()
+
+
+if __name__ == "__main__":
+    asyncio_run(main())
