@@ -14,7 +14,7 @@
 
 from os import environ as env
 from shutil import which
-from subprocess import DEVNULL, Popen, run
+from sys import path
 from winreg import (
     HKEY_CURRENT_USER,
     REG_DWORD,
@@ -27,6 +27,9 @@ from winreg import (
 )
 
 from rich import print as rich_print
+
+path.append("# {{ .chezmoi.workingTree }}")
+from helpers import restart_explorer
 
 
 def registry_set_data(
@@ -76,14 +79,6 @@ def registry_path_append(new_path: str) -> None:
         new_path = f"{old_path.rstrip(';')};{new_path}"
 
         SetValueEx(key, "Path", 0, REG_EXPAND_SZ, new_path)
-
-
-def restart_explorer() -> None:
-    """Restart `explorer.exe`."""
-    rich_print("[bright_blue]Restarting 'explorer.exe' ...", end=" ")
-    run(("TASKKILL", "/F", "/IM", "explorer.exe"), stdout=DEVNULL)
-    Popen("explorer.exe")
-    rich_print("[bright_green]Done.")
 
 
 XDG_CACHE_HOME = r"%USERPROFILE%\.cache"
