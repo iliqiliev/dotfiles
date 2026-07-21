@@ -55,7 +55,6 @@
 {{   $productName = outputList "powershell" $cmdArgs | trim -}}
 {{   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
 {{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
-{{   $_ := exec "powershell" "-nop" "-c" "Set-ExecutionPolicy" "Bypass" "CurrentUser" -}}
 {{ end -}}
 
 tempDir = "{{ env "XDG_RUNTIME_DIR" | default "~/.cache" }}"

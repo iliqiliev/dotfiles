@@ -1,3 +1,5 @@
+{{ $_ := exec "powershell" "-nop" "-c" "Set-ExecutionPolicy" "Bypass" "CurrentUser" -}}
+
 $env:SHLVL = [int] $env:SHLVL + 1
 
 Set-PSReadLineKeyHandler Ctrl+c    RevertLine
