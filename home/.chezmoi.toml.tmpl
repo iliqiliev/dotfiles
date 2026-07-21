@@ -93,7 +93,6 @@ pager = "{{ and (lookPath "delta") "delta" }}"
 {{ $pathList := prepend $pathList $localBin -}}
 CHEZ_DISTRO = "{{ $distro }}"
 CHEZ_SUDO = "{{ $sudo }}"
-CHEZ_IS_PERSONAL = "{{ $isPersonal }}"
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
 

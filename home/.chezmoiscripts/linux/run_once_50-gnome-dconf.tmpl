@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# vim: filetype=sh
+
+# chezmoi:template:left-delimiter="# {{"
 
 set -eu
 
@@ -11,13 +14,13 @@ source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
 print_blue "Setting Dconf settings ..."
 
-if test "$CHEZ_IS_PERSONAL" = "true"; then
-    dconf write /org/gnome/desktop/input-sources/sources \
-        "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+# {{ if .isPersonal -}}
+dconf write /org/gnome/desktop/input-sources/sources \
+    "[('xkb', 'us'), ('xkb', 'bg+phonetic')]"
+dconf write /org/gnome/shell/favorite-apps \
+    "['zen.desktop', 'kitty.desktop', 'dev.zed.Zed.desktop']"
 
-    dconf write /org/gnome/shell/favorite-apps \
-        "['zen.desktop', 'kitty.desktop', 'dev.zed.Zed.desktop']"
-fi
+# {{ end -}}
 
 INPUT_SOURCES=/org/gnome/desktop/input-sources
 dconf write $INPUT_SOURCES/per-window true
