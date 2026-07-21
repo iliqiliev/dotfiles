@@ -12,7 +12,6 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
-from contextlib import suppress
 from os import environ as env
 from shutil import which
 from subprocess import DEVNULL, Popen, run
@@ -46,8 +45,12 @@ def registry_set_data(
         elif isinstance(data, int):
             reg_type = REG_DWORD
 
-    with CreateKey(HKEY_CURRENT_USER, path) as key:
-        SetValueEx(key, name, 0, reg_type, data)
+    try:
+        with CreateKey(HKEY_CURRENT_USER, path) as key:
+            SetValueEx(key, name, 0, reg_type, data)
+    except PermissionError:
+        rich_print(f"[bright_red]Failed to set registry value '{name}' in '{path}'.")
+        rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/i] driver.")
 
 
 def registry_set_many_data(path: str, *kvp: tuple[str, "str | int"]) -> None:
@@ -151,10 +154,6 @@ registry_set_many_data(
 path = r"Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
 registry_set_data(path, name=None, data="")
 
-# Hide widgets from the taskbar.
-with suppress(PermissionError):  # Key may be protected by the `UCPD driver`.
-    registry_set_data(rf"{EXPLORER}\Advanced", "TaskbarDa", 0)
-
 # Free Super+V shortcut for external clipboard manager.
 registry_set_data(rf"{EXPLORER}\Advanced", "DisabledHotkeys", "V")
 # Show hidden files and folders in explorer.
@@ -163,6 +162,8 @@ registry_set_data(rf"{EXPLORER}\Advanced", "Hidden", 1)
 registry_set_data(rf"{EXPLORER}\Advanced", "HideFileExt", 0)
 # Align taskbar to the left.
 registry_set_data(rf"{EXPLORER}\Advanced", "TaskbarAl", 0)
+# Hide widgets from the taskbar.
+registry_set_data(rf"{EXPLORER}\Advanced", "TaskbarDa", 0)
 # Add 'End task' button when right-clicking a program.
 registry_set_data(rf"{EXPLORER}\Advanced\TaskbarDeveloperSettings", "TaskbarEndTask", 1)
 # Change the app opened by the `CALC` key.
