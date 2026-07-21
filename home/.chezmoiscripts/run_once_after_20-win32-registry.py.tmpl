@@ -14,7 +14,6 @@
 
 from os import environ as env
 from shutil import which
-from sys import path
 from winreg import (
     HKEY_CURRENT_USER,
     REG_DWORD,
@@ -28,7 +27,6 @@ from winreg import (
 
 from rich import print as rich_print
 
-path.append("# {{ .chezmoi.workingTree }}")
 from helpers import restart_explorer
 
 
