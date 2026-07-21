@@ -14,6 +14,7 @@
 
 from os import environ as env
 from shutil import which
+from typing import cast
 from winreg import (
     HKEY_CURRENT_USER,
     REG_DWORD,
@@ -43,7 +44,7 @@ def registry_set_data(
                 reg_type = REG_SZ
             else:
                 reg_type = REG_EXPAND_SZ
-        elif isinstance(data, int):
+        else:
             reg_type = REG_DWORD
 
     try:
@@ -63,8 +64,7 @@ def registry_set_many_data(path: str, *kvp: tuple[str, "str | int"]) -> None:
 def registry_path_append(new_path: str) -> None:
     """Add `new_path` to `%PATH%` if not already present."""
     with CreateKey(HKEY_CURRENT_USER, "Environment") as key:
-        old_path: str
-        old_path, path_type = QueryValueEx(key, "Path")
+        old_path, path_type = cast("tuple[str, int]", QueryValueEx(key, "Path"))
 
         if path_type != REG_EXPAND_SZ:
             error = TypeError("'PATH' type is not 'REG_EXPAND_SZ'.")
