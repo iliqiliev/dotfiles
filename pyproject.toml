@@ -7,14 +7,17 @@ dependencies = [
   "requests",
   "rich",
   "vdf",
-  "winrt-Windows.ApplicationModel",
-  "winrt-Windows.Foundation.Collections",
-  "winrt-Windows.Management.Deployment",
+  "winrt-Windows.ApplicationModel; sys_platform == 'win32'",
+  "winrt-Windows.Foundation.Collections; sys_platform == 'win32'",
+  "winrt-Windows.Management.Deployment; sys_platform == 'win32'",
 ]
 
 [build-system]
 requires = ["uv_build<0.12"]
 build-backend = "uv_build"
+
+[tool.basedpyright]
+reportUnusedCallResult = false
 
 [tool.ruff]
 format.docstring-code-format = true
