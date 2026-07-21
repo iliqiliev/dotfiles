@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# vim: filetype=sh
+
+# chezmoi:template:left-delimiter="# {{"
 
 set -eu
 
@@ -8,15 +11,15 @@ source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 FISH_PATH=/usr/bin/fish
 USER=$(id -un)
 
-print_blue "Changing default shell to fish ..."
+print_blue "Changing default shell to 'fish' ..."
 
 if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd; then
-    print_green "Fish already default. Will not change it."
+    print_green "'fish' already default. Will not change it."
     exit 0
 fi
 
 if ! test -x "${FISH_PATH}"; then
-    print_red "Fish shell is not installed. Aborting."
+    print_red "'fish' shell is not installed. Aborting."
     exit 0
 fi
 
@@ -25,16 +28,16 @@ if ! command -v chsh >/dev/null; then
     exit 0
 fi
 
-if test "$CHEZ_DISTRO" = "android"; then
-    yes fish | chsh >/dev/null
-    print_green "Shell changed to fish successfully."
-    exit 0
-fi
+# {{ if eq .distro "android" -}}
+yes fish | chsh >/dev/null
+# {{ else -}}
 
 if ! grep --fixed-strings --line-regexp --quiet "$FISH_PATH" /etc/shells; then
-    print_red "Fish shell is installed but not listed in '/etc/shells'."
+    print_red "'fish' shell is installed but not listed in '/etc/shells'."
     exit 0
 fi
 
 chsh --shell "$FISH_PATH" "$USER" >/dev/null
-print_green "Shell changed to $FISH_PATH successfully."
+# {{ end -}}
+
+print_green "Shell changed to 'fish' successfully."
