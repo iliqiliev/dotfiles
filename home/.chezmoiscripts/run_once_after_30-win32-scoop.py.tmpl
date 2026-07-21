@@ -13,7 +13,6 @@
 # {{ end -}}
 
 from ctypes import WinDLL
-from os import getenv
 from pathlib import Path
 from subprocess import run
 from sys import exit as sys_exit
@@ -53,17 +52,18 @@ def install_scoop() -> None:
 
 
 HOME = Path.home()
+SCOOP = HOME / "scoop/shims/scoop.cmd"
+SCOOP_APPS = HOME / "scoop/apps"
+SCOOP_BUCKETS = HOME / "scoop/buckets"
+
+GSUDO = SCOOP_APPS / "gsudo/current/gsudo.exe"
+NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
 BUCKETS = (
     ("extras", None),
     ("sysinternals", None),
     ("versions", None),
     ("iliya", "https://github.com/iliqiliev/iliya-bucket"),
 )
-CHEZ_SUDO = getenv("CHEZ_SUDO")
-NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
-SCOOP = HOME / "scoop/shims/scoop.cmd"
-SCOOP_APPS = HOME / "scoop/apps"
-SCOOP_BUCKETS = HOME / "scoop/buckets"
 
 
 if SCOOP.exists():
@@ -114,8 +114,8 @@ if user_packages:
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
 
-    cmd = (CHEZ_SUDO, SCOOP, "install", "--no-update-scoop", *sorted(sudo_packages))
-    run(tuple(filter(None, cmd)), check=True)
+    cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sorted(sudo_packages))
+    run(cmd, check=True)
     if check_installed(sudo_packages) is False:
         sys_exit(1)
 
