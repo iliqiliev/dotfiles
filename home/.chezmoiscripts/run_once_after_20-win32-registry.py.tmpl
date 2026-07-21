@@ -126,13 +126,15 @@ registry_set_many_data(
     # $XDG_CACHE_HOME
     ("PYTHONPYCACHEPREFIX", rf"{XDG_CACHE_HOME}\python"),
     ("RUFF_CACHE_DIR", rf"{XDG_CACHE_HOME}\ruff"),
+    ("UV_CACHE_DIR", rf"{XDG_CACHE_HOME}\uv"),  # Windows-only.
     # XDG_CONFIG_HOME
-    ("BAT_CONFIG_PATH", rf"{XDG_CONFIG_HOME}\bat\config"),
+    ("BAT_CONFIG_PATH", rf"{XDG_CONFIG_HOME}\bat\config"),  # Windows-only.
     ("NPM_CONFIG_USERCONFIG", rf"{XDG_CONFIG_HOME}\npm\npmrc"),
-    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),
+    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),  # Windows-only.
     # XDG_DATA_HOME
     ("CARGO_HOME", rf"{XDG_DATA_HOME}\cargo"),
     ("RUSTUP_HOME", rf"{XDG_DATA_HOME}\rustup"),
+    ("UV_PYTHON_INSTALL_DIR", rf"{XDG_DATA_HOME}\uv\python"),  # Windows-only.
     # XDG_STATE_HOME
     ("HISTFILE", rf"{XDG_STATE_HOME}\bash\history"),
     ("PYTHON_HISTORY", rf"{XDG_STATE_HOME}\python_history"),
