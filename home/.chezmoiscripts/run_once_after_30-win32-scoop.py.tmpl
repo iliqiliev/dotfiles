@@ -44,11 +44,9 @@ def install_scoop() -> None:
     scoop_response = requests_get("https://get.scoop.sh", timeout=10)
     scoop_script.write_bytes(scoop_response.content)
 
-    cmd = ["powershell", "-NoProfile", "-File", scoop_script]
-    if is_admin():
-        cmd.append("-RunAsAdmin")
-
-    run(cmd, check=True)
+    run_as_admin = "-RunAsAdmin" if is_admin() else None
+    cmd = ("powershell", "-NoProfile", "-File", scoop_script, run_as_admin)
+    run(tuple(filter(None, cmd)), check=True)
 
 
 HOME = Path.home()
