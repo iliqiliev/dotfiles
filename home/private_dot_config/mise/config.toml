@@ -54,9 +54,7 @@ bin = "fish-lsp"
 version = "latest"
 uvx_args = "--quiet"
 
-[settings.node]
-compile = false
-
-[settings.cargo]
-binstall_only = true
-binstall_quickinstall = true
+[settings]
+cargo.binstall_only = true
+cargo.binstall_quickinstall = true
+node.compile = false
