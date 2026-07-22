@@ -36,8 +36,8 @@ tree-sitter = "latest"
 ty = "latest"
 usage = "latest"
 # Aliased Tools:
-bashls = "latest"
-brush = { version = "latest", os = ["windows"] }
+bashls = { version = "latest", depends = "node" }
+brush = { version = "latest", os = ["windows"], depends = "cargo-binstall" }
 fish-lsp = { version = "latest", os = ["linux"], asset_pattern = "fish-lsp.standalone", bin = "fish-lsp" }
 tclint = { version = "latest", uvx_args = "--quiet" }
 
