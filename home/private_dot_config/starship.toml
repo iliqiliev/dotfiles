@@ -83,8 +83,6 @@ Zorin = "zorn "
 [shell]
 disabled = false
 fish_indicator = "><>"
-powershell_indicator = "ps1"
-pwsh_indicator = "psh"
 
 [shlvl]
 disabled = false

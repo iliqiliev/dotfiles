@@ -53,7 +53,6 @@ require("nvim-treesitter").install({
    "bash",
    "fish",
    "lua",
-   "powershell",
    "python",
    "tcl",
    "toml",
@@ -63,8 +62,7 @@ vim.lsp.enable({
    "bashls",
    "fish_lsp",
    "lua_ls",
-   "powershell_es",
-   "basedpyright",
+   "ty",
    "tclsp",
    "tombi",
 })
