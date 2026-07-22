@@ -11,15 +11,12 @@ XDG_DATA_HOME = "$HOME/.local/share"
 XDG_STATE_HOME = "$HOME/.local/state"
 # Environment Variables:
 NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"  # For `node`.
-POWERSHELL_TELEMETRY_OPTOUT = "1"  # For `powershell` if installed.
 
 [tool_alias]
 # Used Aliases:
-basedpyright = "npm:basedpyright"
 bashls = "npm:bash-language-server"
 brush = "cargo:brush-shell"
 fish-lsp = "npm:fish-lsp"
-powershell-es = "github:PowerShell/PowerShellEditorServices"
 tclint = "pipx:tclint"
 # Unused Aliases:
 fish = "aqua:fish-shell/fish-shell"
@@ -36,13 +33,12 @@ stylua = "latest"
 tombi = "latest"
 topgrade = "latest"
 tree-sitter = "latest"
+ty = "latest"
 usage = "latest"
 # Aliased Tools:
-basedpyright = "latest"
 bashls = "latest"
-brush = { version = "latest", os = "windows" }
+brush = { version = "latest", os = ["windows"] }
 fish-lsp = "latest"
-powershell-es = "latest"
 tclint = { version = "latest", uvx_args = "--quiet" }
 
 [settings.node]
