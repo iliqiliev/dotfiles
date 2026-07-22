@@ -1,0 +1,5 @@
+[bootstrap.packages]
+"apk:tree-sitter-cli" = "latest"
+
+[settings]
+disable_tools = ["tree-sitter"]

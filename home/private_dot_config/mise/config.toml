@@ -1,6 +1,5 @@
 [bootstrap.packages]
 "apt:libatomic1" = "latest"  # Required by `node`.
-
 "apk:gcc" = "latest"  # Required by `tree-sitter`.
 "apt:gcc" = "latest"  # Required by `tree-sitter`.
 "pacman:gcc" = "latest"  # Required by `tree-sitter`.
