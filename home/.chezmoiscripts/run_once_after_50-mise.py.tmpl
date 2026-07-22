@@ -47,7 +47,7 @@ else:
 cmd = ("mise", "bootstrap", "packages", "status", "--missing")
 if run(cmd, stdout=DEVNULL).returncode != 0:
     rich_print(f"[bright_blue]Installing {mise} bootstrap packages ...")
-    run(("mise", "bootstrap", "packages", "apply"), check=True)
+    run(("mise", "bootstrap", "packages", "apply", "--yes"), check=True)
     rich_print("[bright_green]Bootstrap packages installed successfully.")
 
 run(("mise", "install"), check=True)
