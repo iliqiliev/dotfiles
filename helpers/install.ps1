@@ -2,6 +2,8 @@
 
 $ErrorActionPreference = 'Stop'
 
+$env:PATH += ";${HOME}/.local/bin"
+
 if (!($CHEZMOI = (Get-Command chezmoi -ErrorAction Ignore).Path)) {
     $CHEZMOI = '~/.local/bin/chezmoi'
     $CHEZMOI_DIR = Split-Path $CHEZMOI -Parent
@@ -14,7 +16,7 @@ if (!($CHEZMOI = (Get-Command chezmoi -ErrorAction Ignore).Path)) {
     & $CHEZMOI_INSTALLER -BinDir $CHEZMOI_DIR
 }
 
-$CHEZMOI_ARGS = @('init', 'iliqiliev', '--apply', '--depth', '1')
+$CHEZMOI_ARGS = 'init', 'iliqiliev', '--apply', '--depth', '1'
 
 Write-Host "Running 'chezmoi $CHEZMOI_ARGS' ..." -ForegroundColor Green
 & $CHEZMOI @CHEZMOI_ARGS

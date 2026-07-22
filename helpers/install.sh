@@ -2,6 +2,8 @@
 
 set -eu # Exit on [e]rror and [u]nset variables.
 
+PATH="${PATH}:${HOME}/.local/bin"
+
 if ! CHEZMOI="$(command -v chezmoi)"; then
     CHEZMOI="${HOME}/.local/bin/chezmoi"
     CHEZMOI_DIR="$(dirname "${CHEZMOI}")"
