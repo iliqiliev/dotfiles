@@ -57,9 +57,6 @@ uvx_args = "--quiet"
 [settings.node]
 compile = false
 
-[settings.python]
-compile = false
-
 [settings.cargo]
 binstall_only = true
 binstall_quickinstall = true
