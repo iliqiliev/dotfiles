@@ -16,7 +16,7 @@ NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"  # For `node`.
 # Used Aliases:
 bashls = "npm:bash-language-server"
 brush = "cargo:brush-shell"
-fish-lsp = "npm:fish-lsp"
+fish-lsp = "github:ndonfris/fish-lsp"
 tclint = "pipx:tclint"
 # Unused Aliases:
 fish = "aqua:fish-shell/fish-shell"
@@ -38,7 +38,7 @@ usage = "latest"
 # Aliased Tools:
 bashls = "latest"
 brush = { version = "latest", os = ["windows"] }
-fish-lsp = "latest"
+fish-lsp = { version = "latest", os = ["linux"], asset_pattern = "fish-lsp.standalone", bin = "fish-lsp" }
 tclint = { version = "latest", uvx_args = "--quiet" }
 
 [settings.node]
