@@ -43,19 +43,19 @@ version = "latest"
 depends = "node"
 
 [tools.brush]
-version = "latest"
 depends = "cargo-binstall"
+version = "latest"
 os = ["windows"]
 
 [tools.fish-lsp]
-version = "latest"
-os = ["linux"]
 asset_pattern = "fish-lsp.standalone"
 bin = "fish-lsp"
+os = ["linux"]
+version = "latest"
 
 [tools.tclint]
-version = "latest"
 uvx_args = "--quiet"
+version = "latest"
 
 [settings]
 cargo.binstall_only = true
