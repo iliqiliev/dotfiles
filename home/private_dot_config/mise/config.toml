@@ -12,13 +12,11 @@ XDG_DATA_HOME = "$HOME/.local/share"
 XDG_STATE_HOME = "$HOME/.local/state"
 
 [tool_alias]
-# Used Aliases:
 bashls = "npm:bash-language-server"
 brush = "cargo:brush-shell"
 fish-lsp = "npm:fish-lsp"
 tclint = "pipx:tclint"
-# Unused Aliases:
-fish = "aqua:fish-shell/fish-shell"
+fish = "aqua:fish-shell/fish-shell"  # Unused.
 
 [tools]
 cargo-binstall = "latest"
