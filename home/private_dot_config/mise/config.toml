@@ -15,7 +15,7 @@ XDG_STATE_HOME = "$HOME/.local/state"
 # Used Aliases:
 bashls = "npm:bash-language-server"
 brush = "cargo:brush-shell"
-fish-lsp = "github:ndonfris/fish-lsp"
+fish-lsp = "npm:fish-lsp"
 tclint = "pipx:tclint"
 # Unused Aliases:
 fish = "aqua:fish-shell/fish-shell"
@@ -42,8 +42,6 @@ version = "latest"
 os = ["windows"]
 
 [tools.fish-lsp]
-asset_pattern = "fish-lsp.standalone"
-bin = "fish-lsp"
 os = ["linux"]
 version = "latest"
 
