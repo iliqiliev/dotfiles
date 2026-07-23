@@ -1,19 +1,15 @@
 [bootstrap.packages]
-"apt:libatomic1" = "latest"  # Required by `node`.
 "apk:build-base" = "latest"  # `tree-sitter` needs `cc`.
 "apt:gcc" = "latest"  # `tree-sitter` needs `cc`.
 "pacman:gcc" = "latest"  # `tree-sitter` needs `cc`.
 
 [env]
-# $HOME is not set on Windows.
 HOME = { default = "$USERPROFILE" }
 # XDG User Directories:
 XDG_CACHE_HOME = "$HOME/.cache"
 XDG_CONFIG_HOME = "$HOME/.config"
 XDG_DATA_HOME = "$HOME/.local/share"
 XDG_STATE_HOME = "$HOME/.local/state"
-# Environment Variables:
-NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"  # For `node`.
 
 [tool_alias]
 # Used Aliases:
@@ -27,7 +23,6 @@ fish = "aqua:fish-shell/fish-shell"
 [tools]
 cargo-binstall = "latest"
 lua-language-server = "latest"
-node = "latest"
 ruff = "latest"
 shellcheck = "latest"
 shfmt = "latest"
@@ -40,7 +35,6 @@ usage = "latest"
 
 [tools.bashls]
 version = "latest"
-depends = "node"
 
 [tools.brush]
 depends = "cargo-binstall"
@@ -60,4 +54,3 @@ version = "latest"
 [settings]
 cargo.binstall_only = true
 cargo.binstall_quickinstall = true
-node.compile = false
