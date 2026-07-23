@@ -1,9 +1,12 @@
+# {% set env_values = [] %}
 # {% if "/etc/alpine-release" is exists %}
-#   {% set env_value = "musl" %}
+#   {% set env_values = [...env_values, "alpine"] %}
 # {% elif env.TERMUX_VERSION is defined %}
-#   {% set env_value = "termux" %}
+#   {% set env_values = [...env_values, "termux"] %}
 # {% endif %}
 
-# {% if env_value is defined %}
-env = ["{{ env_value }}"]
-# {% endif %}
+env = [
+  # {% for env_value in env_values %}
+  "{{ env_value }}",
+  # {% endfor %}
+]
