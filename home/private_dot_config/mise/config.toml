@@ -38,8 +38,8 @@ version = "latest"
 
 [tools.brush]
 depends = "cargo-binstall"
-version = "latest"
 os = ["windows"]
+version = "latest"
 
 [tools.fish-lsp]
 os = ["linux"]
