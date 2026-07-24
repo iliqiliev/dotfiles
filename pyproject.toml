@@ -20,15 +20,8 @@ build-backend = "uv_build"
 reportUnusedCallResult = false
 
 [tool.ruff]
-format.docstring-code-format = true
-lint.select = ["ALL"]
 lint.ignore = [
-  "D203",  # Conflicts with another rule.
-  "D213",  # Conflicts with another rule.
-  "ERA001",  # Allow commented-out code because `vim` modeline causes false positives.
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
-  "S603",  # No need to validate `subprocess` commands.
-  "S607",  # No need to specify `subprocess` full executable path.
 ]
 
 [tool.uv]
