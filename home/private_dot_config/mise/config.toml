@@ -20,6 +20,7 @@ fish = "aqua:fish-shell/fish-shell"  # Unused.
 
 [tools]
 cargo-binstall = "latest"
+node = "latest"
 lua-language-server = "latest"
 ruff = "latest"
 shellcheck = "latest"
@@ -32,6 +33,7 @@ ty = "latest"
 usage = "latest"
 
 [tools.bashls]
+depends = "node"
 version = "latest"
 
 [tools.brush]
@@ -40,6 +42,7 @@ os = ["windows"]
 version = "latest"
 
 [tools.fish-lsp]
+depends = "node"
 os = ["linux"]
 version = "latest"
 
