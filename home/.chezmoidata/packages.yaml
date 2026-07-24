@@ -1,85 +1,88 @@
 packages:
-  base:
-    bash:
-      scoop: null
-    bat:
-    btop:
-    chezmoi:
-    chsh:
-      apk: "shadow"
-      apt: "passwd"
-      pacman: "util-linux"
-      scoop: null
-    coreutils:
-      scoop: "uutils-coreutils"
-    cowsay:
-    curl:
-    eza:
-    fastfetch:
-    fd:
-      apt: "fd-find"
-    fish:
-      scoop: null
-    fzf:
-    grep:
-    git:
-    git-delta:
-      apk: "delta"
-      scoop: "delta"
-    kitty-terminfo:
-      scoop: null
-    less:
-    neovim:
-    ripgrep:
-    scoop:
-      scoop: "sfsu vcredist-aio"
-      "*": null
-    starship:
-    sudo:
-      scoop: "gsudo"
-    tar:
-      scoop: null
-    tealdeer:
-    wget:
-    xdg-utils:
-      scoop: null
-    yazi:
-      pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
-    zoxide:
+  bash:
+    scoop: null
+  bat:
+  btop:
+  chezmoi:
+  chsh:
+    apk: "shadow"
+    apt: "passwd"
+    pacman: "util-linux"
+    scoop: null
+  coreutils:
+    scoop: "uutils-coreutils"
+  cowsay:
+  curl:
+  eza:
+  fastfetch:
+  fd:
+    apt: "fd-find"
+  fish:
+    scoop: null
+  fzf:
+  grep:
+  git:
+  git-delta:
+    apk: "delta"
+    scoop: "delta"
+  kitty-terminfo:
+    scoop: null
+  less:
+  neovim:
+  ripgrep:
+  scoop:
+    scoop: "sfsu vcredist-aio"
+    "*": null
+  starship:
+  sudo:
+    scoop: "gsudo"
+  tar:
+    scoop: null
+  tealdeer:
+  wget:
+  yazi:
+    pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
+  zoxide:
 
-  gui:
-    altsnap:
-      scoop: "altsnap"
-      "*": null
-    ditto:
-      scoop: "ditto"
-      "*": null
-    kitty:
-      scoop: "konsole-nightly"
-    process-explorer:
-      scoop: "process-explorer"
-      "*": null
-    qalculate:
-      apk: "qalculate-gtk"
-      apt: "qalculate-gtk"
-      pacman: "qalculate-gtk"
-    zed:
-      pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
-    zen-browser-bin:
-      scoop: "zen-browser"
+  spice-vdagent:
+    __kvmGuest__:
+    scoop: "virtio-guest-tools"
+  virtualbox-guest-utils:
+    __oracleGuest__:
+    apk: "virtualbox-guest-additions virtualbox-guest-additions-x11"
+    scoop: null
 
-  guiGnome:
-    gnome:
-      pacman: "gdm gnome-shell gnome-control-center"
-      apt: "gdm3 gnome-shell gnome-control-center"
-      apk: "gdm gnome-shell gnome-control-center"
-      scoop: null
+  altsnap:
+    __gui__:
+    scoop: "altsnap"
+    "*": null
+  ditto:
+    __gui__:
+    scoop: "ditto"
+    "*": null
+  kitty:
+    __gui__:
+    scoop: "konsole-nightly"
+  process-explorer:
+    __gui__:
+    scoop: "process-explorer"
+    "*": null
+  qalculate:
+    __gui__:
+    apk: "qalculate-gtk"
+    apt: "qalculate-gtk"
+    pacman: "qalculate-gtk"
+    scoop: null
+  zed:
+    __gui__:
+    pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
+  zen-browser-bin:
+    __gui__:
+    scoop: "zen-browser"
 
-  kvmGuest:
-    spice-vdagent:
-      scoop: "virtio-guest-tools"
-
-  oracleGuest:
-    virtualbox-guest-utils:
-      apk: "virtualbox-guest-additions virtualbox-guest-additions-x11"
-      scoop: null
+  gnome:
+    __gnome__:
+    pacman: "gdm gnome-shell gnome-control-center"
+    apt: "gdm3 gnome-shell gnome-control-center"
+    apk: "gdm gnome-shell gnome-control-center"
+    scoop: null

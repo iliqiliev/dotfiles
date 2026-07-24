@@ -1,24 +1,24 @@
 {{ $packageManager := index .packageManagers .distro -}}
-{{ $requestedPackages := .packages.base -}}
 {{ $finalPackages := list -}}
 
-{{ if .manageGui -}}
-{{   $requestedPackages = merge $requestedPackages .packages.gui -}}
-{{   if .installGnome -}}
-{{     $requestedPackages = merge $requestedPackages .packages.guiGnome -}}
+{{ $isNotContainer := not (env "container") -}}
+{{ $filters := dict
+     "__kvmGuest__" (and ($isNotContainer) (contains "Standard PC" .productName))
+     "__oracleGuest__" (and ($isNotContainer) (eq "VirtualBox" .productName))
+     "__gui__" (.manageGui)
+     "__gnome__" (and (.manageGui) (.installGnome))
+-}}
+
+{{ range $package, $overrides := .packages -}}
+{{   if kindIs "invalid" $overrides -}}
+{{     $finalPackages = append $finalPackages $package -}}
+{{     continue -}}
 {{   end -}}
-{{ end -}}
-
-{{ if env "container" -}}
-{{/* This comment acts as NOOP. Do not install VM guest packages in containers. */}}
-{{ else if contains "Standard PC" .productName -}}
-{{   $requestedPackages = merge $requestedPackages .packages.kvmGuest -}}
-{{ else if eq .productName "VirtualBox" -}}
-{{   $requestedPackages = merge $requestedPackages .packages.oracleGuest -}}
-{{ end -}}
-
-{{ range $package, $overrides := $requestedPackages -}}
-{{   $overrides = $overrides | default dict -}}
+{{   $skip := false -}}
+{{   range $filter, $value := $filters -}}
+{{     if and (hasKey $overrides $filter) (not $value) }}{{ $skip = true }}{{ end -}}
+{{   end -}}
+{{   if $skip }}{{ continue }}{{ end -}}
 {{   if hasKey $overrides $packageManager -}}
 {{     $package = index $overrides $packageManager -}}
 {{   else if hasKey $overrides "*" -}}
