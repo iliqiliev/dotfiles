@@ -11,8 +11,7 @@
 
 {{ range $package, $overrides := .packages -}}
 {{   if kindIs "invalid" $overrides -}}
-{{     $finalPackages = append $finalPackages $package -}}
-{{     continue -}}
+{{     $finalPackages = append $finalPackages $package }}{{ continue -}}
 {{   end -}}
 {{   $skip := false -}}
 {{   range $filter, $value := $filters -}}
