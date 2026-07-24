@@ -20,6 +20,7 @@ build-backend = "uv_build"
 reportUnusedCallResult = false
 
 [tool.ruff]
+extension = { "py.tmpl" = "python" }
 lint.ignore = [
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
 ]
