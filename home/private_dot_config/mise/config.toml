@@ -50,3 +50,4 @@ version = "latest"
 [settings]
 cargo.binstall_only = true
 cargo.binstall_quickinstall = true
+minimum_release_age_excludes = ["ruff", "ty", "uv"]
