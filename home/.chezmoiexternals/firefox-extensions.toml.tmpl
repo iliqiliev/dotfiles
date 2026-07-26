@@ -1,27 +1,21 @@
 {{ $mozillaAddons := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
 
+{{ $filters := dict
+     "__personal__" (.isPersonal)
+     "__noWork__" (not .isWork)
+-}}
 
-["{{ $extensionsPath }}/uBlock0@raymondhill.net.xpi"]
+{{ range $name, $info := .firefoxExtensions -}}
+{{   $skip := false -}}
+{{   range $filter, $value := $filters -}}
+{{     if and (hasKey $info $filter) (not $value) }}{{ $skip = true }}{{ end -}}
+{{   end -}}
+{{   if $skip }}{{ continue }}{{ end -}}
+
+# {{ $info.pretty }}
+["{{ $extensionsPath }}/{{ $info.file }}"]
 type = "file"
-url = "{{ $mozillaAddons }}/ublock-origin/latest.xpi"
+url = "{{ $mozillaAddons }}/{{ $name }}/latest.xpi"
 
-{{- if .isPersonal }}
-
-{{- if not .isWork }}
-
-["{{ $extensionsPath }}/78272b6fa58f4a1abaac99321d503a20@proton.me.xpi"]
-type = "file"
-url = "{{ $mozillaAddons }}/proton-pass/latest.xpi"
-
-{{- end }}
-
-["{{ $extensionsPath }}/jid1-xUfzOsOFlzSOXg@jetpack.xpi"]
-type = "file"
-url = "{{ $mozillaAddons }}/reddit-enhancement-suite/latest.xpi"
-
-["{{ $extensionsPath }}/{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}.xpi"]
-type = "file"
-url = "{{ $mozillaAddons }}/old-reddit-redirect/latest.xpi"
-
-{{- end }}
+{{ end -}}
