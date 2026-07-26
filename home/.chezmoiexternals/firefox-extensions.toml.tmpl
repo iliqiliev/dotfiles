@@ -12,9 +12,11 @@
 {{     if and (hasKey $info $filter) (not $value) }}{{ $skip = true }}{{ end -}}
 {{   end -}}
 {{   if $skip }}{{ continue }}{{ end -}}
+{{   $extensionFullPath := joinPath $extensionsPath $info.file -}}
+{{   if stat $extensionFullPath }}{{ continue }}{{ end -}}
 
 # {{ $info.pretty }}
-["{{ $extensionsPath }}/{{ $info.file }}"]
+["{{ $extensionFullPath }}"]
 type = "file"
 url = "{{ $mozillaAddons }}/{{ $name }}/latest.xpi"
 
