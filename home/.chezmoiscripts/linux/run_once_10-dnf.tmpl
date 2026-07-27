@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# vim: filetype=sh
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if or (eq (lookPath "dnf") "") (eq .sudo "false") -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+set -eu
+
+# shellcheck source=helpers/helpers.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+
+AVAILABLE_PACKAGES=$(
+    comm -12 \
+        <(dnf repoquery --queryformat "%{name}\n") \
+        <(tr " " "\n" <<<'# {{ template "packages" . }}')
+)
+
+print_blue "Installing dnf packages ..."
+# shellcheck disable=2086
+$CHEZ_SUDO dnf install -y $AVAILABLE_PACKAGES
+print_green "Packages installed successfully."
