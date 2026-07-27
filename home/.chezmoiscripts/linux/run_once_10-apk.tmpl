@@ -30,5 +30,5 @@ AVAILABLE_PACKAGES=$(
 
 print_blue "Installing apk packages ..."
 # shellcheck disable=2086
-$CHEZ_SUDO apk add $AVAILABLE_PACKAGES
+$CHEZ_SUDO apk add -- $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."

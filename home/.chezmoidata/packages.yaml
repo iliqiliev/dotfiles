@@ -7,6 +7,7 @@ packages:
   chsh:
     apk: "shadow"
     apt: "passwd"
+    dnf: "util-linux"
     pacman: "util-linux"
     scoop: null
   coreutils:
@@ -17,6 +18,7 @@ packages:
   fastfetch:
   fd:
     apt: "fd-find"
+    dnf: "fd-find"
   fish:
     scoop: null
   fzf:

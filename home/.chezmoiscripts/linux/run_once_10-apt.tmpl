@@ -34,5 +34,5 @@ AVAILABLE_PACKAGES=$(
 
 print_blue "Installing apt packages ..."
 # shellcheck disable=2086
-$CHEZ_SUDO apt install -y $AVAILABLE_PACKAGES
+$CHEZ_SUDO apt install -y -- $AVAILABLE_PACKAGES
 print_green "Packages installed successfully."
