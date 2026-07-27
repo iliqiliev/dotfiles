@@ -12,5 +12,5 @@ set -eu
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
 print_blue "Installing dnf packages ..."
-$CHEZ_SUDO dnf install -y --skip-unavailable -- # {{ template "packages" . }}
+$CHEZ_SUDO dnf install -y --skip-unavailable # {{ template "packages" . }}
 print_green "Packages installed successfully."
