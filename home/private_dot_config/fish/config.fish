@@ -11,21 +11,15 @@ fish_add_path \
     $HOME/.local/share/mise/shims \
     /var/lib/flatpak/exports/bin
 
-# Set and configure default pager.
+# `less` variables.
 set --export PAGER less
 set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
 
-# Set `EDITOR` and related variables if `neovim` is installed.
+# `neovim` variables.
 if command --query nvim
     set --export EDITOR nvim
     set --export MANPAGER nvim +Man!
     set --export SUDO_EDITOR (command --search nvim)
-
-    if not set --query VIMRUNTIME; or not test -d "$VIMRUNTIME"
-        # @fish-lsp-disable-next-line 2003
-        set -Ux VIMRUNTIME (nvim --clean --headless --cmd 'echo $VIMRUNTIME|q' 2>&1)
-    end
-
 end
 
 # Source configs for interactive sessions.
