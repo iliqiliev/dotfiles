@@ -1,7 +1,8 @@
 [bootstrap.packages]
-"apk:build-base" = "latest"  # `tree-sitter` needs `cc`.
-"apt:gcc" = "latest"  # `tree-sitter` needs `cc`.
-"pacman:gcc" = "latest"  # `tree-sitter` needs `cc`.
+# `tree-sitter` needs a C compiler.
+"apk:build-base" = "latest"
+"apt:gcc" = "latest"
+"pacman:gcc" = "latest"
 
 [env]
 HOME = { default = "$USERPROFILE" }
@@ -15,7 +16,6 @@ XDG_STATE_HOME = "$HOME/.local/state"
 bashls = "npm:bash-language-server"
 fish-lsp = "npm:fish-lsp"
 tclint = "pipx:tclint"
-fish = "aqua:fish-shell/fish-shell"  # Unused.
 
 [tools]
 node = "latest"
