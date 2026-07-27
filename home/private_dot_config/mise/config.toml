@@ -13,13 +13,11 @@ XDG_STATE_HOME = "$HOME/.local/state"
 
 [tool_alias]
 bashls = "npm:bash-language-server"
-brush = "cargo:brush-shell"
 fish-lsp = "npm:fish-lsp"
 tclint = "pipx:tclint"
 fish = "aqua:fish-shell/fish-shell"  # Unused.
 
 [tools]
-cargo-binstall = "latest"
 node = "latest"
 lua-language-server = "latest"
 ruff = "latest"
@@ -36,11 +34,6 @@ usage = "latest"
 depends = "node"
 version = "latest"
 
-[tools.brush]
-depends = "cargo-binstall"
-os = ["windows"]
-version = "latest"
-
 [tools.fish-lsp]
 depends = "node"
 os = ["linux"]
@@ -51,6 +44,5 @@ uvx_args = "--quiet"
 version = "latest"
 
 [settings]
-cargo.binstall_only = true
-cargo.binstall_quickinstall = true
 minimum_release_age_excludes = ["ruff", "ty", "uv"]
+node.compile = false

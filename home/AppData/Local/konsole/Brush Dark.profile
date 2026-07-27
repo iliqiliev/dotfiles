@@ -3,7 +3,7 @@ ColorScheme=Adwaita Dark
 Font=AdwaitaMono Nerd Font Mono,12
 
 [General]
-Command=$XDG_DATA_HOME/mise/shims/brush.exe --rcfile $USERPROFILE/.config/bash/bashrc
+Command~/.local/bin/brush.exe --rcfile ~/.config/bash/bashrc
 Directory=$USERPROFILE
 Environment=TERM=xterm-256color,COLORTERM=truecolor,BAT_THEME=Monokai Extended
 Name=Brush Dark
