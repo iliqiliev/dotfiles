@@ -15,7 +15,6 @@
 from ctypes import WinDLL
 from pathlib import Path
 from subprocess import run
-from sys import exit as sys_exit
 from typing import cast
 
 from requests import get as requests_get
@@ -104,7 +103,7 @@ if user_packages:
 
     run((SCOOP, "install", "--no-update-scoop", *sorted(user_packages)), check=True)
     if check_installed(user_packages) is False:
-        sys_exit(1)
+        raise SystemExit(1)
 
     rich_print("[bright_green]Packages installed successfully.")
 
@@ -115,7 +114,7 @@ if sudo_packages:
     cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sorted(sudo_packages))
     run(cmd, check=True)
     if check_installed(sudo_packages) is False:
-        sys_exit(1)
+        raise SystemExit(1)
 
     rich_print("[bright_green]Admin packages installed successfully")
 # {{ end -}}

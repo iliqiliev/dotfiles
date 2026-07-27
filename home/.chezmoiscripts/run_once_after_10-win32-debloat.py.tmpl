@@ -18,7 +18,6 @@
 # {{ end -}}
 
 from asyncio import run as asyncio_run
-from sys import exit as sys_exit
 
 from rich import print as rich_print
 from rich.prompt import Confirm
@@ -92,7 +91,7 @@ async def main() -> None:
 
     if removed == 0:
         rich_print("[bright_green]No packages to debloat. :)")
-        sys_exit(0)
+        raise SystemExit(0)
 
     rich_print(f"[bright_green]{removed} packages debloated.")
 

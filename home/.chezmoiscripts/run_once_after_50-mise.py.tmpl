@@ -14,7 +14,6 @@
 
 from shutil import which
 from subprocess import DEVNULL, PIPE, run
-from sys import exit as sys_exit
 
 from rich import print as rich_print
 
@@ -24,8 +23,8 @@ mise: str = "[i][link=https://mise.jdx.dev/]mise[/link][/i]"
 rich_print(f"[bright_blue]Installing development tools using {mise} ...")
 
 if which("mise") is None:
-    rich_print(f"[bright_red]{mise} is not installed. Abborting ...")
-    sys_exit(0)
+    rich_print(f"[bright_red]{mise} is not installed. Exiting ...")
+    raise SystemExit(1)
 
 rich_print(f"[bright_blue]Checking for new {mise} version ...")
 
