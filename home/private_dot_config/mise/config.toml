@@ -1,7 +1,8 @@
 [bootstrap.packages]
 # `tree-sitter` needs a C compiler.
-"apk:build-base" = "latest"
+"apk:gcc" = "latest"
 "apt:gcc" = "latest"
+"dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
 
 [env]
