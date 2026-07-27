@@ -2,7 +2,7 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if not (has .distro (list "android" "debian" "ubuntu")) -}}
+# {{ if or (eq (lookPath "apt") "") (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
@@ -10,10 +10,6 @@ set -eu
 
 # shellcheck source=helpers/helpers.sh
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
-
-if test "$CHEZ_SUDO" = "false"; then
-    exit 0
-fi
 
 # Disable interactive prompts.
 export DEBIAN_FRONTEND="noninteractive"
