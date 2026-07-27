@@ -12,7 +12,7 @@
 {{     if and (hasKey $info $filter) (not $value) }}{{ $skip = true }}{{ end -}}
 {{   end -}}
 {{   if $skip }}{{ continue }}{{ end -}}
-{{   $extensionFullPath := joinPath $extensionsPath $info.file -}}
+{{   $extensionFullPath := print $extensionsPath "/" $info.file -}}
 {{   if stat $extensionFullPath }}{{ continue }}{{ end -}}
 
 # {{ $info.pretty }}

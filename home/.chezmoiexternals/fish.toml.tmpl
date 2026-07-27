@@ -1,11 +1,20 @@
+{{ $arch := "" -}}
+
 {{ if ne .os "linux" -}}
 {{   abortEmpty -}}
 {{ end -}}
 
 {{ $fish := "/usr/bin/fish" -}}
 {{ $VersionCheckCmd := "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4" -}}
-
 {{ if and (lookPath $fish) (exec $fish "-c" $VersionCheckCmd) -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+{{ if eq .chezmoi.arch "amd64" -}}
+{{   $arch = "x86_64" -}}
+{{ else if eq .chezmoi.arch "arm64" -}}
+{{   $arch = "aarch64" -}}
+{{ else -}}
 {{   abortEmpty -}}
 {{ end -}}
 
@@ -13,6 +22,6 @@
 type = "archive-file"
 path = "fish"
 executable = true
-{{ $asset := printf "fish-*-linux-%s.tar.xz" (output "uname" "--machine" | trim) -}}
+{{ $asset := print "fish-*-linux-" $arch ".tar.xz" -}}
 url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
 refreshPeriod = "672h"

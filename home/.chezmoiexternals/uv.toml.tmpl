@@ -28,5 +28,5 @@ targetPath = ".local/bin"
 type = "archive"
 stripComponents = {{ $components }}
 executable = true
-{{ $asset := printf "uv-%s-*-%s-%s.%s" $arch .os $libc $ext -}}
+{{ $asset := print "uv-" $arch "-*-" .os "-" $libc "." $ext -}}
 url = "{{ gitHubLatestReleaseAssetURL "astral-sh/uv" $asset }}"

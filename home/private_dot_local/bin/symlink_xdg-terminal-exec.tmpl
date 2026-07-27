@@ -21,7 +21,7 @@
 }}
 
 {{- range $gnomeHardcodedTerminals }}
-{{-   if stat (printf "/usr/bin/%s" .) }}
+{{-   if stat (print "/usr/bin/" .) }}
 {{-     abortEmpty }}
 {{-   end }}
 {{- end }}

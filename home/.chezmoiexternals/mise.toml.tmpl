@@ -23,7 +23,7 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ $asset := printf "mise-v*.*.*-%s-%s%s.%s" .os $arch $libc $ext -}}
+{{ $asset := print "mise-v*.*.*-" .os "-" $arch $libc "." $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
 
 [".local/bin/{{ $mise }}"]
