@@ -3,5 +3,6 @@ packageManagers:
   android: apt
   arch: pacman
   debian: apt
+  fedora: dnf
   ubuntu: apt
   windows: scoop
