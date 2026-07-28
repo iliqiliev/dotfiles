@@ -35,6 +35,7 @@ set --export ANDROID_SDK_ROOT $XDG_DATA_HOME/android
 set --export ADB_VENDOR_KEYS $XDG_DATA_HOME/android
 set --export CARGO_HOME $XDG_DATA_HOME/cargo
 set --export GNUPGHOME $XDG_DATA_HOME/gnupg
+set --export KODI_DATA $XDG_DATA_HOME/kodi
 set --export RUSTUP_HOME $XDG_DATA_HOME/rustup
 set --export TERMINFO $XDG_DATA_HOME/terminfo
 set --export --path TERMINFO_DIRS $TERMINFO /usr/share/terminfo
