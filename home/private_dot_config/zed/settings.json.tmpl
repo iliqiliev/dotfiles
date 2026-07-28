@@ -75,13 +75,15 @@
     "Python": { "language_servers": ["ty", "ruff"] },
     "TOML": { "tab_size": 2 },
     "TCL": {
-      "formatter": {
-        "external": {
-          "command": "tclfmt",
-          "arguments": ["-", "--indent", "4"],
-        },
-      },
+      "formatter": "language_server",
+      "language_servers": ["typescript-language-server"],
     },
+  },
+
+  "lsp": {
+    // Stole an unused LSP for `tclint` because Zed does not support custom LSPs:
+    // https://github.com/zed-industries/zed/discussions/24092
+    "typescript-language-server": { "binary": { "path": "tclsp" } },
   },
 
   // Version control.
