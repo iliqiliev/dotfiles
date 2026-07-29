@@ -1,6 +1,20 @@
 # Use 'chezmoi cat-config' to preview this file.
 
 [data]
+{{ $os := .chezmoi.os | lower | replace "android" "linux" -}}
+{{ if not (has $os (list "linux" "windows")) -}}
+{{   writeToStdout (println "Dotfiles: unsupported OS:" $os) -}}
+{{   exit 1 -}}
+{{ else if not (has .chezmoi.arch (list "amd64" "arm64")) -}}
+{{   writeToStdout (println "Dotfiles: unsupported architecture:" .chezmoi.arch) -}}
+{{   exit 1 -}}
+{{ end -}}
+os = "{{ $os }}"
+{{ $distro := coalesce (get .chezmoi.osRelease "idLike")
+                       (get .chezmoi.osRelease "id")
+                       (.chezmoi.os)
+                       | splitList " " | last | lower -}}
+distro = "{{ $distro }}"
 {{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
 isPersonal = {{ $isPersonal }}
 {{ $isWork := and ($isPersonal) (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
@@ -13,13 +27,6 @@ isWork = {{ $isWork }}
 {{ end -}}
 name = "{{ $name }}"
 email = "{{ $email }}"
-{{ $os := .chezmoi.os | lower | replace "android" "linux" -}}
-os = "{{ $os }}"
-{{ $distro := coalesce (get .chezmoi.osRelease "idLike")
-                       (get .chezmoi.osRelease "id")
-                       (.chezmoi.os)
-                       | splitList " " | last | lower -}}
-distro = "{{ $distro }}"
 {{ $manageGui := and (ne $distro "android")
                      (env "container" | eq "")
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
