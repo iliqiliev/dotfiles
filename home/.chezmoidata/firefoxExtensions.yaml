@@ -4,17 +4,16 @@ firefoxExtensions:
     pretty: "uBlock Origin"
 
   proton-pass:
-    __personal__:
-    __noWork__:
+    __tags__: ["no-work", "personal"]
     file: "78272b6fa58f4a1abaac99321d503a20@proton.me.xpi"
     pretty: "Proton Pass"
 
   reddit-enhancement-suite:
-    __personal__:
+    __tags__: ["personal"]
     file: "jid1-xUfzOsOFlzSOXg@jetpack.xpi"
     pretty: "Reddit Enhancement Suite"
 
   old-reddit-redirect:
-    __personal__:
+    __tags__: ["personal"]
     file: "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}.xpi"
     pretty: "Old Reddit Redirect"
