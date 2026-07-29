@@ -50,6 +50,7 @@ packages:
   virtualbox-guest-utils:
     __tags__: ["linux", "oracle-guest"]
     apk: virtualbox-guest-additions
+    dnf: virtualbox-guest-additions
   virtualbox-guest-utils-gui:
     __tags__: ["gui", "linux", "oracle-guest"]
     apk: "virtualbox-guest-additions-x11"
@@ -61,9 +62,10 @@ packages:
     __tags__: ["gui", "windows"]
   gnome:
     __tags__: ["gnome", "gui", "linux"]
-    pacman: "gdm gnome-shell gnome-control-center"
-    apt: "gdm3 gnome-shell gnome-control-center"
     apk: "gdm gnome-shell gnome-control-center"
+    apt: "gdm3 gnome-shell gnome-control-center"
+    dnf: "gdm gnome-shell gnome-control-center"
+    pacman: "gdm gnome-shell gnome-control-center"
   kitty:
     __tags__: ["gui"]
     scoop: "konsole-nightly"
