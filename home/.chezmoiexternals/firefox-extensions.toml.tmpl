@@ -8,7 +8,7 @@
 
 {{ range $name, $info := .firefoxExtensions -}}
 {{   $skip := false -}}
-{{   range $tag := index $overrides "__tags__" -}}
+{{   range $tag := index $info "__tags__" -}}
 {{     if not (index $filters $tag) }}{{ $skip = true }}{{ end -}}
 {{   end -}}
 {{   if $skip }}{{ continue }}{{ end -}}
