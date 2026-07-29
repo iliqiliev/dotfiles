@@ -69,6 +69,8 @@ packages:
   kitty:
     __tags__: ["gui"]
     scoop: "konsole-nightly"
+  kodi:
+    __tags__: ["gui", "linux"]
   process-explorer:
     __tags__: ["gui", "windows"]
   qalculate-gtk:
