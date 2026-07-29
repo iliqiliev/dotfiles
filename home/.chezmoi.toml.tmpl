@@ -91,7 +91,7 @@ pager = "{{ and (lookPath "delta") "delta" }}"
 [env]
 {{ $localBin := joinPath .chezmoi.homeDir ".local/bin" -}}
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
-{{ $pathList := prepend $pathList $localBin -}}
+{{ $pathList = prepend $pathList $localBin -}}
 CHEZ_SUDO = "{{ $sudo }}"
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
@@ -107,8 +107,7 @@ args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
 [interpreters.fish]
 command = 'sh'
 args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
-
-{{ end -}}
+{{ "\n" }}{{ end -}}
 
 [interpreters.py]
 command = "uv"
