@@ -54,16 +54,16 @@ manageGui = {{ $manageGui }}
 sudo = "{{ $sudo }}"
 useSudo = {{ $useSudo }}
 {{ if eq $os "linux" -}}
-{{   $gnomeInstalled := lookPath "gnome-shell" | ne "" -}}
-{{   $installGnome := and $manageGui $useSudo (or ($gnomeInstalled) (promptBoolOnce . "installGnome" "Install Gnome desktop" false)) -}}
-installGnome = {{ $installGnome }}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
-productName = "{{ and (stat $productFile | default "") (include $productFile) | trim -}}"
+     productName = "{{ and (stat $productFile | default "") (include $productFile) | trim -}}"
 {{ else if eq $os "windows" -}}
-{{   $args := list "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" -}}
-productName = "{{ outputList "powershell" $args | trim -}}"
+     productName = "{{ output "powershell" "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" | trim -}}"
 {{ end -}}
-{{ "\n" -}}
+{{ $manageGnome := and (eq $os "linux")
+                       ($manageGui)
+                       (or (eq $sudo "") ($useSudo))
+                       (or (ne (lookPath "gnome-shell") "") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
+manageGnome = {{ $manageGnome }}
 
 [data.fonts]
 {{ $vertRes := 0 -}}

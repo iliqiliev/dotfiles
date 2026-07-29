@@ -3,7 +3,7 @@
 
 {{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
-     "gnome" (.installGnome)
+     "gnome" (.manageGnome)
      "gui" (.manageGui)
      "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
      "linux" (eq .os "linux")
