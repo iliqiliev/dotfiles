@@ -1,30 +1,31 @@
 # Use 'chezmoi cat-config' to preview this file.
 
+[data]
+{{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
+isPersonal = {{ $isPersonal }}
+{{ $isWork := and ($isPersonal) (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
+isWork = {{ $isWork }}
 {{ $name := "Iliya Iliev" -}}
 {{ $email := "iliq0000@proton.me" -}}
-{{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
-{{ $isWork := and ($isPersonal) (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
 {{ if not $isPersonal -}}
 {{   $email = promptStringOnce . "email" "Email (for git)" "" -}}
 {{   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) -}}
 {{ end -}}
-
-{{ $os := .chezmoi.os | lower -}}
-{{ if eq $os "android" -}}
-{{   $os = "linux" -}}
-{{ end -}}
-
+name = "{{ $name }}"
+email = "{{ $email }}"
+{{ $os := .chezmoi.os | lower | replace "android" "linux" -}}
+os = "{{ $os }}"
 {{ $distro := coalesce (get .chezmoi.osRelease "idLike")
                        (get .chezmoi.osRelease "id")
                        (.chezmoi.os)
                        | splitList " " | last | lower -}}
-
+distro = "{{ $distro }}"
 {{ $manageGui := and (ne $distro "android")
                      (env "container" | eq "")
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
-
-{{ $useSudo := false -}}{{/* useSudo is for caching the answer to promptBoolOnce */ -}}
+manageGui = {{ $manageGui }}
 {{ $sudo := "su root -c" -}}
+{{ $useSudo := false -}}{{/* useSudo is for caching the answer to promptBoolOnce */ -}}
 {{ if or (eq .chezmoi.uid "0") (hasSuffix "-500" .chezmoi.uid) (eq $distro "android") -}}
 {{   $sudo = "" -}}
 {{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
@@ -39,7 +40,8 @@
 {{ else -}}
 {{   $sudo = "false" -}}
 {{ end -}}
-
+sudo = "{{ $sudo }}"
+useSudo = {{ $useSudo }}
 {{ $installGnome := false -}}
 {{ $productName := "" -}}
 {{ $verticalResolution := 0 -}}
@@ -56,20 +58,7 @@
 {{   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
 {{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
 {{ end -}}
-
-tempDir = "{{ env "XDG_RUNTIME_DIR" | default "~/.cache" }}"
-
-[data]
-isPersonal = {{ $isPersonal }}
-isWork = {{ $isWork }}
-name = "{{ $name }}"
-email = "{{ $email }}"
-os = "{{ $os }}"
-distro = "{{ $distro }}"
-manageGui = {{ $manageGui }}
-sudo = "{{ $sudo }}"
-useSudo = {{ $useSudo }}
-installGnome = {{ $installGnome }} # Linux only
+installGnome = {{ $installGnome }}
 productName = "{{ $productName }}"
 
 [data.fonts]
