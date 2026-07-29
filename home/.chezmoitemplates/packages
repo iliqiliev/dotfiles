@@ -3,10 +3,12 @@
 
 {{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
-     "__kvmGuest__" (and ($isNotContainer) (contains "Standard PC" .productName))
-     "__oracleGuest__" (and ($isNotContainer) (eq "VirtualBox" .productName))
-     "__gui__" (.manageGui)
-     "__gnome__" (and (.manageGui) (.installGnome))
+     "gnome" (.installGnome)
+     "gui" (.manageGui)
+     "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
+     "linux" (eq .os "linux")
+     "oracle-guest" (and ($isNotContainer) (eq "VirtualBox" .productName))
+     "windows" (eq .os "windows")
 -}}
 
 {{ range $package, $overrides := .packages -}}
@@ -14,8 +16,8 @@
 {{     $finalPackages = append $finalPackages $package }}{{ continue -}}
 {{   end -}}
 {{   $skip := false -}}
-{{   range $filter, $value := $filters -}}
-{{     if and (hasKey $overrides $filter) (not $value) }}{{ $skip = true }}{{ end -}}
+{{   range $tag := index $overrides "__tags__" -}}
+{{     if not (index $filters $tag) }}{{ $skip = true }}{{ end -}}
 {{   end -}}
 {{   if $skip }}{{ continue }}{{ end -}}
 {{   if hasKey $overrides $packageManager -}}

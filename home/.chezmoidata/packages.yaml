@@ -1,14 +1,14 @@
 packages:
   bash:
-    scoop: null
+    __tags__: ["linux"]
   bat:
   btop:
   chezmoi:
   chsh:
+    __tags__: ["linux"]
     apk: "shadow"
     apt: "passwd"
     pacman: "util-linux"
-    scoop: null
   coreutils:
     scoop: "uutils-coreutils"
   cowsay:
@@ -18,7 +18,7 @@ packages:
   fd:
     apt: "fd-find"
   fish:
-    scoop: null
+    __tags__: ["linux"]
   fzf:
   grep:
   git:
@@ -26,18 +26,18 @@ packages:
     apk: "delta"
     scoop: "delta"
   kitty-terminfo:
-    scoop: null
+    __tags__: ["linux"]
   less:
   neovim:
   ripgrep:
   scoop:
+    __tags__: ["windows"]
     scoop: "sfsu vcredist-aio"
-    "*": null
   starship:
   sudo:
     scoop: "gsudo"
   tar:
-    scoop: null
+    __tags__: ["linux"]
   tealdeer:
   wget:
   yazi:
@@ -45,44 +45,36 @@ packages:
   zoxide:
 
   spice-vdagent:
-    __kvmGuest__:
+    __tags__: ["kvm-guest"]
     scoop: "virtio-guest-tools"
   virtualbox-guest-utils:
-    __oracleGuest__:
-    apk: "virtualbox-guest-additions virtualbox-guest-additions-x11"
-    scoop: null
+    __tags__: ["linux", "oracle-guest"]
+    apk: virtualbox-guest-additions
+  virtualbox-guest-utils-gui:
+    __tags__: ["gui", "linux", "oracle-guest"]
+    apk: "virtualbox-guest-additions-x11"
+    "*": null
 
   altsnap:
-    __gui__:
-    scoop: "altsnap"
-    "*": null
+    __tags__: ["gui", "windows"]
   ditto:
-    __gui__:
-    scoop: "ditto"
-    "*": null
-  kitty:
-    __gui__:
-    scoop: "konsole-nightly"
-  process-explorer:
-    __gui__:
-    scoop: "process-explorer"
-    "*": null
-  qalculate:
-    __gui__:
-    apk: "qalculate-gtk"
-    apt: "qalculate-gtk"
-    pacman: "qalculate-gtk"
-    scoop: null
-  zed:
-    __gui__:
-    pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
-  zen-browser-bin:
-    __gui__:
-    scoop: "zen-browser"
-
+    __tags__: ["gui", "windows"]
   gnome:
-    __gnome__:
+    __tags__: ["gnome", "gui", "linux"]
     pacman: "gdm gnome-shell gnome-control-center"
     apt: "gdm3 gnome-shell gnome-control-center"
     apk: "gdm gnome-shell gnome-control-center"
-    scoop: null
+  kitty:
+    __tags__: ["gui"]
+    scoop: "konsole-nightly"
+  process-explorer:
+    __tags__: ["gui", "windows"]
+  qalculate-gtk:
+    __tags__: ["gui"]
+    scoop: "qalculate"
+  zed:
+    __tags__: ["gui"]
+    pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
+  zen-browser-bin:
+    __tags__: ["gui"]
+    scoop: "zen-browser"
