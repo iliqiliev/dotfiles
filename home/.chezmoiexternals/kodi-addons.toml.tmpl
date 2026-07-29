@@ -1,0 +1,9 @@
+{{ if or (ne .os "linux") (not .manageGui) -}}
+{{   abortEmpty }}
+{{ end -}}
+
+[".local/share/kodi/addons"]
+type = "archive"
+{{ $asset := "repository.elementumorg-*.*.*.zip" -}}
+url = "{{ gitHubLatestReleaseAssetURL "ElementumOrg/repository.elementumorg" $asset }}"
+refreshPeriod = "672h"

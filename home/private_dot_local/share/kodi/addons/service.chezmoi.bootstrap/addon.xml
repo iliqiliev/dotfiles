@@ -10,9 +10,10 @@
   </requires>
   <extension point="xbmc.service" library="service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
-    <summary
-            lang="en"
-        >Installs Elementum from its official repository if it is missing.</summary>
     <platform>all</platform>
+    <website>https://github.com/iliqiliev/dotfiles</website>
+    <source>https://github.com/iliqiliev/dotfiles</source>
+    <summary lang="en">Chezmoi dotfiles bootstrap.</summary>
+    <description lang="en">Install necessary addons on Kodi startup.</description>
   </extension>
 </addon>
