@@ -17,7 +17,12 @@ ADDONS = [
 ]
 
 
-executebuiltin("UpdateAddonRepos")
+def main() -> None:
+    executebuiltin("UpdateAddonRepos")
 
-for addon_id in filter(lambda addon: not is_installed(addon), ADDONS):
-    executebuiltin(f"InstallAddon({addon_id})")
+    for addon_id in filter(lambda addon: not is_installed(addon), ADDONS):
+        executebuiltin(f"InstallAddon({addon_id})")
+
+
+if __name__ == "__main__":
+    main()
