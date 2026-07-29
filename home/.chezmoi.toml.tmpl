@@ -53,27 +53,28 @@ manageGui = {{ $manageGui }}
 {{ end -}}
 sudo = "{{ $sudo }}"
 useSudo = {{ $useSudo }}
-{{ $installGnome := false -}}
-{{ $productName := "" -}}
-{{ $verticalResolution := 0 -}}
 {{ if eq $os "linux" -}}
 {{   $gnomeInstalled := lookPath "gnome-shell" | ne "" -}}
-{{   $installGnome = and $manageGui $useSudo (or ($gnomeInstalled) (promptBoolOnce . "installGnome" "Install Gnome desktop" false)) -}}
-{{   $cmdArgs := list "-c" "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" -}}
-{{   $verticalResolution = outputList "sh" $cmdArgs | trim | atoi -}}
-{{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
-{{   $productName = and (stat $productFile | default "") (include $productFile) | trim -}}
-{{ else if eq $os "windows" -}}
-{{   $cmdArgs := list "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" -}}
-{{   $productName = outputList "powershell" $cmdArgs | trim -}}
-{{   $cmdArgs := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
-{{   $verticalResolution = outputList "powershell" $cmdArgs | trim | atoi -}}
-{{ end -}}
+{{   $installGnome := and $manageGui $useSudo (or ($gnomeInstalled) (promptBoolOnce . "installGnome" "Install Gnome desktop" false)) -}}
 installGnome = {{ $installGnome }}
-productName = "{{ $productName }}"
+{{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
+productName = "{{ and (stat $productFile | default "") (include $productFile) | trim -}}"
+{{ else if eq $os "windows" -}}
+{{   $args := list "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" -}}
+productName = "{{ outputList "powershell" $args | trim -}}"
+{{ end -}}
+{{ "\n" -}}
 
 [data.fonts]
+{{ $verticalResolution := 0 -}}
 {{ $size := 0 -}}
+{{ if eq $os "linux" -}}
+{{   $args := list "-c" "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" -}}
+{{   $verticalResolution = outputList "sh" $args | trim | atoi -}}
+{{ else if eq $os "windows" -}}
+{{   $args := list "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
+{{   $verticalResolution = outputList "powershell" $args | trim | atoi -}}
+{{ end -}}
 {{ if gt $verticalResolution 1080 -}}
 {{ $size = 20 -}}
 {{ else if or (gt $verticalResolution 800) (eq $verticalResolution 0) -}}
