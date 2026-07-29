@@ -2,7 +2,7 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (eq (lookPath "dnf") "") (eq .sudo "false") -}}
+# {{ if or (eq (lookPath "dnf") "") (not .useSudo) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 

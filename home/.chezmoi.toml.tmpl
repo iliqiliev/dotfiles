@@ -51,7 +51,6 @@ manageGui = {{ $manageGui }}
 {{   $sudo = "false" -}}
 {{   $useSudo = false -}}
 {{ end -}}
-sudo = "{{ $sudo }}"
 useSudo = {{ $useSudo }}
 {{ if eq $os "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
