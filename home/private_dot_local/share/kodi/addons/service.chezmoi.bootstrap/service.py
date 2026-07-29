@@ -1,4 +1,4 @@
-from xbmc import executebuiltin
+from xbmc import Monitor, executebuiltin
 from xbmcaddon import Addon
 
 
@@ -10,7 +10,9 @@ def is_installed(addon_id: str) -> bool:
         return False
 
 
-ADDONS = [
+ELEMENTUM_REPO_ID = "repository.elementumorg"
+
+ELEMENTUM_ADDONS = [
     "plugin.video.elementum",
     "script.elementum.burst",
     "context.elementum",
@@ -18,10 +20,16 @@ ADDONS = [
 
 
 def main() -> None:
-    executebuiltin("UpdateAddonRepos")
+    """Installs Elementum addons."""
+    monitor = Monitor()
 
-    for addon_id in filter(lambda addon: not is_installed(addon), ADDONS):
+    monitor.waitForAbort(3)
+    executebuiltin("UpdateAddonRepos")
+    monitor.waitForAbort(3)
+
+    for addon_id in filter(lambda addon: not is_installed(addon), ELEMENTUM_ADDONS):
         executebuiltin(f"InstallAddon({addon_id})")
+        monitor.waitForAbort(3)
 
 
 if __name__ == "__main__":
