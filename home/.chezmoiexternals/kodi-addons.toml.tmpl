@@ -2,16 +2,8 @@
 {{   abortEmpty }}
 {{ end -}}
 
-{{ $arch := "" -}}
+{{ $arch := includeTemplate "archShort" . -}}
 {{ $addonPath := ".local/share/kodi/addons" -}}
-
-{{ if eq .chezmoi.arch "amd64" -}}
-{{   $arch = "x64" -}}
-{{ else if eq .chezmoi.arch "arm64" -}}
-{{   $arch = "arm64" -}}
-{{ else -}}
-{{   abortEmpty -}}
-{{ end -}}
 
 ["Elementum"]
 targetPath = "{{ $addonPath }}"

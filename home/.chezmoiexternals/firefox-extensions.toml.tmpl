@@ -1,3 +1,7 @@
+{{ if not .manageGui -}}
+{{   abortEmpty }}
+{{ end -}}
+
 {{ $mozillaAddons := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
 

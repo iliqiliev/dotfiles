@@ -1,5 +1,4 @@
-{{ $arch := includeTemplate "archRust" . -}}
-{{ if or (ne .os "windows") (ne $arch "x86_64") -}}
+{{ if or (ne .os "windows") (ne .chezmoi.arch "amd64") -}}
 {{   abortEmpty -}}
 {{ end -}}
 
@@ -7,6 +6,7 @@
 type = "archive-file"
 path = "brush.exe"
 executable = true
+{{ $arch := includeTemplate "archRust" . -}}
 {{ $release := (gitHubLatestTag "reubeno/brush").Name | replace "v" "" -}}
 {{ $asset := print $release "-" $arch "-*-" .os "-msvc.tar.gz" -}}
 url = "{{ gitHubReleaseAssetURL "cargo-bins/cargo-quickinstall" $release $asset }}"

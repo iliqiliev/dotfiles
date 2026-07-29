@@ -1,12 +1,10 @@
-{{ $fontsPath := "" -}}
-
 {{ if not .manageGui -}}
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ if eq .os "linux" -}}
-{{   $fontsPath = ".local/share/fonts" -}}
-{{ else if eq .os "windows" -}}
+{{ $fontsPath := ".local/share/fonts" -}}
+
+{{ if eq .os "windows" -}}
 {{   $fontsPath = "AppData/Local/Microsoft/Windows/Fonts" -}}
 {{ end -}}
 
