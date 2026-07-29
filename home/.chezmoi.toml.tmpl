@@ -36,11 +36,10 @@ email = "{{ $email }}"
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
 manageGui = {{ $manageGui }}
 {{ $sudo := "su root -c" -}}
-{{ $useSudo := false -}}{{/* useSudo is for caching the answer to promptBoolOnce */ -}}
+{{ $useSudo := true -}}
 {{ if or (eq .chezmoi.uid "0") (hasSuffix "-500" .chezmoi.uid) (eq $distro "android") -}}
 {{   $sudo = "" -}}
 {{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
-{{   $useSudo = true -}}
 {{   if lookPath "doas" -}}
 {{     $sudo = "doas" -}}
 {{   else if eq $os "windows" -}}
@@ -50,6 +49,7 @@ manageGui = {{ $manageGui }}
 {{   end -}}
 {{ else -}}
 {{   $sudo = "false" -}}
+{{   $useSudo = false -}}
 {{ end -}}
 sudo = "{{ $sudo }}"
 useSudo = {{ $useSudo }}
