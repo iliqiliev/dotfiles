@@ -1,17 +1,14 @@
-{{ $components := -1 -}}
-{{ $libc := "" -}}
-{{ $ext := "" -}}
+{{ $components := 1 -}}
+{{ $libc := "musl" -}}
+{{ $ext := "tar.gz" -}}
+{{ $refreshPeriod := "0" -}}
 
-{{ if eq .os "linux" -}}
-{{   $components = 1 -}}
-{{   $libc = "musl" -}}
-{{   $ext = "tar.gz" -}}
-{{ else if eq .os "windows" -}}
+{{ if eq .os "windows" -}}
 {{   $components = 0 -}}
 {{   $libc = "msvc" -}}
 {{   $ext = "zip" -}}
-{{ else -}}
-{{   abortEmpty -}}
+{{/* Windows version does not support self-updating. */ -}}
+{{   $refreshPeriod = "24h" -}}
 {{ end -}}
 
 ["uv"]
@@ -22,4 +19,4 @@ executable = true
 {{ $arch := includeTemplate "archRust" . -}}
 {{ $asset := print "uv-" $arch "-*-" .os "-" $libc "." $ext -}}
 url = "{{ gitHubLatestReleaseAssetURL "astral-sh/uv" $asset }}"
-refreshPeriod = "48h"
+refreshPeriod = "{{ $refreshPeriod }}"
