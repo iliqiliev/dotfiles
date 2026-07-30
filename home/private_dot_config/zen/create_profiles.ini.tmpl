@@ -11,6 +11,6 @@ Default=1
 StartWithLastProfile=1
 Version=2
 
-[Install;{{ mozillaInstallHash .mozillaPath" }}]
+[Install;{{ mozillaInstallHash (get . "mozillaPath" | default "/opt/zen-browser-bin") }}]
 Default=;{{ $profilePath }}
 Locked=1
