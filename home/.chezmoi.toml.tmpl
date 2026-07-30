@@ -81,7 +81,7 @@ manageGnome = {{ $manageGnome }}
 size = {{ $fontSize }}
 
 [diff]
-pager = "{{ coalesce (lookPath "delta") "delta" }}"
+pager = "{{ and (lookPath "delta") "delta" }}"
 
 [env]
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
