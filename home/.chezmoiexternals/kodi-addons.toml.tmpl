@@ -2,7 +2,6 @@
 {{   abortEmpty }}
 {{ end -}}
 
-{{ $arch := includeTemplate "archShort" . -}}
 {{ $addonPath := ".local/share/kodi/addons" -}}
 
 ["ElementumOrg repository"]
@@ -10,4 +9,26 @@ targetPath = "{{ $addonPath }}"
 type = "archive"
 {{ $asset := "repository.elementumorg-*.*.*.zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "ElementumOrg/repository.elementumorg" $asset }}"
+refreshPeriod = "672h"
+
+["Elementum"]
+targetPath = "{{ $addonPath }}"
+type = "archive"
+{{ $arch := includeTemplate "archShort" . -}}
+{{ $asset := print "plugin.video.elementum-*.*.*." .os "_" $arch ".zip" -}}
+url = "{{ gitHubLatestReleaseAssetURL "elgatito/plugin.video.elementum" $asset }}"
+refreshPeriod = "672h"
+
+["Elementum Burst"]
+targetPath = "{{ $addonPath }}"
+type = "archive"
+{{ $asset := "script.elementum.burst-*.*.*.zip" -}}
+url = "{{ gitHubLatestReleaseAssetURL "elgatito/script.elementum.burst" $asset }}"
+refreshPeriod = "672h"
+
+["Elementum Context Helper"]
+targetPath = "{{ $addonPath }}"
+type = "archive"
+{{ $asset := "context.elementum-*.*.*.zip" -}}
+url = "{{ gitHubLatestReleaseAssetURL "elgatito/context.elementum" $asset }}"
 refreshPeriod = "672h"
