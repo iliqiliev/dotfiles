@@ -54,7 +54,7 @@ manageGui = {{ $manageGui }}
 useSudo = {{ $useSudo }}
 {{ if eq $os "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
-     productName = "{{ stat $productFile | ternary (include $productFile | trim) ("")-}}"
+     productName = "{{ stat $productFile | ternary (include $productFile | trim) ("") -}}"
 {{ else if eq $os "windows" -}}
      productName = "{{ output "powershell" "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" | trim -}}"
 {{ end -}}
