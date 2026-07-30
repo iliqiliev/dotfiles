@@ -1,0 +1,22 @@
+<sources>
+    <programs>
+        <default pathversion="1" />
+    </programs>
+    <video>
+        <default pathversion="1" />
+    </video>
+    <music>
+        <default pathversion="1" />
+    </music>
+    <files>
+        <default pathversion="1" />
+        <source>
+            <name>Chezmoi Addon ZIPs</name>
+            <path pathversion="1">special://home/chezmoi/addon_zips/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+    </files>
+    <pictures>
+        <default pathversion="1" />
+    </pictures>
+</sources>
