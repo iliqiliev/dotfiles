@@ -2,12 +2,11 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
+# {{ if not .manageGnome -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 
 set -eu
-
-if ! command -v gnome-shell >/dev/null; then
-    exit 0
-fi
 
 # shellcheck source=helpers/helpers.sh
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
@@ -92,7 +91,7 @@ dconf write $GNOME_SHELL/welcome-dialog-last-shown-version "67.0"
 
 SHELL_EXTENSIONS=/org/gnome/shell/extensions
 
-## App Hider
+# App Hider #
 dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
     'avahi-discover.desktop',
     'assistant.desktop',
@@ -113,11 +112,11 @@ dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
     'yazi.desktop'
 ]"
 
-## Copyous
+# Copyous #
 dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
 dconf write $SHELL_EXTENSIONS/copyous/sound "'message'"
 
-## Force Quit
+# Force Quit #
 dconf write $SHELL_EXTENSIONS/forcequit/hide-button true
 
 print_green "Dconf configured successfully."
