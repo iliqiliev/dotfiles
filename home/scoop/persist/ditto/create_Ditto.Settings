@@ -1,5 +1,3 @@
-; vim: filetype=ini
-
 [Ditto]
 DBPath3=Ditto.db
 DittoHotKey=2134
