@@ -17,24 +17,28 @@ if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd;
     print_green "'fish' already default. Will not change it."
     exit 0
 fi
-# {{ if ne .distro "android" }}
+
+# {{ if ne .distro "android" -}}
 if ! test -x "${FISH_PATH}"; then
     print_red "'fish' is not installed. Exiting."
     exit 0
 fi
-# {{ end }}
+# {{ "\n" }}# {{ end -}}
+
 if ! command -v chsh >/dev/null; then
     print_red "'chsh' command not found. Cannot change default shell."
     exit 0
 fi
-# {{ if eq .distro "android" }}
+
+# {{ if eq .distro "android" -}}
 yes fish | chsh >/dev/null
-# {{ else }}
+# {{ else -}}
 if ! grep --fixed-strings --line-regexp --quiet "$FISH_PATH" /etc/shells; then
     print_red "'fish' is installed but not listed in '/etc/shells'."
     exit 0
 fi
 
 chsh --shell "$FISH_PATH" "$USER" >/dev/null
-# {{ end }}
+# {{ end -}}
+
 print_green "Shell changed to 'fish' successfully."

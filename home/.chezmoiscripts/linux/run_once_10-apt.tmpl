@@ -19,12 +19,10 @@ $CHEZ_SUDO apt update -y
 print_green "Apt database synced successfully."
 
 # {{ if eq .distro "android" -}}
-
 print_blue "Updating system to avoid dependency mismatches ..."
 yes | apt full-upgrade
 print_green "Packages upgraded successfully."
-
-# {{ end -}}
+# {{ "\n" }}# {{ end -}}
 
 AVAILABLE_PACKAGES=$(
     comm -12 \
