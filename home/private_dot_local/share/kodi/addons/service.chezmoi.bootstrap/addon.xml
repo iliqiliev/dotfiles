@@ -12,10 +12,6 @@
     <import addon="script.elementum.burst" version="0.0.99" />
     <import addon="context.elementum" version="0.0.15" />
     <import addon="repository.elementumorg" version="0.0.7" optional="true" />
-    <!-- Trakt. -->
-    <import addon="script.trakt" version="3.9.0" />
-    <import addon="context.trakt.contextmenu" version="1.1.0" />
-    <import addon="context.trakt.watched" version="1.1.0" />
   </requires>
   <extension point="xbmc.service" library="service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
