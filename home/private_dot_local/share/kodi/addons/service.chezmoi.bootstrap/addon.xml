@@ -6,11 +6,13 @@
     provider-name="Iliya Iliev"
 >
   <requires>
+    <import addon="xbmc.python" version="3.0.0" />
     <import addon="repository.elementumorg" version="0.0.7" />
     <import addon="plugin.video.elementum" version="0.1.114" />
     <import addon="script.elementum.burst" version="0.0.99" />
     <import addon="context.elementum" version="0.0.15" />
   </requires>
+  <extension point="xbmc.service" library="service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <website>https://github.com/iliqiliev/dotfiles</website>
