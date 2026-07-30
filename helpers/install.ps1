@@ -1,5 +1,3 @@
-#!/usr/bin/env pwsh
-
 $ErrorActionPreference = 'Stop'
 
 $env:PATH += ";${HOME}/.local/bin"
