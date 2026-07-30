@@ -93,15 +93,13 @@ PYTHONPATH = '{{ .chezmoi.workingTree }}'
 [github]
 refreshPeriod = "5m"
 
-{{ if eq $distro "android" -}}
-[interpreters.""]
+{{ if ne $distro "android" -}}
+{{   range $interpreter := list "" "fish" -}}
+[interpreters."{{ $interpreter }}"]
 command = 'sh'
 args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
-
-[interpreters.fish]
-command = 'sh'
-args = ['-c', 'termux-fix-shebang "$1" && exec "$1"', '--']
-{{ "\n" }}{{ end -}}
+{{   "\n" }}{{ end -}}
+{{ end -}}
 
 [interpreters.py]
 command = "uv"
