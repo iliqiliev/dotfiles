@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
+# vim: filetype=sh
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if or (eq .distro "android") (not .useSudo) -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 
 set -eu
-
-if test "$CHEZ_SUDO" = "false"; then
-    exit 0
-fi
 
 # shellcheck source=helpers/helpers.sh
 . "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
