@@ -2,6 +2,9 @@
 # vim: filetype=fish
 
 # chezmoi:template:left-delimiter="# {{"
+# {{ if ne .os "linux" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 
 echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
 

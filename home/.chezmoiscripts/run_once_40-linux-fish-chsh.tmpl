@@ -2,6 +2,9 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
+# {{ if ne .os "linux" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 
 set -eu
 
