@@ -1,6 +1,8 @@
 # {{ print "#!" (lookPath "fish") }}
 # vim: filetype=fish
 
+# chezmoi:template:left-delimiter="# {{"
+
 echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
 
 if not type --query fisher
