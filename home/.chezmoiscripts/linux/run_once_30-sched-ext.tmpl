@@ -2,7 +2,7 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if ne .distro "arch" -}}
+# {{ if not (lookPath "pacman") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
