@@ -61,7 +61,7 @@ useSudo = {{ $useSudo }}
 {{ $manageGnome := and (eq $os "linux")
                        ($manageGui)
                        (or (eq $sudo "") ($useSudo))
-                       (or (lookPath "gnome-shell") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
+                       (or (ne (lookPath "gnome-shell") "") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
 manageGnome = {{ $manageGnome }}
 
 [data.fonts]
