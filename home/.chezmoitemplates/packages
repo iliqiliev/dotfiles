@@ -3,23 +3,27 @@
 
 {{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
-     "gnome" (.manageGnome)
-     "gui" (.manageGui)
-     "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
-     "linux" (eq .os "linux")
+            "gnome" (.manageGnome)
+              "gui" (.manageGui)
+        "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
+            "linux" (eq .os "linux")
      "oracle-guest" (and ($isNotContainer) (eq "VirtualBox" .productName))
-     "windows" (eq .os "windows")
+          "windows" (eq .os "windows")
 -}}
 
 {{ range $package, $overrides := .packages -}}
 {{   if kindIs "invalid" $overrides -}}
-{{     $finalPackages = append $finalPackages $package }}{{ continue -}}
+{{     $finalPackages = append $finalPackages $package -}}
+{{     continue -}}
 {{   end -}}
-{{   $skip := false -}}
 {{   range $tag := index $overrides "__tags__" -}}
-{{     if not (index $filters $tag) }}{{ $skip = true }}{{ end -}}
+{{     if not (index $filters $tag) -}}
+{{       $package = false -}}
+{{     end -}}
 {{   end -}}
-{{   if $skip }}{{ continue }}{{ end -}}
+{{   if not $package -}}
+{{     continue -}}
+{{   end -}}
 {{   if hasKey $overrides $packageManager -}}
 {{     $package = index $overrides $packageManager -}}
 {{   else if hasKey $overrides "*" -}}

@@ -13,6 +13,6 @@ type = "archive-file"
 path = "fish"
 executable = true
 {{ $arch := includeTemplate "archRust" . -}}
-{{ $asset := print "fish-*-linux-" $arch ".tar.xz" -}}
+{{ $asset := print "fish-*-" .os "-" $arch ".tar.xz" -}}
 url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
 refreshPeriod = "672h"

@@ -6,18 +6,24 @@
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
 
 {{ $filters := dict
-     "personal" (.isPersonal)
-     "no-work" (not .isWork)
+         "personal" (.isPersonal)
+          "no-work" (not .isWork)
 -}}
 
 {{ range $name, $info := .firefoxExtensions -}}
-{{   $skip := false -}}
+
 {{   range $tag := index $info "__tags__" -}}
-{{     if not (index $filters $tag) }}{{ $skip = true }}{{ end -}}
+{{     if not (index $filters $tag) -}}
+{{       $name = false -}}
+{{     end -}}
 {{   end -}}
-{{   if $skip }}{{ continue }}{{ end -}}
+{{   if not $name -}}
+{{     continue -}}
+{{   end -}}
 {{   $extensionFullPath := print $extensionsPath "/" $info.file -}}
-{{   if stat $extensionFullPath }}{{ continue }}{{ end -}}
+{{   if stat $extensionFullPath -}}
+{{     continue -}}
+{{   end -}}
 
 # {{ $info.pretty }}
 ["{{ $extensionFullPath }}"]
