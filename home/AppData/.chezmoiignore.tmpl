@@ -1,3 +1,10 @@
-{{ if ne .os "windows" -}}
+{{ if .os | ne "windows" -}}
 **
 {{ end -}}
+
+{{- if not .manageGui }}
+Local/konsole
+Roaming/Mozilla
+Roaming/Zed
+Roaming/zen
+{{- end }}
