@@ -2,26 +2,25 @@
 
 [data]
 {{ $os := .chezmoi.os | lower | replace "android" "linux" -}}
-{{ if not (has $os (list "linux" "windows")) -}}
-{{   writeToStdout (println "Dotfiles: ERROR: unsupported OS:" $os) -}}
+{{ if not (list "linux" "windows" | has $os) -}}
+{{   println "Dotfiles: ERROR: unsupported OS:" $os | writeToStdout -}}
 {{   exit 1 -}}
-{{ else if not (has .chezmoi.arch (list "amd64" "arm64")) -}}
-{{   writeToStdout (println "Dotfiles: ERROR: unsupported architecture:" .chezmoi.arch) -}}
+{{ else if not (list "amd64" "arm64" | has .chezmoi.arch) -}}
+{{   println "Dotfiles: ERROR: unsupported architecture:" .chezmoi.arch | writeToStdout -}}
 {{   exit 1 -}}
 {{ end -}}
 os = "{{ $os }}"
-{{ $distro := coalesce (get .chezmoi.osRelease "idLike")
-                       (get .chezmoi.osRelease "id")
-                       (.chezmoi.os)
-                       | splitList " " | last | lower -}}
+{{ $distro := coalesce (index .chezmoi.osRelease "idLike")
+                       (index .chezmoi.osRelease "id")
+                       | default .chezmoi.os | splitList " " | last | lower -}}
 {{ $supportedDistros := list "alpine" "android" "arch" "debian" "fedora" "ubuntu" "windows" -}}
-{{ if not (has $distro $supportedDistros) -}}
-{{   writeToStdout (println "Dotfiles: WARNING: unsupported distribution:" $distro) -}}
+{{ if not ($supportedDistros | has $distro) -}}
+{{   println "Dotfiles: WARNING: unsupported distribution:" $distro | writeToStdout -}}
 {{ end -}}
 distro = "{{ $distro }}"
 {{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
 isPersonal = {{ $isPersonal }}
-{{ $isWork := and ($isPersonal) (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
+{{ $isWork := $isPersonal | and (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
 isWork = {{ $isWork }}
 {{ $name := "Iliya Iliev" -}}
 {{ $email := "iliq0000@proton.me" -}}
@@ -33,12 +32,14 @@ name = "{{ $name }}"
 email = "{{ $email }}"
 {{ $sudo := "su root -c" -}}
 {{ $useSudo := true -}}
-{{ if or (eq .chezmoi.uid "0") (hasSuffix "-500" .chezmoi.uid) (eq $distro "android") -}}
+{{ if or (.chezmoi.uid | eq "0")
+         ($distro | eq "android")
+         (($os | eq "windows") | and (exec "net" "session")) -}}
 {{   $sudo = "" -}}
 {{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
 {{   if lookPath "doas" -}}
 {{     $sudo = "doas" -}}
-{{   else if eq $os "windows" -}}
+{{   else if $os | eq "windows" -}}
 {{     $sudo = "gsudo" -}}
 {{   else if lookPath "sudo" -}}
 {{     $sudo = "sudo" -}}
@@ -48,44 +49,44 @@ email = "{{ $email }}"
 {{   $useSudo = false -}}
 {{ end -}}
 useSudo = {{ $useSudo }}
-{{ if eq $os "linux" -}}
+{{ if $os | eq "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
-     productName = "{{ and (stat $productFile | default "") (include $productFile) | trim -}}"
-{{ else if eq $os "windows" -}}
+     productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
+{{ else if $os | eq "windows" -}}
      productName = "{{ output "powershell" "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" | trim -}}"
 {{ end -}}
-{{ $manageGui := and (ne $distro "android")
-                     (env "container" | eq "")
+{{ $manageGui := and ($distro | ne "android")
+                     (not (env "container"))
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
 manageGui = {{ $manageGui }}
 {{ $manageGnome := and (eq $os "linux")
                        ($manageGui)
-                       (or (eq $sudo "") ($useSudo))
-                       (or (ne (lookPath "gnome-shell") "") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
+                       (or ($sudo | eq "") ($useSudo))
+                       (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
 manageGnome = {{ $manageGnome }}
 
 [data.fonts]
 {{ $vertRes := 0 -}}
-{{ if and (eq $os "linux") ($manageGui) -}}
+{{ if $os | eq "linux" | and $manageGui -}}
 {{   $vertRes = output "sh" "-c" "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | int -}}
-{{ else if and (eq $os "windows") ($manageGui) -}}
+{{ else if $os | eq "windows" | and $manageGui -}}
 {{   $vertRes = output "powershell" "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | int -}}
 {{ end -}}
 {{ $fontSize := 16 -}}
 {{ if gt $vertRes 1080 -}}
 {{   $fontSize = 20 -}}
-{{ else if and (gt $vertRes 0) (le $vertRes 800) -}}
+{{ else if (gt $vertRes 0) | and (le $vertRes 800) -}}
 {{   $fontSize = 12 -}}
 {{ end -}}
 # Font size chosen from detected vertical resolution: {{ $vertRes }}px
 size = {{ $fontSize }}
 
 [diff]
-pager = "{{ and (lookPath "delta") "delta" }}"
+pager = "{{ if lookPath "delta"}}delta{{ end }}"
 
 [env]
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
-{{ $pathList = prepend $pathList (joinPath .chezmoi.homeDir ".local/bin") -}}
+{{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
 CHEZ_SUDO = "{{ $sudo }}"
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
