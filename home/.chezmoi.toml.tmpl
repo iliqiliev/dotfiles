@@ -31,10 +31,6 @@ isWork = {{ $isWork }}
 {{ end -}}
 name = "{{ $name }}"
 email = "{{ $email }}"
-{{ $manageGui := and (ne $distro "android")
-                     (env "container" | eq "")
-                     (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
-manageGui = {{ $manageGui }}
 {{ $sudo := "su root -c" -}}
 {{ $useSudo := true -}}
 {{ if or (eq .chezmoi.uid "0") (hasSuffix "-500" .chezmoi.uid) (eq $distro "android") -}}
@@ -58,6 +54,10 @@ useSudo = {{ $useSudo }}
 {{ else if eq $os "windows" -}}
      productName = "{{ output "powershell" "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" | trim -}}"
 {{ end -}}
+{{ $manageGui := and (ne $distro "android")
+                     (env "container" | eq "")
+                     (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
+manageGui = {{ $manageGui }}
 {{ $manageGnome := and (eq $os "linux")
                        ($manageGui)
                        (or (eq $sudo "") ($useSudo))
