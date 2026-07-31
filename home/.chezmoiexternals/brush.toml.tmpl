@@ -10,4 +10,3 @@ executable = true
 {{ $release := (gitHubLatestTag "reubeno/brush").Name | replace "v" "" -}}
 {{ $asset := print $release "-" $arch "-*-" .os "-msvc.tar.gz" -}}
 url = "{{ gitHubReleaseAssetURL "cargo-bins/cargo-quickinstall" $release $asset }}"
-refreshPeriod = "672h"
