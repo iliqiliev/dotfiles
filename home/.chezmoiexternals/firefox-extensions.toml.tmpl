@@ -12,7 +12,7 @@
 
 {{ range $name, $info := .firefoxExtensions -}}
 
-{{   range $tag := index $info "__tags__" -}}
+{{   range $tag := (index $info "__tags__") -}}
 {{     if not (index $filters $tag) -}}
 {{       $name = false -}}
 {{     end -}}

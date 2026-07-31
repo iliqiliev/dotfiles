@@ -5,11 +5,11 @@
 {{ $filters := dict
             "gnome" (.manageGnome)
               "gui" (.manageGui)
-        "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
-            "linux" (eq .os "linux")
+        "kvm-guest" ($isNotContainer | and (.productName | contains "Standard PC"))
+            "linux" (.os | eq "linux")
           "no-work" (not .isWork)
-     "oracle-guest" (and ($isNotContainer) (eq "VirtualBox" .productName))
-          "windows" (eq .os "windows")
+     "oracle-guest" ($isNotContainer | and (.productName | eq "VirtualBox"))
+          "windows" (.os | eq "windows")
 -}}
 
 {{ range $package, $overrides := .packages -}}
@@ -17,7 +17,7 @@
 {{     $finalPackages = append $finalPackages $package -}}
 {{     continue -}}
 {{   end -}}
-{{   range $tag := index $overrides "__tags__" -}}
+{{   range $tag := (index $overrides "__tags__") -}}
 {{     if not (index $filters $tag) -}}
 {{       $package = false -}}
 {{     end -}}
@@ -31,7 +31,7 @@
 {{     $package = index $overrides "*" -}}
 {{   end -}}
 {{   $package = $package | default "" -}}
-{{   $finalPackages = concat $finalPackages (splitList " " $package) -}}
+{{   $finalPackages = $package | splitList " " | concat $finalPackages -}}
 {{ end -}}
 
 {{ compact $finalPackages | sortAlpha | join " " -}}
