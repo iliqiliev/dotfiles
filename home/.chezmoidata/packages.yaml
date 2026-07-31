@@ -80,5 +80,5 @@ packages:
     __tags__: ["gui"]
     pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
   zen-browser-bin:
-    __tags__: ["gui"]
+    __tags__: ["gui", "no-work"]
     scoop: "zen-browser"

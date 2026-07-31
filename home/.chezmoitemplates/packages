@@ -7,6 +7,7 @@
               "gui" (.manageGui)
         "kvm-guest" (and ($isNotContainer) (contains "Standard PC" .productName))
             "linux" (eq .os "linux")
+          "no-work" (not .isWork)
      "oracle-guest" (and ($isNotContainer) (eq "VirtualBox" .productName))
           "windows" (eq .os "windows")
 -}}
