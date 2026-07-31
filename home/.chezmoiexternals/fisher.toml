@@ -1,4 +1,0 @@
-[".config/fish/functions/fisher.fish"]
-type = "file"
-url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
-# `fisher` updates itself after installation.

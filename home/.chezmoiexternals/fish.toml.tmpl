@@ -2,12 +2,9 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ $fish := "/usr/bin/fish" -}}
-{{ $VersionCheckCmd := "test (echo $FISH_VERSION | awk -F '.' '{print $1}') -ge 4" -}}
-{{ if and (lookPath $fish) (exec $fish "-c" $VersionCheckCmd) -}}
-{{   abortEmpty -}}
-{{ end -}}
-
+{{ if and (lookPath ($fish := "/usr/bin/fish"))
+          (exec $fish "-c" "test (echo $version | awk -F '.' '{print $1}') -ge 4")
+      | not -}}
 [".local/bin/fish"]
 type = "archive-file"
 path = "fish"
@@ -15,4 +12,9 @@ executable = true
 {{ $arch := includeTemplate "archRust" . -}}
 {{ $asset := print "fish-*-" .os "-" $arch ".tar.xz" -}}
 url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
-refreshPeriod = "672h"
+{{ "\n" }}{{ end -}}
+
+[".config/fish/functions/fisher.fish"]
+type = "file"
+url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
+# `fisher` updates itself after installation.
