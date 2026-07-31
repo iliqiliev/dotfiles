@@ -1,1 +1,4 @@
-{{- include "private_dot_config/topgrade.toml" -}}
+# Topgrade does not support changing the config path with a variable.
+# It only reads from %APPDATA%. :(
+
+{{ include "private_dot_config/topgrade.toml" -}}
