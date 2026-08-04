@@ -26,6 +26,9 @@ lint.ignore = [
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
 ]
 
+[tool.ty]
+environment.python-platform = "all"
+
 [tool.uv]
 python-preference = "system"
 build-backend.module-root = ""
