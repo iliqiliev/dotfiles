@@ -1,8 +1,8 @@
-{{- if .os | ne "windows" }}
+{{ if .os | ne "windows" -}}
 **
-{{- end }}
+{{ end -}}
 
-{{- if not .manageGui }}
+{{ if not .manageGui -}}
 altsnap
 ditto
-{{- end }}
+{{ end -}}

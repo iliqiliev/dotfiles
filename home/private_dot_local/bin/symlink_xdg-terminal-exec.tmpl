@@ -1,11 +1,11 @@
 {{/* Fix 'Unable to find terminal required for application' */ -}}
 {{/* https://unix.stackexchange.com/questions/707469 */ -}}
 
-{{ if not (lookPath "gnome-shell") -}}
+{{ if not .manageGnome -}}
 {{   abortEmpty -}}
 {{ end -}}
 
-{{- $gnomeHardcodedTerminals := list
+{{ $gnomeHardcodedTerminals := list
       "xdg-terminal-exec"
       "kgx"
       "gnome-terminal"
@@ -17,13 +17,12 @@
       "color-xterm"
       "rxvt"
       "dtterm"
-      "xterm"
-}}
+      "xterm" -}}
 
-{{- range $gnomeHardcodedTerminals }}
-{{-   if stat (print "/usr/bin/" .) }}
-{{-     abortEmpty }}
-{{-   end }}
-{{- end }}
+{{ range $gnomeHardcodedTerminals -}}
+{{   if stat (print "/usr/bin/" .) -}}
+{{     abortEmpty -}}
+{{   end -}}
+{{ end -}}
 
-{{- lookPath "kitty" }}
+{{ lookPath "kitty" -}}

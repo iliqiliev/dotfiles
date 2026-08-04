@@ -37,7 +37,9 @@
     "adguard-popup-overlays",
     "adguard-widgets",
     "ublock-annoyances",
-    {{- if .isPersonal }}"BGR-0",{{ end }}
+    {{ if .isPersonal -}}
+    "BGR-0",
+    {{ end -}}
     "https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt"
   ],
   "whitelist": [
