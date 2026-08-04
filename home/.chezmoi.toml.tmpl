@@ -34,7 +34,7 @@ email = "{{ $email }}"
 {{ $useSudo := true -}}
 {{ if or (.chezmoi.uid | eq "0")
          ($distro | eq "android")
-         (($os | eq "windows") | and (exec "net" "session")) -}}
+         (and ($os | eq "windows") (exec "net" "session")) -}}
 {{   $sudo = "" -}}
 {{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
 {{   if lookPath "doas" -}}
