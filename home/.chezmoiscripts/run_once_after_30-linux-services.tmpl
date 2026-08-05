@@ -16,7 +16,7 @@ print_blue "Setting up system services ..."
 # {{ if stat "/usr/lib/systemd/system/scx_loader.service" -}}
 print_blue "Setting up Sched_ext ..."
 
-$CHEZ_SUDO cat <<EOF >/etc/scx_loader.toml
+$CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
 default_sched = "scx_lavd"
 default_mode = "Gaming"
 

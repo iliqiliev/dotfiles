@@ -30,7 +30,7 @@ else
 
     $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    $CHEZ_SUDO cat <<<"$CHAOTIC_CONFIG_ENTRY" >>/etc/pacman.conf
+    $CHEZ_SUDO tee --append /etc/pacman.conf <<<"$CHAOTIC_CONFIG_ENTRY" >/dev/null
 
     $CHEZ_SUDO pacman -Sy --noconfirm
     print_green "Chaotic-AUR installed successfully."
