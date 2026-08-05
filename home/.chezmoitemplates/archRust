@@ -2,7 +2,4 @@
 {{   "x86_64" -}}
 {{ else if eq .chezmoi.arch "arm64" -}}
 {{   "aarch64" -}}
-{{ else -}}
-{{/* abortEmpty propagates to the calling template as well. */ -}}
-{{   abortEmpty -}}
 {{ end -}}
