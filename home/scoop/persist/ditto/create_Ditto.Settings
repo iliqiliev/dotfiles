@@ -1,4 +1,7 @@
 [Ditto]
+AllowFriends=0
 DBPath3=Ditto.db
 DittoHotKey=2134
+MaxEntries=500
 PlaySoundOnCopy=C:\Windows\Media\chimes.wav
+SendPasteMessageAfterSelection=0
