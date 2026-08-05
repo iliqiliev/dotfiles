@@ -17,18 +17,13 @@ My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing c
 chezmoi init --apply iliqiliev --depth 1
 ```
 
-## With any **Linux** shell:
+## On **Linux** using `curl`:
 
-- Using `curl`:
-  ```sh
-  curl -L iliq.org/dotfiles | sh
-  ```
-- Using `wget`:
-  ```sh
-  wget -O- iliq.org/dotfiles | sh
-  ```
+```sh
+curl -L iliq.org/dotfiles | sh
+```
 
-## With `PowerShell`:
+## On **Windows** using `PowerShell`:
 
 ```ps1
 irm iliq.org/dotfiles.ps1 | iex

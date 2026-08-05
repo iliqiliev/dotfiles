@@ -55,7 +55,6 @@ packages:
   tar:
     __tags__: ["linux"]
   tealdeer:
-  wget:
   yazi:
     pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
   zoxide:

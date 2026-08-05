@@ -79,11 +79,6 @@ def registry_path_append(new_path: str) -> None:
         SetValueEx(key, "Path", 0, REG_EXPAND_SZ, new_path)
 
 
-XDG_CACHE_HOME = r"%USERPROFILE%\.cache"
-XDG_CONFIG_HOME = r"%USERPROFILE%\.config"
-XDG_DATA_HOME = r"%USERPROFILE%\.local\share"
-XDG_STATE_HOME = r"%USERPROFILE%\.local\state"
-
 AUTORUN = r"Software\Microsoft\Windows\CurrentVersion\Run"
 """AutoRun registry settings."""
 EXPLORER = r"Software\Microsoft\Windows\CurrentVersion\Explorer"
@@ -93,6 +88,11 @@ SEARCH = r"Software\Microsoft\Windows\CurrentVersion\Search"
 
 
 rich_print("[bright_blue]Setting registry settings ...")
+
+XDG_CACHE_HOME = r"%USERPROFILE%\.cache"
+XDG_CONFIG_HOME = r"%USERPROFILE%\.config"
+XDG_DATA_HOME = r"%USERPROFILE%\.local\share"
+XDG_STATE_HOME = r"%USERPROFILE%\.local\state"
 
 # Add directories to `%PATH%`.
 registry_path_append(rf"{env['USERPROFILE']}\scoop\shims")
@@ -115,24 +115,24 @@ registry_set_data(r"Control Panel\Mouse", "MouseThreshold2", "0")
 # Set environment variables.
 registry_set_many_data(
     r"Environment",
+    # Set XDG User Directories.
     ("XDG_CACHE_HOME", XDG_CACHE_HOME),
     ("XDG_CONFIG_HOME", XDG_CONFIG_HOME),
     ("XDG_DATA_HOME", XDG_DATA_HOME),
     ("XDG_STATE_HOME", XDG_STATE_HOME),
     # $XDG_CACHE_HOME
+    ("NUGET_PACKAGES", rf"{XDG_CACHE_HOME}\NuGetPackages"),
     ("PYTHONPYCACHEPREFIX", rf"{XDG_CACHE_HOME}\python"),
     ("RUFF_CACHE_DIR", rf"{XDG_CACHE_HOME}\ruff"),
-    ("UV_CACHE_DIR", rf"{XDG_CACHE_HOME}\uv"),  # Windows-only.
     # XDG_CONFIG_HOME
     ("BAT_CONFIG_PATH", rf"{XDG_CONFIG_HOME}\bat\config"),  # Windows-only.
+    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),  # Windows-only.
     ("CLAUDE_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\claude"),
     ("COPILOT_HOME", rf"{XDG_CONFIG_HOME}\copilot"),
     ("NPM_CONFIG_USERCONFIG", rf"{XDG_CONFIG_HOME}\npm\npmrc"),
-    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),  # Windows-only.
     # XDG_DATA_HOME
     ("CARGO_HOME", rf"{XDG_DATA_HOME}\cargo"),
     ("RUSTUP_HOME", rf"{XDG_DATA_HOME}\rustup"),
-    ("UV_PYTHON_INSTALL_DIR", rf"{XDG_DATA_HOME}\uv\python"),  # Windows-only.
     # XDG_STATE_HOME
     ("HISTFILE", rf"{XDG_STATE_HOME}\bash\history"),
     ("PYTHON_HISTORY", rf"{XDG_STATE_HOME}\python_history"),
