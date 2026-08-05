@@ -24,8 +24,6 @@ end
 
 # Source configs for interactive sessions.
 if status is-interactive
-    # Ignore warnings: old `starship` warns about unknown keys in config file.
-    set --export STARSHIP_LOG error
-    command --query starship; and starship init fish | source
-    command --query zoxide; and zoxide init fish | source
+    env starship init fish 2>/dev/null | source
+    env zoxide init fish 2>/dev/null | source
 end

@@ -49,7 +49,6 @@ packages:
   sched-ext:
     __tags__: ["arch"]
     pacman: "scx-tools"
-  starship:
   sudo:
     scoop: "gsudo"
   tar:
@@ -57,7 +56,6 @@ packages:
   tealdeer:
   yazi:
     pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
-  zoxide:
 
   spice-vdagent:
     __tags__: ["kvm-guest"]
