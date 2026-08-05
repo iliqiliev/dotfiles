@@ -2,7 +2,7 @@
 #   apk, apt, dnf, pacman, scoop.
 #
 # The supported tags, used to filter packages, are:
-#   gui, gnome, kvm-guest, linux, no-work, oracle-guest, windows.
+#   alpine, arch, gui, gnome, kvm-guest, linux, no-work, oracle-guest, windows.
 #
 # Use the following command to evaluate the packages:
 #   `chezmoi execute-template '{{ template "packages" . }}'`
@@ -46,6 +46,9 @@ packages:
   scoop:
     __tags__: ["windows"]
     scoop: "sfsu vcredist-aio"
+  sched-ext:
+    __tags__: ["arch"]
+    pacman: "scx-tools"
   starship:
   sudo:
     scoop: "gsudo"
@@ -65,16 +68,15 @@ packages:
     apk: virtualbox-guest-additions
     dnf: virtualbox-guest-additions
   virtualbox-guest-utils-gui:
-    __tags__: ["gui", "linux", "oracle-guest"]
+    __tags__: ["alpine", "gui", "oracle-guest"]
     apk: "virtualbox-guest-additions-x11"
-    "*": null
 
   altsnap:
     __tags__: ["gui", "windows"]
   ditto:
     __tags__: ["gui", "windows"]
   gnome:
-    __tags__: ["gnome", "gui", "linux"]
+    __tags__: ["gnome", "linux"]
     apk: "gdm gnome-shell gnome-control-center"
     apt: "gdm3 gnome-shell gnome-control-center"
     dnf: "gdm gnome-shell gnome-control-center"

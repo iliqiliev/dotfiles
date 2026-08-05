@@ -3,6 +3,8 @@
 
 {{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
+           "alpine" (.distro | eq "alpine")
+             "arch" (.distro | eq "arch")
             "gnome" (.manageGnome)
               "gui" (.manageGui)
         "kvm-guest" ($isNotContainer | and (.productName | contains "Standard PC"))
@@ -20,17 +22,13 @@
 {{   range $tag := (index $overrides "__tags__") -}}
 {{     if not (index $filters $tag) -}}
 {{       $package = false -}}
+{{       break -}}
 {{     end -}}
 {{   end -}}
 {{   if not $package -}}
 {{     continue -}}
 {{   end -}}
-{{   if hasKey $overrides $packageManager -}}
-{{     $package = index $overrides $packageManager -}}
-{{   else if hasKey $overrides "*" -}}
-{{     $package = index $overrides "*" -}}
-{{   end -}}
-{{   $package = $package | default "" -}}
+{{   $package = index $overrides $packageManager | default $package -}}
 {{   $finalPackages = $package | splitList " " | concat $finalPackages -}}
 {{ end -}}
 
