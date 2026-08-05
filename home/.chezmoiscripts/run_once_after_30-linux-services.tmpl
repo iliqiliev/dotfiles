@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# vim: filetype=sh
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if or (.os | ne "linux") (not .canSudo) -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+set -eu
+
+# shellcheck source=helpers/helpers.sh
+source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+
+print_blue "Setting up system services ..."
+
+# {{ if stat "/usr/lib/systemd/system/scx_loader.service" -}}
+print_blue "Setting up Sched_ext ..."
+
+$CHEZ_SUDO cat <<EOF >/etc/scx_loader.toml
+default_sched = "scx_lavd"
+default_mode = "Gaming"
+
+[scheds.scx_lavd]
+auto_mode = []
+gaming_mode = ["--performance"]
+lowlatency_mode = ["--performance"]
+powersave_mode = ["--powersave"]
+server_mode = []
+EOF
+
+$CHEZ_SUDO systemctl enable --now scx_loader
+print_green "Sched_ext installed and enabled successfully."
+# {{ "\n" }}# {{ end -}}
+
+# {{ if stat "/usr/lib/systemd/system/vboxservice.service" -}}
+print_blue "Setting up VirtualBox systemd service ..."
+
+$CHEZ_SUDO systemctl enable --now "vboxservice.service"
+print_green "VirtualBox systemd service set up successfully."
+
+# {{   if lookPath "VBoxClient-all" -}}
+print_blue "Ensuring VirtualBox user session services are started ..."
+
+if ! VBoxClient-all >/dev/null; then
+    print_yellow "Failed to start VirtualBox user session services."
+    print_yellow "Continuing anyway as it is not critical."
+else
+    print_green "VirtualBox user session services started successfully."
+fi
+# {{   end -}}
+
+# {{ else if stat "/etc/init.d/virtualbox-guest-additions" -}}
+print_blue "Setting up VirtualBox guest additions ..."
+$CHEZ_SUDO rc-service virtualbox-guest-additions start
+$CHEZ_SUDO rc-update add virtualbox-guest-additions boot
+print_green "VirtualBox guest additions set up successfully."
+
+# {{   if stat "/etc/init.d/virtualbox-drm-client" -}}
+print_blue "Setting up additional graphics service ..."
+$CHEZ_SUDO rc-service virtualbox-drm-client start
+$CHEZ_SUDO rc-update add virtualbox-drm-client default
+print_green "Additional graphics service set up successfully."
+# {{   end -}}
+
+# {{ "\n" }}# {{ end -}}
+
+print_green "System services set up successfully."
