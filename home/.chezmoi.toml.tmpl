@@ -31,12 +31,12 @@ isWork = {{ $isWork }}
 name = "{{ $name }}"
 email = "{{ $email }}"
 {{ $sudo := "su root -c" -}}
-{{ $useSudo := true -}}
+{{ $canSudo := true -}}
 {{ if or (.chezmoi.uid | eq "0")
          ($distro | eq "android")
          (and ($os | eq "windows") (exec "net" "session")) -}}
 {{   $sudo = "" -}}
-{{ else if promptBoolOnce . "useSudo" "Ask for admin/sudo privileges when needed" true -}}
+{{ else if promptBoolOnce . "canSudo" "Ask for admin/sudo privileges when needed" true -}}
 {{   if lookPath "doas" -}}
 {{     $sudo = "doas" -}}
 {{   else if $os | eq "windows" -}}
@@ -46,9 +46,9 @@ email = "{{ $email }}"
 {{   end -}}
 {{ else -}}
 {{   $sudo = "false" -}}
-{{   $useSudo = false -}}
+{{   $canSudo = false -}}
 {{ end -}}
-useSudo = {{ $useSudo }}
+canSudo = {{ $canSudo }}
 {{ if $os | eq "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
      productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
@@ -61,8 +61,8 @@ useSudo = {{ $useSudo }}
 manageGui = {{ $manageGui }}
 {{ $manageGnome := and (eq $os "linux")
                        ($manageGui)
-                       (or ($sudo | eq "") ($useSudo))
-                       (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Install Gnome" false)) -}}
+                       (or ($sudo | eq "") ($canSudo))
+                       (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Manage Gnome" false)) -}}
 manageGnome = {{ $manageGnome }}
 
 [data.fonts]

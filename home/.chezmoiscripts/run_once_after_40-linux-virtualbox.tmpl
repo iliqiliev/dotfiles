@@ -2,7 +2,7 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (ne .os "linux") (not .useSudo) (ne .productName "VirtualBox") -}}
+# {{ if or (ne .os "linux") (not .canSudo) (ne .productName "VirtualBox") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
