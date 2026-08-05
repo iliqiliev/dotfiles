@@ -1,3 +1,12 @@
+# The supported package managers are:
+#   apk, apt, dnf, pacman, scoop.
+#
+# The supported tags, used to filter packages, are:
+#   gui, gnome, kvm-guest, linux, no-work, oracle-guest, windows.
+#
+# Use the following command to evaluate the packages:
+#   `chezmoi execute-template '{{ template "packages" . }}'`
+
 packages:
   bash:
     __tags__: ["linux"]
@@ -13,6 +22,10 @@ packages:
     scoop: "uutils-coreutils"
   cowsay:
   curl:
+  dua:
+    apt: "dua-cli"
+    dnf: "rust-dua-cli"
+    pacman: "dua-cli"
   eza:
   fastfetch:
   fd:
