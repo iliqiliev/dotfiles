@@ -76,7 +76,7 @@ packages:
   ditto:
     __tags__: ["gui", "windows"]
   gnome:
-    __tags__: ["gnome", "linux"]
+    __tags__: ["gnome"]
     apk: "gdm gnome-shell gnome-control-center"
     apt: "gdm3 gnome-shell gnome-control-center"
     dnf: "gdm gnome-shell gnome-control-center"
