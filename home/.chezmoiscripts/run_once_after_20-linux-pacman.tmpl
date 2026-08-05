@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: filetype=sh noexpandtab
+# vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (not (lookPath "pacman")) (not .canSudo) -}}
@@ -12,6 +12,10 @@ set -eu
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
 print_blue "Installing Chaotic-AUR ..."
+
+CHAOTIC_CONFIG_ENTRY="
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist"
 
 if grep --quiet "chaotic-aur" /etc/pacman.conf; then
     print_green "Chaotic-AUR is already installed."
@@ -26,11 +30,7 @@ else
 
     $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
 
-    $CHEZ_SUDO dd conv=notrunc oflag=append status=none of=/etc/pacman.conf <<-EOF
-
-	[chaotic-aur]
-	Include = /etc/pacman.d/chaotic-mirrorlist
-	EOF
+    $CHEZ_SUDO cat <<<"$CHAOTIC_CONFIG_ENTRY" >>/etc/pacman.conf
 
     $CHEZ_SUDO pacman -Sy --noconfirm
     print_green "Chaotic-AUR installed successfully."

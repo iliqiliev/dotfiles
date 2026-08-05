@@ -20,7 +20,7 @@ fi
 
 $CHEZ_SUDO pacman -S --needed --noconfirm scx-tools
 
-$CHEZ_SUDO dd status=none of=/etc/scx_loader.toml <<EOF
+$CHEZ_SUDO cat <<EOF >/etc/scx_loader.toml
 default_sched = "scx_lavd"
 default_mode = "Gaming"
 
