@@ -47,7 +47,7 @@ if ! VBoxClient-all >/dev/null; then
 else
     print_green "VirtualBox user session services started successfully."
 fi
-# {{   end -}}
+# {{   "\n" }}# {{ end -}}
 
 # {{ else if stat "/etc/init.d/virtualbox-guest-additions" -}}
 print_blue "Setting up VirtualBox guest additions ..."
@@ -60,7 +60,7 @@ print_blue "Setting up additional graphics service ..."
 $CHEZ_SUDO rc-service virtualbox-drm-client start
 $CHEZ_SUDO rc-update add virtualbox-drm-client default
 print_green "Additional graphics service set up successfully."
-# {{   end -}}
+# {{   "\n" }}# {{ end -}}
 
 # {{ "\n" }}# {{ end -}}
 
