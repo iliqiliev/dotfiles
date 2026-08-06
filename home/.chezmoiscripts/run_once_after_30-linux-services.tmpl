@@ -14,7 +14,7 @@ source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 print_blue "Setting up system services ..."
 
 # {{ if stat "/usr/lib/systemd/system/scx_loader.service" -}}
-print_blue "Setting up Sched_ext ..."
+print_blue "Setting up Sched_ext systemd service ..."
 
 $CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
 default_sched = "scx_lavd"
@@ -29,12 +29,12 @@ server_mode = []
 EOF
 
 $CHEZ_SUDO systemctl enable --now scx_loader
-print_green "Sched_ext installed and enabled successfully."
+print_green "Sched_ext systemd service set up successfully."
 # {{ "\n" }}# {{ end -}}
 
 # {{ if stat "/usr/lib/systemd/system/vboxservice.service" -}}
-print_blue "Setting up VirtualBox systemd service ..."
 
+print_blue "Setting up VirtualBox systemd service ..."
 $CHEZ_SUDO systemctl enable --now "vboxservice.service"
 print_green "VirtualBox systemd service set up successfully."
 
@@ -50,10 +50,11 @@ fi
 # {{   "\n" }}# {{ end -}}
 
 # {{ else if stat "/etc/init.d/virtualbox-guest-additions" -}}
-print_blue "Setting up VirtualBox guest additions ..."
+
+print_blue "Setting up VirtualBox OpenRC service ..."
 $CHEZ_SUDO rc-service virtualbox-guest-additions start
 $CHEZ_SUDO rc-update add virtualbox-guest-additions boot
-print_green "VirtualBox guest additions set up successfully."
+print_green "VirtualBox OpenRC service set up successfully."
 
 # {{   if stat "/etc/init.d/virtualbox-drm-client" -}}
 print_blue "Setting up additional graphics service ..."
