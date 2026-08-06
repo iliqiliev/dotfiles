@@ -3,12 +3,17 @@
 # chezmoi:template:left-delimiter="# {{"
 
 from json import dumps as json_dumps
+from json import loads as json_loads
 
-from xbmc import LOGINFO, executeJSONRPC, log
+from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log
 from xbmcaddon import Addon
+from xbmcgui import DLG_YESNO_YES_BTN, Dialog
 
-type KodiSettingsValue = str | int | bool | None
-ADDON_ID = Addon().getAddonInfo("id")
+type KodiSettingsValue = list[str] | str | int | bool | None
+
+ADDON = Addon()
+ADDON_ID = ADDON.getAddonInfo("id")
+ADDON_NAME = ADDON.getAddonInfo("name")
 
 
 def main() -> None:
@@ -35,7 +40,48 @@ def main() -> None:
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
     set_setting("videolibrary.showunwatchedplots", None)
 
+    missing_dependencies = get_addon_dependencies(ADDON_ID) - get_installed_addons()
+
+    if missing_dependencies:
+        kodi_log(f"Missing deps: '{' '.join(missing_dependencies)}'.")
+
+        open_picker = Dialog().yesno(
+            heading=ADDON_NAME,
+            message=(
+                "The following addons are missing:"
+                f"\n{'\n'.join(missing_dependencies)}."
+                "\nDo you want to install them now?"
+                "\n(choose 'Chezmoi Addon ZIPs' in the picker)"
+            ),
+            defaultbutton=DLG_YESNO_YES_BTN,
+        )
+
+        if open_picker:
+            kodi_log("Opening file picker ...")
+            executebuiltin("InstallFromZip")
+        else:
+            kodi_log("Skipping file picker ...")
+
     kodi_log("Finished.")
+
+
+def get_addon_dependencies(addon_id: str) -> set[str]:
+    rpc_response = json_rpc(
+        method="Addons.GetAddonDetails",
+        params={"addonid": addon_id, "properties": ["dependencies"]},
+    )
+    response_dict = json_loads(rpc_response)
+    return {
+        dependency["addonid"]
+        for dependency in response_dict["result"]["addon"]["dependencies"]
+        if not dependency["addonid"].startswith("xbmc.")
+    }
+
+
+def get_installed_addons() -> set[str]:
+    rpc_response = json_rpc(method="Addons.GetAddons", params={})
+    response_dict = json_loads(rpc_response)
+    return {addon["addonid"] for addon in response_dict["result"]["addons"]}
 
 
 def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
