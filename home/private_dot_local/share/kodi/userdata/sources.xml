@@ -11,7 +11,7 @@
         </source>
         <source>
             <name>Elementum TV Shows</name>
-            <path pathversion="1">special://temp/elementum_library/Shows</path>
+            <path pathversion="1">special://temp/elementum_library/Shows/</path>
             <allowsharing>true</allowsharing>
         </source>
     </video>
