@@ -38,7 +38,7 @@ def main() -> None:
     kodi_log("Finished.")
 
 
-def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> None:
+def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
     payload = json_dumps(
         {
             "jsonrpc": "2.0",
@@ -48,7 +48,7 @@ def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> None:
         }
     )
 
-    executeJSONRPC(payload)
+    return executeJSONRPC(payload)
 
 
 def kodi_log(message: str, level: int = LOGINFO) -> None:
