@@ -15,8 +15,8 @@ print_blue "Setting up system services ..."
 
 # {{ if stat "/usr/lib/systemd/system/kmsconvt@.service" -}}
 print_blue "Setting up KMSCON systemd service ..."
-$CHEZ_SUDO systemctl enable kmsconvt@.service
 $CHEZ_SUDO systemctl disable getty@.service
+$CHEZ_SUDO systemctl enable kmsconvt@.service || $CHEZ_SUDO systemctl enable getty@.service
 print_green "KMSCON systemd service set up successfully."
 # {{ "\n" }}# {{ end -}}
 
