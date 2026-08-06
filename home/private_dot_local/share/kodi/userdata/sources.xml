@@ -4,6 +4,16 @@
     </programs>
     <video>
         <default pathversion="1" />
+        <source>
+            <name>Elementum Movies</name>
+            <path pathversion="1">special://temp/elementum_library/Movies/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+        <source>
+            <name>Elementum TV Shows</name>
+            <path pathversion="1">special://temp/elementum_library/Shows</path>
+            <allowsharing>true</allowsharing>
+        </source>
     </video>
     <music>
         <default pathversion="1" />
