@@ -1,0 +1,66 @@
+# vim: filetype=py
+
+# chezmoi:template:left-delimiter="# {{"
+
+from json import dumps as json_dumps
+
+from xbmc import LOGINFO, executeJSONRPC, log
+from xbmcaddon import Addon
+
+type KodiSettingsValue = str | int | bool | None
+ADDON_ID = Addon().getAddonInfo("id")
+
+
+def main() -> None:
+    kodi_log("Started.")
+
+    kodi_log("Allowing installing addons from ZIP files.")
+    set_setting("addons.unknownsources", True)
+
+    kodi_log("Allow file deletion in file lists.")
+    set_setting("filelists.allowfiledeletion", True)
+
+    kodi_log("Changing locale.")
+    set_setting("locale.country", "Central Europe")
+
+    kodi_log("Setting device name.")
+    set_setting("services.devicename", "# {{ .distro }}-# {{ .chezmoi.hostname }}")
+
+    kodi_log("Disabling browsing of SMB network folders.")
+    set_setting("services.wsdiscovery", False)
+
+    kodi_log("Autoselecting the first unwatched item for TV shows.")
+    set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
+
+    kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
+    set_setting("videolibrary.showunwatchedplots", None)
+
+    kodi_log("Finished.")
+
+
+def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> None:
+    payload = json_dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": method,
+            "params": params,
+        }
+    )
+
+    executeJSONRPC(payload)
+
+
+def kodi_log(message: str, level: int = LOGINFO) -> None:
+    log(f"[{ADDON_ID}] {message}", level)
+
+
+def set_setting(key: str, value: KodiSettingsValue) -> None:
+    json_rpc(
+        method="Settings.SetSettingValue",
+        params={"setting": key, "value": value},
+    )
+
+
+if __name__ == "__main__":
+    main()
