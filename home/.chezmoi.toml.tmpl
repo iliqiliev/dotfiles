@@ -20,18 +20,17 @@ os = "{{ $os }}"
 distro = "{{ $distro }}"
 {{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
 isPersonal = {{ $isPersonal }}
-{{ $isWork := $isPersonal | and (env "USERDNSDOMAIN" | eq "AD.BTK.BG") -}}
-isWork = {{ $isWork }}
-{{ $name := "Iliya Iliev" -}}
+isWork = {{ $isPersonal | and (env "USERDNSDOMAIN" | eq "AD.BTK.BG") }}
 {{ $email := "iliq0000@proton.me" -}}
+{{ $name := "Iliya Iliev" -}}
 {{ if not $isPersonal -}}
 {{   $email = promptStringOnce . "email" "Email (for git)" "" -}}
 {{   $name = promptStringOnce . "name" "Name (for git)" ($email | splitList "@" | first) -}}
 {{ end -}}
-name = "{{ $name }}"
 email = "{{ $email }}"
-{{ $sudo := "su root -c" -}}
+name = "{{ $name }}"
 {{ $canSudo := true -}}
+{{ $sudo := "su root -c" -}}
 {{ if or (.chezmoi.uid | eq "0")
          ($distro | eq "android")
          (and ($os | eq "windows") (exec "net" "session")) -}}
@@ -45,8 +44,8 @@ email = "{{ $email }}"
 {{     $sudo = "sudo" -}}
 {{   end -}}
 {{ else -}}
-{{   $sudo = "false" -}}
 {{   $canSudo = false -}}
+{{   $sudo = "false" -}}
 {{ end -}}
 canSudo = {{ $canSudo }}
 {{ if $os | eq "linux" -}}
@@ -59,11 +58,10 @@ canSudo = {{ $canSudo }}
                      (not (env "container"))
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
 manageGui = {{ $manageGui }}
-{{ $manageGnome := and (eq $os "linux")
-                       ($manageGui)
-                       (or ($sudo | eq "") ($canSudo))
-                       (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Manage Gnome" false)) -}}
-manageGnome = {{ $manageGnome }}
+manageGnome = {{ and (eq $os "linux")
+                     ($manageGui)
+                     (or ($sudo | eq "") ($canSudo))
+                     (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Manage Gnome" false)) }}
 
 [data.fonts]
 {{ $vertRes := 0 -}}
@@ -85,9 +83,9 @@ size = {{ $fontSize }}
 pager = "{{ if lookPath "delta"}}delta{{ end }}"
 
 [env]
+CHEZ_SUDO = "{{ $sudo }}"
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
-CHEZ_SUDO = "{{ $sudo }}"
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
 
