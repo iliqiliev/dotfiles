@@ -1,0 +1,6 @@
+<settings version="2">
+    <setting id="addons.unknownsources">true</setting>
+    <general>
+        <settinglevel>3</settinglevel>
+    </general>
+</settings>
