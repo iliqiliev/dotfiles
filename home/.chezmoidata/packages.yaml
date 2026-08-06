@@ -40,6 +40,8 @@ packages:
     scoop: "delta"
   kitty-terminfo:
     __tags__: ["linux"]
+  kmscon:
+    __tags__: ["linux"]
   less:
   neovim:
   ripgrep:
