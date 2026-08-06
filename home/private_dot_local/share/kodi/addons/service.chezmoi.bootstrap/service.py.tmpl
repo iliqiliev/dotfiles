@@ -4,6 +4,7 @@
 
 from json import dumps as json_dumps
 from json import loads as json_loads
+from pathlib import Path
 
 from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log
 from xbmcaddon import Addon
@@ -61,8 +62,24 @@ def main() -> None:
             executebuiltin("InstallFromZip")
         else:
             kodi_log("Skipping file picker ...")
+    else:
+        configure_elementum()
 
     kodi_log("Finished.")
+
+
+def configure_elementum() -> None:
+    kodi_log("Configuring Elementum ...")
+    elementum = Addon("plugin.video.elementum")
+
+    kodi_log("Setting storage type to files.")
+    elementum.setSetting("download_storage", "0")
+    kodi_log("Setting download path.")
+    elementum.setSetting("download_path", f"{Path.home() / 'Videos/Kodi'}/")
+    kodi_log("Enabling seeding forever.")
+    elementum.setSetting("seed_forever", "true")
+
+    kodi_log("Elementum configured.")
 
 
 def get_addon_dependencies(addon_id: str) -> set[str]:
