@@ -41,42 +41,24 @@ def main() -> None:
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
     set_setting("videolibrary.showunwatchedplots", None)
 
-    missing_dependencies = get_addon_dependencies(ADDON_ID) - get_installed_addons()
+    kodi_log("Checking for missing 3-rd party addons ...")
+    handle_missing_addons()
 
-    if missing_dependencies:
-        kodi_log(f"Missing deps: '{' '.join(missing_dependencies)}'.")
-
-        open_picker = Dialog().yesno(
-            heading=ADDON_NAME,
-            message=(
-                "The following addons are missing:"
-                f"\n{'\n'.join(missing_dependencies)}"
-                "\nDo you want to install them now?"
-                "\n(look in 'Chezmoi' in the file picker)"
-            ),
-            defaultbutton=DLG_YESNO_YES_BTN,
-        )
-
-        if open_picker:
-            kodi_log("Opening file picker ...")
-            executebuiltin("InstallFromZip")
-        else:
-            kodi_log("Skipping file picker ...")
-    else:
-        configure_elementum()
+    kodi_log("Configuring Elementum ...")
+    configure_elementum()
 
     kodi_log("Finished.")
 
 
 def configure_elementum() -> None:
-    kodi_log("Configuring Elementum ...")
     elementum = Addon("plugin.video.elementum")
 
     kodi_log("Setting storage type to files.")
     elementum.setSetting("download_storage", "0")
-    kodi_log("Setting download path.")
     elementum_download_path = Path.home() / "Videos/Kodi"
+    kodi_log(f"Creating download path: {elementum_download_path}.")
     elementum_download_path.mkdir(parents=True, exist_ok=True)
+    kodi_log("Setting download path.")
     elementum.setSetting("download_path", f"{elementum_download_path}/")
     kodi_log("Enabling seeding forever.")
     elementum.setSetting("seed_forever", "true")
@@ -101,6 +83,32 @@ def get_installed_addons() -> set[str]:
     rpc_response = json_rpc(method="Addons.GetAddons", params={})
     response_dict = json_loads(rpc_response)
     return {addon["addonid"] for addon in response_dict["result"]["addons"]}
+
+
+def handle_missing_addons() -> None:
+    missing_addons = get_addon_dependencies(ADDON_ID) - get_installed_addons()
+
+    if not missing_addons:
+        kodi_log("No missing addon dependencies.")
+        return
+
+    kodi_log(f"Missing addon dependencies: '{' '.join(missing_addons)}'.")
+
+    if not Dialog().yesno(
+        heading=ADDON_NAME,
+        message=(
+            "The following addons are missing:"
+            f"\n{'\n'.join(missing_addons)}"
+            "\nDo you want to install them now?"
+            "\n(look in 'Chezmoi' in the file picker)"
+        ),
+        defaultbutton=DLG_YESNO_YES_BTN,
+    ):
+        kodi_log("Skipping file picker ...")
+        return
+
+    kodi_log("Opening file picker ...")
+    executebuiltin("InstallFromZip", wait=True)
 
 
 def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
