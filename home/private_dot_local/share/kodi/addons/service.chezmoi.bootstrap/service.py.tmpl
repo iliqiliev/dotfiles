@@ -135,16 +135,24 @@ def get_missing_addons() -> set[str]:
 
 
 def handle_missing_addons() -> bool:
-    while missing_addons := get_addon_dependencies(ADDON_ID) - get_installed_addons():
-        kodi_log(f"Missing addon: '{' '.join(missing_addons)}'.")
+    for addon in get_addon_dependencies(ADDON_ID) - get_installed_addons():
+        kodi_log(f"Trying to install '{addon}' automatically ...")
+        executebuiltin(f"InstallAddon({addon})", wait=True)
+
+    if len(get_missing_addons()) == 0:
+        kodi_log("All addon dependencies are installed.")
+        return True
+
+    for addon in get_missing_addons():
+        kodi_log(f"Trying to install '{addon}' manually ...")
 
         if not Dialog().yesno(
             heading=ADDON_NAME,
             message=(
-                "The following addons are missing:"
-                f"\n{'\n'.join(missing_addons)}"
-                "\nDo you want to install them now?"
-                "\n(look in 'Chezmoi' in the file picker)"
+                "The following addon is missing:"
+                f"\n[B]{addon}[/B]"
+                "\nDo you want to install it now?"
+                "\n[I](look in '[B]Chezmoi[/B]' in the file picker)[/I]"
             ),
             defaultbutton=DLG_YESNO_YES_BTN,
         ):
