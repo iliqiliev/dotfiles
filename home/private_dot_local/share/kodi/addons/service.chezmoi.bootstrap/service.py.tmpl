@@ -161,24 +161,25 @@ def handle_missing_addons() -> bool:
         kodi_log(f"Trying to install '{addon}' manually ...")
 
         if not Dialog().yesno(
-            heading=ADDON_NAME,
-            message=(
-                f"The following addon is missing: [B]{addon}[/B]"
-                "\nDo you want to install it now?"
-            ),
+            heading=f"{ADDON_NAME} - Missing Addon",
+            message=f"Do you want to install [B]{addon}[/B]?",
             defaultbutton=DLG_YESNO_YES_BTN,
         ):
             kodi_log("Skipping file picker.")
             return False
 
-        kodi_log("Opening file picker ...")
         Dialog().notification(
-            heading=ADDON_NAME,
-            message=f"Choose [B]Chezmoi>{addon}.zip[/B] in the file picker.",
+            heading="Choose this file:",
+            message=f"[B]Chezmoi/{addon}.zip[/B]",
             time=10000,
         )
+
+        kodi_log("Opening file picker ...")
         executebuiltin("InstallFromZip", wait=True)
+
         kodi_log("File picker closed.")
+        executebuiltin("Dialog.Close(notification)")
+
         # Sleep to allow the addon to be installed correctly so that
         # the next iteration can properly detect it as installed.
         sleep(1000)
