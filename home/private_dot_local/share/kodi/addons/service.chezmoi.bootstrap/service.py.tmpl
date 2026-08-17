@@ -6,7 +6,7 @@ from json import dumps as json_dumps
 from json import loads as json_loads
 from pathlib import Path
 
-from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log
+from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log, sleep
 from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
 
@@ -107,6 +107,9 @@ def handle_missing_addons() -> bool:
         kodi_log("Opening file picker ...")
         executebuiltin("InstallFromZip", wait=True)
         kodi_log("File picker closed.")
+        # Sleep to allow the addon to be installed correctly so that
+        # the next iteration can properly detect it as installed.
+        sleep(1000)
 
     kodi_log("No missing addon dependencies.")
     return True
