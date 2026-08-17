@@ -50,9 +50,9 @@ def main() -> None:
             heading=ADDON_NAME,
             message=(
                 "The following addons are missing:"
-                f"\n{'\n'.join(missing_dependencies)}."
+                f"\n{'\n'.join(missing_dependencies)}"
                 "\nDo you want to install them now?"
-                "\n(look inside 'Chezmoi' in the file picker)"
+                "\n(look in 'Chezmoi' in the file picker)"
             ),
             defaultbutton=DLG_YESNO_YES_BTN,
         )
@@ -75,7 +75,9 @@ def configure_elementum() -> None:
     kodi_log("Setting storage type to files.")
     elementum.setSetting("download_storage", "0")
     kodi_log("Setting download path.")
-    elementum.setSetting("download_path", f"{Path.home() / 'Videos/Kodi'}/")
+    elementum_download_path = Path.home() / "Videos/Kodi"
+    elementum_download_path.mkdir(parents=True, exist_ok=True)
+    elementum.setSetting("download_path", f"{elementum_download_path}/")
     kodi_log("Enabling seeding forever.")
     elementum.setSetting("seed_forever", "true")
 
