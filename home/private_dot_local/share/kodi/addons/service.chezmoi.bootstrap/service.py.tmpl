@@ -42,7 +42,9 @@ def main() -> None:
     set_setting("videolibrary.showunwatchedplots", None)
 
     kodi_log("Checking for missing 3-rd party addons ...")
-    handle_missing_addons()
+    if not handle_missing_addons():
+        kodi_log("Aborting.")
+        return
 
     kodi_log("Configuring Elementum ...")
     configure_elementum()
@@ -85,30 +87,29 @@ def get_installed_addons() -> set[str]:
     return {addon["addonid"] for addon in response_dict["result"]["addons"]}
 
 
-def handle_missing_addons() -> None:
-    missing_addons = get_addon_dependencies(ADDON_ID) - get_installed_addons()
+def handle_missing_addons() -> bool:
+    while missing_addons := get_addon_dependencies(ADDON_ID) - get_installed_addons():
+        kodi_log(f"Missing addon: '{' '.join(missing_addons)}'.")
 
-    if not missing_addons:
-        kodi_log("No missing addon dependencies.")
-        return
+        if not Dialog().yesno(
+            heading=ADDON_NAME,
+            message=(
+                "The following addons are missing:"
+                f"\n{'\n'.join(missing_addons)}"
+                "\nDo you want to install them now?"
+                "\n(look in 'Chezmoi' in the file picker)"
+            ),
+            defaultbutton=DLG_YESNO_YES_BTN,
+        ):
+            kodi_log("Skipping file picker.")
+            return False
 
-    kodi_log(f"Missing addon dependencies: '{' '.join(missing_addons)}'.")
+        kodi_log("Opening file picker ...")
+        executebuiltin("InstallFromZip", wait=True)
+        kodi_log("File picker closed.")
 
-    if not Dialog().yesno(
-        heading=ADDON_NAME,
-        message=(
-            "The following addons are missing:"
-            f"\n{'\n'.join(missing_addons)}"
-            "\nDo you want to install them now?"
-            "\n(look in 'Chezmoi' in the file picker)"
-        ),
-        defaultbutton=DLG_YESNO_YES_BTN,
-    ):
-        kodi_log("Skipping file picker ...")
-        return
-
-    kodi_log("Opening file picker ...")
-    executebuiltin("InstallFromZip", wait=True)
+    kodi_log("No missing addon dependencies.")
+    return True
 
 
 def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
