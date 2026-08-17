@@ -194,8 +194,10 @@ def set_video_library_content(
         )
 
         if existing.fetchone() is not None:
+            kodi_log(f"Library '{path}' is already configured. Skipping it.")
             return
 
+        kodi_log(f"Configuring '{path}' ...")
         connection.execute(  # sql
             """INSERT INTO path (strPath, strContent, strScraper, scanRecursive)
                VALUES (:strPath, :strContent, :strScraper, :scanRecursive);""",
