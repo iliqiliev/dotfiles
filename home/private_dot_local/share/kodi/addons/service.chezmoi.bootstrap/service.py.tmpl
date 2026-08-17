@@ -110,7 +110,7 @@ def get_addon_dependencies(addon_id: str) -> set[str]:
     return {
         dependency["addonid"]
         for dependency in response_dict["result"]["addon"]["dependencies"]
-        if not dependency["addonid"].startswith("xbmc.")
+        if "xbmc" not in dependency["addonid"].split(".")
     }
 
 
