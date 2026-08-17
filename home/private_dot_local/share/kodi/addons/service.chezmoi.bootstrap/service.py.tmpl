@@ -178,14 +178,15 @@ def set_video_library_content(
     content: Literal["movies", "tvshows"],
     scraper: str,
 ) -> None:
-    kodi_log(f"Connecting to database '{db}' ...")
 
     parameters = {
         "strPath": path,
         "strContent": content,
         "strScraper": scraper,
-        "scanRecursive": 2**31 - 1,
+        "scanRecursive": 2**31 - 1,  # Kodi sets this value by default.
     }
+
+    kodi_log(f"Configuring '{path}' in database '{db}' ...")
 
     with sqlite3_connect(db, autocommit=True) as connection:
         existing = connection.execute(  # sql
@@ -197,7 +198,6 @@ def set_video_library_content(
             kodi_log(f"Library '{path}' is already configured. Skipping it.")
             return
 
-        kodi_log(f"Configuring '{path}' ...")
         connection.execute(  # sql
             """INSERT INTO path (strPath, strContent, strScraper, scanRecursive)
                VALUES (:strPath, :strContent, :strScraper, :scanRecursive);""",
