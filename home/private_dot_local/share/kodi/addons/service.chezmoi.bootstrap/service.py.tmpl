@@ -107,17 +107,24 @@ def get_addon_dependencies(addon_id: str) -> set[str]:
         params={"addonid": addon_id, "properties": ["dependencies"]},
     )
     response_dict = json_loads(rpc_response)
-    return {
+
+    dependencies: set[str] = {
         dependency["addonid"]
         for dependency in response_dict["result"]["addon"]["dependencies"]
-        if "xbmc" not in dependency["addonid"].split(".")
     }
+    dependencies.discard("xbmc.python")
+
+    return dependencies
 
 
 def get_installed_addons() -> set[str]:
     rpc_response = json_rpc(method="Addons.GetAddons", params={})
     response_dict = json_loads(rpc_response)
     return {addon["addonid"] for addon in response_dict["result"]["addons"]}
+
+
+def get_missing_addons() -> set[str]:
+    return get_addon_dependencies(ADDON_ID) - get_installed_addons()
 
 
 def handle_missing_addons() -> bool:
