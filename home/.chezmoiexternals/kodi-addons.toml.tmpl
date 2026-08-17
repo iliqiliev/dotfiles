@@ -2,25 +2,25 @@
 {{   abortEmpty }}
 {{ end -}}
 
-{{ $addonPath := ".local/share/kodi/chezmoi/addon_zips" -}}
+{{ $addonPath := ".local/share/kodi/chezmoi" -}}
 
-["{{ $addonPath }}/Elementum.zip"]
+["{{ $addonPath }}/plugin.video.elementum.zip"]
 type = "file"
 {{ $arch := includeTemplate "archShort" . -}}
 {{ $asset := print "plugin.video.elementum-*.*.*." .os "_" $arch ".zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "elgatito/plugin.video.elementum" $asset }}"
 
-["{{ $addonPath }}/Elementum_Burst.zip"]
+["{{ $addonPath }}/script.elementum.burst.zip"]
 type = "file"
 {{ $asset := "script.elementum.burst-*.*.*.zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "elgatito/script.elementum.burst" $asset }}"
 
-["{{ $addonPath }}/Elementum_Context_Helper.zip"]
+["{{ $addonPath }}/context.elementum.zip"]
 type = "file"
 {{ $asset := "context.elementum-*.*.*.zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "elgatito/context.elementum" $asset }}"
 
-["{{ $addonPath }}/Elementum_Repository.zip"]
+["{{ $addonPath }}/repository.elementumorg.zip"]
 type = "file"
 {{ $asset := "repository.elementumorg-*.*.*.zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "ElementumOrg/repository.elementumorg" $asset }}"

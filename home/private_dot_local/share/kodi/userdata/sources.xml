@@ -21,8 +21,8 @@
     <files>
         <default pathversion="1" />
         <source>
-            <name>Chezmoi Addon ZIPs</name>
-            <path pathversion="1">special://home/chezmoi/addon_zips/</path>
+            <name>Chezmoi</name>
+            <path pathversion="1">special://home/chezmoi/</path>
             <allowsharing>true</allowsharing>
         </source>
     </files>

@@ -19,6 +19,8 @@
     <website>https://github.com/iliqiliev/dotfiles</website>
     <source>https://github.com/iliqiliev/dotfiles</source>
     <summary lang="en">Chezmoi dotfiles bootstrap.</summary>
-    <description lang="en">Install necessary addons on Kodi startup.</description>
+    <description
+            lang="en"
+        >Configure settings and prompt the user to install addons.</description>
   </extension>
 </addon>
