@@ -8,7 +8,7 @@ from pathlib import Path
 from sqlite3 import connect as sqlite3_connect
 from typing import Literal
 
-from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log, sleep
+from xbmc import LOGDEBUG, LOGINFO, executebuiltin, executeJSONRPC, log, sleep
 from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
 from xbmcvfs import translatePath
@@ -119,6 +119,7 @@ def get_addon_dependencies(addon_id: str) -> set[str]:
 
 def get_installed_addons() -> set[str]:
     rpc_response = json_rpc(method="Addons.GetAddons", params={})
+    kodi_log(f"get_installed_addons: rpc_response={rpc_response}", LOGDEBUG)
     response_dict = json_loads(rpc_response)
     return {addon["addonid"] for addon in response_dict["result"]["addons"]}
 
