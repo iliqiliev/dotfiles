@@ -21,7 +21,7 @@ ADDON_NAME = ADDON.getAddonInfo("name")
 
 
 def main() -> None:
-    kodi_log("Started.")
+    kodi_log("Starting bootstrap ...")
 
     kodi_log("Allowing installing addons from ZIP files.")
     set_setting("addons.unknownsources", True)
@@ -55,7 +55,7 @@ def main() -> None:
     kodi_log("Configuring video library ...")
     configure_video_library()
 
-    kodi_log("Finished.")
+    kodi_log("Finished bootstrap.")
 
 
 def configure_video_library() -> None:
@@ -123,6 +123,13 @@ def get_addon_dependencies(addon_id: str) -> set[str]:
     return dependencies
 
 
+def get_all_repo_addons() -> set[str]:
+    rpc_response = json_rpc(method="Addons.GetAddons", params={"installed": "all"})
+    kodi_log(f"get_all_repo_addons: rpc_response={rpc_response}", LOGDEBUG)
+    response_dict = json_loads(rpc_response)
+    return {addon["addonid"] for addon in response_dict["result"]["addons"]}
+
+
 def get_installed_addons() -> set[str]:
     rpc_response = json_rpc(method="Addons.GetAddons", params={})
     kodi_log(f"get_installed_addons: rpc_response={rpc_response}", LOGDEBUG)
@@ -135,8 +142,15 @@ def get_missing_addons() -> set[str]:
 
 
 def handle_missing_addons() -> bool:
+    repo_addons = get_all_repo_addons()
+
     for addon in get_addon_dependencies(ADDON_ID) - get_installed_addons():
         kodi_log(f"Trying to install '{addon}' automatically ...")
+
+        if addon not in repo_addons:
+            kodi_log(f"Skipping '{addon}' as it is not in any repository.")
+            continue
+
         executebuiltin(f"InstallAddon({addon})", wait=True)
 
     if len(get_missing_addons()) == 0:
@@ -149,10 +163,8 @@ def handle_missing_addons() -> bool:
         if not Dialog().yesno(
             heading=ADDON_NAME,
             message=(
-                "The following addon is missing:"
-                f"\n[B]{addon}[/B]"
+                f"The following addon is missing: [B]{addon}[/B]"
                 "\nDo you want to install it now?"
-                "\n[I](look in '[B]Chezmoi[/B]' in the file picker)[/I]"
             ),
             defaultbutton=DLG_YESNO_YES_BTN,
         ):
@@ -160,6 +172,11 @@ def handle_missing_addons() -> bool:
             return False
 
         kodi_log("Opening file picker ...")
+        Dialog().notification(
+            heading=ADDON_NAME,
+            message=f"Choose [B]Chezmoi>{addon}.zip[/B] in the file picker.",
+            time=10000,
+        )
         executebuiltin("InstallFromZip", wait=True)
         kodi_log("File picker closed.")
         # Sleep to allow the addon to be installed correctly so that
