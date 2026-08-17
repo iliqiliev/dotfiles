@@ -180,27 +180,25 @@ def set_video_library_content(
 ) -> None:
     kodi_log(f"Connecting to database '{db}' ...")
 
-    parameters = {"strPath": path, "strContent": content, "strScraper": scraper}
+    parameters = {
+        "strPath": path,
+        "strContent": content,
+        "strScraper": scraper,
+        "scanRecursive": 2**31 - 1,
+    }
 
     with sqlite3_connect(db, autocommit=True) as connection:
         existing = connection.execute(  # sql
-            """SELECT idPath FROM path WHERE strPath == :strPath;""",
+            "SELECT idPath FROM path WHERE strPath == :strPath;",
             parameters,
         )
 
-        if existing.fetchone() is None:
-            connection.execute(  # sql
-                """INSERT INTO path (strPath, strContent, strScraper)
-                   VALUES (:strPath, :strContent, :strScraper);""",
-                parameters,
-            )
-
+        if existing.fetchone() is not None:
             return
 
         connection.execute(  # sql
-            """UPDATE path
-               SET strContent = :strContent, strScraper = :strScraper
-               WHERE strPath = :strPath;""",
+            """INSERT INTO path (strPath, strContent, strScraper, scanRecursive)
+               VALUES (:strPath, :strContent, :strScraper, :scanRecursive);""",
             parameters,
         )
 
