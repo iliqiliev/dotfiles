@@ -5,10 +5,13 @@
 from json import dumps as json_dumps
 from json import loads as json_loads
 from pathlib import Path
+from sqlite3 import connect as sqlite3_connect
+from typing import Literal
 
 from xbmc import LOGINFO, executebuiltin, executeJSONRPC, log, sleep
 from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
+from xbmcvfs import translatePath
 
 type KodiSettingsValue = list[str] | str | int | bool | None
 
@@ -49,7 +52,37 @@ def main() -> None:
     kodi_log("Configuring Elementum ...")
     configure_elementum()
 
+    kodi_log("Configuring video library ...")
+    configure_video_library()
+
     kodi_log("Finished.")
+
+
+def configure_video_library() -> None:
+    db_matches = tuple(Path(translatePath("special://database")).glob("MyVideos*.db"))
+
+    if len(db_matches) != 1:
+        kodi_log(f"Expected only one MyVideos*.db file, found '{db_matches}'.")
+        return
+
+    my_videos_db = db_matches[0]
+    kodi_log(f"Detected video database: '{my_videos_db}'.")
+
+    set_video_library_content(
+        db=my_videos_db,
+        path="special://temp/elementum_library/Movies/",
+        content="movies",
+        scraper="metadata.themoviedb.org.python",
+    )
+
+    set_video_library_content(
+        db=my_videos_db,
+        path="special://temp/elementum_library/Shows/",
+        content="tvshows",
+        scraper="metadata.tvshows.themoviedb.org.python",
+    )
+
+    kodi_log("Video library configured.")
 
 
 def configure_elementum() -> None:
@@ -58,7 +91,7 @@ def configure_elementum() -> None:
     kodi_log("Setting storage type to files.")
     elementum.setSetting("download_storage", "0")
     elementum_download_path = Path.home() / "Videos/Kodi"
-    kodi_log(f"Creating download path: {elementum_download_path}.")
+    kodi_log(f"Creating download path: '{elementum_download_path}'.")
     elementum_download_path.mkdir(parents=True, exist_ok=True)
     kodi_log("Setting download path.")
     elementum.setSetting("download_path", f"{elementum_download_path}/")
@@ -137,6 +170,39 @@ def set_setting(key: str, value: KodiSettingsValue) -> None:
         method="Settings.SetSettingValue",
         params={"setting": key, "value": value},
     )
+
+
+def set_video_library_content(
+    db: Path,
+    path: str,
+    content: Literal["movies", "tvshows"],
+    scraper: str,
+) -> None:
+    kodi_log(f"Connecting to database '{db}' ...")
+
+    parameters = {"strPath": path, "strContent": content, "strScraper": scraper}
+
+    with sqlite3_connect(db, autocommit=True) as connection:
+        existing = connection.execute(  # sql
+            """SELECT idPath FROM path WHERE strPath == :strPath;""",
+            parameters,
+        )
+
+        if existing.fetchone() is None:
+            connection.execute(  # sql
+                """INSERT INTO path (strPath, strContent, strScraper)
+                   VALUES (:strPath, :strContent, :strScraper);""",
+                parameters,
+            )
+
+            return
+
+        connection.execute(  # sql
+            """UPDATE path
+               SET strContent = :strContent, strScraper = :strScraper
+               WHERE strPath = :strPath;""",
+            parameters,
+        )
 
 
 if __name__ == "__main__":
