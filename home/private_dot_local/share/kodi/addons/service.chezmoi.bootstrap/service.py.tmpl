@@ -86,17 +86,23 @@ def configure_video_library() -> None:
 
 
 def configure_elementum() -> None:
-    elementum = Addon("plugin.video.elementum")
-
-    kodi_log("Setting storage type to files.")
-    elementum.setSetting("download_storage", "0")
     elementum_download_path = Path.home() / "Videos/Kodi"
     kodi_log(f"Creating download path: '{elementum_download_path}'.")
     elementum_download_path.mkdir(parents=True, exist_ok=True)
+
+    elementum = Addon("plugin.video.elementum")
+
     kodi_log("Setting download path.")
     elementum.setSetting("download_path", f"{elementum_download_path}/")
+
+    kodi_log("Setting storage type to files.")
+    elementum.setSetting("download_storage", "0")
+
     kodi_log("Enabling seeding forever.")
     elementum.setSetting("seed_forever", "true")
+
+    kodi_log("Disabling Elementum's own Burst check.")
+    elementum.setSetting("skip_burst_search", "true")
 
     kodi_log("Elementum configured.")
 
