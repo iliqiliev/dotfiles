@@ -6,8 +6,9 @@
     provider-name="Iliya Iliev"
 >
   <requires>
+    <!-- [Built-in] Python. -->
     <import addon="xbmc.python" version="3.0.0" />
-    <!-- Unpause Jumpback [Built-in] -->
+    <!-- [Built-in] Unpause Jumpback.  -->
     <import addon="script.xbmc.unpausejumpback" />
     <!-- Elementum. -->
     <import addon="plugin.video.elementum" version="0.1.114" />
