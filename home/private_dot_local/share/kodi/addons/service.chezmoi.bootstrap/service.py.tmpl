@@ -21,7 +21,7 @@ from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
 from xbmcvfs import translatePath
 
-type KodiSettingsValue = list[str] | str | int | bool | None
+type KodiSettingsValue = list[str] | str | int | bool
 
 ADDON = Addon()
 ADDON_ID = ADDON.getAddonInfo("id")
@@ -50,7 +50,7 @@ def main() -> None:
     kodi_set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
 
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
-    kodi_set_setting("videolibrary.showunwatchedplots", None)
+    kodi_set_setting("videolibrary.showunwatchedplots", [])
 
     kodi_log("Configuring video library ...")
     configure_video_library()
