@@ -65,6 +65,9 @@ def main() -> None:
     kodi_log("Configuring Elementum ...")
     configure_elementum()
 
+    kodi_log("Configuring Unpause Jumpback ...")
+    configure_unpause_jumpback()
+
     kodi_log("Finished bootstrap.")
 
 
@@ -116,6 +119,18 @@ def configure_elementum() -> None:
 
     kodi_log("Disabling Elementum's own Burst check.")
     elementum.setSetting("skip_burst_search", "true")
+
+    kodi_log("Elementum configured.")
+
+
+def configure_unpause_jumpback() -> None:
+    unpause_jumpback = Addon("script.xbmc.unpausejumpback")
+
+    kodi_log("Setting jump back seconds.")
+    unpause_jumpback.setSetting("jumpbacksecs", "2")
+
+    kodi_log("Setting minimum pause duration for jump back.")
+    unpause_jumpback.setSetting("waitforjumpback", "0")
 
     kodi_log("Elementum configured.")
 
