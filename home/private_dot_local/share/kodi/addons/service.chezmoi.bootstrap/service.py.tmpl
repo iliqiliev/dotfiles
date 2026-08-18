@@ -171,7 +171,7 @@ def kodi_configure_db_myvideos(
         "scanRecursive": 2**31 - 1,  # Kodi sets this value by default.
     }
 
-    kodi_log(f"Configuring '{path}' in database '{db}' ...")
+    kodi_log(f"Configuring '{path}' ...")
 
     with sqlite3_connect(db, autocommit=True) as connection:
         existing = connection.execute(  # sql
@@ -180,7 +180,7 @@ def kodi_configure_db_myvideos(
         )
 
         if existing.fetchone() is not None:
-            kodi_log(f"Library '{path}' is already configured. Skipping it.")
+            kodi_log(f"'{path}' is already configured.")
             return
 
         connection.execute(  # sql
