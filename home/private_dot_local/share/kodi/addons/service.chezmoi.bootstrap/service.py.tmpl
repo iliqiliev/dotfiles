@@ -52,26 +52,21 @@ def main() -> None:
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
     kodi_set_setting("videolibrary.showunwatchedplots", [])
 
-    kodi_log("Configuring video library ...")
     configure_video_library()
 
-    kodi_log("Checking for missing 3-rd party addons ...")
-    missing_addons = not install_missing_addons()
-
-    if missing_addons:
+    if not install_missing_addons():
         kodi_log("Aborting bootstrap because of missing addons.")
         return
 
-    kodi_log("Configuring Elementum ...")
     configure_elementum()
-
-    kodi_log("Configuring Unpause Jumpback ...")
     configure_unpause_jumpback()
 
     kodi_log("Finished bootstrap.")
 
 
 def configure_video_library() -> None:
+    kodi_log("Configuring video library ...")
+
     db_matches = tuple(Path(translatePath("special://database")).glob("MyVideos*.db"))
 
     if len(db_matches) != 1:
@@ -99,6 +94,8 @@ def configure_video_library() -> None:
 
 
 def configure_elementum() -> None:
+    kodi_log("Configuring Elementum ...")
+
     elementum_download_path = Path.home() / "Videos/Kodi"
     kodi_log(f"Creating download path: '{elementum_download_path}'.")
     elementum_download_path.mkdir(parents=True, exist_ok=True)
@@ -124,6 +121,7 @@ def configure_elementum() -> None:
 
 
 def configure_unpause_jumpback() -> None:
+    kodi_log("Configuring Unpause Jumpback ...")
     unpause_jumpback = Addon("script.xbmc.unpausejumpback")
 
     kodi_log("Setting jump back seconds.")
@@ -132,10 +130,12 @@ def configure_unpause_jumpback() -> None:
     kodi_log("Setting minimum pause duration for jump back.")
     unpause_jumpback.setSetting("waitforjumpback", "0")
 
-    kodi_log("Elementum configured.")
+    kodi_log("Unpause Jumpback configured.")
 
 
 def install_missing_addons() -> bool:
+    kodi_log("Installing missing addons ...")
+
     repo_addons = kodi_get_addons(installed="all")
 
     for addon in kodi_get_addon_dependencies() - kodi_get_addons():
