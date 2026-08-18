@@ -98,6 +98,9 @@ def configure_elementum() -> None:
     kodi_log("Setting storage type to files.")
     elementum.setSetting("download_storage", "0")
 
+    kodi_log("Disabling Elementum greeting notification.")
+    elementum.setSetting("greeting_enabled", "false")
+
     kodi_log("Enabling seeding forever.")
     elementum.setSetting("seed_forever", "true")
 
