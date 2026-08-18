@@ -232,10 +232,11 @@ def kodi_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
 
 
 def kodi_set_setting(key: str, value: KodiSettingsValue) -> None:
-    kodi_rpc(
+    rpc_response = kodi_rpc(
         method="Settings.SetSettingValue",
         params={"setting": key, "value": value},
     )
+    kodi_log(f"Settings.SetSettingValue({key}={value})='{rpc_response}'", LOGDEBUG)
 
 
 if __name__ == "__main__":
