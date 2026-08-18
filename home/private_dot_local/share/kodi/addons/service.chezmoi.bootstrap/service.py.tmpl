@@ -1,7 +1,5 @@
 # vim: filetype=py
 
-# chezmoi:template:left-delimiter="# {{"
-
 from json import dumps as json_dumps
 from json import loads as json_loads
 from pathlib import Path
@@ -41,7 +39,7 @@ def main() -> None:
     kodi_set_setting("locale.country", "Central Europe")
 
     kodi_log("Setting device name.")
-    kodi_set_setting("services.devicename", "# {{ .distro }}-# {{ .chezmoi.hostname }}")
+    kodi_set_setting("services.devicename", "{{ .distro }}-{{ .chezmoi.hostname }}")
 
     kodi_log("Disabling browsing of SMB network folders.")
     kodi_set_setting("services.wsdiscovery", False)
