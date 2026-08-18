@@ -24,25 +24,25 @@ def main() -> None:
     kodi_log("Starting bootstrap ...")
 
     kodi_log("Allowing installing addons from ZIP files.")
-    set_setting("addons.unknownsources", True)
+    kodi_set_setting("addons.unknownsources", True)
 
     kodi_log("Allow file deletion in file lists.")
-    set_setting("filelists.allowfiledeletion", True)
+    kodi_set_setting("filelists.allowfiledeletion", True)
 
     kodi_log("Changing locale.")
-    set_setting("locale.country", "Central Europe")
+    kodi_set_setting("locale.country", "Central Europe")
 
     kodi_log("Setting device name.")
-    set_setting("services.devicename", "# {{ .distro }}-# {{ .chezmoi.hostname }}")
+    kodi_set_setting("services.devicename", "# {{ .distro }}-# {{ .chezmoi.hostname }}")
 
     kodi_log("Disabling browsing of SMB network folders.")
-    set_setting("services.wsdiscovery", False)
+    kodi_set_setting("services.wsdiscovery", False)
 
     kodi_log("Autoselecting the first unwatched item for TV shows.")
-    set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
+    kodi_set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
 
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
-    set_setting("videolibrary.showunwatchedplots", None)
+    kodi_set_setting("videolibrary.showunwatchedplots", None)
 
     kodi_log("Checking for missing 3-rd party addons ...")
     if not handle_missing_addons():
@@ -68,14 +68,14 @@ def configure_video_library() -> None:
     my_videos_db = db_matches[0]
     kodi_log(f"Detected video database: '{my_videos_db}'.")
 
-    set_video_library_content(
+    kodi_configure_db_myvideos(
         db=my_videos_db,
         path="special://temp/elementum_library/Movies/",
         content="movies",
         scraper="metadata.themoviedb.org.python",
     )
 
-    set_video_library_content(
+    kodi_configure_db_myvideos(
         db=my_videos_db,
         path="special://temp/elementum_library/Shows/",
         content="tvshows",
@@ -110,44 +110,10 @@ def configure_elementum() -> None:
     kodi_log("Elementum configured.")
 
 
-def get_addon_dependencies(addon_id: str) -> set[str]:
-    rpc_response = json_rpc(
-        method="Addons.GetAddonDetails",
-        params={"addonid": addon_id, "properties": ["dependencies"]},
-    )
-    response_dict = json_loads(rpc_response)
-
-    dependencies: set[str] = {
-        dependency["addonid"]
-        for dependency in response_dict["result"]["addon"]["dependencies"]
-    }
-    dependencies.discard("xbmc.python")
-
-    return dependencies
-
-
-def get_all_repo_addons() -> set[str]:
-    rpc_response = json_rpc(method="Addons.GetAddons", params={"installed": "all"})
-    kodi_log(f"get_all_repo_addons: rpc_response={rpc_response}", LOGDEBUG)
-    response_dict = json_loads(rpc_response)
-    return {addon["addonid"] for addon in response_dict["result"]["addons"]}
-
-
-def get_installed_addons() -> set[str]:
-    rpc_response = json_rpc(method="Addons.GetAddons", params={})
-    kodi_log(f"get_installed_addons: rpc_response={rpc_response}", LOGDEBUG)
-    response_dict = json_loads(rpc_response)
-    return {addon["addonid"] for addon in response_dict["result"]["addons"]}
-
-
-def get_missing_addons() -> set[str]:
-    return get_addon_dependencies(ADDON_ID) - get_installed_addons()
-
-
 def handle_missing_addons() -> bool:
-    repo_addons = get_all_repo_addons()
+    repo_addons = kodi_get_addons(installed="all")
 
-    for addon in get_addon_dependencies(ADDON_ID) - get_installed_addons():
+    for addon in kodi_get_addon_dependencies() - kodi_get_addons():
         kodi_log(f"Trying to install '{addon}' automatically ...")
 
         if addon not in repo_addons:
@@ -156,11 +122,11 @@ def handle_missing_addons() -> bool:
 
         executebuiltin(f"InstallAddon({addon})", wait=True)
 
-    if len(get_missing_addons()) == 0:
+    if len(kodi_get_addon_dependencies() - kodi_get_addons()) == 0:
         kodi_log("All addon dependencies are installed.")
         return True
 
-    for addon in get_missing_addons():
+    for addon in kodi_get_addon_dependencies() - kodi_get_addons():
         kodi_log(f"Trying to install '{addon}' manually ...")
 
         if not Dialog().yesno(
@@ -191,31 +157,7 @@ def handle_missing_addons() -> bool:
     return True
 
 
-def json_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
-    payload = json_dumps(
-        {
-            "jsonrpc": "2.0",
-            "id": 1,
-            "method": method,
-            "params": params,
-        }
-    )
-
-    return executeJSONRPC(payload)
-
-
-def kodi_log(message: str, level: int = LOGINFO) -> None:
-    log(f"[{ADDON_ID}] {message}", level)
-
-
-def set_setting(key: str, value: KodiSettingsValue) -> None:
-    json_rpc(
-        method="Settings.SetSettingValue",
-        params={"setting": key, "value": value},
-    )
-
-
-def set_video_library_content(
+def kodi_configure_db_myvideos(
     db: Path,
     path: str,
     content: Literal["movies", "tvshows"],
@@ -246,6 +188,54 @@ def set_video_library_content(
                VALUES (:strPath, :strContent, :strScraper, :scanRecursive);""",
             parameters,
         )
+
+
+def kodi_get_addon_dependencies(addon_id: str = ADDON_ID) -> set[str]:
+    rpc_response = kodi_rpc(
+        method="Addons.GetAddonDetails",
+        params={"addonid": addon_id, "properties": ["dependencies"]},
+    )
+    response_dict = json_loads(rpc_response)
+
+    dependencies: set[str] = {
+        dependency["addonid"]
+        for dependency in response_dict["result"]["addon"]["dependencies"]
+    }
+    dependencies.discard("xbmc.python")
+
+    return dependencies
+
+
+def kodi_get_addons(installed: bool | Literal["all"] = True) -> set[str]:
+    rpc_response = kodi_rpc(method="Addons.GetAddons", params={"installed": installed})
+    kodi_log(f"Addons.GetAddons(installed={installed})='{rpc_response}'", LOGDEBUG)
+
+    response_dict = json_loads(rpc_response)
+    return {addon["addonid"] for addon in response_dict["result"]["addons"]}
+
+
+def kodi_log(message: str, level: int = LOGINFO) -> None:
+    log(f"[{ADDON_ID}] {message}", level)
+
+
+def kodi_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
+    payload = json_dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": method,
+            "params": params,
+        }
+    )
+
+    return executeJSONRPC(payload)
+
+
+def kodi_set_setting(key: str, value: KodiSettingsValue) -> None:
+    kodi_rpc(
+        method="Settings.SetSettingValue",
+        params={"setting": key, "value": value},
+    )
 
 
 if __name__ == "__main__":
