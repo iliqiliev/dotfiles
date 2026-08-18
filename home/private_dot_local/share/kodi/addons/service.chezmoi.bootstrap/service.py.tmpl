@@ -8,7 +8,7 @@ from pathlib import Path
 from sqlite3 import connect as sqlite3_connect
 from typing import Literal
 
-from xbmc import LOGDEBUG, LOGINFO, executebuiltin, executeJSONRPC, log, sleep
+from xbmc import LOGDEBUG, LOGINFO, executebuiltin, executeJSONRPC, log
 from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
 from xbmcvfs import translatePath
@@ -44,16 +44,18 @@ def main() -> None:
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
     kodi_set_setting("videolibrary.showunwatchedplots", None)
 
+    kodi_log("Configuring video library ...")
+    configure_video_library()
+
     kodi_log("Checking for missing 3-rd party addons ...")
-    if not handle_missing_addons():
-        kodi_log("Aborting.")
+    missing_addons = not install_missing_addons()
+
+    if missing_addons:
+        kodi_log("Aborting bootstrap because of missing addons.")
         return
 
     kodi_log("Configuring Elementum ...")
     configure_elementum()
-
-    kodi_log("Configuring video library ...")
-    configure_video_library()
 
     kodi_log("Finished bootstrap.")
 
@@ -110,7 +112,7 @@ def configure_elementum() -> None:
     kodi_log("Elementum configured.")
 
 
-def handle_missing_addons() -> bool:
+def install_missing_addons() -> bool:
     repo_addons = kodi_get_addons(installed="all")
 
     for addon in kodi_get_addon_dependencies() - kodi_get_addons():
@@ -140,7 +142,7 @@ def handle_missing_addons() -> bool:
         Dialog().notification(
             heading="Choose this file:",
             message=f"[B]Chezmoi/{addon}.zip[/B]",
-            time=10000,
+            time=10000,  # [ms]
         )
 
         kodi_log("Opening file picker ...")
@@ -149,11 +151,6 @@ def handle_missing_addons() -> bool:
         kodi_log("File picker closed.")
         executebuiltin("Dialog.Close(notification)")
 
-        # Sleep to allow the addon to be installed correctly so that
-        # the next iteration can properly detect it as installed.
-        sleep(1000)
-
-    kodi_log("No missing addon dependencies.")
     return True
 
 
