@@ -135,24 +135,22 @@ def install_missing_addons() -> bool:
 
     deps_addons = kodi_get_addon_dependencies()
     repo_addons = kodi_get_addons(installed="all")
+
     missing_addons = deps_addons - kodi_get_addons()
 
     if not missing_addons:
         kodi_log("All addon dependencies are already installed.")
         return True
 
-    for addon in missing_addons:
+    missing_repo_addons = (deps_addons & repo_addons) - kodi_get_addons()
+
+    for addon in missing_repo_addons:
         kodi_log(f"Trying to install '{addon}' automatically ...")
-
-        if addon not in repo_addons:
-            kodi_log(f"Skipping '{addon}' as it is not in any repository.")
-            continue
-
         executebuiltin(f"InstallAddon({addon})", wait=True)
 
-    still_missing_addons = deps_addons - kodi_get_addons()
+    missing_external_addons = (deps_addons - repo_addons) - kodi_get_addons()
 
-    for addon in still_missing_addons:
+    for addon in missing_external_addons:
         kodi_log(f"Trying to install '{addon}' manually ...")
 
         if not Dialog().yesno(
@@ -175,10 +173,10 @@ def install_missing_addons() -> bool:
         kodi_log("File picker closed.")
         executebuiltin("Dialog.Close(notification)", wait=True)
 
-    final_missing_addons = deps_addons - kodi_get_addons()
+    still_missing_addons = deps_addons - kodi_get_addons()
 
-    if final_missing_addons:
-        kodi_log(f"{len(final_missing_addons)} addon(s) are still missing.")
+    if still_missing_addons:
+        kodi_log(f"{len(still_missing_addons)} addon(s) are still missing.")
         return False
 
     return True
