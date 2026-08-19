@@ -1,9 +1,9 @@
 <sources>
     <programs>
-        <default pathversion="1" />
+        <default pathversion="1"></default>
     </programs>
     <video>
-        <default pathversion="1" />
+        <default pathversion="1"></default>
         <source>
             <name>Elementum Movies</name>
             <path pathversion="1">special://temp/elementum_library/Movies/</path>
@@ -16,17 +16,20 @@
         </source>
     </video>
     <music>
-        <default pathversion="1" />
+        <default pathversion="1"></default>
     </music>
+    <pictures>
+        <default pathversion="1"></default>
+    </pictures>
     <files>
-        <default pathversion="1" />
+        <default pathversion="1"></default>
         <source>
             <name>Chezmoi</name>
             <path pathversion="1">special://home/chezmoi/</path>
             <allowsharing>true</allowsharing>
         </source>
     </files>
-    <pictures>
-        <default pathversion="1" />
-    </pictures>
+    <games>
+        <default pathversion="1"></default>
+    </games>
 </sources>
