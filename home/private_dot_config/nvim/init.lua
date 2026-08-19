@@ -54,6 +54,7 @@ require("nvim-treesitter").install({
    "fish",
    "lua",
    "python",
+   "sql",
    "tcl",
    "toml",
 })
@@ -63,6 +64,7 @@ vim.lsp.enable({
    "fish_lsp",
    "lua_ls",
    "ty",
+   "sqruff",
    "tclsp",
    "tombi",
 })
@@ -78,8 +80,8 @@ require("conform").setup({
       sh = { lsp_format = "prefer", "shfmt" },
       fish = { lsp_format = "prefer", "fish_indent" },
       lua = { "stylua" },
-      ps1 = { lsp_format = "prefer" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+      sql = { lsp_format = "prefer", "sqruff" },
       tcl = { lsp_format = "prefer", "tclfmt" },
       toml = { lsp_format = "prefer", "tombi" },
       ["*"] = { "injected" }, -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
