@@ -22,6 +22,7 @@
 {{   end -}}
 {{   $extensionFullPath := print $extensionsPath "/" $info.file -}}
 {{   if stat $extensionFullPath -}}
+{{/*   Let the browser manage already-installed extensions. */ -}}
 {{     continue -}}
 {{   end -}}
 

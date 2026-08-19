@@ -8,6 +8,11 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
+{{ if stat (joinPath .chezmoi.homeDir ".local" "bin" $mise) -}}
+{{/* If mise is already installed, let it manage itself. */ -}}
+{{   abortEmpty -}}
+{{ end -}}
+
 {{ $arch := includeTemplate "archShort" . -}}
 {{ $asset := print "mise-v*.*.*-" .os "-" $arch $libc "." $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
