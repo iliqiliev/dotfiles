@@ -16,6 +16,7 @@ XDG_STATE_HOME = "$HOME/.local/state"
 [tool_alias]
 bashls = "npm:bash-language-server"
 fish-lsp = "npm:fish-lsp"
+sqruff = "aqua:quarylabs/sqruff"
 tclint = "pipx:tclint"
 
 [tools]
@@ -24,6 +25,7 @@ lua-language-server = "latest"
 ruff = "latest"
 shellcheck = "latest"
 shfmt = "latest"
+sqruff = "latest"
 starship = "latest"
 stylua = "latest"
 tombi = "latest"
