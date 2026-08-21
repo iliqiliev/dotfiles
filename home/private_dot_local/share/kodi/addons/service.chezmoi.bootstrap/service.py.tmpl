@@ -105,6 +105,9 @@ def configure_elementum() -> None:
     kodi_log("Setting storage type to files.")
     elementum.setSetting("download_storage", "0")
 
+    kodi_log("Disabling Elementum's overlay.")
+    elementum.setSetting("enable_overlay_status", "false")
+
     kodi_log("Disabling Elementum greeting notification.")
     elementum.setSetting("greeting_enabled", "false")
 
