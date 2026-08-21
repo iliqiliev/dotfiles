@@ -44,6 +44,9 @@ def main() -> None:
     kodi_log("Disabling browsing of SMB network folders.")
     kodi_set_setting("services.wsdiscovery", False)
 
+    kodi_log("Setting subtitles font size.")
+    kodi_set_setting("subtitles.fontsize", 32)
+
     kodi_log("Autoselecting the first unwatched item for TV shows.")
     kodi_set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
 
