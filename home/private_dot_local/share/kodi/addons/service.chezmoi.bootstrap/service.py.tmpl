@@ -120,6 +120,10 @@ def configure_elementum() -> None:
     kodi_log("Disabling Elementum's own Burst check.")
     elementum.setSetting("skip_burst_search", "true")
 
+    kodi_log("Do not remove items from Trakt.")
+    elementum.setSetting("trakt_sync_removed_movies", "false")
+    elementum.setSetting("trakt_sync_removed_shows", "false")
+
     kodi_log("Elementum configured.")
 
 
