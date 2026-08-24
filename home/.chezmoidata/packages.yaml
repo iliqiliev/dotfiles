@@ -86,6 +86,8 @@ packages:
     apt: "gdm3 gnome-shell gnome-control-center"
     dnf: "gdm gnome-shell gnome-control-center"
     pacman: "gdm gnome-shell gnome-control-center"
+  gnome-keyring:
+    __tags__: ["gnome"]
   libgda:
     __tags__: ["gnome"]
     apt: "gir1.2-gda-5.0"
