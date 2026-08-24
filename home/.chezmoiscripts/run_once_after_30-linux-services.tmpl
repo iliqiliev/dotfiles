@@ -22,7 +22,7 @@ function main() {
 function service_kmsconvt() {
     test -f "/usr/lib/systemd/system/kmsconvt@.service" || return 0
 
-    print_blue "Setting up KMSCON service ..."
+    print_blue "Setting up 'KMSCON' service ..."
 
     $CHEZ_SUDO systemctl disable getty@.service
     $CHEZ_SUDO systemctl enable kmsconvt@.service
@@ -30,13 +30,13 @@ function service_kmsconvt() {
     $CHEZ_SUDO systemctl disable kmsconvt@tt1.service
     $CHEZ_SUDO systemctl enable getty@tty1.service
 
-    print_green "KMSCON service set up successfully."
+    print_green "'KMSCON' service set up successfully."
 }
 
 function service_scx_loader() {
     test -f "/usr/lib/systemd/system/scx_loader.service" || return 0
 
-    print_blue "Setting up Sched_ext service ..."
+    print_blue "Setting up 'Sched_ext' service ..."
     $CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
 default_sched = "scx_lavd"
 default_mode = "Gaming"
@@ -50,7 +50,7 @@ server_mode = []
 EOF
 
     $CHEZ_SUDO systemctl enable --now scx_loader
-    print_green "Sched_ext service set up successfully."
+    print_green "'Sched_ext' service set up successfully."
 }
 
 function service_virtualbox() {
@@ -58,21 +58,23 @@ function service_virtualbox() {
         return 0
     fi
 
-    print_blue "Setting up VirtualBox service ..."
+    print_blue "Setting up 'VirtualBox' service ..."
     service_virtualbox_systemd || service_virtualbox_openrc
-    print_green "VirtualBox service set up successfully."
+    print_green "'VirtualBox' service set up successfully."
 
     if ! id --groups --name | grep --quiet --word-regexp "vboxsf"; then
+        print_blue "Adding user to 'vboxsf' group ..."
         $CHEZ_SUDO usermod -aG "vboxsf" "$USER"
+        print_green "User added to 'vboxsf' group successfully."
     fi
 
-    print_blue "Ensuring VirtualBox user session services are started ..."
+    print_blue "Ensuring 'VirtualBox' user session services are started ..."
     if ! VBoxClient-all >/dev/null; then
-        print_yellow "Failed to start VirtualBox user session services."
+        print_yellow "Failed to start 'VirtualBox' user session services."
         print_yellow "Continuing anyway as it is not critical."
         return 0
     fi
-    print_green "VirtualBox user session services started successfully."
+    print_green "'VirtualBox' user session services started successfully."
 
 }
 

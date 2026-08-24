@@ -38,7 +38,7 @@ def is_admin() -> bool:
 
 
 def install_scoop() -> None:
-    """Install Scoop using the official installer script."""
+    """Install `Scoop` using the official installer script."""
     scoop_script = HOME / ".cache/scoop-installer.ps1"
     scoop_response = requests_get("https://get.scoop.sh", timeout=10)
     scoop_script.write_bytes(scoop_response.content)
