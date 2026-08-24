@@ -65,7 +65,7 @@ function service_virtualbox() {
     if ! id --groups --name | grep --quiet --word-regexp "vboxsf"; then
         print_blue -n "Adding user to 'vboxsf' group ..."
         $CHEZ_SUDO usermod -aG "vboxsf" "$USER"
-        print_green "OK"
+        print_green " OK"
     fi
 
     print_blue -n "Starting 'VirtualBox' user session services ..."
@@ -73,7 +73,7 @@ function service_virtualbox() {
         echo
         print_yellow "Failed to start 'VirtualBox' user session services."
     else
-        print_green "OK"
+        print_green " OK"
     fi
 }
 
