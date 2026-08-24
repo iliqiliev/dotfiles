@@ -14,23 +14,8 @@ source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 USER=$(id -un)
 
 function main() {
-    service_kmsconvt
     service_scx_loader
     service_virtualbox
-}
-
-function service_kmsconvt() {
-    test -f "/usr/lib/systemd/system/kmsconvt@.service" || return 0
-
-    print_blue "Setting up 'KMSCON' service ..."
-
-    $CHEZ_SUDO systemctl disable getty@.service
-    $CHEZ_SUDO systemctl enable kmsconvt@.service
-
-    $CHEZ_SUDO systemctl disable kmsconvt@tt1.service
-    $CHEZ_SUDO systemctl enable getty@tty1.service
-
-    print_green "'KMSCON' service set up successfully."
 }
 
 function service_scx_loader() {
