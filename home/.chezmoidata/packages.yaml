@@ -59,27 +59,10 @@ packages:
   yazi:
     pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
 
-  spice-vdagent:
-    __tags__: ["kvm-guest"]
-    scoop: "virtio-guest-tools"
-  virtualbox-guest-utils:
-    __tags__: ["linux", "oracle-guest"]
-    apk: virtualbox-guest-additions
-    dnf: virtualbox-guest-additions
-  virtualbox-guest-utils-gui:
-    __tags__: ["alpine", "gui", "oracle-guest"]
-    apk: "virtualbox-guest-additions-x11"
-
   altsnap:
     __tags__: ["gui", "windows"]
   ditto:
     __tags__: ["gui", "windows"]
-  gnome:
-    __tags__: ["gnome"]
-    apk: "gdm gnome-shell gnome-control-center"
-    apt: "gdm3 gnome-shell gnome-control-center"
-    dnf: "gdm gnome-shell gnome-control-center"
-    pacman: "gdm gnome-shell gnome-control-center"
   kitty:
     __tags__: ["gui"]
     scoop: "konsole-nightly"
@@ -96,3 +79,26 @@ packages:
   zen-browser-bin:
     __tags__: ["gui", "no-work"]
     scoop: "zen-browser"
+
+  gnome:
+    __tags__: ["gnome"]
+    apk: "gdm gnome-shell gnome-control-center"
+    apt: "gdm3 gnome-shell gnome-control-center"
+    dnf: "gdm gnome-shell gnome-control-center"
+    pacman: "gdm gnome-shell gnome-control-center"
+  libgda:
+    __tags__: ["gnome"]
+    apt: "gir1.2-gda-5.0"
+    dnf: "libgda-sqlite"
+    pacman: "libgda6"
+
+  spice-vdagent:
+    __tags__: ["kvm-guest"]
+    scoop: "virtio-guest-tools"
+  virtualbox-guest-utils:
+    __tags__: ["linux", "oracle-guest"]
+    apk: virtualbox-guest-additions
+    dnf: virtualbox-guest-additions
+  virtualbox-guest-utils-gui:
+    __tags__: ["alpine", "gui", "oracle-guest"]
+    apk: "virtualbox-guest-additions-x11"
