@@ -113,7 +113,11 @@ dconf write $SHELL_EXTENSIONS/app-hider/hidden-apps "[
 ]"
 
 # Copyous #
+dconf write $SHELL_EXTENSIONS/copyous/clipboard-history "'keep-all'"
+dconf write $SHELL_EXTENSIONS/copyous/database-backend "'sqlite'"
+dconf write $SHELL_EXTENSIONS/copyous/history-length 500
 dconf write $SHELL_EXTENSIONS/copyous/open-clipboard-dialog-shortcut "['<Super>v']"
+dconf write $SHELL_EXTENSIONS/copyous/show-indicator false
 dconf write $SHELL_EXTENSIONS/copyous/sound "'message'"
 
 # Force Quit #
