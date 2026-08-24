@@ -11,19 +11,32 @@ set -eu
 # shellcheck source=helpers/helpers.sh
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
-print_blue "Setting up system services ..."
+function main() {
+    print_blue "Setting up system services ..."
+    service_kmsconvt
+    service_scx_loader
+    service_virtualbox
+    print_green "System services set up successfully."
+}
 
-# {{ if stat "/usr/lib/systemd/system/kmsconvt@.service" -}}
-print_blue "Setting up KMSCON systemd service ..."
-$CHEZ_SUDO systemctl disable getty@.service
-$CHEZ_SUDO systemctl enable kmsconvt@.service || $CHEZ_SUDO systemctl enable getty@.service
-print_green "KMSCON systemd service set up successfully."
-# {{ "\n" }}# {{ end -}}
+function service_kmsconvt() {
+    test -f "/usr/lib/systemd/system/kmsconvt@.service" || return
 
-# {{ if stat "/usr/lib/systemd/system/scx_loader.service" -}}
-print_blue "Setting up Sched_ext systemd service ..."
+    print_blue "Setting up KMSCON service ..."
 
-$CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
+    $CHEZ_SUDO systemctl disable getty@.service
+    $CHEZ_SUDO systemctl enable kmsconvt@.service
+
+    $CHEZ_SUDO systemctl disable kmsconvt@tt1.service
+    $CHEZ_SUDO systemctl enable getty@tty1.service
+
+    print_green "KMSCON service set up successfully."
+}
+
+function service_scx_loader() {
+    test -f "/usr/lib/systemd/system/scx_loader.service" || return
+
+    $CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
 default_sched = "scx_lavd"
 default_mode = "Gaming"
 
@@ -35,41 +48,38 @@ powersave_mode = ["--powersave"]
 server_mode = []
 EOF
 
-$CHEZ_SUDO systemctl enable --now scx_loader
-print_green "Sched_ext systemd service set up successfully."
-# {{ "\n" }}# {{ end -}}
+    print_blue "Setting up Sched_ext service ..."
+    $CHEZ_SUDO systemctl enable --now scx_loader
+    print_green "Sched_ext service set up successfully."
+}
 
-# {{ if stat "/usr/lib/systemd/system/vboxservice.service" -}}
+function service_virtualbox() {
+    print_blue "Setting up VirtualBox service ..."
+    service_virtualbox_systemd
+    service_virtualbox_openrc
+    print_green "VirtualBox service set up successfully."
 
-print_blue "Setting up VirtualBox systemd service ..."
-$CHEZ_SUDO systemctl enable --now "vboxservice.service"
-print_green "VirtualBox systemd service set up successfully."
-
-# {{   if lookPath "VBoxClient-all" -}}
-print_blue "Ensuring VirtualBox user session services are started ..."
-
-if ! VBoxClient-all >/dev/null; then
-    print_yellow "Failed to start VirtualBox user session services."
-    print_yellow "Continuing anyway as it is not critical."
-else
+    print_blue "Ensuring VirtualBox user session services are started ..."
+    if ! VBoxClient-all >/dev/null; then
+        print_yellow "Failed to start VirtualBox user session services."
+        print_yellow "Continuing anyway as it is not critical."
+        return
+    fi
     print_green "VirtualBox user session services started successfully."
-fi
-# {{   "\n" }}# {{ end -}}
 
-# {{ else if stat "/etc/init.d/virtualbox-guest-additions" -}}
+}
 
-print_blue "Setting up VirtualBox OpenRC service ..."
-$CHEZ_SUDO rc-service virtualbox-guest-additions start
-$CHEZ_SUDO rc-update add virtualbox-guest-additions boot
-print_green "VirtualBox OpenRC service set up successfully."
+function service_virtualbox_systemd() {
+    test -f /usr/lib/systemd/system/vboxservice.service || return
+    $CHEZ_SUDO systemctl enable --now "vboxservice.service"
+}
 
-# {{   if stat "/etc/init.d/virtualbox-drm-client" -}}
-print_blue "Setting up additional graphics service ..."
-$CHEZ_SUDO rc-service virtualbox-drm-client start
-$CHEZ_SUDO rc-update add virtualbox-drm-client default
-print_green "Additional graphics service set up successfully."
-# {{   "\n" }}# {{ end -}}
+function service_virtualbox_openrc() {
+    test -f /etc/init.d/virtualbox-guest-additions || return
+    $CHEZ_SUDO rc-service virtualbox-guest-additions start
+    $CHEZ_SUDO rc-update add virtualbox-guest-additions boot
 
-# {{ "\n" }}# {{ end -}}
-
-print_green "System services set up successfully."
+    test -f /etc/init.d/virtualbox-drm-client || return
+    $CHEZ_SUDO rc-service virtualbox-drm-client start
+    $CHEZ_SUDO rc-update add virtualbox-drm-client default
+}
