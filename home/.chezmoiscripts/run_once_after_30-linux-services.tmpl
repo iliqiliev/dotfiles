@@ -11,12 +11,12 @@ set -eu
 # shellcheck source=helpers/helpers.sh
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
+USER=$(id -un)
+
 function main() {
-    print_blue "Setting up system services ..."
     service_kmsconvt
     service_scx_loader
     service_virtualbox
-    print_green "System services set up successfully."
 }
 
 function service_kmsconvt() {
@@ -36,6 +36,7 @@ function service_kmsconvt() {
 function service_scx_loader() {
     test -f "/usr/lib/systemd/system/scx_loader.service" || return 0
 
+    print_blue "Setting up Sched_ext service ..."
     $CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
 default_sched = "scx_lavd"
 default_mode = "Gaming"
@@ -48,16 +49,22 @@ powersave_mode = ["--powersave"]
 server_mode = []
 EOF
 
-    print_blue "Setting up Sched_ext service ..."
     $CHEZ_SUDO systemctl enable --now scx_loader
     print_green "Sched_ext service set up successfully."
 }
 
 function service_virtualbox() {
+    if test -v "container" || test '# {{ .productName }}' != "VirtualBox"; then
+        return 0
+    fi
+
     print_blue "Setting up VirtualBox service ..."
-    service_virtualbox_systemd
-    service_virtualbox_openrc
+    service_virtualbox_systemd || service_virtualbox_openrc
     print_green "VirtualBox service set up successfully."
+
+    if ! id --groups --name | grep --quiet --word-regexp "vboxsf"; then
+        $CHEZ_SUDO usermod -aG "vboxsf" "$USER"
+    fi
 
     print_blue "Ensuring VirtualBox user session services are started ..."
     if ! VBoxClient-all >/dev/null; then
@@ -70,12 +77,12 @@ function service_virtualbox() {
 }
 
 function service_virtualbox_systemd() {
-    test -f /usr/lib/systemd/system/vboxservice.service || return 0
+    test -f /usr/lib/systemd/system/vboxservice.service || return 1
     $CHEZ_SUDO systemctl enable --now "vboxservice.service"
 }
 
 function service_virtualbox_openrc() {
-    test -f /etc/init.d/virtualbox-guest-additions || return 0
+    test -f /etc/init.d/virtualbox-guest-additions || return 1
     $CHEZ_SUDO rc-service virtualbox-guest-additions start
     $CHEZ_SUDO rc-update add virtualbox-guest-additions boot
 
