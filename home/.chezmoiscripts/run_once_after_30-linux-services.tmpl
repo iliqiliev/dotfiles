@@ -63,19 +63,18 @@ function service_virtualbox() {
     print_green "'VirtualBox' service set up successfully."
 
     if ! id --groups --name | grep --quiet --word-regexp "vboxsf"; then
-        print_blue "Adding user to 'vboxsf' group ..."
+        print_blue -n "Adding user to 'vboxsf' group ..."
         $CHEZ_SUDO usermod -aG "vboxsf" "$USER"
-        print_green "User added to 'vboxsf' group successfully."
+        print_green "OK"
     fi
 
-    print_blue "Ensuring 'VirtualBox' user session services are started ..."
+    print_blue -n "Starting 'VirtualBox' user session services ..."
     if ! VBoxClient-all >/dev/null; then
+        echo
         print_yellow "Failed to start 'VirtualBox' user session services."
-        print_yellow "Continuing anyway as it is not critical."
-        return 0
+    else
+        print_green "OK"
     fi
-    print_green "'VirtualBox' user session services started successfully."
-
 }
 
 function service_virtualbox_systemd() {
