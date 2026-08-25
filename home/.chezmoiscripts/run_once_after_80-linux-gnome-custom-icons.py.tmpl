@@ -1,0 +1,87 @@
+"""Configure custom folder icons for `Gnome`."""
+
+# vim: filetype=py
+
+# /// script
+# requires-python = ">=3.9"
+# dependencies = ["rich"]
+# ///
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if not .manageGnome -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+from pathlib import Path
+from shutil import which
+from subprocess import run
+
+from rich import print as rich_print
+
+
+def main() -> None:
+    rich_print("[bright_blue]Setting up custom folder icons ..")
+
+    if which("gio") is None:
+        rich_print("[bright_red]'gio' is not installed. Cannot change folder icons.")
+        raise SystemExit(1)
+
+    for folder_path, icon_name in CUSTOM_ICONS.items():
+        folder = Path(folder_path).expanduser()
+        icon = FOLDER_ICONS / f"{icon_name}.svg"
+
+        if not folder.is_dir():
+            continue
+
+        if not icon.is_file():
+            rich_print(f"[bright_red]Icon '{icon}' not found.")
+            continue
+
+        run(("gio", "set", folder, "metadata::custom-icon-name", icon_name), check=True)
+
+    rich_print("[bright_green]Custom folder icons set up successfully.")
+
+
+FOLDER_ICONS = Path.home() / ".local/share/icons/Morewaita/scalable/places"
+CUSTOM_ICONS = {
+    "~/.cache": "folder-temp",
+    "~/.config": "folder-user",
+    "~/.config/containers": "folder-podman",
+    "~/.config/copyous@boerdereinar.dev": "folder-extensions",
+    "~/.config/dconf": "folder-gnome",
+    "~/.config/fish": "folder-shell",
+    "~/.config/gh": "folder-github",
+    "~/.config/GIMP": "folder-gimp",
+    "~/.config/git": "folder-git",
+    "~/.config/kitty": "folder-shell",
+    "~/.config/MangoHud": "folder-games",
+    "~/.config/nautilus": "folder-gnome",
+    "~/.config/nvim": "folder-neovim",
+    "~/.config/yay": "folder-archlinux",
+    "~/.config/zed": "folder-code",
+    "~/.config/zen": "folder-globe",
+    "~/.local": "folder-local",
+    "~/.local/share/android": "folder-android",
+    "~/.local/share/cargo": "folder-rust",
+    "~/.local/share/containers": "folder-podman",
+    "~/.local/share/fish": "folder-shell",
+    "~/.local/share/flatpak": "folder-flatpak",
+    "~/.local/share/gnome-shell": "folder-gnome",
+    "~/.local/share/gnome-shell/extensions": "folder-extensions",
+    "~/.local/share/keyrings": "folder-private",
+    "~/.local/share/nautilus": "folder-gnome",
+    "~/.local/share/nvim": "folder-neovim",
+    "~/.local/share/uv": "folder-python",
+    "~/.local/share/zed": "folder-code",
+    "~/.ssh": "folder-shell",
+    "~/.var": "folder-flatpak",
+    "~/Pictures/Camera": "folder-camera",
+    "~/Pictures/GIMP": "folder-gimp",
+    "~/Pictures/Screenshots": "folder-screenshot",
+    "~/Projects": "folder-projects",
+    "~/Vaults": "folder-private",
+    "~/Videos/Screencasts": "folder-screencast",
+}
+
+if __name__ == "__main__":
+    main()
