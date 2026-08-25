@@ -22,7 +22,6 @@ def main():
     rich_print("[bright_blue]Setting Dconf settings ...")
     dconf = Dconf()
 
-    # {{ if .isPersonal -}}
     dconf.org.gnome.desktop.input_sources.sources = [
         ("xkb", "us"),
         ("xkb", "bg+phonetic"),
@@ -32,7 +31,6 @@ def main():
         "kitty.desktop",
         "dev.zed.Zed.desktop",
     ]
-    # {{ "\n" }}# {{ end -}}
 
     DESKTOP = dconf.org.gnome.desktop
     DESKTOP.input_sources.per_window = True
