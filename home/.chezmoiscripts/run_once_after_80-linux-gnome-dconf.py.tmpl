@@ -1,0 +1,182 @@
+"""Configure Dconf settings."""
+
+# vim: filetype=py
+
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["rich"]
+# ///
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if not .manageGnome -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+from collections.abc import Sequence
+from subprocess import run
+
+from rich import print as rich_print
+
+
+def main():
+    rich_print("[bright_blue]Setting Dconf settings ...")
+    dconf = Dconf()
+
+    # {{ if .isPersonal -}}
+    dconf.org.gnome.desktop.input_sources.sources = [
+        ("xkb", "us"),
+        ("xkb", "bg+phonetic"),
+    ]
+    dconf.org.gnome.shell.favorite_apps = [
+        "zen.desktop",
+        "kitty.desktop",
+        "dev.zed.Zed.desktop",
+    ]
+    # {{ "\n" }}# {{ end -}}
+
+    DESKTOP = dconf.org.gnome.desktop
+    DESKTOP.input_sources.per_window = True
+    DESKTOP.interface.gtk_enable_primary_paste = False
+    DESKTOP.interface.gtk_theme = "adw-gtk3"
+    DESKTOP.interface.icon_theme = "Morewaita"
+    DESKTOP.peripherals.mouse.accel_profile = "flat"
+    DESKTOP.peripherals.keyboard.numlock_state = True
+
+    WM_KEYBINDINGS = dconf.org.gnome.desktop.wm.keybindings
+    WM_KEYBINDINGS.panel_run_dialog = ["<Super>r"]
+    WM_KEYBINDINGS.show_desktop = ["<Super>d"]
+    WM_KEYBINDINGS.switch_input_source = ["<Alt>Shift_L"]
+    WM_KEYBINDINGS.switch_input_source_backward = ["<Shift>Alt_L"]
+
+    dconf.org.gnome.mutter.attach_modal_dialogs = False
+
+    MEDIA_KEYS = dconf.org.gnome.settings_daemon.plugins.media_keys
+    MEDIA_KEYS.calculator = ["Calculator"]
+    MEDIA_KEYS.control_center = ["<Control><Super>comma"]
+    MEDIA_KEYS.help = [""]
+    MEDIA_KEYS.home = ["<Super>e"]
+    MEDIA_KEYS.logout = ["<Shift><Super>l"]
+    MEDIA_KEYS.mic_mute = ["Scroll_Lock"]
+    MEDIA_KEYS.reboot = ["<Control><Alt>Delete"]
+    MEDIA_KEYS.shutdown = ["<Shift><Control><Alt>Delete"]
+    MEDIA_KEYS.volume_step = 5
+
+    dconf.set_custom_keybind(
+        "Task Manager",
+        "<Shift><Control>Escape",
+        "io.missioncenter.MissionCenter",
+    )
+    dconf.set_custom_keybind(
+        "Optical Character Recognition",
+        "<Super>C",
+        "com.github.dynobo.normcap",
+    )
+    dconf.set_custom_keybind(
+        "Cartridges Game Launcher",
+        "<Super>G",
+        "page.kramo.Cartridges",
+    )
+    dconf.set_custom_keybind(
+        "Force Quit Window Selector",
+        "<Super>X",
+        "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow",
+    )
+
+    GNOME_SHELL = dconf.org.gnome.shell
+    GNOME_SHELL.always_show_log_out = True
+    GNOME_SHELL.disable_extension_version_validation = True
+    GNOME_SHELL.keybindings.toggle_message_tray = [""]
+    GNOME_SHELL.keybindings.screenshot = ["Print"]
+    GNOME_SHELL.keybindings.screenshot_window = ["<Super>Print"]
+    GNOME_SHELL.keybindings.show_screenshot_ui = ["<Shift><Super>s"]
+    GNOME_SHELL.welcome_dialog_last_shown_version = "67.0"
+
+    SHELL_EXTENSIONS = dconf.org.gnome.shell.extensions
+
+    APP_HIDER = SHELL_EXTENSIONS.app_hider
+    APP_HIDER.hidden_apps = [
+        "avahi-discover.desktop",
+        "assistant.desktop",
+        "bssh.desktop",
+        "btop.desktop",
+        "bvnc.desktop",
+        "designer.desktop",
+        "linguist.desktop",
+        "lstopo.desktop",
+        "nvim.desktop",
+        "org.gnome.Extensions.desktop",
+        "org.gnome.Settings.desktop",
+        "qdbusviewer.desktop",
+        "qv4l2.desktop",
+        "qvidcap.desktop",
+        "scrcpy-console.desktop",
+        "scrcpy.desktop",
+        "yazi.desktop",
+    ]
+
+    COPYOUS = SHELL_EXTENSIONS.copyous
+    COPYOUS.clipboard_history = "keep-all"
+    COPYOUS.database_backend = "sqlite"
+    COPYOUS.history_length = 500
+    COPYOUS.open_clipboard_dialog_shortcut = ["<Super>v"]
+    COPYOUS.show_indicator = False
+    COPYOUS.sound = "message"
+
+    FORCEQUIT = SHELL_EXTENSIONS.forcequit
+    FORCEQUIT.hide_button = True
+
+    rich_print("[bright_green]Dconf configured successfully.")
+
+
+class Dconf:
+    _path_: tuple[str, ...]
+    custom_keybind_count: int
+
+    def __init__(self, path: tuple[str, ...] = ()):
+        object.__setattr__(self, "_path_", path)
+        object.__setattr__(self, "custom_keybind_count", 0)
+
+    def __getattr__(self, key: str) -> "Dconf":
+        key = key.replace("_", "-")
+        return Dconf(self._path_ + (key,))
+
+    def __getitem__(self, key: str) -> "Dconf":
+        return self.__getattr__(key)
+
+    def __setattr__(self, key: str, value: object) -> None:
+        key = key.replace("_", "-")
+        path = f"/{'/'.join((*self._path_, key))}"
+        value = Dconf.serialize(value)
+        run(("dconf", "write", path, value), check=True)
+
+    def __repr__(self) -> str:
+        return f"/{'/'.join(self._path_)}"
+
+    def set_custom_keybind(self, name: str, binding: str, command: str) -> None:
+        media_keys = Dconf().org.gnome.settings_daemon.plugins.media_keys
+
+        custom = media_keys.custom_keybindings[f"custom{self.custom_keybind_count}"]
+        custom.name = name
+        custom.binding = binding
+        custom.command = command
+
+        media_keys.custom_keybindings = [
+            f"{media_keys.custom_keybindings}/custom{number}"
+            for number in range(self.custom_keybind_count + 1)
+        ]
+
+        object.__setattr__(self, "custom_keybind_count", self.custom_keybind_count + 1)
+
+    @staticmethod
+    def serialize(value: object) -> str:
+        if isinstance(value, bool):
+            return str(value).lower()
+        if isinstance(value, str):
+            return repr(value)
+        if isinstance(value, (int, float, Sequence)):
+            return str(value)
+        raise TypeError(f"Cannot serialize '{value!r}'!")
+
+
+if __name__ == "__main__":
+    main()
