@@ -151,17 +151,17 @@ class Dconf:
         return f"/{'/'.join(self._path_)}"
 
     def set_custom_keybind(self, name: str, binding: str, command: str) -> None:
-        media_keys = Dconf().org.gnome.settings_daemon.plugins.media_keys
+        MEDIA_KEYS = Dconf().org.gnome.settings_daemon.plugins.media_keys
 
-        custom = media_keys.custom_keybindings[f"custom{self.custom_keybind_count}"]
-        custom.name = name
-        custom.binding = binding
-        custom.command = command
-
-        media_keys.custom_keybindings = [
-            f"{media_keys.custom_keybindings}/custom{number}"
+        MEDIA_KEYS.custom_keybindings = [
+            f"{MEDIA_KEYS.custom_keybindings}/custom{number}/"
             for number in range(self.custom_keybind_count + 1)
         ]
+
+        custom = MEDIA_KEYS.custom_keybindings[f"custom{self.custom_keybind_count}"]
+        custom.binding = binding
+        custom.command = command
+        custom.name = name
 
         object.__setattr__(self, "custom_keybind_count", self.custom_keybind_count + 1)
 
