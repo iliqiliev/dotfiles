@@ -8,6 +8,11 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
+{{ if glob ".local/bin/uv*" -}}
+{{/* If `uv` is already installed, let it manage itself. */ -}}
+{{   abortEmpty -}}
+{{ end -}}
+
 ["uv"]
 targetPath = ".local/bin"
 type = "archive"

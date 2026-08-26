@@ -8,8 +8,8 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local/bin" $mise) -}}
-{{/* If mise is already installed, let it manage itself. */ -}}
+{{ if glob ".local/bin/mise*" -}}
+{{/* If `mise` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
 {{ end -}}
 
