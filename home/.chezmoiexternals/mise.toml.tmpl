@@ -8,7 +8,7 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
-{{ if stat (joinPath .chezmoi.homeDir ".local" "bin" $mise) -}}
+{{ if stat (joinPath .chezmoi.homeDir ".local/bin" $mise) -}}
 {{/* If mise is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
 {{ end -}}
