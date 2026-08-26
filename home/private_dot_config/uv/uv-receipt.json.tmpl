@@ -1,0 +1,17 @@
+{{/*
+This is needed for `uv` to be able to self-update.
+The path is piped into `quote` to escape backslashes on Windows.
+*/ -}}
+{
+  "binaries": [],
+  "install_prefix": {{ joinPath .chezmoi.homeDir ".local/bin" | quote }},
+  "modify_path": false,
+  "provider": { "source": "", "version": "0.0.0" },
+  "source": {
+    "app_name": "uv",
+    "name": "uv",
+    "owner": "astral-sh",
+    "release_type": "github"
+  },
+  "version": "0.0.0"
+}
