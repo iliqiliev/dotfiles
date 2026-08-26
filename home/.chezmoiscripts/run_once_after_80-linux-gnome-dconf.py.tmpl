@@ -47,6 +47,8 @@ def main():
     WM_KEYBINDINGS.show_desktop = ["<Super>d"]
     WM_KEYBINDINGS.switch_input_source = ["<Alt>Shift_L"]
     WM_KEYBINDINGS.switch_input_source_backward = ["<Shift>Alt_L"]
+    WM_KEYBINDINGS.switch_to_workspace_left = ["<Control><Super>Left"]
+    WM_KEYBINDINGS.switch_to_workspace_right = ["<Control><Super>Right"]
 
     dconf.org.gnome.mutter.attach_modal_dialogs = False
 
@@ -127,6 +129,9 @@ def main():
 
     FORCEQUIT = SHELL_EXTENSIONS.forcequit
     FORCEQUIT.hide_button = True
+
+    TILING_ASSISTANT = SHELL_EXTENSIONS.tiling_assistant
+    TILING_ASSISTANT.enable_tiling_popup = False
 
     rich_print("[bright_green]Dconf configured successfully.")
 
