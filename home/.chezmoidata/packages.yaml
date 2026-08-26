@@ -91,6 +91,9 @@ packages:
     apt: "gir1.2-gda-5.0"
     dnf: "libgda-sqlite"
     pacman: "libgda6"
+  mission-center:
+    __tags__: ["gnome"]
+    pacman: "mission-center nethogs"
 
   spice-vdagent:
     __tags__: ["kvm-guest"]
