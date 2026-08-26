@@ -32,6 +32,8 @@ def main():
         "dev.zed.Zed.desktop",
     ]
 
+    dconf.ca.desrt.dconf_editor.show_warning = False
+
     DESKTOP = dconf.org.gnome.desktop
     DESKTOP.input_sources.per_window = True
     DESKTOP.interface.gtk_enable_primary_paste = False
