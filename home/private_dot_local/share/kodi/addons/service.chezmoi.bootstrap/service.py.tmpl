@@ -157,13 +157,13 @@ def install_missing_addons() -> bool:
 
     missing_repo_addons = (deps_addons & repo_addons) - kodi_get_addons()
 
-    for addon in missing_repo_addons:
+    for addon in sorted(missing_repo_addons):
         kodi_log(f"Trying to install '{addon}' automatically ...")
         executebuiltin(f"InstallAddon({addon})", wait=True)
 
     missing_external_addons = (deps_addons - repo_addons) - kodi_get_addons()
 
-    for addon in missing_external_addons:
+    for addon in sorted(missing_external_addons):
         kodi_log(f"Trying to install '{addon}' manually ...")
 
         if not Dialog().yesno(
