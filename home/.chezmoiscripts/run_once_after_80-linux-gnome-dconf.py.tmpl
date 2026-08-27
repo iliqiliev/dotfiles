@@ -168,10 +168,10 @@ class Dconf:
             for number in range(self.custom_keybind_count + 1)
         ]
 
-        custom = MEDIA_KEYS.custom_keybindings[f"custom{self.custom_keybind_count}"]
-        custom.binding = binding
-        custom.command = command
-        custom.name = name
+        CUSTOM = MEDIA_KEYS.custom_keybindings[f"custom{self.custom_keybind_count}"]
+        CUSTOM.binding = binding
+        CUSTOM.command = command
+        CUSTOM.name = name
 
         object.__setattr__(self, "custom_keybind_count", self.custom_keybind_count + 1)
 
