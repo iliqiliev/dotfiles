@@ -1,4 +1,5 @@
 # vim: filetype=py
+# chezmoi:template:left-delimiter="# {{"
 
 from json import dumps as json_dumps
 from json import loads as json_loads
@@ -24,6 +25,8 @@ type KodiSettingsValue = list[str] | str | int | bool
 ADDON = Addon()
 ADDON_ID = ADDON.getAddonInfo("id")
 ADDON_NAME = ADDON.getAddonInfo("name")
+PERSONAL = "# {{ .isPersonal }}" == "true"  # noqa: PLR0133
+"""Chezmoi expands `isPersonal` to `true` or `false`."""
 
 
 def main() -> None:
@@ -36,10 +39,10 @@ def main() -> None:
     kodi_set_setting("filelists.allowfiledeletion", True)
 
     kodi_log("Changing locale.")
-    kodi_set_setting("locale.country", "Central Europe")
+    kodi_set_setting("locale.country", "Central Europe", personal=True)
 
     kodi_log("Setting device name.")
-    kodi_set_setting("services.devicename", "{{ .distro }}-{{ .chezmoi.hostname }}")
+    kodi_set_setting("services.devicename", "# {{ .distro }}-# {{ .chezmoi.hostname }}")
 
     kodi_log("Disabling browsing of SMB network folders.")
     kodi_set_setting("services.wsdiscovery", False)
@@ -266,7 +269,14 @@ def kodi_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
     return executeJSONRPC(payload)
 
 
-def kodi_set_setting(key: str, value: KodiSettingsValue) -> bool:
+def kodi_set_setting(
+    key: str,
+    value: KodiSettingsValue,
+    personal: bool = False,
+) -> bool:
+    if personal and not PERSONAL:
+        return False
+
     response = kodi_rpc("Settings.SetSettingValue", {"setting": key, "value": value})
     kodi_log(f"Settings.SetSettingValue({key}={value})='{response}'", LOGDEBUG)
 
