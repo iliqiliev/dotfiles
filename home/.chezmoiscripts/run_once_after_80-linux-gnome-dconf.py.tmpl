@@ -22,15 +22,15 @@ def main():
     rich_print("[bright_blue]Setting Dconf settings ...")
     dconf = Dconf()
 
-    dconf.org.gnome.desktop.input_sources.sources = [
-        ("xkb", "us"),
-        ("xkb", "bg+phonetic"),
-    ]
-    dconf.org.gnome.shell.favorite_apps = [
-        "zen.desktop",
-        "kitty.desktop",
-        "dev.zed.Zed.desktop",
-    ]
+    # {{ if .isPersonal -}}
+
+    sources = [("xkb", "us"), ("xkb", "bg+phonetic")]
+    dconf.org.gnome.desktop.input_sources.sources = sources
+
+    favorite_apps = ["zen", "kitty", "dev.zed.Zed"]
+    dconf.org.gnome.shell.favorite_apps = [f"{app}.desktop" for app in favorite_apps]
+
+    # {{ end -}}
 
     dconf.ca.desrt.dconf_editor.show_warning = False
 
@@ -183,7 +183,7 @@ class Dconf:
             return repr(value)
         if isinstance(value, (int, float, Sequence)):
             return str(value)
-        raise TypeError(f"Cannot serialize '{value!r}'!")
+        raise TypeError(f"Cannot serialize '{value!r}'.")
 
 
 if __name__ == "__main__":
