@@ -63,27 +63,6 @@ def main():
     MEDIA_KEYS.shutdown = ["<Shift><Control><Alt>Delete"]
     MEDIA_KEYS.volume_step = 5
 
-    dconf.set_custom_keybind(
-        "Task Manager",
-        "<Shift><Control>Escape",
-        "missioncenter",
-    )
-    dconf.set_custom_keybind(
-        "Optical Character Recognition",
-        "<Super>C",
-        "com.github.dynobo.normcap",
-    )
-    dconf.set_custom_keybind(
-        "Cartridges Game Launcher",
-        "<Super>G",
-        "page.kramo.Cartridges",
-    )
-    dconf.set_custom_keybind(
-        "Force Quit Window Selector",
-        "<Super>X",
-        "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow",
-    )
-
     GNOME_SHELL = dconf.org.gnome.shell
     GNOME_SHELL.always_show_log_out = True
     GNOME_SHELL.disable_extension_version_validation = True
@@ -132,6 +111,27 @@ def main():
 
     TILING_ASSISTANT = SHELL_EXTENSIONS.tiling_assistant
     TILING_ASSISTANT.enable_tiling_popup = False
+
+    dconf.set_custom_keybind(
+        "Task Manager",
+        "<Shift><Control>Escape",
+        "missioncenter",
+    )
+    dconf.set_custom_keybind(
+        "Optical Character Recognition",
+        "<Super>C",
+        "com.github.dynobo.normcap",
+    )
+    dconf.set_custom_keybind(
+        "Cartridges Game Launcher",
+        "<Super>G",
+        "page.kramo.Cartridges",
+    )
+    dconf.set_custom_keybind(
+        "Force Quit Window Selector",
+        "<Super>X",
+        "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow",
+    )
 
     rich_print("[bright_green]Dconf configured successfully.")
 
