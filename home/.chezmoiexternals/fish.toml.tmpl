@@ -12,6 +12,7 @@ executable = true
 {{ $arch := includeTemplate "archRust" . -}}
 {{ $asset := print "fish-*-" .os "-" $arch ".tar.xz" -}}
 url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
+
 {{ end -}}
 
 {{ if stat (joinPath .chezmoi.homeDir ".config/fish/functions/fisher.fish") | not -}}
