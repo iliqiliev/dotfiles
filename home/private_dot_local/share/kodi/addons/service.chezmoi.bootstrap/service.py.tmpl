@@ -68,8 +68,8 @@ def main() -> None:
         kodi_log("Aborting bootstrap because of missing addons.")
         return
 
-    configure_elementum()
-    configure_unpause_jumpback()
+    configure_addon_elementum()
+    configure_addon_unpause_jumpback()
 
     kodi_log("Finished bootstrap.")
 
@@ -103,7 +103,7 @@ def configure_video_library() -> None:
     kodi_log("Video library configured.")
 
 
-def configure_elementum() -> None:
+def configure_addon_elementum() -> None:
     kodi_log("Configuring Elementum ...")
     elementum = Addon("plugin.video.elementum")
 
@@ -136,7 +136,7 @@ def configure_elementum() -> None:
     kodi_log("Elementum configured.")
 
 
-def configure_unpause_jumpback() -> None:
+def configure_addon_unpause_jumpback() -> None:
     kodi_log("Configuring Unpause Jumpback ...")
     unpause_jumpback = Addon("script.xbmc.unpausejumpback")
 
