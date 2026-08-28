@@ -1,0 +1,8 @@
+<settings>
+    <setting id="homemenunomusicbutton" type="bool">true</setting>
+    <setting id="homemenunomusicvideobutton" type="bool">true</setting>
+    <setting id="homemenunopicturesbutton" type="bool">true</setting>
+    <setting id="homemenunovideosbutton" type="bool">true</setting>
+    <setting id="osdautoclose" type="bool">true</setting>
+    <setting id="osdautoclosetime" type="string">3</setting>
+</settings>
