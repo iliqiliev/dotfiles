@@ -50,11 +50,17 @@ def main() -> None:
     kodi_log("Setting subtitles font size.")
     kodi_set_setting("subtitles.fontsize", 32)
 
-    kodi_log("Autoselecting the first unwatched item for TV shows.")
-    kodi_set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
+    kodi_log("Setting subtitles languages.")
+    kodi_set_setting("subtitles.languages", ["Bulgarian", "English"], personal=True)
 
     kodi_log("Hiding plot and episode's thumbnail for unwatched items.")
     kodi_set_setting("videolibrary.showunwatchedplots", [])
+
+    kodi_log("Autoselecting the first unwatched item for TV shows.")
+    kodi_set_setting("videolibrary.tvshowsselectfirstunwatcheditem", 2)
+
+    kodi_log("Enabling video library update on startup.")
+    kodi_set_setting("videolibrary.updateonstartup", True)
 
     configure_video_library()
 
