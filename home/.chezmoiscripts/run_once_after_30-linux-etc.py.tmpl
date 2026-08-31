@@ -54,6 +54,15 @@ if run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
     run(("sudo", "-v"), check=True)
     rich_print("[bright_green]Sudo credentials cached.")
 
+
+# Re-trigger script if any file inside `root` changes:
+# {{ $root_contents := "" -}}
+# {{ range glob (joinPath .chezmoi.workingTree "root/**") -}}
+# {{   if ne (. | lstat).type "file" }}# {{ continue }}# {{ end -}}
+# {{   $root_contents = print $root_contents (include .) -}}
+# {{ end -}}
+# # {{ $root_contents | sha256sum }}
+
 for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/link]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
