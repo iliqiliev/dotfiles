@@ -22,18 +22,6 @@ function service_scx_loader() {
     test -f "/usr/lib/systemd/system/scx_loader.service" || return 0
 
     print_blue "Setting up 'Sched_ext' service ..."
-    $CHEZ_SUDO tee /etc/scx_loader.toml <<EOF >/dev/null
-default_sched = "scx_lavd"
-default_mode = "Gaming"
-
-[scheds.scx_lavd]
-auto_mode = []
-gaming_mode = ["--performance"]
-lowlatency_mode = ["--performance"]
-powersave_mode = ["--powersave"]
-server_mode = []
-EOF
-
     $CHEZ_SUDO systemctl enable --now scx_loader
     print_green "'Sched_ext' service set up successfully."
 }

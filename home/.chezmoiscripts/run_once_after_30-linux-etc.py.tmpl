@@ -1,0 +1,64 @@
+"""Setup `/etc` directory."""
+
+# vim: filetype=py
+
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["rich"]
+# ///
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if or (ne .os "linux") (not .canSudo) -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+from os import environ as env
+from pathlib import Path
+from subprocess import DEVNULL, run
+
+from rich import print as rich_print
+
+from helpers import is_busybox
+
+CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
+ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
+
+
+root_files: dict[Path, Path] = {}
+
+for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
+    if not chezmoi_file.is_file():
+        continue
+
+    root_file = ROOT / chezmoi_file.relative_to(CHEZMOI_ROOT)
+
+    root_files[chezmoi_file] = root_file
+
+if not root_files:
+    raise SystemExit(0)
+
+install_flags = ["-D", "-m", "644"]
+
+try:
+    install_is_busybox = is_busybox("install")
+except FileNotFoundError:
+    rich_print("[bright_red]'install' utility is not found.")
+    raise SystemExit(1)
+
+if not install_is_busybox:
+    # https://www.gnu.org/software/coreutils/manual/coreutils.html#install-C
+    install_flags.append("-C")
+
+if run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
+    rich_print("[bright_blue]Caching sudo credentials ...")
+    run(("sudo", "-v"), check=True)
+    rich_print("[bright_green]Sudo credentials cached.")
+
+for chezmoi_file, root_file in root_files.items():
+    root_file_link = f"[link={root_file.as_uri()}]{root_file}[/link]"
+    rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
+
+    cmd = ("sudo", "install", *install_flags, chezmoi_file, root_file)
+    run(cmd, check=True)
+
+    rich_print("[bright_green]OK")
