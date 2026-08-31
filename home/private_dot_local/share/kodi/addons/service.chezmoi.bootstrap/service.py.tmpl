@@ -123,6 +123,12 @@ def configure_addon_elementum() -> None:
     kodi_log("Disabling Elementum greeting notification.")
     elementum.setSetting("greeting_enabled", "false")
 
+    kodi_log("Keeping downloaded files after playback.")
+    # 0 - Keep; 1 - Ask; 2 - Delete.
+    elementum.setSetting("keep_downloading", "0")
+    elementum.setSetting("keep_files_playing", "0")
+    elementum.setSetting("keep_files_finished", "0")
+
     kodi_log("Enabling seeding forever.")
     elementum.setSetting("seed_forever", "true")
 
