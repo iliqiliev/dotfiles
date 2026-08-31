@@ -40,8 +40,13 @@ else:
     rich_print(f"[bright_yellow]Old: [strike]{old_version}")
     rich_print(f"[bright_green]New: {new_version}")
 
-# Trigger re-run on config change by hashing the config file:
-# # {{ include "private_dot_config/mise/config.toml" | sha256sum }}
+# Trigger re-run on config change by hashing the config files' content:
+# {{ $config_contents := "" -}}
+# {{ range glob (joinPath .chezmoi.sourceDir "private_dot_config/mise/**") -}}
+# {{   if ne (. | lstat).type "file" }}# {{ continue }}# {{ end -}}
+# {{   $config_contents = print $config_contents (include .) -}}
+# {{ end -}}
+# # {{ $config_contents | sha256sum }}
 
 cmd = ("mise", "bootstrap", "packages", "status", "--missing")
 if run(cmd, stdout=DEVNULL).returncode != 0:
