@@ -30,6 +30,9 @@ packages:
   fastfetch:
   fd:
     apt: "fd-find"
+  file:
+    # Scoop's file cannot handle Unicode filenames. Git's file is used instead.
+    __tags__: ["linux"]
   fish:
     __tags__: ["linux"]
   fzf:

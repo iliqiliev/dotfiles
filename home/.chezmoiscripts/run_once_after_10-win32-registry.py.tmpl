@@ -115,6 +115,10 @@ registry_set_data(r"Control Panel\Mouse", "MouseThreshold2", "0")
 # Set environment variables.
 registry_set_many_data(
     r"Environment",
+    # Windows-only variables.
+    ("BAT_CONFIG_PATH", rf"{XDG_CONFIG_HOME}\bat\config"),
+    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),
+    ("YAZI_FILE_ONE", r"%USERPROFILE%\scoop\apps\git\current\usr\bin\file"),
     # Set XDG User Directories.
     ("XDG_CACHE_HOME", XDG_CACHE_HOME),
     ("XDG_CONFIG_HOME", XDG_CONFIG_HOME),
@@ -125,8 +129,6 @@ registry_set_many_data(
     ("PYTHONPYCACHEPREFIX", rf"{XDG_CACHE_HOME}\python"),
     ("RUFF_CACHE_DIR", rf"{XDG_CACHE_HOME}\ruff"),
     # XDG_CONFIG_HOME
-    ("BAT_CONFIG_PATH", rf"{XDG_CONFIG_HOME}\bat\config"),  # Windows-only.
-    ("TEALDEER_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\tealdeer"),  # Windows-only.
     ("CLAUDE_CONFIG_DIR", rf"{XDG_CONFIG_HOME}\claude"),
     ("COPILOT_HOME", rf"{XDG_CONFIG_HOME}\copilot"),
     ("NPM_CONFIG_USERCONFIG", rf"{XDG_CONFIG_HOME}\npm\npmrc"),
