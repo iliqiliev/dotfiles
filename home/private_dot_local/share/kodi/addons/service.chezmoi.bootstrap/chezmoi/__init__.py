@@ -1,3 +1,5 @@
+"""Kodi helper module for Chezmoi bootstrap."""
+
 from .helpers import (
     install_missing_addons,
     kodi_configure_db_myvideos,

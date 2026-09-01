@@ -1,3 +1,5 @@
+"""Kodi helper functions for Chezmoi bootstrap."""
+
 from json import dumps as json_dumps
 from json import loads as json_loads
 from pathlib import Path
