@@ -1,95 +1,10 @@
+# Based on the `plain-text-symbols` preset. (https://starship.rs/presets/plain-text)
+
 "$schema" = "https://starship.rs/config-schema.json"
 
-# based on [plain-text-symbols](https://starship.rs/presets/plain-text) preset
+add_newline = false  # Disabled.
 
-add_newline = false
 continuation_prompt = "[.](bright-black) "
-
-[battery]
-disabled = true
-
-[directory]
-fish_style_pwd_dir_length = 1
-read_only = " ro"
-use_os_path_sep = false
-
-[env_var.DEBUG]
-description = "Detect if 'DEBUG' env var is set"
-format = "mode [DEBUG](red) "
-
-[os]
-disabled = false
-
-[os.symbols]
-AIX = "aix "
-Alpaquita = "alq "
-AlmaLinux = "alma "
-Alpine = "alp "
-ALTLinux = "alt "
-Amazon = "amz "
-Android = "andr "
-AOSC = "aosc "
-Arch = "rch "
-Artix = "atx "
-Bluefin = "blfn "
-CachyOS = "cach "
-CentOS = "cent "
-Debian = "deb "
-DragonFly = "dfbsd "
-Elementary = "elem "
-Emscripten = "emsc "
-EndeavourOS = "ndev "
-Fedora = "fed "
-FreeBSD = "fbsd "
-Garuda = "garu "
-Gentoo = "gent "
-HardenedBSD = "hbsd "
-Illumos = "lum "
-Ios = "ios "
-InstantOS = "inst "
-Kali = "kali "
-Linux = "lnx "
-Mabox = "mbox "
-Macos = "mac "
-Manjaro = "mjo "
-Mariner = "mrn "
-MidnightBSD = "mid "
-Mint = "mint "
-NetBSD = "nbsd "
-NixOS = "nix "
-Nobara = "nbra "
-OpenBSD = "obsd "
-OpenCloudOS = "ocos "
-openEuler = "oeul "
-openSUSE = "osuse "
-OracleLinux = "orac "
-PikaOS = "pika "
-Pop = "pop "
-Raspbian = "rasp "
-Redhat = "rhl "
-RedHatEnterprise = "rhel "
-RockyLinux = "rky "
-Redox = "redox "
-Solus = "sol "
-SUSE = "suse "
-Ubuntu = "ubnt "
-Ultramarine = "ultm "
-Unknown = "unk "
-Uos = "uos "
-Void = "void "
-Windows = "win "
-Zorin = "zorn "
-
-[shell]
-disabled = false
-fish_indicator = "><>"
-
-[shlvl]
-disabled = false
-symbol = "shlvl "
-
-# below is the 'plain-text-symbols' preset
-# modified categories are above
 
 [character]
 success_symbol = "[>](bold green)"
@@ -114,6 +29,14 @@ symbol = "aws "
 
 [azure]
 symbol = "az "
+
+[battery]
+disabled = true  # Disabled.
+full_symbol = "full "
+charging_symbol = "charging "
+discharging_symbol = "discharging "
+unknown_symbol = "unknown "
+empty_symbol = "empty "
 
 [buf]
 symbol = "buf "
@@ -155,6 +78,11 @@ symbol = "deno "
 format = "via [$symbol($version )(target $tfm )]($style)"
 symbol = ".NET "
 
+[directory]
+fish_style_pwd_dir_length = 1  # Enabled fish-style path collapsing.
+read_only = " ro"
+use_os_path_sep = false  # Disabled backslashes on Windows.
+
 [docker_context]
 symbol = "docker "
 
@@ -163,6 +91,10 @@ symbol = "exs "
 
 [elm]
 symbol = "elm "
+
+[env_var.DEBUG]  # Configured DEBUG env var detection.
+description = "Detect if 'DEBUG' env var is set"
+format = "mode [DEBUG](red) "
 
 [erlang]
 symbol = "erl "
@@ -270,6 +202,69 @@ symbol = "opa "
 [openstack]
 symbol = "openstack "
 
+[os]
+disabled = false  # Enabled.
+
+[os.symbols]
+AIX = "aix "
+Alpaquita = "alq "
+AlmaLinux = "alma "
+Alpine = "alp "
+ALTLinux = "alt "
+Amazon = "amz "
+Android = "andr "
+AOSC = "aosc "
+Arch = "rch "
+Artix = "atx "
+Bluefin = "blfn "
+CachyOS = "cach "
+CentOS = "cent "
+Debian = "deb "
+DragonFly = "dfbsd "
+Elementary = "elem "
+Emscripten = "emsc "
+EndeavourOS = "ndev "
+Fedora = "fed "
+FreeBSD = "fbsd "
+Garuda = "garu "
+Gentoo = "gent "
+HardenedBSD = "hbsd "
+Illumos = "lum "
+Ios = "ios "
+InstantOS = "inst "
+Kali = "kali "
+Linux = "lnx "
+Mabox = "mbox "
+Macos = "mac "
+Manjaro = "mjo "
+Mariner = "mrn "
+MidnightBSD = "mid "
+Mint = "mint "
+NetBSD = "nbsd "
+NixOS = "nix "
+Nobara = "nbra "
+OpenBSD = "obsd "
+OpenCloudOS = "ocos "
+openEuler = "oeul "
+openSUSE = "osuse "
+OracleLinux = "orac "
+PikaOS = "pika "
+Pop = "pop "
+Raspbian = "rasp "
+Redhat = "rhl "
+RedHatEnterprise = "rhel "
+RockyLinux = "rky "
+Redox = "redox "
+Solus = "sol "
+SUSE = "suse "
+Ubuntu = "ubnt "
+Ultramarine = "ultm "
+Unknown = "unk "
+Uos = "uos "
+Void = "void "
+Windows = "win "
+Zorin = "zorn "
+
 [package]
 symbol = "pkg "
 
@@ -315,6 +310,14 @@ symbol = "rs "
 
 [scala]
 symbol = "scala "
+
+[shell]
+disabled = false  # Enabled.
+fish_indicator = "><>"
+
+[shlvl]
+disabled = false  # Enabled.
+symbol = "shlvl "
 
 [spack]
 symbol = "spack "
