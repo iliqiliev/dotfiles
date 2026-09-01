@@ -28,6 +28,7 @@ lint.ignore = [
 
 [tool.ty]
 environment.python-platform = "all"
+environment.root = ["home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap"]
 
 [tool.uv]
 python-preference = "system"
