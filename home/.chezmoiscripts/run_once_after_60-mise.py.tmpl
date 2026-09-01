@@ -22,17 +22,13 @@ if which("mise") is None:
     rich_print(f"[bright_red]{mise} is not installed. Exiting ...")
     raise SystemExit(1)
 
-rich_print(f"[bright_blue]Checking for new {mise} version ...")
-
 old_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
 run(("mise", "self-update", "--yes"), stdout=DEVNULL, check=True)
 new_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 
-if old_version == new_version:
-    rich_print(f"[bright_green]{mise} is already up to date: {old_version}")
-else:
-    rich_print(f"[bright_green]{mise} updated successfully.")
+if old_version != new_version:
+    rich_print(f"[bright_green]{mise} has been updated successfully.")
     rich_print(f"[bright_yellow]Old: [strike]{old_version}")
     rich_print(f"[bright_green]New: {new_version}")
 

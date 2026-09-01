@@ -11,15 +11,13 @@ set -eu
 # shellcheck source=helpers/helpers.sh
 source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 
-print_blue "Installing Chaotic-AUR ..."
-
 CHAOTIC_CONFIG_ENTRY="
 [chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist"
 
-if grep --quiet "chaotic-aur" /etc/pacman.conf; then
-    print_green "Chaotic-AUR is already installed."
-else
+if ! grep --quiet "chaotic-aur" /etc/pacman.conf; then
+    print_blue "Installing Chaotic-AUR ..."
+
     CHAOTIC_KEY="3056513887B78AEB"
     CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur"
 
@@ -36,11 +34,8 @@ else
     print_green "Chaotic-AUR installed successfully."
 fi
 
-print_blue "Installing Yay AUR helper ..."
-
-if command -v yay >/dev/null; then
-    print_green "Yay is already installed."
-else
+if ! command -v yay >/dev/null; then
+    print_blue "Installing Yay AUR helper ..."
     $CHEZ_SUDO pacman -S --noconfirm yay
     print_green "Yay installed successfully."
 fi

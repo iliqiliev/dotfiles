@@ -14,12 +14,11 @@ source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
 FISH_PATH=/usr/bin/fish
 USER=$(id -un)
 
-print_blue "Changing default shell to 'fish' ..."
-
 if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd; then
-    print_green "'fish' already default. Will not change it."
     exit 0
 fi
+
+print_blue "Changing default shell to 'fish' ..."
 
 # {{ if ne .distro "android" -}}
 if ! test -x "${FISH_PATH}"; then
