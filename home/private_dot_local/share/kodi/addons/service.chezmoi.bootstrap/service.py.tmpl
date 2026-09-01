@@ -3,14 +3,15 @@
 
 from pathlib import Path
 
+from xbmcaddon import Addon
+from xbmcvfs import mkdirs, translatePath
+
 from chezmoi import (
     install_missing_addons,
     kodi_configure_db_myvideos,
     kodi_log,
     kodi_set_setting,
 )
-from xbmcaddon import Addon
-from xbmcvfs import mkdirs, translatePath
 
 PERSONAL: bool = "# {{ .isPersonal }}" == "true"  # noqa: PLR0133
 """Chezmoi expands `isPersonal` to `true` or `false`."""
