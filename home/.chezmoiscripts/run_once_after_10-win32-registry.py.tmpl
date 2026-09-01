@@ -33,9 +33,9 @@ from helpers import restart_explorer
 
 def registry_set_data(
     path: str,
-    name: "str | None",
-    data: "str | int",
-    reg_type: "int | None" = None,
+    name: str | None,
+    data: str | int,
+    reg_type: int | None = None,
 ) -> None:
     """Set a `HKEY_CURRENT_USER` registry value."""
     if reg_type is None:
@@ -55,7 +55,7 @@ def registry_set_data(
         rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/i] driver.")
 
 
-def registry_set_many_data(path: str, *kvp: tuple[str, "str | int"]) -> None:
+def registry_set_many_data(path: str, *kvp: tuple[str, str | int]) -> None:
     """Set multiple `HKEY_CURRENT_USER` registry values at once."""
     for name, data in kvp:
         registry_set_data(path, name, data)
