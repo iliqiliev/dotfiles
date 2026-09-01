@@ -4,7 +4,7 @@
 
 {{ $mozillaAddonsBaseURL := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
-{{/* `range` overrides the `.` map so a variable is needed. */}}
+{{/* `range` overrides the `.` map so a variable is needed. */ -}}
 {{ $home := .chezmoi.homeDir -}}
 
 {{ $filters := dict
