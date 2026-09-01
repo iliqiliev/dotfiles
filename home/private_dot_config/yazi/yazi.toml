@@ -2,6 +2,7 @@
 
 [opener]
 edit = [
+  { run = "${EDITOR:-vi} %s", desc = "$EDITOR", for = "unix", block = true },
   { run = "%EDITOR% %s", desc = "$EDITOR", for = "windows", block = true },
-  { run = "zed %s", desc = "Zed Editor", for = "windows", orphan = true },
+  { run = "zed %s", desc = "Zed Editor", orphan = true },
 ]
