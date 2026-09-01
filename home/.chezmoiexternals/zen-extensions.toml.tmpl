@@ -2,8 +2,10 @@
 {{   abortEmpty }}
 {{ end -}}
 
-{{ $mozillaAddons := "https://addons.mozilla.org/firefox/downloads/latest" -}}
+{{ $mozillaAddonsBaseURL := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
+{{/* `range` overrides the `.` map so a variable is needed. */}}
+{{ $home := .chezmoi.homeDir -}}
 
 {{ $filters := dict
          "personal" (.isPersonal)
@@ -20,15 +22,15 @@
 {{   if not $name -}}
 {{     continue -}}
 {{   end -}}
-{{   $extensionFullPath := print $extensionsPath "/" $info.file -}}
-{{   if stat $extensionFullPath -}}
+{{   $extensionFilePath := print $extensionsPath "/" $info.file -}}
+{{   if stat (joinPath $home $extensionFilePath) -}}
 {{/*   Let the browser manage already-installed extensions. */ -}}
 {{     continue -}}
 {{   end -}}
 
 # {{ $info.pretty }}
-["{{ $extensionFullPath }}"]
+["{{ $extensionFilePath }}"]
 type = "file"
-url = "{{ $mozillaAddons }}/{{ $name }}/latest.xpi"
+url = "{{ $mozillaAddonsBaseURL }}/{{ $name }}/latest.xpi"
 
 {{ end -}}
