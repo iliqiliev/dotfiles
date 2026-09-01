@@ -1,0 +1,7 @@
+#:schema https://yazi-rs.github.io/schemas/yazi.json
+
+[opener]
+edit = [
+  { run = "%EDITOR% %s", desc = "$EDITOR", for = "windows", block = true },
+  { run = "zed %s", desc = "Zed Editor", for = "windows", orphan = true },
+]
