@@ -20,12 +20,6 @@ sqruff = "aqua:quarylabs/sqruff"
 tclint = "pipx:tclint"
 ts_query_ls = "github:ribru17/ts_query_ls"
 
-[tools]
-starship = "latest"
-topgrade = "latest"
-usage = "latest"
-zoxide = "latest"
-
 [tools.bashls]
 depends = "node"
 version = "latest"
@@ -45,7 +39,7 @@ lazy = true
 
 [tools.node]
 version = "latest"
-lazy = true
+lazy = false # Dependencies cannot be lazy installed.
 
 [tools.ruff]
 version = "latest"
@@ -64,6 +58,9 @@ version = "latest"
 lazy = true
 lazy_bins = ["sqruff"]
 
+[tools.starship]
+version = "latest"
+
 [tools.stylua]
 version = "latest"
 lazy = true
@@ -78,6 +75,9 @@ lazy_bins = ["tclfmt", "tclint", "tclsp"]
 version = "latest"
 lazy = true
 
+[tools.topgrade]
+version = "latest"
+
 [tools.tree-sitter]
 version = "latest"
 lazy = true
@@ -90,6 +90,13 @@ lazy_bins = ["ts_query_ls"]
 [tools.ty]
 version = "latest"
 lazy = true
+
+[tools.usage]
+version = "latest"
+lazy = true
+
+[tools.zoxide]
+version = "latest"
 
 [settings]
 minimum_release_age_excludes = ["ruff", "ty", "uv"]
