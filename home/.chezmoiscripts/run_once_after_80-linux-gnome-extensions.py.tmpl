@@ -1,0 +1,41 @@
+#!/usr/bin/env -S uv run --no-managed-python -w gnome-extensions-cli,rich
+# vim: filetype=py
+
+# chezmoi:template:left-delimiter="# {{"
+# {{ if not .manageGnome -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
+"""Install Gnome extensions."""
+
+from subprocess import run
+
+from rich import print as rich_print
+
+EXTENSIONS = (
+    # Alphabetical App Grid.
+    "AlphabeticalAppGrid@stuarthayhurst",
+    # App Hider.
+    "app-hider@lynith.dev",
+    # AppIndicator and KStatusNotifierItem Support.
+    "appindicatorsupport@rgcjonas.gmail.com",
+    # Copyous.
+    "copyous@boerdereinar.dev",
+    # Disable Menu Switching.
+    "disable-menu-switching@selfmade.pl",
+    # Force Quit.
+    "fq@megh",
+    # Quick Close in Overview.
+    "middleclickclose@paolo.tranquilli.gmail.com",
+    # Panel Scroll.
+    "panelScroll@sun.wxg@gmail.com",
+    # Tiling Assistant.
+    "tiling-assistant@leleat-on-github",
+)
+
+rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
+
+cmd = ("gext", "--dbus", "install", *EXTENSIONS)
+run(cmd, check=True)
+
+rich_print("[bright_green]GNOME extensions set up successfully.[/]")
