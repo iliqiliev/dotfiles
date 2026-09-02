@@ -1,16 +1,12 @@
-"""Configure custom folder icons for `Gnome`."""
-
+#!/usr/bin/env -S uv run -w rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if not .manageGnome -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Configure custom folder icons for `Gnome`."""
 
 from pathlib import Path
 from shutil import which

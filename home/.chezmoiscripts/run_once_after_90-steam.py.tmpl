@@ -1,16 +1,12 @@
-"""Find and update `Steam` config files."""
-
+#!/usr/bin/env -S uv run -w rich,vdf
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich", "vdf"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if not .manageGui -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Find and update `Steam` config files."""
 
 from pathlib import Path
 

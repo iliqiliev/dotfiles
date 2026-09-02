@@ -1,16 +1,12 @@
-"""Set up a development environment using `mise`."""
-
+#!/usr/bin/env -S uv run -w rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if eq .distro "android" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Set up a development environment using `mise`."""
 
 from shutil import which
 from subprocess import DEVNULL, PIPE, run

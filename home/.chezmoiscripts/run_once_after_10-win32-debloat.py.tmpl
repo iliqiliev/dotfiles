@@ -1,21 +1,12 @@
-"""Debloat Windows."""
-
+#!/usr/bin/env -S uv run -w rich,winrt-Windows.ApplicationModel,winrt-Windows.Foundation.Collections,winrt-Windows.Management.Deployment
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#   "rich",
-#   "winrt-Windows.ApplicationModel",
-#   "winrt-Windows.Foundation.Collections",
-#   "winrt-Windows.Management.Deployment",
-# ]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .os "windows" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Debloat Windows."""
 
 from asyncio import run as asyncio_run
 

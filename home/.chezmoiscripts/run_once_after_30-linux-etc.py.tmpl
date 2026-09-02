@@ -1,16 +1,12 @@
-"""Setup `/etc` directory."""
-
+#!/usr/bin/env -S uv run -w rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (ne .os "linux") (not .canSudo) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Setup `/etc` directory."""
 
 from contextlib import suppress
 from os import environ as env

@@ -24,6 +24,7 @@ reportUnusedCallResult = false
 extension = { "py.tmpl" = "python" }
 src = [".", "home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap"]
 lint.ignore = [
+  "EXE001",  # Allow shebangs in non-executable files.
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
 ]
 

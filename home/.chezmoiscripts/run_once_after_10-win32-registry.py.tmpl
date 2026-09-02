@@ -1,16 +1,12 @@
-"""Set Windows registry settings."""
-
+#!/usr/bin/env -S uv run -w rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .os "windows" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Set Windows registry settings."""
 
 from os import environ as env
 from shutil import which

@@ -93,5 +93,6 @@ PYTHONPATH = '{{ .chezmoi.workingTree }}'
 refreshPeriod = "5m"
 
 [interpreters.py]
-command = "uv"
-args = ["run", "--quiet"]
+# Unset interpeters so that the shebang is used.
+# TODO: Check if chezmoi respects the shebang on Windows.
+command = ""

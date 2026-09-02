@@ -1,16 +1,12 @@
-"""Install packages using `scoop`."""
-
+#!/usr/bin/env -S uv run -w requests,rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["requests", "rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .os "windows" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Install packages using `scoop`."""
 
 from ctypes import WinDLL
 from pathlib import Path

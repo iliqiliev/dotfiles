@@ -1,16 +1,12 @@
-"""Configure Dconf settings."""
-
+#!/usr/bin/env -S uv run -w rich
 # vim: filetype=py
-
-# /// script
-# requires-python = ">=3.12"
-# dependencies = ["rich"]
-# ///
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if not .manageGnome -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Configure Dconf settings."""
 
 from collections.abc import Sequence
 from subprocess import run
