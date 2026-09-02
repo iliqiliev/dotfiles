@@ -42,7 +42,7 @@ for steam_root in (
     localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
 
 for path in localconfigs:
-    rich_print("[bright_blue]Updating [i]Steam[/i] config ...")
+    rich_print("[bright_blue]Updating [i]Steam[/] config ...[/]")
 
     with path.open() as localconfig:
         parsed_vdf = parse(localconfig, mapper=DefaultDict)
@@ -63,5 +63,5 @@ for path in localconfigs:
         dump(parsed_vdf, localconfig, pretty=True)
 
     home = Path.home()
-    rich_path = f"[link={path.as_uri()}][i]'~/{path.relative_to(home)}'[/i][/link]"
+    rich_path = f"[i link={path.as_uri()}]'~/{path.relative_to(home)}'[/]"
     rich_print(f"[bright_green]{rich_path} updated successfully.")

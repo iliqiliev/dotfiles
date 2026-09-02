@@ -52,7 +52,7 @@ def registry_set_data(
             SetValueEx(key, name, 0, reg_type, data)
     except PermissionError:
         rich_print(rf"[bright_red]Failed to set '{name}' in 'HKCU\{path}'.")
-        rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/i] driver.")
+        rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/] driver.")
 
 
 def registry_set_many_data(path: str, *kvp: tuple[str, str | int]) -> None:

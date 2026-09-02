@@ -64,7 +64,7 @@ if run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 # # {{ $root_contents | sha256sum }}
 
 for chezmoi_file, root_file in root_files.items():
-    root_file_link = f"[link={root_file.as_uri()}]{root_file}[/link]"
+    root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
 
     cmd = ("sudo", "install", *install_flags, chezmoi_file, root_file)
