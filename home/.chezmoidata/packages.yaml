@@ -48,7 +48,7 @@ packages:
   ripgrep:
   scoop:
     __tags__: ["windows"]
-    scoop: "sfsu vcredist-aio"
+    scoop: "aria2 vcredist-aio"
   sched-ext:
     __tags__: ["arch"]
     pacman: "scx-tools"
