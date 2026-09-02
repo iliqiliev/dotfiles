@@ -21,34 +21,75 @@ tclint = "pipx:tclint"
 ts_query_ls = "github:ribru17/ts_query_ls"
 
 [tools]
-node = "latest"
-lua-language-server = "latest"
-ruff = "latest"
-shellcheck = "latest"
-shfmt = "latest"
-sqruff = "latest"
 starship = "latest"
-stylua = "latest"
-tombi = "latest"
 topgrade = "latest"
-tree-sitter = "latest"
-ts_query_ls = "latest"
-ty = "latest"
 usage = "latest"
 zoxide = "latest"
 
 [tools.bashls]
 depends = "node"
 version = "latest"
+lazy = true
+lazy_bins = ["bash-language-server"]
 
 [tools.fish-lsp]
 depends = "node"
 os = ["linux"]
 version = "latest"
+lazy = true
+lazy_bins = ["fish-lsp"]
+
+[tools.lua-language-server]
+version = "latest"
+lazy = true
+
+[tools.node]
+version = "latest"
+lazy = true
+
+[tools.ruff]
+version = "latest"
+lazy = true
+
+[tools.shellcheck]
+version = "latest"
+lazy = true
+
+[tools.shfmt]
+version = "latest"
+lazy = true
+
+[tools.sqruff]
+version = "latest"
+lazy = true
+lazy_bins = ["sqruff"]
+
+[tools.stylua]
+version = "latest"
+lazy = true
 
 [tools.tclint]
 uvx_args = "--quiet"
 version = "latest"
+lazy = true
+lazy_bins = ["tclfmt", "tclint", "tclsp"]
+
+[tools.tombi]
+version = "latest"
+lazy = true
+
+[tools.tree-sitter]
+version = "latest"
+lazy = true
+
+[tools.ts_query_ls]
+version = "latest"
+lazy = true
+lazy_bins = ["ts_query_ls"]
+
+[tools.ty]
+version = "latest"
+lazy = true
 
 [settings]
 minimum_release_age_excludes = ["ruff", "ty", "uv"]
