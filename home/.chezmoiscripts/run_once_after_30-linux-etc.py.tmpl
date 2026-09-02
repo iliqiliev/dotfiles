@@ -12,6 +12,7 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
+from contextlib import suppress
 from os import environ as env
 from pathlib import Path
 from subprocess import DEVNULL, run
@@ -64,8 +65,9 @@ if run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 # # {{ $root_contents | sha256sum }}
 
 for chezmoi_file, root_file in root_files.items():
-    if chezmoi_file.read_text() == root_file.read_text():
-        continue
+    with suppress(FileNotFoundError):
+        if chezmoi_file.read_text() == root_file.read_text():
+            continue
 
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
