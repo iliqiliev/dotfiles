@@ -20,80 +20,84 @@ sqruff = "aqua:quarylabs/sqruff"
 tclint = "pipx:tclint"
 ts_query_ls = "github:ribru17/ts_query_ls"
 
-[tools.bashls] # Aliased.
+[tools.bashls]  # Aliased.
 depends = "node"
-version = "latest"
 lazy = true
 lazy_bins = ["bash-language-server"]
-
-[tools.fish-lsp] # Aliased.
-depends = "node"
-os = ["linux"]
 version = "latest"
+
+[tools.fish-lsp]  # Aliased.
+depends = "node"
 lazy = true
 lazy_bins = ["fish-lsp"]
+os = ["linux"]
+version = "latest"
 
 [tools.lua-language-server]
-version = "latest"
 lazy = true
+version = "latest"
 
 [tools.node]
+lazy = false  # Dependants fail if lazily installed.
 version = "latest"
-lazy = false # Dependants fail if lazy installed.
 
 [tools.ruff]
-version = "latest"
 lazy = true
+version = "latest"
 
 [tools.shellcheck]
-version = "latest"
 lazy = true
+version = "latest"
 
 [tools.shfmt]
-version = "latest"
 lazy = true
-
-[tools.sqruff] # Aliased.
 version = "latest"
+
+[tools.sqruff]  # Aliased.
 lazy = true
 lazy_bins = ["sqruff"]
+version = "latest"
 
 [tools.starship]
 version = "latest"
 
 [tools.stylua]
-version = "latest"
 lazy = true
-
-[tools.tclint] # Aliased.
-uvx_args = "--quiet"
 version = "latest"
+
+[tools.tclint]  # Aliased.
+depends = "uv"
 lazy = true
 lazy_bins = ["tclfmt", "tclint", "tclsp"]
+uvx_args = "--quiet"
+version = "latest"
 
 [tools.tombi]
-version = "latest"
 lazy = true
+version = "latest"
 
 [tools.topgrade]
 version = "latest"
 
 [tools.tree-sitter]
-version = "latest"
 lazy = true
-
-[tools.ts_query_ls] # Aliased.
 version = "latest"
+
+[tools.ts_query_ls]  # Aliased.
 lazy = true
 lazy_bins = ["ts_query_ls"]
+version = "latest"
 
 [tools.ty]
-version = "latest"
 lazy = true
+version = "latest"
 
 [tools.usage]
-version = "latest"
 lazy = true
+version = "latest"
+
+[tools.uv]
+path = "~/.local/bin"
 
 [tools.zoxide]
 version = "latest"
