@@ -20,13 +20,13 @@ sqruff = "aqua:quarylabs/sqruff"
 tclint = "pipx:tclint"
 ts_query_ls = "github:ribru17/ts_query_ls"
 
-[tools.bashls]
+[tools.bashls] # Aliased.
 depends = "node"
 version = "latest"
 lazy = true
 lazy_bins = ["bash-language-server"]
 
-[tools.fish-lsp]
+[tools.fish-lsp] # Aliased.
 depends = "node"
 os = ["linux"]
 version = "latest"
@@ -39,7 +39,7 @@ lazy = true
 
 [tools.node]
 version = "latest"
-lazy = false # Dependencies cannot be lazy installed.
+lazy = false # Dependants fail if lazy installed.
 
 [tools.ruff]
 version = "latest"
@@ -53,7 +53,7 @@ lazy = true
 version = "latest"
 lazy = true
 
-[tools.sqruff]
+[tools.sqruff] # Aliased.
 version = "latest"
 lazy = true
 lazy_bins = ["sqruff"]
@@ -65,7 +65,7 @@ version = "latest"
 version = "latest"
 lazy = true
 
-[tools.tclint]
+[tools.tclint] # Aliased.
 uvx_args = "--quiet"
 version = "latest"
 lazy = true
@@ -82,7 +82,7 @@ version = "latest"
 version = "latest"
 lazy = true
 
-[tools.ts_query_ls]
+[tools.ts_query_ls] # Aliased.
 version = "latest"
 lazy = true
 lazy_bins = ["ts_query_ls"]
