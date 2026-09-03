@@ -29,19 +29,18 @@ isWork = {{ $isPersonal | and (env "USERDNSDOMAIN" | eq "AD.BTK.BG") }}
 {{ end -}}
 email = "{{ $email }}"
 name = "{{ $name }}"
-{{ $canSudo := false -}}
 {{ $sudo := "false" -}}
-{{ if or (.chezmoi.uid | eq "0")
-         ($distro | eq "android")
-         (and ($os | eq "windows") (exec "net" "session")) -}}
-{{   $canSudo = true -}}
+{{ if index . "sudo" -}}
+{{   $sudo = .sudo -}}
+{{ else if or (.chezmoi.uid | eq "0")
+              ($distro | eq "android")
+              (and ($os | eq "windows") (exec "net" "session")) -}}
 {{   $sudo = "" -}}
 {{ else if and (or (lookPath "sudo") ($os | eq "windows"))
-               (promptBoolOnce . "canSudo" "Use admin/sudo when needed" true) -}}
-{{   $canSudo = true -}}
+               (promptBool "Use admin/sudo when needed" true) -}}
 {{   $sudo = "sudo" -}}
 {{ end -}}
-canSudo = {{ $canSudo }}
+sudo = "{{ $sudo }}"
 {{ if $os | eq "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
      productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
@@ -55,7 +54,7 @@ canSudo = {{ $canSudo }}
 manageGui = {{ $manageGui }}
 manageGnome = {{ and (eq $os "linux")
                      ($manageGui)
-                     (or ($sudo | eq "") ($canSudo))
+                     ($sudo | ne "false")
                      (or (lookPath "gnome-shell" | ne "") (promptBoolOnce . "manageGnome" "Manage Gnome" false)) }}
 
 [data.fonts]

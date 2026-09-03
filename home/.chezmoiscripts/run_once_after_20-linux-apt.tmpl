@@ -2,7 +2,7 @@
 # vim: filetype=sh
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (not (lookPath "apt")) (not .canSudo) -}}
+# {{ if or (not (lookPath "apt")) (.sudo | eq "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 

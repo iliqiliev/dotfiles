@@ -103,7 +103,7 @@ if user_packages:
 
     rich_print("[bright_green]Packages installed successfully.")
 
-# {{ if .canSudo -}}
+# {{ if .sudo | ne "false" -}}
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
 
