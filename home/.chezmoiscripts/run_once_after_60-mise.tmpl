@@ -7,27 +7,28 @@
 
 from json import loads as json_loads
 from os import environ as env
-from shutil import which
+from pathlib import Path
 from subprocess import DEVNULL, PIPE, run
 
 from rich import print as rich_print
 
-mise: str = "[i link=https://mise.jdx.dev/]mise[/]"
+MISE = Path.home() / ".local/bin/mise"
+mise_link: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 
-rich_print(f"[bright_blue]Installing development tools using {mise} ...")
+rich_print(f"[bright_blue]Installing development tools using {mise_link} ...")
 
-if which("mise") is None:
-    rich_print(f"[bright_red]{mise} is not installed. Exiting ...")
+if not MISE.is_file():
+    rich_print(f"[bright_red]{mise_link} is not installed. Exiting ...")
     raise SystemExit(1)
 
-old_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
+old_version = run((MISE, "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
-run(("mise", "self-update", "--yes"), stdout=DEVNULL, check=True)
-new_version = run(("mise", "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
+run((MISE, "self-update", "--yes"), stdout=DEVNULL, check=True)
+new_version = run((MISE, "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
 
 if old_version != new_version:
-    rich_print(f"[bright_green]{mise} has been updated successfully.")
+    rich_print(f"[bright_green]{mise_link} has been updated successfully.")
     rich_print(f"[bright_yellow]Old: [strike]{old_version}")
     rich_print(f"[bright_green]New: {new_version}")
 
@@ -42,13 +43,13 @@ if old_version != new_version:
 
 def mise_bootstrap_android() -> None:
     """Mise tries to use `sudo` for on `Termux` but fails. This is a workaround."""
-    cmd = ("mise", "bootstrap", "packages", "status", "--json")
+    cmd = (MISE, "bootstrap", "packages", "status", "--json")
     packages = json_loads(run(cmd, stdout=PIPE).stdout.decode())
 
     missing_packages: set[str] = {
-        package
-        for package in packages["apt"]["packages"]
-        if package["state"] == "missing"
+        package_dict["package"]
+        for package_dict in packages["apt"]["packages"]
+        if package_dict["state"] == "missing"
     }
 
     env["DEBIAN_FRONTEND"] = "noninteractive"
@@ -56,19 +57,19 @@ def mise_bootstrap_android() -> None:
     run(("apt", "install", "-y", *missing_packages), check=True)
 
 
-cmd = ("mise", "bootstrap", "packages", "status", "--missing")
+cmd = (MISE, "bootstrap", "packages", "status", "--missing")
 is_missing_packages = run(cmd, stdout=DEVNULL).returncode != 0
 
 if is_missing_packages:
-    rich_print(f"[bright_blue]Installing {mise} bootstrap packages ...")
+    rich_print(f"[bright_blue]Installing {mise_link} bootstrap packages ...")
 
     if '# {{ .distro | eq "android" }}' == "true":  # noqa: PLR0133
         mise_bootstrap_android()
     else:
-        run(("mise", "bootstrap", "packages", "apply", "--yes"), check=True)
+        run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)
 
     rich_print("[bright_green]Bootstrap packages installed successfully.")
 
-run(("mise", "install"), check=True)
+run((MISE, "install"), check=True)
 
 rich_print("[bright_green]Development tools installed successfully.")
