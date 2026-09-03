@@ -46,14 +46,15 @@ def mise_bootstrap_android() -> None:
     cmd = (MISE, "bootstrap", "packages", "status", "--json")
     packages = json_loads(run(cmd, stdout=PIPE).stdout.decode())
 
+    rename = {"gcc": "clang"}
     missing_packages: set[str] = {
-        package_dict["package"]
-        for package_dict in packages["apt"]["packages"]
-        if package_dict["state"] == "missing"
+        rename.get(pkg["package"], pkg["package"])
+        for pkg in packages["apt"]["packages"]
+        if pkg["state"] == "missing"
     }
 
     env["DEBIAN_FRONTEND"] = "noninteractive"
-    run(("apt", "update"), check=True)
+    run(("apt", "update"), check=True, stdin=DEVNULL, stderr=DEVNULL)
     run(("apt", "install", "-y", *missing_packages), check=True)
 
 
