@@ -2,12 +2,11 @@
 # vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if eq .distro "android" -}}
-# {{   abortEmpty -}}
-# {{ end -}}
 
 """Set up a development environment using `mise`."""
 
+from json import loads as json_loads
+from os import environ as env
 from shutil import which
 from subprocess import DEVNULL, PIPE, run
 
@@ -40,10 +39,34 @@ if old_version != new_version:
 # {{ end -}}
 # # {{ $config_contents | sha256sum }}
 
+
+def mise_bootstrap_android() -> None:
+    """Mise tries to use `sudo` for on `Termux` but fails. This is a workaround."""
+    cmd = ("mise", "bootstrap", "packages", "status", "--json")
+    packages = json_loads(run(cmd, stdout=PIPE).stdout.decode())
+
+    missing_packages: set[str] = {
+        package
+        for package in packages["apt"]["packages"]
+        if package["state"] == "missing"
+    }
+
+    env["DEBIAN_FRONTEND"] = "noninteractive"
+    run(("apt", "update"), check=True)
+    run(("apt", "install", "-y", *missing_packages), check=True)
+
+
 cmd = ("mise", "bootstrap", "packages", "status", "--missing")
-if run(cmd, stdout=DEVNULL).returncode != 0:
+is_missing_packages = run(cmd, stdout=DEVNULL).returncode != 0
+
+if is_missing_packages:
     rich_print(f"[bright_blue]Installing {mise} bootstrap packages ...")
-    run(("mise", "bootstrap", "packages", "apply", "--yes"), check=True)
+
+    if '# {{ .distro | eq "android" }}' == "true":  # noqa: PLR0133
+        mise_bootstrap_android()
+    else:
+        run(("mise", "bootstrap", "packages", "apply", "--yes"), check=True)
+
     rich_print("[bright_green]Bootstrap packages installed successfully.")
 
 run(("mise", "install"), check=True)
