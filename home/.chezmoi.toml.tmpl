@@ -84,10 +84,10 @@ CHEZ_SUDO = "{{ $sudo }}"
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPATH = '{{ .chezmoi.workingTree }}'
-XDG_CACHE_HOME = "{{ joinPath .chezmoi.homeDir ".cache" }}"
-XDG_CONFIG_HOME = "{{ joinPath .chezmoi.homeDir ".config" }}"
-XDG_DATA_HOME = "{{ joinPath .chezmoi.homeDir ".local/share" }}"
-XDG_STATE_HOME = "{{ joinPath .chezmoi.homeDir ".local/state" }}"
+XDG_CACHE_HOME = '{{ joinPath .chezmoi.homeDir ".cache" }}'
+XDG_CONFIG_HOME = '{{ joinPath .chezmoi.homeDir ".config" }}'
+XDG_DATA_HOME = '{{ joinPath .chezmoi.homeDir ".local/share" }}'
+XDG_STATE_HOME = '{{ joinPath .chezmoi.homeDir ".local/state" }}'
 
 [github]
 refreshPeriod = "5m"
