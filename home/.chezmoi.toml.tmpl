@@ -92,7 +92,7 @@ PYTHONPATH = '{{ .chezmoi.workingTree }}'
 [github]
 refreshPeriod = "5m"
 
-{{ if .os | eq "windows" -}}
+{{ if $os | eq "windows" -}}
 [interpreters.""]
 command = "shebang"
 {{ end -}}
