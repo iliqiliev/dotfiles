@@ -1,9 +1,10 @@
+[bootstrap.packages]
 # This fixes `node` not finding its dynamic linker.
 # It is hardcoded to `/lib/ld-musl-aarch64.so.1` and does not exist in Termux.
-
-[bootstrap.packages]
 "apt:nodejs" = "latest"
+# Same for `tree-sitter`.
+"apt:tree-sitter" = "latest"
 
 [settings]
 # Disabling `node` does not cause problems for its dependants.
-disable_tools = ["node"]
+disable_tools = ["node", "tree-sitter"]
