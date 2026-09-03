@@ -1,8 +1,9 @@
 # This fixes `node` not finding its dynamic linker.
-# It is hardcoded to `/lib/ld-musl-aarch64.so.1` and doesn't exist in Termux.
+# It is hardcoded to `/lib/ld-musl-aarch64.so.1` and does not exist in Termux.
 
 [bootstrap.packages]
-"apk:nodejs" = "latest"
+"apt:nodejs" = "latest"
 
 [settings]
+# Disabling `node` does not cause problems for its dependants.
 disable_tools = ["node"]
