@@ -76,7 +76,7 @@ manageGnome = {{ and (eq $os "linux")
 size = {{ $fontSize }}
 
 [diff]
-pager = "{{ if lookPath "delta"}}delta{{ end }}"
+pager = "{{ if lookPath "delta" }}delta{{ end }}"
 
 [env]
 CHEZ_SUDO = "{{ $sudo }}"
