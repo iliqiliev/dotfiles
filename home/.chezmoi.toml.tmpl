@@ -29,30 +29,25 @@ isWork = {{ $isPersonal | and (env "USERDNSDOMAIN" | eq "AD.BTK.BG") }}
 {{ end -}}
 email = "{{ $email }}"
 name = "{{ $name }}"
-{{ $canSudo := true -}}
-{{ $sudo := "su root -c" -}}
+{{ $canSudo := false -}}
+{{ $sudo := "false" -}}
 {{ if or (.chezmoi.uid | eq "0")
          ($distro | eq "android")
          (and ($os | eq "windows") (exec "net" "session")) -}}
+{{   $canSudo = true -}}
 {{   $sudo = "" -}}
-{{ else if promptBoolOnce . "canSudo" "Ask for admin/sudo privileges when needed" true -}}
-{{   if lookPath "doas" -}}
-{{     $sudo = "doas" -}}
-{{   else if $os | eq "windows" -}}
-{{     $sudo = "gsudo" -}}
-{{   else if lookPath "sudo" -}}
-{{     $sudo = "sudo" -}}
-{{   end -}}
-{{ else -}}
-{{   $canSudo = false -}}
-{{   $sudo = "false" -}}
+{{ else if and (or (lookPath "sudo") ($os | eq "windows"))
+               (promptBoolOnce . "canSudo" "Use admin/sudo when needed" true) -}}
+{{   $canSudo = true -}}
+{{   $sudo = "sudo" -}}
 {{ end -}}
 canSudo = {{ $canSudo }}
 {{ if $os | eq "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
      productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
 {{ else if $os | eq "windows" -}}
-     productName = "{{ output "powershell" "-nop" "-c" "gpv HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" | trim -}}"
+{{   $productKey := "HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" -}}
+     productName = "{{ output "powershell" "-nop" "-c" "gpv" $productKey | trim -}}"
 {{ end -}}
 {{ $manageGui := and ($distro | ne "android")
                      (not (env "container"))
@@ -66,9 +61,11 @@ manageGnome = {{ and (eq $os "linux")
 [data.fonts]
 {{ $vertRes := 0 -}}
 {{ if $os | eq "linux" | and $manageGui -}}
-{{   $vertRes = output "sh" "-c" "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" | trim | int -}}
+{{   $resolutionCmd := "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" -}}
+{{   $vertRes = output "sh" "-c" $resolutionCmd | trim | int -}}
 {{ else if $os | eq "windows" | and $manageGui -}}
-{{   $vertRes = output "powershell" "-nop" "-c" "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" | trim | int -}}
+{{   $resolutionCmd := "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
+{{   $vertRes = output "powershell" "-nop" "-c" $resolutionCmd | trim | int -}}
 {{ end -}}
 {{ $fontSize := 16 -}}
 {{ if gt $vertRes 1080 -}}
