@@ -1,0 +1,7 @@
+{{ if .os | ne "windows" -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+[".local/bin/shebang.exe"]
+type = "file"
+url = "https://raw.githubusercontent.com/freeideas/shwinbang/refs/heads/main/shebang.exe"

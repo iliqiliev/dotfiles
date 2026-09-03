@@ -92,6 +92,7 @@ PYTHONPATH = '{{ .chezmoi.workingTree }}'
 [github]
 refreshPeriod = "5m"
 
-[interpreters.py]
-command = "uv"
-args = ["run", "--quiet"]
+{{ if .os | eq "windows" -}}
+[interpreters.""]
+command = "shebang"
+{{ end -}}
