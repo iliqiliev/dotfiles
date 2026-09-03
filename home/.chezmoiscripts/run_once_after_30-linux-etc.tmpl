@@ -61,7 +61,7 @@ if run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 # # {{ $root_contents | sha256sum }}
 
 for chezmoi_file, root_file in root_files.items():
-    with suppress(FileNotFoundError):
+    with suppress(FileNotFoundError, PermissionError):
         if chezmoi_file.read_text() == root_file.read_text():
             continue
 
