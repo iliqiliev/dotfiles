@@ -96,6 +96,9 @@ def configure_addon_elementum() -> None:
     kodi_log("Configuring Elementum ...")
     elementum = Addon("plugin.video.elementum")
 
+    kodi_log("Configuring download strategy to All Files.")
+    elementum.setSetting("download_file_strategy", "2")
+
     elementum_download_path = translatePath("special://envhome/Videos/Kodi/")
     kodi_log(f"Creating download path: '{elementum_download_path}'.")
     mkdirs(elementum_download_path)
