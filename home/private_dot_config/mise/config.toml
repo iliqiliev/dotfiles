@@ -22,78 +22,58 @@ ts_query_ls = "github:ribru17/ts_query_ls"
 
 [tools.bashls]  # Aliased.
 depends = "node"
-lazy = true
-lazy_bins = ["bash-language-server"]
 version = "latest"
 
 [tools.fish-lsp]  # Aliased.
 depends = "node"
-lazy = true
-lazy_bins = ["fish-lsp"]
 os = ["linux"]
 version = "latest"
 
 [tools.lua-language-server]
-lazy = true
 version = "latest"
 
 [tools.node]
-lazy = false  # Dependants fail if lazily installed.
 version = "latest"
 
 [tools.ruff]
-lazy = true
 version = "latest"
 
 [tools.shellcheck]
-lazy = true
 version = "latest"
 
 [tools.shfmt]
-lazy = true
 version = "latest"
 
 [tools.sqruff]  # Aliased.
-lazy = true
-lazy_bins = ["sqruff"]
 version = "latest"
 
 [tools.starship]
 version = "latest"
 
 [tools.stylua]
-lazy = true
 version = "latest"
 
 [tools.tclint]  # Aliased.
 depends = "uv"
-lazy = true
-lazy_bins = ["tclfmt", "tclint", "tclsp"]
 uvx_args = "--quiet"
 version = "latest"
 
 [tools.tombi]
-lazy = true
 version = "latest"
 
 [tools.topgrade]
 version = "latest"
 
 [tools.tree-sitter]
-lazy = true
 version = "latest"
 
 [tools.ts_query_ls]  # Aliased.
-lazy = true
-lazy_bins = ["ts_query_ls"]
 version = "latest"
 
 [tools.ty]
-lazy = true
 version = "latest"
 
 [tools.usage]
-lazy = true
 version = "latest"
 
 [tools.uv]
