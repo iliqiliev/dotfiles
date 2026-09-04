@@ -1,4 +1,14 @@
+# vim: filetype=toml
+# chezmoi:template:left-delimiter="# {{"
+#:tombi schema.strict = false
+
 [bootstrap.packages]
+# {{ if .distro | eq "android" -}}
+"apt:nodejs" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
+"apt:tree-sitter" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
+# {{ else if .distro | eq "alpine" -}}
+"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
+# {{ end -}}
 # `tree-sitter` needs a C compiler.
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
 "apt:gcc" = "latest"
@@ -85,3 +95,11 @@ version = "latest"
 [settings]
 minimum_release_age_excludes = ["ruff", "ty", "uv"]
 node.compile = false
+disable_tools = [
+  # {{ if list "alpine" "android" | has .distro -}}
+  "tree-sitter",
+  # {{ end -}}
+  # {{ if list "android" | has .distro -}}
+  "node",
+  # {{ end -}}
+]
