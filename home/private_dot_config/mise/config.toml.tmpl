@@ -3,15 +3,15 @@
 #:tombi schema.strict = false
 
 [bootstrap.packages]
+"apk:build-base" = "latest"  # Just `gcc` is not enough.
+"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 # {{ if .distro | eq "android" -}}
+"apt:clang" = "latest" # `gcc` is not avaiable on Termux.
 "apt:nodejs" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
 "apt:tree-sitter" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
-# {{ else if .distro | eq "alpine" -}}
-"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
-# {{ end -}}
-# `tree-sitter` needs a C compiler.
-"apk:build-base" = "latest"  # Just `gcc` is not enough.
+# {{ else -}}
 "apt:gcc" = "latest"
+# {{ end -}}
 "dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
 
@@ -75,6 +75,7 @@ version = "latest"
 version = "latest"
 
 [tools.tree-sitter]
+# Needs a C compiler.
 version = "latest"
 
 [tools.ts_query_ls]  # Aliased.
