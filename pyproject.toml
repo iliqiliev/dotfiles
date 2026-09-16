@@ -28,6 +28,10 @@ lint.ignore = [
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
 ]
 
+[[tool.tombi.schemas]]
+path = "https://mise.jdx.dev/schema/mise.json"
+include = ["**/mise/config.toml.tmpl"]
+
 [tool.ty]
 environment.python-platform = "all"
 environment.root = ["home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap"]
