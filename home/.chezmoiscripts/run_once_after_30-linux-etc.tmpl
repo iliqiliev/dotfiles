@@ -12,6 +12,7 @@ from contextlib import suppress
 from os import environ as env
 from pathlib import Path
 from subprocess import DEVNULL, run
+from typing import Literal
 
 from rich import print as rich_print
 
@@ -46,7 +47,7 @@ if not install_is_busybox:
     # https://www.gnu.org/software/coreutils/manual/coreutils.html#install-C
     install_flags.append("-C")
 
-SUDO: str | None = "# {{ .sudo }}" or None  # noqa: SIM222
+SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 if SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
     rich_print("[bright_blue]Caching sudo credentials ...")
