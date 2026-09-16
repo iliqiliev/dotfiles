@@ -2,6 +2,7 @@
 
 # shellcheck disable=SC2217
 echo \" <<'PS1' >/dev/null #" | Out-Null
+
 #=== PowerShell Start. ===#
 
 $ErrorActionPreference = 'Stop'
