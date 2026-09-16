@@ -70,13 +70,22 @@
   "line_ending": "prefer_lf",
   "preferred_line_length": 88,
   "languages": {
-    "Fish": { "formatter": { "external": { "command": "fish_indent" } } },
-    "Lua": { "formatter": { "external": { "command": "stylua", "arguments": ["-"] } } },
-    "Python": { "language_servers": ["ty", "ruff"] },
-    "TOML": { "tab_size": 2 },
+    "Fish": {
+      "formatter": { "external": { "command": "fish_indent" } },
+    },
+    "Lua": {
+      "formatter": { "external": { "command": "stylua", "arguments": ["-"] } },
+    },
+    "Python": {
+      "language_servers": ["ty", "ruff"],
+      "code_actions_on_format": { "source.fixAll.ruff": true },
+    },
     "TCL": {
       "formatter": "language_server",
       "language_servers": ["typescript-language-server"],
+    },
+    "TOML": {
+      "tab_size": 2,
     },
   },
 
