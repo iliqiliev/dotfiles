@@ -22,10 +22,13 @@ reportUnusedCallResult = false
 
 [tool.ruff]
 extension = { "py.tmpl" = "python" }
-src = [".", "home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap"]
 lint.ignore = [
   "EXE001",  # Allow shebangs in non-executable files.
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
+]
+src = [
+  ".",
+  "home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap",
 ]
 
 [tool.tombi]
@@ -37,7 +40,10 @@ include = ["**/mise/config.toml.tmpl"]
 
 [tool.ty]
 environment.python-platform = "all"
-environment.root = ["home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap"]
+environment.root = [
+  ".",
+  "home/private_dot_local/share/kodi/addons/service.chezmoi.bootstrap",
+]
 
 [tool.uv]
 python-preference = "system"
