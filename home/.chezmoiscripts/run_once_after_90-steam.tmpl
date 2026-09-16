@@ -18,6 +18,8 @@ PERSONAL_ID3 = "460410354"
 CS2 = "730"
 KCD2 = "1771300"
 
+HOME = Path.home()
+
 
 class DefaultDict(dict[str, "str | DefaultDict"]):
     """A nested default dictionary."""
@@ -32,8 +34,8 @@ class DefaultDict(dict[str, "str | DefaultDict"]):
 localconfigs: set[Path] = set()
 
 for steam_root in (
-    Path("~/.local/share/Steam").expanduser(),
-    Path("~/.var/app/com.valvesoftware.Steam/data/Steam").expanduser(),
+    HOME / ".local/share/Steam",
+    HOME / ".var/app/com.valvesoftware.Steam/data/Steam",
 ):
     localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
 
@@ -58,6 +60,5 @@ for path in localconfigs:
     with path.open("w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    home = Path.home()
-    rich_path = f"[i link={path.as_uri()}]'~/{path.relative_to(home)}'[/]"
-    rich_print(f"[bright_green]{rich_path} updated successfully.")
+    rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}[/]"
+    rich_print(f"[bright_green]'{rich_path}' updated successfully.")
