@@ -1,3 +1,6 @@
+# This is a polyglot script that works for both POSIX shell and PowerShell.
+
+# shellcheck disable=SC2217
 echo \" <<'PS1' >/dev/null #" | Out-Null
 #=== PowerShell Start. ===#
 

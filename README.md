@@ -26,7 +26,7 @@ curl -L iliq.org/dotfiles | sh
 ## On **Windows** using `PowerShell`:
 
 ```ps1
-irm iliq.org/dotfiles.ps1 | iex
+irm iliq.org/dotfiles | iex
 ```
 
 # Helpful Links:
