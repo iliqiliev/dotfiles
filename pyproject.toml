@@ -22,6 +22,9 @@ reportUnusedCallResult = false
 
 [tool.ruff]
 extension = { "py.tmpl" = "python" }
+lint.extend-select = [
+  "TC",  # Type checking.
+]
 lint.ignore = [
   "EXE001",  # Allow shebangs in non-executable files.
   "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
