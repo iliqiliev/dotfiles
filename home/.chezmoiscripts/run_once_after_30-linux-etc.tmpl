@@ -31,6 +31,11 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_file = ROOT / chezmoi_file.relative_to(CHEZMOI_ROOT)
 
+    # `cmp` raises `PermissionError` if `root_file` is not readable.
+    with suppress(FileNotFoundError, PermissionError):
+        if cmp(chezmoi_file, root_file, shallow=False):
+            continue
+
     root_files[chezmoi_file] = root_file
 
 if not root_files:
@@ -60,10 +65,6 @@ if SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 # # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
 
 for chezmoi_file, root_file in root_files.items():
-    with suppress(FileNotFoundError, PermissionError):
-        if cmp(chezmoi_file, root_file, shallow=False):
-            continue
-
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
 
