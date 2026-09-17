@@ -9,6 +9,7 @@
 """Setup `/etc` directory."""
 
 from contextlib import suppress
+from filecmp import cmp
 from os import environ as env
 from pathlib import Path
 from subprocess import DEVNULL, run
@@ -65,7 +66,7 @@ if SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 
 for chezmoi_file, root_file in root_files.items():
     with suppress(FileNotFoundError, PermissionError):
-        if chezmoi_file.read_text() == root_file.read_text():
+        if cmp(chezmoi_file, root_file, shallow=False):
             continue
 
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
