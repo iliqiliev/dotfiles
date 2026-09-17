@@ -10,6 +10,9 @@
 
 from contextlib import suppress
 from filecmp import cmp
+from hashlib import sha256
+from json import dumps as json_dumps
+from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
 from subprocess import DEVNULL, run
@@ -19,17 +22,32 @@ from rich import print as rich_print
 
 from helpers import is_busybox
 
+CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 
 
-root_files: dict[Path, Path] = {}
+if not CACHE_FILE.is_file():
+    CACHE_FILE.write_text("{}")
 
+cache: dict[str, str] = json_loads(CACHE_FILE.read_text())
+"""Store a mapping of already-written `root_file` paths to their hashes.
+Used to avoid requiring sudo access after the first time
+that a non-readable file has been written to.
+"""
+
+root_files: dict[Path, Path] = {}
 for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
     if not chezmoi_file.is_file():
         continue
 
     root_file = ROOT / chezmoi_file.relative_to(CHEZMOI_ROOT)
+
+    cached_hash = cache.get(str(root_file))
+    calculated_hash = sha256(chezmoi_file.read_bytes()).hexdigest()
+
+    if cached_hash == calculated_hash:
+        continue
 
     # `cmp` raises `PermissionError` if `root_file` is not readable.
     with suppress(FileNotFoundError, PermissionError):
@@ -71,4 +89,8 @@ for chezmoi_file, root_file in root_files.items():
     cmd = (SUDO, "install", *install_flags, chezmoi_file, root_file)
     run(tuple(filter(None, cmd)), check=True)
 
+    cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
+
     rich_print("[bright_green]OK")
+
+CACHE_FILE.write_text(json_dumps(cache))
