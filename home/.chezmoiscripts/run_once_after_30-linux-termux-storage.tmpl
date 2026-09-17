@@ -29,8 +29,10 @@ if not (HOME / "storage/shared").exists():
     rich_print("[bright_green]Termux storage setup successfully.[/]")
 
 
-SOURCE = Path(env["CHEZMOI_WORKING_TREE"]) / "termux"
+# Re-trigger script if any file inside `termux` changes:
+# # {{ includeTemplate "hashDirectory" (joinPath .chezmoi.workingTree "termux") }}
 
+SOURCE = Path(env["CHEZMOI_WORKING_TREE"]) / "termux"
 for source_file in SOURCE.rglob("*"):
     if not source_file.is_file():
         continue
