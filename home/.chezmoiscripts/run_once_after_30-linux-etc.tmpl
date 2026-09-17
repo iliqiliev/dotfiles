@@ -57,7 +57,7 @@ if SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
 
 
 # Re-trigger script if any file inside `root` changes:
-# # {{ includeTemplate "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
+# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
 
 for chezmoi_file, root_file in root_files.items():
     with suppress(FileNotFoundError, PermissionError):

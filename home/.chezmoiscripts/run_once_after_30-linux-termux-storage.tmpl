@@ -31,7 +31,7 @@ if not (HOME / "storage/shared").exists():
 
 
 # Re-trigger script if any file inside `termux` changes:
-# # {{ includeTemplate "hashDirectory" (joinPath .chezmoi.workingTree "termux") }}
+# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "termux") }}
 
 for source_file in SOURCE.rglob("*"):
     if not source_file.is_file():
