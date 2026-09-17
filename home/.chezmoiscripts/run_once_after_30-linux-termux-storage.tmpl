@@ -6,6 +6,7 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
+from contextlib import suppress
 from filecmp import cmp
 from os import environ as env
 from pathlib import Path
@@ -36,8 +37,9 @@ for source_file in SOURCE.rglob("*"):
 
     destination_file = HOME / source_file.relative_to(SOURCE)
 
-    if cmp(source_file, destination_file, shallow=False):
-        continue
+    with suppress(FileNotFoundError):
+        if cmp(source_file, destination_file, shallow=False):
+            continue
 
     destination_file_link = f"[link={destination_file.as_uri()}]{destination_file}[/]"
     rich_print(f"[bright_blue]Writing to '{destination_file_link}' ...", end=" ")
