@@ -1,49 +1,46 @@
-# {{ print "#!" (lookPath "env") }} bash
-# vim: filetype=sh
+# {{ print "#!" (lookPath "env") }} -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .distro "android" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-set -eu
+from filecmp import cmp
+from os import environ as env
+from pathlib import Path
+from shutil import which
+from subprocess import run
 
-# shellcheck source=helpers/helpers.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+from rich import print as rich_print
 
-if ! test -L "$HOME/storage/shared"; then
-    print_blue "Setting up Termux storage ..."
+HOME = Path.home()
 
-    if ! command -v termux-setup-storage >/dev/null; then
-        print_red "'termux-setup-storage' command not found."
-        exit 0
-    fi
 
-    termux-setup-storage
-    print_green "Termux storage setup successfully."
-fi
+if not (HOME / "storage/shared").exists():
+    rich_print("[bright_blue]Setting up Termux storage ...[/]")
 
-print_blue "Copying files to Internal Storage ..."
+    if which("termux-setup-storage") is None:
+        rich_print("[bright_red][i]termux-setup-storage[/] command not found.[/]")
+        raise SystemExit(1)
 
-TERMUX_SRC="$CHEZMOI_WORKING_TREE"/termux
+    run("termux-setup-storage", check=True)
+    rich_print("[bright_green]Termux storage setup successfully.[/]")
 
-while read -r file_src; do
 
-    file_dst="$HOME/${file_src#"$TERMUX_SRC"/}"
+SOURCE = Path(env["CHEZMOI_WORKING_TREE"]) / "termux"
 
-    if cmp --quiet "$file_src" "$file_dst"; then
+for source_file in SOURCE.rglob("*"):
+    if not source_file.is_file():
         continue
-    fi
 
-    cp "$file_src" "$file_dst"
-    file_copied=true
+    destination_file = HOME / source_file.relative_to(SOURCE)
 
-    echo -e "~${file_src#"$HOME"} -> ~${file_dst#"$HOME"}\n"
+    if cmp(source_file, destination_file, shallow=False):
+        continue
 
-done < <(find "$TERMUX_SRC" -type f)
+    destination_file_link = f"[link={destination_file.as_uri()}]{destination_file}[/]"
+    rich_print(f"[bright_blue]Writing to '{destination_file_link}' ...", end=" ")
 
-if test -n "${file_copied-}"; then
-    echo -en "$ANSI_CURSOR_PREVIOUS_LINE"
-fi
-
-print_green "Termux files copied successfully."
+    source_file.copy(destination_file)
+    rich_print("[bright_green]OK")
