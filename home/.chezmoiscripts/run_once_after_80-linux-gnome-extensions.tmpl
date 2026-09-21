@@ -10,6 +10,7 @@
 
 from subprocess import run
 
+from gi.repository.GLib import GError
 from rich import print as rich_print
 
 EXTENSIONS = (
@@ -34,5 +35,12 @@ EXTENSIONS = (
 )
 
 rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
-run(("gext", "--dbus", "install", *EXTENSIONS), check=True)
-rich_print("[bright_green]GNOME extensions set up successfully.[/]")
+
+try:
+    run(("gext", "--dbus", "install", *EXTENSIONS), check=True)
+except GError:
+    rich_print("[bright_blue]Falling back to filesystem mode.")
+    run(("gext", "--filesystem", "install", *EXTENSIONS), check=True)
+    rich_print("[bright_yellow]Shell restart required for changes to take effect.[/]")
+else:
+    rich_print("[bright_green]GNOME extensions set up successfully.[/]")

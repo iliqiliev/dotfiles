@@ -3,8 +3,10 @@ name = "dotfiles"
 version = "1.0.0"
 requires-python = ">=3.14"
 
-dependencies = [
+[dependency-groups]
+dev = [
   "kodistubs",
+  "pygobject-stubs",
   "requests",
   "rich",
   "vdf",
@@ -49,9 +51,9 @@ environment.root = [
 ]
 
 [tool.uv]
-python-preference = "system"
 build-backend.module-root = ""
 build-backend.module-name = ["helpers"]
+exclude-dependencies = ["pygobject"]
 environments = [
   "sys_platform == 'android' and implementation_name == 'cpython'",
   "sys_platform == 'linux' and implementation_name == 'cpython'",
