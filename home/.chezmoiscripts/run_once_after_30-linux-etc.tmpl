@@ -27,6 +27,10 @@ CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
+EXCLUSIONS = (
+    CHEZMOI_ROOT / "home",  # Managed by the `termux` script.
+    CHEZMOI_ROOT / "README.md",  # README file, should not be placed in `/`.
+)
 
 if not CACHE_FILE.is_file():
     CACHE_FILE.write_text("{}")
@@ -39,6 +43,9 @@ that a non-readable file has been written to.
 
 root_files: dict[Path, Path] = {}
 for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
+    if any(chezmoi_file.is_relative_to(exclusion) for exclusion in EXCLUSIONS):
+        continue
+
     if not chezmoi_file.is_file():
         continue
 

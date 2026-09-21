@@ -16,7 +16,7 @@ from subprocess import run
 from rich import print as rich_print
 
 HOME = Path.home()
-SOURCE = Path(env["CHEZMOI_WORKING_TREE"]) / "termux"
+CHEZMOI_HOME = Path(env["CHEZMOI_WORKING_TREE"]) / "root/home/$USER"
 
 
 if not (HOME / "storage/shared").exists():
@@ -33,11 +33,11 @@ if not (HOME / "storage/shared").exists():
 # Re-trigger script if any file inside `termux` changes:
 # # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "termux") }}
 
-for source_file in SOURCE.rglob("*"):
+for source_file in CHEZMOI_HOME.rglob("*"):
     if not source_file.is_file():
         continue
 
-    destination_file = HOME / source_file.relative_to(SOURCE)
+    destination_file = HOME / source_file.relative_to(CHEZMOI_HOME)
 
     with suppress(FileNotFoundError):
         if cmp(source_file, destination_file, shallow=False):
