@@ -10,23 +10,31 @@ from contextlib import suppress
 from filecmp import cmp
 from os import environ as env
 from pathlib import Path
-from shutil import which
 from subprocess import run
+from time import monotonic, sleep
 
 from rich import print as rich_print
 
 HOME = Path.home()
 CHEZMOI_HOME = Path(env["CHEZMOI_WORKING_TREE"]) / "root/home/$USER"
+TERMUX_STORAGE = HOME / "storage/shared"
+TIMEOUT = 15
 
 
-if not (HOME / "storage/shared").exists():
+if not TERMUX_STORAGE.is_symlink():
     rich_print("[bright_blue]Setting up Termux storage ...[/]")
 
-    if which("termux-setup-storage") is None:
-        rich_print("[bright_red][i]termux-setup-storage[/] command not found.[/]")
-        raise SystemExit(1)
-
     run("termux-setup-storage", check=True)
+
+    deadline = monotonic() + TIMEOUT
+    rich_print("[bright_blue]Waiting for permission pop-up to be accepted ...[/]")
+
+    while not TERMUX_STORAGE.is_symlink():
+        if monotonic() > deadline:
+            rich_print(f"[bright_red]Timed out after {TIMEOUT} seconds.[/]")
+            raise SystemExit(1)
+        sleep(500e-3)
+
     rich_print("[bright_green]Termux storage setup successfully.[/]")
 
 
