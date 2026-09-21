@@ -19,9 +19,6 @@ dev = [
 requires = ["uv_build<0.13"]
 build-backend = "uv_build"
 
-[tool.basedpyright]
-reportUnusedCallResult = false
-
 [tool.ruff]
 extension = { "py.tmpl" = "python" }
 lint.extend-select = [
