@@ -1,34 +1,37 @@
-#!/usr/bin/env ash
-# vim: filetype=sh
+#!/usr/bin/env -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (not (lookPath "apk")) (.sudo | eq "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-set -eu
+from shutil import which
+from subprocess import PIPE, run
+from typing import Literal
 
-# shellcheck source=helpers/helpers.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+from rich import print as rich_print
 
-# Not available in containers.
-if command -v setup-apkrepos >/dev/null; then
-    print_blue "Adding community repository ..."
-    $CHEZ_SUDO setup-apkrepos -c -1
-    print_green "Community repository added successfully."
-fi
+from helpers import cmd
 
-print_blue "Syncing apk database ..."
-$CHEZ_SUDO apk update
-print_green "Apk database synced successfully."
+SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
-AVAILABLE_PACKAGES=$(
-    comm -12 \
-        <(apk search --quiet | sort) \
-        <(echo '# {{ template "packages" . }}' | tr " " "\n")
+
+if which("setup-apkrepos") is not None:
+    rich_print("[bright_blue]Adding community repository ...[/]")
+    run(cmd(f"{SUDO} setup-apkrepos -c -1"), check=True)
+    rich_print("[bright_green]Community repository added successfully.[/]")
+
+rich_print("[bright_blue]Syncing apk database ...[/]")
+run(cmd(f"{SUDO} apk update"), check=True)
+rich_print("[bright_green]Apk database synced successfully.[/]")
+
+available_packages = set(
+    run(cmd("apk search --quiet"), stdout=PIPE).stdout.decode().split(),
+).intersection(
+    '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
 
-print_blue "Installing apk packages ..."
-# shellcheck disable=2086
-$CHEZ_SUDO apk add -- $AVAILABLE_PACKAGES
-print_green "Packages installed successfully."
+rich_print("[bright_blue]Installing apk packages ...[/]")
+run(cmd(f"{SUDO} apk add", *available_packages), check=True)
+rich_print("[bright_green]Packages installed successfully.[/]")
