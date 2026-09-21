@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-"exec" "uv" "run" "-qsw" "rich" "$0"  # fmt: skip
 # vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
@@ -7,9 +6,11 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
+"exec" "uv" "run" "-qsw" "rich" "$0"  # fmt: skip
+
 """Install packages using `apk`.
-The default `alpine` `env` util does not support the `-S` flag.
-This is why the explanation for the workaroud on line 2.
+On `Alpine` the `env` utility does not support the `-S` flag.
+This explains the shebang and the line above.
 """
 
 from shutil import which
@@ -18,26 +19,27 @@ from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import cmd
-
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 
 if which("setup-apkrepos") is not None:
     rich_print("[bright_blue]Adding community repository ...[/]")
-    run(cmd(f"{SUDO} setup-apkrepos -c -1"), check=True)
+    cmd = (SUDO, "setup-apkrepos", "-c", "-1")
+    run(tuple(filter(None, cmd)), check=True)
     rich_print("[bright_green]Community repository added successfully.[/]")
 
 rich_print("[bright_blue]Syncing apk database ...[/]")
-run(cmd(f"{SUDO} apk update"), check=True)
+cmd = (SUDO, "apk", "update")
+run(tuple(filter(None, cmd)), check=True)
 rich_print("[bright_green]Apk database synced successfully.[/]")
 
 available_packages = set(
-    run(cmd("apk search --quiet"), stdout=PIPE).stdout.decode().split(),
+    run(("apk", "search", "--quiet"), stdout=PIPE).stdout.decode().split(),
 ).intersection(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
 
 rich_print("[bright_blue]Installing apk packages ...[/]")
-run(cmd(f"{SUDO} apk add", *available_packages), check=True)
+cmd = (SUDO, "apk", "add", *available_packages)
+run(tuple(filter(None, cmd)), check=True)
 rich_print("[bright_green]Packages installed successfully.[/]")
