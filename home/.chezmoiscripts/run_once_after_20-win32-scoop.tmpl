@@ -11,26 +11,25 @@
 from ctypes import WinDLL
 from pathlib import Path
 from subprocess import run
-from typing import cast
 
 from requests import get as requests_get
 from rich import print as rich_print
 
 
-def check_installed(packages: set[str]) -> bool:
+def check_installed(packages: set[str]) -> None:
     """Check if the `packages` are installed."""
     missing = {name for name in packages if not (SCOOP_APPS / name).is_dir()}
 
     if not missing:
-        return True
+        return
 
     rich_print(f"[bright_red]The following are missing: {' '.join(sorted(missing))}")
-    return False
+    raise SystemExit(1)
 
 
 def is_admin() -> bool:
     """Check if the current process is running with admin privileges."""
-    return cast("int", WinDLL("shell32").IsUserAnAdmin()) == 1
+    return WinDLL("shell32").IsUserAnAdmin() == 1
 
 
 def install_scoop() -> None:
@@ -67,8 +66,6 @@ else:
     rich_print("[bright_blue]Scoop not found. Installing it ...")
     install_scoop()
 
-rich_print("[bright_blue]Setting up 'scoop' buckets ...")
-
 if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
     rich_print("[bright_blue]Git not found. Installing it ...")
     run((SCOOP, "install", "--no-update-scoop", "git"), check=True)
@@ -78,13 +75,10 @@ for bucket_url in BUCKETS:
     bucket, url = bucket_url
 
     if (SCOOP_BUCKETS / bucket).is_dir():
-        rich_print(f"[bright_green]The '{bucket}' bucket exists already.")
         continue
 
     cmd = (SCOOP, "bucket", "add", bucket, url)
     run(tuple(filter(None, cmd)), check=True)
-
-rich_print("[bright_green]'scoop' buckets added successfully.")
 
 all_packages = {package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")}
 needed_packages: set[str] = set("# {{ template `packages` . }}".split())  # noqa: SIM905
@@ -96,21 +90,18 @@ sudo_packages = available_packages.intersection(NEED_SUDO_PACKAGES)
 
 if user_packages:
     rich_print("[bright_blue]Installing 'scoop' packages ...")
+    cmd = (SCOOP, "install", "--no-update-scoop", *sorted(user_packages))
+    run(cmd, check=True)
 
-    run((SCOOP, "install", "--no-update-scoop", *sorted(user_packages)), check=True)
-    if check_installed(user_packages) is False:
-        raise SystemExit(1)
-
+    check_installed(user_packages)
     rich_print("[bright_green]Packages installed successfully.")
 
 # {{ if .sudo | ne "false" -}}
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
-
     cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sorted(sudo_packages))
     run(cmd, check=True)
-    if check_installed(sudo_packages) is False:
-        raise SystemExit(1)
 
+    check_installed(sudo_packages)
     rich_print("[bright_green]Admin packages installed successfully")
 # {{ end -}}
