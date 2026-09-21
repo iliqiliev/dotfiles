@@ -32,13 +32,8 @@ if old_version != new_version:
     rich_print(f"[bright_yellow]Old: [strike]{old_version}")
     rich_print(f"[bright_green]New: {new_version}")
 
-# Trigger re-run on config change by hashing the config files' content:
-# {{ $config_contents := "" -}}
-# {{ range glob (joinPath .chezmoi.sourceDir "private_dot_config/mise/**") -}}
-# {{   if ne (. | lstat).type "file" }}# {{ continue }}# {{ end -}}
-# {{   $config_contents = print $config_contents (include .) -}}
-# {{ end -}}
-# # {{ $config_contents | sha256sum }}
+# Re-trigger script if any file inside `~/.config/mise` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/mise") }}
 
 
 def mise_bootstrap_android() -> None:
