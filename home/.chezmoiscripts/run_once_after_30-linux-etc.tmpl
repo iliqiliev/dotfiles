@@ -20,11 +20,10 @@ from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import is_busybox
-
 CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
+SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 
 if not CACHE_FILE.is_file():
@@ -56,24 +55,7 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if not root_files:
-    raise SystemExit(0)
-
-install_flags = ["-D", "-m", "644"]
-
-try:
-    install_is_busybox = is_busybox("install")
-except FileNotFoundError:
-    rich_print("[bright_red]'install' utility is not found.")
-    raise SystemExit(1)
-
-if not install_is_busybox:
-    # https://www.gnu.org/software/coreutils/manual/coreutils.html#install-C
-    install_flags.append("-C")
-
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
-
-if SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
+if root_files and SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
     rich_print("[bright_blue]Caching sudo credentials ...")
     run(("sudo", "-v"), check=True)
     rich_print("[bright_green]Sudo credentials cached.")
@@ -86,7 +68,7 @@ for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
 
-    cmd = (SUDO, "install", *install_flags, chezmoi_file, root_file)
+    cmd = (SUDO, "install", "-D", "-m", "644", chezmoi_file, root_file)
     run(tuple(filter(None, cmd)), check=True)
 
     cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
