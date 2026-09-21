@@ -13,6 +13,8 @@ from subprocess import run
 
 from rich import print as rich_print
 
+from helpers import cmd
+
 
 def main():
     rich_print("[bright_blue]Setting Dconf settings ...")
@@ -140,18 +142,18 @@ class Dconf:
         object.__setattr__(self, "_path_", path)
         object.__setattr__(self, "custom_keybind_count", 0)
 
-    def __getattr__(self, key: str) -> "Dconf":
+    def __getattr__(self, key: str) -> Dconf:
         key = key.replace("_", "-")
         return Dconf(self._path_ + (key,))
 
-    def __getitem__(self, key: str) -> "Dconf":
+    def __getitem__(self, key: str) -> Dconf:
         return self.__getattr__(key)
 
     def __setattr__(self, key: str, value: object) -> None:
         key = key.replace("_", "-")
         path = f"/{'/'.join((*self._path_, key))}"
         value = Dconf.serialize(value)
-        run(("dconf", "write", path, value), check=True)
+        run(cmd(f"dconf write {path} {value}"), check=True)
 
     def __repr__(self) -> str:
         return f"/{'/'.join(self._path_)}"

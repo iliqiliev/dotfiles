@@ -14,6 +14,8 @@ from subprocess import run
 
 from rich import print as rich_print
 
+from helpers import cmd
+
 
 def main() -> None:
     rich_print("[bright_blue]Setting up custom folder icons ...")
@@ -33,7 +35,7 @@ def main() -> None:
             rich_print(f"[bright_red]Icon '{icon}' not found.")
             continue
 
-        run(("gio", "set", folder, "metadata::custom-icon-name", icon_name), check=True)
+        run(cmd(f"gio set {folder} metadata::custom-icon-name {icon_name}"), check=True)
 
     rich_print("[bright_green]Custom folder icons set up successfully.")
 

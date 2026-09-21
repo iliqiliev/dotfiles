@@ -12,6 +12,8 @@ from subprocess import run
 
 from rich import print as rich_print
 
+from helpers import cmd
+
 EXTENSIONS = (
     # Alphabetical App Grid.
     "AlphabeticalAppGrid@stuarthayhurst",
@@ -34,8 +36,5 @@ EXTENSIONS = (
 )
 
 rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
-
-cmd = ("gext", "--dbus", "install", *EXTENSIONS)
-run(cmd, check=True)
-
+run(cmd("gext --dbus install", *EXTENSIONS), check=True)
 rich_print("[bright_green]GNOME extensions set up successfully.[/]")

@@ -24,7 +24,7 @@ HOME = Path.home()
 class DefaultDict(dict[str, "str | DefaultDict"]):
     """A nested default dictionary."""
 
-    def __missing__(self, key: str) -> "DefaultDict":
+    def __missing__(self, key: str) -> DefaultDict:
         """Return a new empty DefaultDict when a key is missing."""
         empty_dict = DefaultDict()
         self[key] = empty_dict
