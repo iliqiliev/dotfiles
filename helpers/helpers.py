@@ -7,6 +7,11 @@ from subprocess import DEVNULL, Popen, run
 from rich import print as rich_print
 
 
+def cmd(*args: str) -> list[str]:
+    all_args = " ".join(args)
+    return all_args.strip().split()
+
+
 def is_busybox(utility: str) -> bool:
     if (utility_path := which(utility)) is None:
         raise FileNotFoundError(f"'{utility}' is not installed.")
