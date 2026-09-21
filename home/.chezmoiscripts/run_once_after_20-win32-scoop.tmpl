@@ -16,8 +16,6 @@ from typing import TYPE_CHECKING
 from requests import get as requests_get
 from rich import print as rich_print
 
-from helpers import cmd
-
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
@@ -45,7 +43,8 @@ def install_scoop() -> None:
     scoop_script.write_bytes(scoop_response.content)
 
     run_as_admin = "-RunAsAdmin" if is_admin() else None
-    run(cmd(f"powershell -NoProfile -File {scoop_script} {run_as_admin}"), check=True)
+    cmd = ("powershell", "-NoProfile", "-File", scoop_script, run_as_admin)
+    run(tuple(filter(None, cmd)), check=True)
 
 
 HOME = Path.home()
@@ -56,9 +55,9 @@ SCOOP_BUCKETS = HOME / "scoop/buckets"
 GSUDO = SCOOP_APPS / "gsudo/current/gsudo.exe"
 NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
 BUCKETS = (
-    ("extras", ""),
-    ("sysinternals", ""),
-    ("versions", ""),
+    ("extras", None),
+    ("sysinternals", None),
+    ("versions", None),
     ("iliya", "https://github.com/iliqiliev/iliya-bucket"),
 )
 
@@ -82,7 +81,8 @@ for bucket_url in BUCKETS:
     if (SCOOP_BUCKETS / bucket).is_dir():
         continue
 
-    run(cmd(f"{SCOOP} bucket add {bucket} {url}"), check=True)
+    cmd = (SCOOP, "bucket", "add", bucket, url)
+    run(tuple(filter(None, cmd)), check=True)
 
 all_packages = {package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")}
 needed_packages: set[str] = set("# {{ template `packages` . }}".split())  # noqa: SIM905
@@ -94,7 +94,8 @@ sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
 
 if user_packages:
     rich_print("[bright_blue]Installing 'scoop' packages ...")
-    run(cmd(f"{SCOOP} install --no-update-scoop", *user_packages), check=True)
+    cmd = (SCOOP, "install", "--no-update-scoop", *user_packages)
+    run(cmd, check=True)
 
     check_installed(user_packages)
     rich_print("[bright_green]Packages installed successfully.")
@@ -102,7 +103,8 @@ if user_packages:
 # {{ if .sudo | ne "false" -}}
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
-    run(cmd(f"{GSUDO} {SCOOP} install --no-update-scoop", *sudo_packages), check=True)
+    cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sudo_packages)
+    run(cmd, check=True)
 
     check_installed(sudo_packages)
     rich_print("[bright_green]Admin packages installed successfully")

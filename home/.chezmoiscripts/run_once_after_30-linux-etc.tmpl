@@ -20,8 +20,6 @@ from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import cmd
-
 CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
@@ -64,9 +62,9 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if root_files and SUDO and run(cmd("sudo -n true"), stderr=DEVNULL).returncode != 0:
+if root_files and SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
     rich_print("[bright_blue]Caching sudo credentials ...")
-    run(cmd("sudo -v"), check=True)
+    run(("sudo", "-v"), check=True)
     rich_print("[bright_green]Sudo credentials cached.")
 
 
@@ -77,7 +75,8 @@ for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
 
-    run(cmd(f"{SUDO} install -D -m 644 {chezmoi_file} {root_file}"), check=True)
+    cmd = (SUDO, "install", "-D", "-m", "644", chezmoi_file, root_file)
+    run(tuple(filter(None, cmd)), check=True)
     rich_print("[bright_green]OK")
 
     cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
