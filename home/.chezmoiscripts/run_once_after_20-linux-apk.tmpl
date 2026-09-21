@@ -1,10 +1,16 @@
-#!/usr/bin/env -S uv run -qsw rich
+#!/usr/bin/env sh
+"exec" "uv" "run" "-qsw" "rich" "$0"  # fmt: skip
 # vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (not (lookPath "apk")) (.sudo | eq "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+
+"""Install packages using `apk`.
+The default `alpine` `env` util does not support the `-S` flag.
+This is why the explanation for the workaroud on line 2.
+"""
 
 from shutil import which
 from subprocess import PIPE, run
