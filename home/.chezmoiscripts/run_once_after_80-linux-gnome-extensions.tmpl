@@ -8,7 +8,7 @@
 
 """Install Gnome extensions."""
 
-from subprocess import CalledProcessError, run
+from subprocess import DEVNULL, CalledProcessError, run
 
 from rich import print as rich_print
 
@@ -36,10 +36,10 @@ EXTENSIONS = (
 rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
 
 try:
-    run(("gext", "--dbus", "install", *EXTENSIONS), check=True)
+    run(("gext", "--dbus", "install", *EXTENSIONS), check=True, stderr=DEVNULL)
 except CalledProcessError:
     rich_print("[bright_blue]Falling back to filesystem mode.")
     run(("gext", "--filesystem", "install", *EXTENSIONS), check=True)
-    rich_print("[bright_yellow]Shell restart required for changes to take effect.[/]")
+    rich_print("[bright_yellow]Gnome shell restart required to apply changes.[/]")
 else:
     rich_print("[bright_green]GNOME extensions set up successfully.[/]")
