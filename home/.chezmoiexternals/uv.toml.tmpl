@@ -8,6 +8,11 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
+{{ if eq .distro "android" -}}
+{{/* `uv` cannot install Python on Android, so we do it here. */ -}}
+{{ $_ := exec "pkg" "install" "--yes" "python" -}}
+{{ end -}}
+
 {{ if glob ".local/bin/uv*" -}}
 {{/* If `uv` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
