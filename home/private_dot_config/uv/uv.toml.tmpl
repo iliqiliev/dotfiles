@@ -1,0 +1,9 @@
+# vim: filetype=toml
+# chezmoi:template:left-delimiter="# {{"
+
+# {{ if .distro | eq "android" -}}
+# This fixes `uv` trying to install broken Python versions.
+# It currently has no 'android' builds.
+# Instaling `linux-aarch64-musl` will not work.
+python-downloads = "manual"
+# {{ end -}}

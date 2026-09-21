@@ -34,11 +34,19 @@ src = [
 ]
 
 [tool.tombi]
-files.include = ["**/*.toml", "**/mise/config.toml.tmpl"]
+files.include = [
+  "**/*.toml",
+  "**/mise/config.toml.tmpl",
+  "**/uv.toml.tmpl",
+]
 
 [[tool.tombi.schemas]]
 path = "https://mise.jdx.dev/schema/mise.json"
 include = ["**/mise/config.toml.tmpl"]
+
+[[tool.tombi.schemas]]
+path = "https://www.schemastore.org/uv.json"
+include = ["**/uv.toml.tmpl"]
 
 [tool.ty]
 environment.python-platform = "all"
