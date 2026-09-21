@@ -42,6 +42,6 @@ available_packages = set(
 )
 
 rich_print("[bright_blue]Installing apt packages ...")
-cmd = (SUDO, "app", "install", "--yes", *available_packages)
+cmd = (SUDO, "apt", "install", "--yes", *available_packages)
 run(tuple(filter(None, cmd)), check=True)
 rich_print("[bright_green]Packages installed successfully.")
