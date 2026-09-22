@@ -4,8 +4,6 @@
 
 {{ $mozillaAddonsBaseURL := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
-{{/* `range` overrides the `.` map so a variable is needed. */ -}}
-{{ $home := .chezmoi.homeDir -}}
 
 {{ $filters := dict
          "personal" (.isPersonal)
@@ -23,7 +21,8 @@
 {{     continue -}}
 {{   end -}}
 {{   $extensionFilePath := print $extensionsPath "/" $info.file -}}
-{{   if stat (joinPath $home $extensionFilePath) -}}
+{{/* `range` overrides the `.` map so `.chezmoi.homeDir` cannot be used. */ -}}
+{{   if stat (joinPath (env "HOME") $extensionFilePath) -}}
 {{/*   Let the browser manage already-installed extensions. */ -}}
 {{     continue -}}
 {{   end -}}

@@ -1,16 +1,14 @@
 {{ $packageManager := index .packageManagers .distro -}}
 {{ $finalPackages := list -}}
-
-{{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
            "alpine" (eq .distro "alpine")
              "arch" (eq .distro "arch")
             "gnome" (.manageGnome)
               "gui" (.manageGui)
-        "kvm-guest" (and ($isNotContainer) (.productName | contains "Standard PC"))
+        "kvm-guest" (and (not (env "container")) (.productName | contains "Standard PC"))
             "linux" (eq .os "linux")
           "no-work" (not .isWork)
-     "oracle-guest" (and ($isNotContainer) (eq .productName "VirtualBox"))
+     "oracle-guest" (and (not (env "container")) (eq .productName "VirtualBox"))
           "windows" (eq .os "windows")
 -}}
 
