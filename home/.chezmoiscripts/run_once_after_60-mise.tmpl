@@ -57,7 +57,7 @@ cmd = (MISE, "bootstrap", "packages", "status", "--missing")
 if run(cmd, stdout=DEVNULL).returncode != 0:
     rich_print(f"[bright_blue]Installing {mise_link} bootstrap packages ...")
 
-    if '# {{ .distro | eq "android" }}' == "true":  # noqa: PLR0133
+    if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
         mise_bootstrap_android()
     else:
         run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)

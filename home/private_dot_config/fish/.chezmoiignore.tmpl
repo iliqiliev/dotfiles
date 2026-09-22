@@ -1,7 +1,7 @@
-{{ if .os | ne "linux" -}}
+{{ if ne .os "linux" -}}
 **
 {{ end -}}
 
-{{ if .distro | ne "android" -}}
+{{ if ne .distro "android" -}}
 conf.d/90_android.fish
 {{ end -}}

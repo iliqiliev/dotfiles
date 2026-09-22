@@ -3,15 +3,15 @@
 
 {{ $isNotContainer := not (env "container") -}}
 {{ $filters := dict
-           "alpine" (.distro | eq "alpine")
-             "arch" (.distro | eq "arch")
+           "alpine" (eq .distro "alpine")
+             "arch" (eq .distro "arch")
             "gnome" (.manageGnome)
               "gui" (.manageGui)
-        "kvm-guest" ($isNotContainer | and (.productName | contains "Standard PC"))
-            "linux" (.os | eq "linux")
+        "kvm-guest" (and ($isNotContainer) (.productName | contains "Standard PC"))
+            "linux" (eq .os "linux")
           "no-work" (not .isWork)
-     "oracle-guest" ($isNotContainer | and (.productName | eq "VirtualBox"))
-          "windows" (.os | eq "windows")
+     "oracle-guest" (and ($isNotContainer) (eq .productName "VirtualBox"))
+          "windows" (eq .os "windows")
 -}}
 
 {{ range $package, $overrides := .packages -}}

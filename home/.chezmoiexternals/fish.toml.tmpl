@@ -2,9 +2,8 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ if and (lookPath ($fish := "/usr/bin/fish"))
-          (exec $fish "-c" "test (echo $version | awk -F '.' '{print $1}') -ge 4")
-      | not -}}
+{{ if or (not (lookPath ($fish := "/usr/bin/fish")))
+         (not (exec $fish "-c" "test (echo $version | awk -F '.' '{print $1}') -ge 4")) -}}
 [".local/bin/fish"]
 type = "archive-file"
 path = "fish"
@@ -15,8 +14,9 @@ url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
 
 {{ end -}}
 
-{{ if stat (joinPath .chezmoi.homeDir ".config/fish/functions/fisher.fish") | not -}}
-[".config/fish/functions/fisher.fish"]
+{{ $fisher := ".config/fish/functions/fisher.fish" -}}
+{{ if not (stat (joinPath .chezmoi.homeDir $fisher)) -}}
+["{{ $fisher }}"]
 type = "file"
 url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
 {{ end -}}

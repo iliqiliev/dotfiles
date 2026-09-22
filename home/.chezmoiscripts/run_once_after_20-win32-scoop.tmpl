@@ -100,7 +100,7 @@ if user_packages:
     check_installed(user_packages)
     rich_print("[bright_green]Packages installed successfully.")
 
-# {{ if .sudo | ne "false" -}}
+# {{ if ne .sudo "false" -}}
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...")
     cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sudo_packages)
