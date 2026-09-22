@@ -6,6 +6,7 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
+from os import environ as env
 from subprocess import PIPE, run
 from typing import Literal
 
@@ -42,6 +43,9 @@ available_packages = set(
 )
 
 rich_print("[bright_blue]Installing apt packages ...")
-cmd = (SUDO, "apt", "install", "--yes", *available_packages)
-run(tuple(filter(None, cmd)), check=True)
+run(
+    tuple(filter(None, (SUDO, "apt", "install", "--yes", *available_packages))),
+    check=True,
+    env=env | {"DEBIAN_FRONTEND": "noninteractive"},
+)
 rich_print("[bright_green]Packages installed successfully.")
