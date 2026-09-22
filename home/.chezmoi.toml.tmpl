@@ -92,7 +92,10 @@ XDG_STATE_HOME = '{{ joinPath .chezmoi.homeDir ".local/state" }}'
 [github]
 refreshPeriod = "5m"
 
-{{ if eq $os "windows" -}}
 [interpreters.""]
+{{ if eq $os "windows" -}}
 command = "shebang"
+{{ else if eq $distro "android" -}}
+command = "sh"
+args = ["-c", "termux-fix-shebang $1 && exec $1", "--"]
 {{ end -}}
