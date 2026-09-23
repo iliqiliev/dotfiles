@@ -1,7 +1,9 @@
 [project]
 name = "dotfiles"
 version = "1.0.0"
+readme = "README.md"
 requires-python = ">=3.14"
+authors = [{ name = "Iliya Iliev", email = "iliq0000@proton.me" }]
 
 [dependency-groups]
 dev = [
