@@ -12,9 +12,11 @@
 from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
-from subprocess import DEVNULL, PIPE, run
+from subprocess import DEVNULL, PIPE
 
 from rich import print as rich_print
+
+from helpers import run
 
 MISE = Path.home() / ".local/bin/mise"
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
@@ -27,12 +29,11 @@ def main() -> None:
 
     mise_self_update()
     mise_bootstrap()
-    run((MISE, "install"), check=True)
+    run(MISE, "install")
 
 
 def mise_self_update() -> None:
-    cmd = (MISE, "version", "--json")
-    output = run(cmd, check=True, stdout=PIPE).stdout.decode()
+    output = run(MISE, "version --json", out=PIPE).stdout
     version_info: dict[str, str] = json_loads(output)
 
     current = f"v{version_info['version'].split()[0]}"
@@ -42,7 +43,7 @@ def mise_self_update() -> None:
         return
 
     rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...[/]")
-    run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
+    run(MISE, "self-update --yes", out=DEVNULL)
 
     rich_print(f"[bright_green]{MISE_LINK} has been updated successfully:[/]", end=" ")
     rich_print(f"[bright_yellow strike]{current}[/]", end=" -> ")
@@ -50,8 +51,8 @@ def mise_self_update() -> None:
 
 
 def mise_bootstrap() -> None:
-    cmd = (MISE, "bootstrap", "packages", "status", "--missing")
-    if not run(cmd, check=False, stdout=DEVNULL).returncode:
+    cmd = (MISE, "bootstrap packages status --missing")
+    if not run(*cmd, check=False, out=DEVNULL).returncode:
         return
 
     rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...[/]")
@@ -59,15 +60,15 @@ def mise_bootstrap() -> None:
     if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
         __mise_bootstrap_android__()
     else:
-        run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)
+        run(MISE, "bootstrap packages apply --yes")
 
     rich_print("[bright_green]Bootstrap packages installed successfully.[/]")
 
 
 def __mise_bootstrap_android__() -> None:
     """Mise tries to use `sudo` for on `Termux` but fails. This is a workaround."""
-    cmd = (MISE, "bootstrap", "packages", "status", "--json")
-    packages = json_loads(run(cmd, check=True, stdout=PIPE).stdout.decode())
+    cmd = (MISE, "bootstrap packages status --json")
+    packages = json_loads(run(*cmd, out=PIPE).stdout)
 
     rename = {"gcc": "clang"}
     missing_packages: set[str] = {
@@ -77,8 +78,8 @@ def __mise_bootstrap_android__() -> None:
     }
 
     env["DEBIAN_FRONTEND"] = "noninteractive"
-    run(("apt", "update"), check=True, stdin=DEVNULL, stderr=DEVNULL)
-    run(("apt", "install", "--yes", *missing_packages), check=True)
+    run("apt update", out=DEVNULL, err=DEVNULL)
+    run("apt install --yes", *missing_packages)
 
 
 if __name__ == "__main__":

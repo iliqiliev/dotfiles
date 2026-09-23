@@ -9,9 +9,10 @@
 """Configure custom folder icons for `Gnome`."""
 
 from pathlib import Path
-from subprocess import run
 
 from rich import print as rich_print
+
+from helpers import run
 
 
 def main() -> None:
@@ -28,7 +29,7 @@ def main() -> None:
             rich_print(f"[bright_red]Icon '{icon}' not found.[/]")
             continue
 
-        run(("gio", "set", folder, "metadata::custom-icon-name", icon_name), check=True)
+        run("gio set", folder, "metadata::custom-icon-name", icon_name)
 
     rich_print("[bright_green]Custom folder icons set up successfully.[/]")
 

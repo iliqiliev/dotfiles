@@ -12,10 +12,11 @@ from contextlib import suppress
 from filecmp import cmp
 from os import environ as env
 from pathlib import Path
-from subprocess import run
 from time import monotonic, sleep
 
 from rich import print as rich_print
+
+from helpers import run
 
 HOME = Path.home()
 CHEZMOI_HOME = Path(env["CHEZMOI_WORKING_TREE"]) / "root/home/$USER"
@@ -26,7 +27,7 @@ TIMEOUT = 15
 if not TERMUX_STORAGE.is_symlink():
     rich_print("[bright_blue]Setting up Termux storage ...[/]")
 
-    run("termux-setup-storage", check=True)
+    run("termux-setup-storage")
 
     deadline = monotonic() + TIMEOUT
     rich_print("[bright_blue]Waiting for permission pop-up to be accepted ...[/]")

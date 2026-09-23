@@ -6,10 +6,11 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
-from subprocess import run
 from typing import Literal
 
 from rich import print as rich_print
+
+from helpers import run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
@@ -17,6 +18,5 @@ SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 available_packages = '# {{ template "packages" . }}'.split()  # noqa: SIM905
 
 rich_print("[bright_blue]Installing dnf packages ...[/]")
-cmd = (SUDO, "dnf", "install", "--assumeyes", "--skip-unavailable", *available_packages)
-run(tuple(filter(None, cmd)), check=True)
+run(SUDO, "dnf install --assumeyes --skip-unavailable", *available_packages)
 rich_print("[bright_green]Packages installed successfully.[/]")

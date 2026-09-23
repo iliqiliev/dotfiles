@@ -10,11 +10,12 @@
 
 from ctypes import WinDLL
 from pathlib import Path
-from subprocess import run
 from typing import TYPE_CHECKING
 
 from requests import get as requests_get
 from rich import print as rich_print
+
+from helpers import run
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -43,8 +44,7 @@ def install_scoop() -> None:
     scoop_script.write_bytes(scoop_response.content)
 
     run_as_admin = "-RunAsAdmin" if is_admin() else None
-    cmd = ("powershell", "-NoProfile", "-File", scoop_script, run_as_admin)
-    run(tuple(filter(None, cmd)), check=True)
+    run("powershell -NoProfile -File", scoop_script, run_as_admin)
 
 
 HOME = Path.home()
@@ -64,7 +64,7 @@ BUCKETS = (
 
 if SCOOP.exists():
     rich_print("[bright_blue]Updating 'scoop' buckets ...[/]")
-    run((SCOOP, "update"), check=True)
+    run(SCOOP, "update")
     rich_print("[bright_blue]'scoop' buckets updated successfully.[/]")
 else:
     rich_print("[bright_blue]Scoop not found. Installing it ...[/]")
@@ -72,7 +72,7 @@ else:
 
 if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
     rich_print("[bright_blue]Git not found. Installing it ...[/]")
-    run((SCOOP, "install", "--no-update-scoop", "git"), check=True)
+    run(SCOOP, "install --no-update-scoop git")
     rich_print("[bright_green]Git installed successfully.[/]")
 
 for bucket_url in BUCKETS:
@@ -81,21 +81,20 @@ for bucket_url in BUCKETS:
     if (SCOOP_BUCKETS / bucket).is_dir():
         continue
 
-    cmd = (SCOOP, "bucket", "add", bucket, url)
-    run(tuple(filter(None, cmd)), check=True)
+    run(SCOOP, "bucket add", bucket, url)
 
-all_packages = {package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")}
-needed_packages: set[str] = set("# {{ template `packages` . }}".split())  # noqa: SIM905
-
-available_packages = needed_packages.intersection(all_packages)
+available_packages = {
+    package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")
+}.intersection(
+    "# {{ template `packages` . }}".split(),  # noqa: SIM905
+)
 
 user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
 sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
 
 if user_packages:
     rich_print("[bright_blue]Installing 'scoop' packages ...[/]")
-    cmd = (SCOOP, "install", "--no-update-scoop", *user_packages)
-    run(cmd, check=True)
+    run(SCOOP, "install --no-update-scoop", *user_packages)
 
     check_installed(user_packages)
     rich_print("[bright_green]Packages installed successfully.[/]")
@@ -103,8 +102,7 @@ if user_packages:
 # {{ if ne .sudo "false" -}}
 if sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...[/]")
-    cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sudo_packages)
-    run(cmd, check=True)
+    run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
 
     check_installed(sudo_packages)
     rich_print("[bright_green]Admin packages installed successfully. [/]")

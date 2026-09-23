@@ -9,9 +9,10 @@
 """Configure Dconf settings."""
 
 from collections.abc import Sequence
-from subprocess import run
 
 from rich import print as rich_print
+
+from helpers import run
 
 
 def main():
@@ -151,7 +152,7 @@ class Dconf:
         key = key.replace("_", "-")
         path = f"/{'/'.join((*self._path_, key))}"
         value = Dconf.serialize(value)
-        run(("dconf", "write", path, value), check=True)
+        run("dconf write", path, value)
 
     def __repr__(self) -> str:
         return f"/{'/'.join(self._path_)}"

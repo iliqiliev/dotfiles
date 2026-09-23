@@ -8,10 +8,12 @@
 
 from pathlib import Path
 from shutil import which
-from subprocess import DEVNULL, PIPE, run
+from subprocess import DEVNULL, PIPE
 from typing import Literal
 
 from rich import print as rich_print
+
+from helpers import run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 CHAOTIC_KEY = "3056513887B78AEB"
@@ -29,17 +31,17 @@ def main() -> None:
     yay_args = ("--color=auto", "--needed", "--noconfirm")
 
     rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
-    run(("yay", "-Syu", *yay_args), check=True)
+    run("yay -Syu", *yay_args)
     rich_print("[bright_green]System updated successfully.[/]")
 
     available_packages = set(
-        run(("pacman", "-Slq"), check=True, stdout=PIPE).stdout.decode().split(),
+        run("pacman -Slq", out=PIPE).stdout.split(),
     ).intersection(
         '# {{ template "packages" . }}'.split(),  # noqa: SIM905
     )
 
     rich_print("[bright_blue]Installing pacman packages ...[/]")
-    run(("yay", "-S", *yay_args, "--asexplicit", *available_packages), check=True)
+    run("yay -S --asexplicit", *yay_args, *available_packages)
     rich_print("[bright_green]Packages installed successfully.[/]")
 
 
@@ -47,34 +49,20 @@ def install_chaotic_aur() -> None:
     if Path("/etc/pacman.conf").read_text().find(CHAOTIC_CONFIG_ENTRY.strip()) != -1:
         return
 
-    rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
-
-    cmd = (SUDO, "pacman-key", "--init")
-    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
-
-    cmd = (SUDO, "pacman-key", "--recv-key", CHAOTIC_KEY, "--keyserver", "keyserver.ubuntu.com")  # fmt: skip
-    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
-    cmd = (SUDO, "pacman-key", "--lsign-key", CHAOTIC_KEY)
-    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
-
     packages = (
         f"{CHAOTIC_CDN}/{package}.pkg.tar.zst"
         for package in ("chaotic-keyring", "chaotic-mirrorlist")
     )
-    cmd = (SUDO, "pacman", "-U", "--noconfirm", *packages)
-    run(tuple(filter(None, cmd)), check=True)
 
-    cmd = (SUDO, "tee", "--append", "/etc/pacman.conf")
-    run(
-        tuple(filter(None, cmd)),
-        check=True,
-        input=CHAOTIC_CONFIG_ENTRY,
-        stdout=DEVNULL,
-        text=True,
-    )
+    rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
 
-    cmd = (SUDO, "pacman", "-Sy", "--noconfirm")
-    run(tuple(filter(None, cmd)), check=True)
+    run(SUDO, "pacman-key --init", err=DEVNULL)
+    run(SUDO, "pacman-key --recv-key", CHAOTIC_KEY, err=DEVNULL)
+    run(SUDO, "pacman-key --lsign-key", CHAOTIC_KEY, err=DEVNULL)
+
+    run(SUDO, "pacman -U --noconfirm", *packages)
+    run(SUDO, "tee --append /etc/pacman.conf", input=CHAOTIC_CONFIG_ENTRY, out=DEVNULL)
+    run(SUDO, "pacman -Sy --noconfirm")
 
     rich_print("[bright_green]Chaotic-AUR installed successfully.[/]")
 
@@ -84,8 +72,7 @@ def install_yay() -> None:
         return
 
     rich_print("[bright_blue]Installing [i]yay[/] AUR helper ...[/]")
-    cmd = (SUDO, "pacman", "-S", "--noconfirm", "yay")
-    run(tuple(filter(None, cmd)), check=True)
+    run(SUDO, "pacman -S --noconfirm yay")
     rich_print("[bright_green]Yay installed successfully.[/]")
 
 

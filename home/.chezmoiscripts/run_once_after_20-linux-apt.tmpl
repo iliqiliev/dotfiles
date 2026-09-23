@@ -7,34 +7,33 @@
 # {{ end -}}
 
 from os import environ as env
-from subprocess import PIPE, run
+from subprocess import PIPE
 from typing import Literal
 
 from rich import print as rich_print
+
+from helpers import run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
 rich_print("[bright_blue]Syncing apt databse ...[/]")
-cmd = (SUDO, "apt", "update", "--yes")
-run(tuple(filter(None, cmd)), check=True)
+run(SUDO, "apt update --yes")
 rich_print("[bright_green]Apt database synced successfully.[/]")
 
 # {{ if eq .distro "android" -}}
 rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
-cmd = ("apt", "full-upgrade", "--yes", "-o", "Dpkg::Options::=--force-confnew")
-run(cmd, check=True)
+run("apt full-upgrade --yes -o Dpkg::Options::=--force-confnew")
 rich_print("[bright_green]Packages upgraded successfully.[/]")
 # {{ "\n" }}# {{ end -}}
 
 available_packages = set(
-    run(("apt-cache", "pkgnames"), check=True, stdout=PIPE).stdout.decode().split(),
+    run("apt-cache pkgnames", out=PIPE).stdout.split(),
 ).intersection(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
 
 rich_print("[bright_blue]Installing apt packages ...[/]")
-cmd = (SUDO, "apt", "install", "--yes", *available_packages)
-run(tuple(filter(None, cmd)), check=True)
+run(SUDO, "apt install --yes", *available_packages)
 rich_print("[bright_green]Packages installed successfully.[/]")

@@ -14,32 +14,31 @@ This explains the shebang and the line above.
 """
 
 from shutil import which
-from subprocess import PIPE, run
+from subprocess import PIPE
 from typing import Literal
 
 from rich import print as rich_print
+
+from helpers import run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 
 if which("setup-apkrepos") is not None:
     rich_print("[bright_blue]Adding community repository ...[/]")
-    cmd = (SUDO, "setup-apkrepos", "-c", "-1")
-    run(tuple(filter(None, cmd)), check=True)
+    run(SUDO, "setup-apkrepos -c -1")
     rich_print("[bright_green]Community repository added successfully.[/]")
 
 rich_print("[bright_blue]Syncing apk database ...[/]")
-cmd = (SUDO, "apk", "update")
-run(tuple(filter(None, cmd)), check=True)
+run(SUDO, "apk update")
 rich_print("[bright_green]Apk database synced successfully.[/]")
 
 available_packages = set(
-    run(("apk", "search", "--quiet"), check=True, stdout=PIPE).stdout.decode().split(),
+    run("apk search --quiet", out=PIPE).stdout.split(),
 ).intersection(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
 
 rich_print("[bright_blue]Installing apk packages ...[/]")
-cmd = (SUDO, "apk", "add", *available_packages)
-run(tuple(filter(None, cmd)), check=True)
+run(SUDO, "apk add", *available_packages)
 rich_print("[bright_green]Packages installed successfully.[/]")

@@ -17,10 +17,12 @@ from json import dumps as json_dumps
 from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
-from subprocess import DEVNULL, run
+from subprocess import DEVNULL
 from typing import Literal
 
 from rich import print as rich_print
+
+from helpers import run
 
 CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
@@ -64,21 +66,16 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if (
-    root_files
-    and SUDO
-    and run(("sudo", "-n", "true"), check=False, stderr=DEVNULL).returncode
-):
+if root_files and SUDO and run("sudo -n true", check=False, err=DEVNULL).returncode:
     rich_print("[bright_blue]Caching sudo credentials ...[/]")
-    run(("sudo", "-v"), check=True)
+    run("sudo -v")
     rich_print("[bright_green]Sudo credentials cached.[/]")
 
 for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
     rich_print(f"[bright_blue]Writing to '{root_file_link}' ...[/]", end=" ")
 
-    cmd = (SUDO, "install", "-D", "-m", "644", chezmoi_file, root_file)
-    run(tuple(filter(None, cmd)), check=True)
+    run(SUDO, "install -D -m 644", chezmoi_file, root_file)
     rich_print("[bright_green]OK[/]")
 
     cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
