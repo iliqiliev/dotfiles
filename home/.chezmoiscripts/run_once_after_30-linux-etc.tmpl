@@ -21,7 +21,7 @@ from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import DEVNULL, run
+from helpers import run, sudo_cache
 
 CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
@@ -65,10 +65,8 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if root_files and SUDO and run("sudo -n true", check=False, err=DEVNULL).returncode:
-    rich_print("[bright_blue]Caching sudo credentials ...[/]")
-    run("sudo -v")
-    rich_print("[bright_green]Sudo credentials cached.[/]")
+if root_files and SUDO:
+    sudo_cache()
 
 for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"

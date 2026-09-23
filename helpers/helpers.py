@@ -55,3 +55,12 @@ def run(
         stderr=err,
         text=True,
     )
+
+
+def sudo_cache() -> None:
+    if not run("sudo -n true", check=False, err=DEVNULL).returncode:
+        return
+
+    rich_print("[bright_blue]Caching sudo credentials ...[/]")
+    run("sudo -v")
+    rich_print("[bright_green]Sudo credentials cached.[/]")

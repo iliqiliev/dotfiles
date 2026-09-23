@@ -6,6 +6,7 @@ from .helpers import (
     is_busybox,
     restart_explorer,
     run,
+    sudo_cache,
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "is_busybox",
     "restart_explorer",
     "run",
+    "sudo_cache",
 ]
