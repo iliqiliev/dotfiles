@@ -79,7 +79,6 @@ size = {{ $fontSize }}
 pager = "{{ if lookPath "delta" }}delta{{ end }}"
 
 [env]
-CHEZ_SUDO = "{{ $sudo }}"
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
