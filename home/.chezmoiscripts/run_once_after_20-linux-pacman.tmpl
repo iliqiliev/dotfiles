@@ -44,7 +44,7 @@ def main() -> None:
 
 
 def install_chaotic_aur() -> None:
-    if Path("/etc/pacman.conf").read_text().find(CHAOTIC_CONFIG_ENTRY.strip()):
+    if Path("/etc/pacman.conf").read_text().find(CHAOTIC_CONFIG_ENTRY.strip()) != -1:
         return
 
     rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
