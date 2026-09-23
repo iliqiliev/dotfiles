@@ -38,8 +38,8 @@ if not TERMUX_STORAGE.is_symlink():
     rich_print("[bright_green]Termux storage setup successfully.[/]")
 
 
-# Re-trigger script if any file inside `termux` changes:
-# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "termux") }}
+# Trigger the script if any file inside `root/home/$USER` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root/home/$USER") }}
 
 for source_file in CHEZMOI_HOME.rglob("*"):
     if not source_file.is_file():
