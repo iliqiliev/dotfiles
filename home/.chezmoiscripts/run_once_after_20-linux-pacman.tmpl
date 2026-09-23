@@ -50,12 +50,12 @@ def install_chaotic_aur() -> None:
     rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
 
     cmd = (SUDO, "pacman-key", "--init")
-    run(tuple(filter(None, cmd)), check=True)
+    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
 
     cmd = (SUDO, "pacman-key", "--recv-key", CHAOTIC_KEY, "--keyserver", "keyserver.ubuntu.com")  # fmt: skip
-    run(tuple(filter(None, cmd)), check=True)
+    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
     cmd = (SUDO, "pacman-key", "--lsign-key", CHAOTIC_KEY)
-    run(tuple(filter(None, cmd)), check=True)
+    run(tuple(filter(None, cmd)), check=True, stderr=DEVNULL)
 
     packages = (
         f"{CHAOTIC_CDN}/{package}.pkg.tar.zst"
