@@ -4,7 +4,8 @@
 # chezmoi:template:left-delimiter="# {{"
 # Trigger the script if any file inside `~/.config/mise` changes:
 # # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/mise") }}
-# Trigger the script weekly, using the week number: # {{ div now.YearDay 7 }}
+# Trigger this script weekly, using the current week number:
+# # {{ div now.YearDay 7 }}
 
 """Set up a development environment using `mise`."""
 

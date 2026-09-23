@@ -5,6 +5,8 @@
 # {{ if ne .distro "android" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this script if any file inside `root/home/$USER` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root/home/$USER") }}
 
 from contextlib import suppress
 from filecmp import cmp
@@ -36,10 +38,6 @@ if not TERMUX_STORAGE.is_symlink():
         sleep(500e-3)
 
     rich_print("[bright_green]Termux storage setup successfully.[/]")
-
-
-# Trigger the script if any file inside `root/home/$USER` changes:
-# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root/home/$USER") }}
 
 for source_file in CHEZMOI_HOME.rglob("*"):
     if not source_file.is_file():

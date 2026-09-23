@@ -5,6 +5,8 @@
 # {{ if or (ne .os "linux") (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this script if any file inside `root` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
 
 """Setup `/etc` directory."""
 
@@ -70,10 +72,6 @@ if (
     rich_print("[bright_blue]Caching sudo credentials ...[/]")
     run(("sudo", "-v"), check=True)
     rich_print("[bright_green]Sudo credentials cached.[/]")
-
-
-# Trigger the script if any file inside `root` changes:
-# # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
 
 for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"

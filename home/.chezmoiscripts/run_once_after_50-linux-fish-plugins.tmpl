@@ -5,6 +5,8 @@
 # {{ if ne .os "linux" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this script if `~/.config/fish/fish_plugins` changes:
+# # {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 
 echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
 
@@ -18,8 +20,6 @@ contains jorgebucaran/fisher $_fisher_plugins
 # @fish-lsp-disable-next-line 2003
 or set --universal --append _fisher_plugins jorgebucaran/fisher
 
-# Trigger the script if `~/.config/fish/fish_plugins` changes:
-# # {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 fisher update >/dev/null || exit 1
 
 echo "$(set_color brgreen)Installed $(count (fisher list)) fish plugins.$(set_color normal)"
