@@ -37,10 +37,15 @@ def run(
     out: int | None = True,
     err: int | None = True,
 ) -> CompletedProcess[str]:
-    args: list[str] = []
+    args: list[str | Path] = []
 
     for part in filter(None, cmd):
-        args.extend(shlex_split(str(part)))
+        if isinstance(part, Path):
+            args.append(part)
+        elif isinstance(part, str):
+            args.extend(shlex_split(part))
+        else:
+            raise TypeError
 
     return subprocess_run(
         args=args,
