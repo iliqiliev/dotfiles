@@ -1,58 +1,92 @@
-#!/usr/bin/env bash
-# vim: filetype=sh
+#!/usr/bin/env -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (not (lookPath "pacman")) (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-set -eu
+from pathlib import Path
+from shutil import which
+from subprocess import DEVNULL, PIPE, run
+from typing import Literal
 
-# shellcheck source=helpers/helpers.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+from rich import print as rich_print
 
-CHAOTIC_CONFIG_ENTRY="
+SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
+CHAOTIC_KEY = "3056513887B78AEB"
+CHAOTIC_CDN = "https://cdn-mirror.chaotic.cx/chaotic-aur"
+CHAOTIC_CONFIG_ENTRY = """
 [chaotic-aur]
-Include = /etc/pacman.d/chaotic-mirrorlist"
+Include = /etc/pacman.d/chaotic-mirrorlist
+"""
 
-if ! grep --quiet "chaotic-aur" /etc/pacman.conf; then
-    print_blue "Installing Chaotic-AUR ..."
 
-    CHAOTIC_KEY="3056513887B78AEB"
-    CHAOTIC_CDN="https://cdn-mirror.chaotic.cx/chaotic-aur"
+def main() -> None:
+    install_chaotic_aur()
+    install_yay()
 
-    $CHEZ_SUDO pacman-key --init
+    yay_args = ("--color=auto", "--needed", "--noconfirm")
 
-    $CHEZ_SUDO pacman-key --recv-key $CHAOTIC_KEY --keyserver keyserver.ubuntu.com
-    $CHEZ_SUDO pacman-key --lsign-key $CHAOTIC_KEY
+    rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
+    run(("yay", "-Syu", *yay_args), check=True)
+    rich_print("[bright_green]System updated successfully.[/]")
 
-    $CHEZ_SUDO pacman -U --noconfirm $CHAOTIC_CDN/chaotic-{keyring,mirrorlist}.pkg.tar.zst
+    available_packages = set(
+        run(("pacman", "-Slq"), check=True, stdout=PIPE).stdout.decode().split(),
+    ).intersection(
+        '# {{ template "packages" . }}'.split(),  # noqa: SIM905
+    )
 
-    $CHEZ_SUDO tee --append /etc/pacman.conf <<<"$CHAOTIC_CONFIG_ENTRY" >/dev/null
+    rich_print("[bright_blue]Installing pacman packages ...[/]")
+    run(("yay", "-S", *yay_args, "--asexplicit", *available_packages), check=True)
+    rich_print("[bright_green]Packages installed successfully.[/]")
 
-    $CHEZ_SUDO pacman -Sy --noconfirm
-    print_green "Chaotic-AUR installed successfully."
-fi
 
-if ! command -v yay >/dev/null; then
-    print_blue "Installing Yay AUR helper ..."
-    $CHEZ_SUDO pacman -S --noconfirm yay
-    print_green "Yay installed successfully."
-fi
+def install_chaotic_aur() -> None:
+    if Path("/etc/pacman.conf").read_text().find(CHAOTIC_CONFIG_ENTRY.strip()):
+        return
 
-YAY_ARGS=(--color=auto --needed --noconfirm)
+    rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
 
-print_blue "Updating system to avoid dependency mismatches ..."
-yay -Syu "${YAY_ARGS[@]}"
-print_green "System updated successfully."
+    cmd = (SUDO, "pacman-key", "--init")
+    run(tuple(filter(None, cmd)), check=True)
 
-AVAILABLE_PACKAGES=$(
-    comm -12 \
-        <(pacman -Slq | sort) \
-        <(tr " " "\n" <<<'# {{ template "packages" . }}')
-)
+    cmd = (SUDO, "pacman-key", "--recv-key", CHAOTIC_KEY, "--keyserver", "keyserver.ubuntu.com")  # fmt: skip
+    run(tuple(filter(None, cmd)), check=True)
+    cmd = (SUDO, "pacman-key", "--lsign-key", CHAOTIC_KEY)
+    run(tuple(filter(None, cmd)), check=True)
 
-print_blue "Installing pacman packages ..."
-# shellcheck disable=SC2086
-yay -S "${YAY_ARGS[@]}" --asexplicit -- $AVAILABLE_PACKAGES
-print_green "Packages installed successfully."
+    packages = (
+        f"{CHAOTIC_CDN}/{package}.pkg.tar.zst"
+        for package in ("chaotic-keyring", "chaotic-mirrorlist")
+    )
+    cmd = (SUDO, "pacman", "-U", "--noconfirm", *packages)
+    run(tuple(filter(None, cmd)), check=True)
+
+    cmd = (SUDO, "tee", "--append", "/etc/pacman.conf")
+    run(
+        tuple(filter(None, cmd)),
+        check=True,
+        input=CHAOTIC_CONFIG_ENTRY,
+        stdout=DEVNULL,
+    )
+
+    cmd = (SUDO, "pacman", "-Sy", "--noconfirm")
+    run(tuple(filter(None, cmd)), check=True)
+
+    rich_print("[bright_green]Chaotic-AUR installed successfully.[/]")
+
+
+def install_yay() -> None:
+    if which("yay") is not None:
+        return
+
+    rich_print("[bright_blue]Installing [i]yay[/] AUR helper ...[/]")
+    cmd = (SUDO, "pacman", "-S", "--noconfirm", "yay")
+    run(tuple(filter(None, cmd)), check=True)
+    rich_print("[bright_green]Yay installed successfully.[/]")
+
+
+if __name__ == "__main__":
+    main()
