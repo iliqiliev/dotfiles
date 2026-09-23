@@ -43,9 +43,9 @@ def mise_self_update() -> None:
     rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...")
     run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
 
-    rich_print(f"[bright_green]{MISE_LINK} has been updated successfully.[/]")
-    rich_print(f"[bright_yellow]Old: [i strike]{current}[/].[/]", end=" ")
-    rich_print(f"[bright_green]New: [i]{latest}[/].[/]")
+    rich_print(f"[bright_green]{MISE_LINK} has been updated successfully:[/]", end=" ")
+    rich_print(f"[bright_yellow strike]{current}[/]", end=" -> ")
+    rich_print(f"[bright_green]{latest}[/]")
 
 
 def mise_bootstrap() -> None:
