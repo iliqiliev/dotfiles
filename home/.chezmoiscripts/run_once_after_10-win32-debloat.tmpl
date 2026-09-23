@@ -68,8 +68,8 @@ async def main() -> None:
     }
 
     removed: int = 0
-    for pretty_name in sorted(BLOAT_PACKAGES):
-        if (package := installed_packages.get(pretty_name)) is None:
+    for package_name in sorted(BLOAT_PACKAGES):
+        if (package := installed_packages.get(package_name)) is None:
             continue
 
         pretty_name = package.display_name
