@@ -8,6 +8,8 @@
 #   `chezmoi execute-template '{{ template "packages" . }}'`
 
 packages:
+  bash:
+    __tags__: ["linux"]
   bat:
   btop:
   chezmoi:
