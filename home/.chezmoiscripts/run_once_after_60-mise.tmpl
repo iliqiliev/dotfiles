@@ -20,8 +20,6 @@ MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 
 def main() -> None:
-    rich_print(f"[bright_blue]Installing development tools using {MISE_LINK} ...")
-
     if not MISE.is_file():
         rich_print(f"[bright_red]{MISE_LINK} is not installed. Exiting ...")
         raise SystemExit(1)
@@ -29,8 +27,6 @@ def main() -> None:
     mise_self_update()
     mise_bootstrap()
     run((MISE, "install"), check=True)
-
-    rich_print("[bright_green]Development tools installed successfully.")
 
 
 def mise_self_update() -> None:
@@ -48,7 +44,7 @@ def mise_self_update() -> None:
     run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
 
     rich_print(f"[bright_green]{MISE_LINK} has been updated successfully.[/]")
-    rich_print(f"[bright_yellow]Old: [i strike]{current}[/].[/]")
+    rich_print(f"[bright_yellow]Old: [i strike]{current}[/].[/]", end=" ")
     rich_print(f"[bright_green]New: [i]{latest}[/].[/]")
 
 
