@@ -12,11 +12,10 @@
 from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
-from subprocess import DEVNULL, PIPE
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import DEVNULL, PIPE, run
 
 MISE = Path.home() / ".local/bin/mise"
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"

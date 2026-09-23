@@ -8,11 +8,11 @@
 
 """Install Gnome extensions."""
 
-from subprocess import DEVNULL, CalledProcessError
+from subprocess import CalledProcessError
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import DEVNULL, run
 
 EXTENSIONS = (
     # Alphabetical App Grid.

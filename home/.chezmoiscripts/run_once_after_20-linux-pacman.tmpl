@@ -8,12 +8,11 @@
 
 from pathlib import Path
 from shutil import which
-from subprocess import DEVNULL, PIPE
 from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import DEVNULL, PIPE, run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 CHAOTIC_KEY = "3056513887B78AEB"

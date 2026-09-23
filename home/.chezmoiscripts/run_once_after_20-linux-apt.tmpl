@@ -7,12 +7,11 @@
 # {{ end -}}
 
 from os import environ as env
-from subprocess import PIPE
 from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import PIPE, run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 env["DEBIAN_FRONTEND"] = "noninteractive"

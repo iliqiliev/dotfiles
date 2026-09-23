@@ -14,12 +14,11 @@ This explains the shebang and the line above.
 """
 
 from shutil import which
-from subprocess import PIPE
 from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import PIPE, run
 
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
