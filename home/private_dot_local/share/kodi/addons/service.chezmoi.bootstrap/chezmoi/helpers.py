@@ -2,9 +2,8 @@
 
 from json import dumps as json_dumps
 from json import loads as json_loads
-from pathlib import Path
 from sqlite3 import connect as sqlite3_connect
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from xbmc import (
     LOGDEBUG,
@@ -17,6 +16,9 @@ from xbmc import (
 )
 from xbmcaddon import Addon
 from xbmcgui import DLG_YESNO_YES_BTN, Dialog
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 type KodiSettingsValue = list[str] | str | int | bool
 
