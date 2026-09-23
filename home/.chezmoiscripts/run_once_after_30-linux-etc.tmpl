@@ -26,7 +26,7 @@ ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 EXCLUSIONS: tuple[Path, ...] = (
-    CHEZMOI_ROOT / "home",  # Managed by the `termux` script.
+    CHEZMOI_ROOT / "home/$USER",  # Managed by the `termux` script.
     CHEZMOI_ROOT / "README.md",  # README file, should not be placed in `/`.
 )
 
