@@ -12,22 +12,19 @@ from collections.abc import Sequence
 
 from rich import print as rich_print
 
-from helpers import run
+from helpers import CHEZMOI_DATA, run
 
 
 def main():
     rich_print("[bright_blue]Setting Dconf settings ...[/]")
     dconf = Dconf()
 
-    # {{ if .isPersonal -}}
+    if CHEZMOI_DATA["isPersonal"] is True:
+        sources = [("xkb", "us"), ("xkb", "bg+phonetic")]
+        dconf.org.gnome.desktop.input_sources.sources = sources
 
-    sources = [("xkb", "us"), ("xkb", "bg+phonetic")]
-    dconf.org.gnome.desktop.input_sources.sources = sources
-
-    favorite_apps = ["zen", "kitty", "dev.zed.Zed"]
-    dconf.org.gnome.shell.favorite_apps = [f"{app}.desktop" for app in favorite_apps]
-
-    # {{ end -}}
+        favorites = ["zen", "kitty", "dev.zed.Zed"]
+        dconf.org.gnome.shell.favorite_apps = [f"{app}.desktop" for app in favorites]
 
     dconf.ca.desrt.dconf_editor.show_warning = False
 

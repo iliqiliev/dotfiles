@@ -24,7 +24,7 @@ from winreg import (
 
 from rich import print as rich_print
 
-from helpers import restart_explorer
+from helpers import CHEZMOI_DATA, restart_explorer
 
 
 def registry_set_data(
@@ -32,8 +32,12 @@ def registry_set_data(
     name: str | None,
     data: str | int,
     reg_type: int | None = None,
+    personal: bool = False,
 ) -> None:
     """Set a `HKEY_CURRENT_USER` registry value."""
+    if personal and CHEZMOI_DATA["isPersonal"] is not True:
+        return
+
     if reg_type is None:
         if isinstance(data, str):
             if ExpandEnvironmentStrings(data) == data:
@@ -51,8 +55,15 @@ def registry_set_data(
         rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/] driver.[/]")
 
 
-def registry_set_many_data(path: str, *kvp: tuple[str, str | int]) -> None:
+def registry_set_many_data(
+    path: str,
+    *kvp: tuple[str, str | int],
+    personal: bool = False,
+) -> None:
     """Set multiple `HKEY_CURRENT_USER` registry values at once."""
+    if personal and CHEZMOI_DATA["isPersonal"] is not True:
+        return
+
     for name, data in kvp:
         registry_set_data(path, name, data)
 
@@ -95,13 +106,13 @@ registry_path_append(rf"{env['USERPROFILE']}\scoop\shims")
 registry_path_append(r"%USERPROFILE%\.local\bin")
 registry_path_append(r"%USERPROFILE%\.local\share\mise\shims")
 
-# {{ if .isPersonal -}}
 # Set keyboard layouts.
-english_us = "00000409"
-registry_set_data(r"Keyboard Layout\Preload", "1", english_us)
-bulgarian_phonetic_traditional = "00040402"
-registry_set_data(r"Keyboard Layout\Preload", "2", bulgarian_phonetic_traditional)
-# {{ "\n" }}# {{ end -}}
+registry_set_many_data(
+    r"Keyboard Layout\Preload",
+    ("1", "00000409"),  # English (US)
+    ("2", "00040402"),  # Bulgarian (Phonetic Traditional)
+    personal=True,
+)
 
 # Disable mouse acceleration.
 registry_set_data(r"Control Panel\Mouse", "MouseSpeed", "0")

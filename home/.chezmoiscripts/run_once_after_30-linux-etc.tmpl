@@ -17,16 +17,14 @@ from json import dumps as json_dumps
 from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
-from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import run, sudo_cache
+from helpers import SUDO, run, sudo_cache
 
 CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
 EXCLUSIONS: tuple[Path, ...] = (
     CHEZMOI_ROOT / "home/$USER",  # Managed by the `termux` script.
@@ -65,7 +63,7 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if root_files and SUDO:
+if root_files:
     sudo_cache()
 
 for chezmoi_file, root_file in root_files.items():

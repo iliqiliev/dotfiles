@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 from requests import get as requests_get
 from rich import print as rich_print
 
-from helpers import run
+from helpers import CHEZMOI_PACKAGES, SUDO, run
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -83,10 +83,9 @@ for bucket_url in BUCKETS:
 
     run(SCOOP, "bucket add", bucket, url)
 
-available_packages = {
+
+available_packages = CHEZMOI_PACKAGES.intersection(
     package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")
-}.intersection(
-    "# {{ template `packages` . }}".split(),  # noqa: SIM905
 )
 
 user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
@@ -99,11 +98,9 @@ if user_packages:
     check_installed(user_packages)
     rich_print("[bright_green]Packages installed successfully.[/]")
 
-# {{ if ne .sudo "false" -}}
-if sudo_packages:
+if SUDO != "false" and sudo_packages:
     rich_print("[bright_blue]Installing packages that require admin privileges ...[/]")
     run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
 
     check_installed(sudo_packages)
     rich_print("[bright_green]Admin packages installed successfully. [/]")
-# {{ end -}}

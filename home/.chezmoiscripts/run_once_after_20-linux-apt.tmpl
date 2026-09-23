@@ -7,13 +7,11 @@
 # {{ end -}}
 
 from os import environ as env
-from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import PIPE, run
+from helpers import CHEZMOI_DATA, CHEZMOI_PACKAGES, PIPE, SUDO, run
 
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
@@ -21,16 +19,13 @@ rich_print("[bright_blue]Syncing apt databse ...[/]")
 run(SUDO, "apt update --yes")
 rich_print("[bright_green]Apt database synced successfully.[/]")
 
-# {{ if eq .distro "android" -}}
-rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
-run("apt full-upgrade --yes -o Dpkg::Options::=--force-confnew")
-rich_print("[bright_green]Packages upgraded successfully.[/]")
-# {{ "\n" }}# {{ end -}}
+if CHEZMOI_DATA["distro"] == "android":
+    rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
+    run("apt full-upgrade --yes -o Dpkg::Options::=--force-confnew")
+    rich_print("[bright_green]Packages upgraded successfully.[/]")
 
-available_packages = set(
-    run("apt-cache pkgnames", out=PIPE).stdout.split(),
-).intersection(
-    '# {{ template "packages" . }}'.split(),  # noqa: SIM905
+available_packages = CHEZMOI_PACKAGES.intersection(
+    run("apt-cache pkgnames", out=PIPE).stdout.split()
 )
 
 rich_print("[bright_blue]Installing apt packages ...[/]")

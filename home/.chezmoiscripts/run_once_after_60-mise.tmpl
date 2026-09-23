@@ -15,7 +15,7 @@ from pathlib import Path
 
 from rich import print as rich_print
 
-from helpers import DEVNULL, PIPE, run
+from helpers import CHEZMOI_DATA, DEVNULL, PIPE, run
 
 MISE = Path.home() / ".local/bin/mise"
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
@@ -56,7 +56,7 @@ def mise_bootstrap() -> None:
 
     rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...[/]")
 
-    if "# {{ .distro }}" == "android":  # noqa: PLR0133
+    if CHEZMOI_DATA["distro"] == "android":
         __mise_bootstrap_android__()
     else:
         run(MISE, "bootstrap packages apply --yes")

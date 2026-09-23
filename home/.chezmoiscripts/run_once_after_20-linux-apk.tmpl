@@ -14,14 +14,10 @@ This explains the shebang and the line above.
 """
 
 from shutil import which
-from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import PIPE, run
-
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
-
+from helpers import CHEZMOI_PACKAGES, PIPE, SUDO, run
 
 if which("setup-apkrepos") is not None:
     rich_print("[bright_blue]Adding community repository ...[/]")
@@ -32,10 +28,8 @@ rich_print("[bright_blue]Syncing apk database ...[/]")
 run(SUDO, "apk update")
 rich_print("[bright_green]Apk database synced successfully.[/]")
 
-available_packages = set(
-    run("apk search --quiet", out=PIPE).stdout.split(),
-).intersection(
-    '# {{ template "packages" . }}'.split(),  # noqa: SIM905
+available_packages = CHEZMOI_PACKAGES.intersection(
+    run("apk search --quiet", out=PIPE).stdout.split()
 )
 
 rich_print("[bright_blue]Installing apk packages ...[/]")

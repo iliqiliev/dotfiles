@@ -6,17 +6,10 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
-from typing import Literal
-
 from rich import print as rich_print
 
-from helpers import run
-
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
-
-
-available_packages = '# {{ template "packages" . }}'.split()  # noqa: SIM905
+from helpers import CHEZMOI_PACKAGES, SUDO, run
 
 rich_print("[bright_blue]Installing dnf packages ...[/]")
-run(SUDO, "dnf install --assumeyes --skip-unavailable", *available_packages)
+run(SUDO, "dnf install --assumeyes --skip-unavailable", *CHEZMOI_PACKAGES)
 rich_print("[bright_green]Packages installed successfully.[/]")

@@ -12,13 +12,10 @@ from os import environ as env
 from pathlib import Path
 from shutil import which
 from subprocess import CalledProcessError
-from typing import Literal, cast
 
 from rich import print as rich_print
 
-from helpers import DEVNULL, run, sudo_cache
-
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
+from helpers import CHEZMOI_DATA, DEVNULL, SUDO, run, sudo_cache
 
 
 def main() -> None:
@@ -27,10 +24,7 @@ def main() -> None:
 
 
 def service_virtualbox() -> None:
-    is_virtualbox = cast("str", "# {{ .productName }}") == "VirtualBox"
-    is_container = env.get("container") is not None
-
-    if not is_virtualbox or is_container:
+    if CHEZMOI_DATA["productName"] != "VirtualBox" or env.get("container"):
         return
 
     __systemd_service__("VirtualBox", "vboxservice.service")
@@ -58,8 +52,7 @@ def __systemd_service__(pretty_name: str, service_name: str) -> bool:
     if not Path(f"/usr/lib/systemd/system/{service_name}").is_file():
         return False
 
-    if SUDO:
-        sudo_cache()
+    sudo_cache()
 
     rich_print(f"[bright_blue]Setting up [i]{pretty_name}[/] service ...[/]", end=" ")
     run(SUDO, "systemctl enable --now", service_name, err=DEVNULL)
@@ -75,8 +68,7 @@ def __openrc_service__(
     if not Path(f"/etc/init.d/{service_name}").is_file():
         return False
 
-    if SUDO:
-        sudo_cache()
+    sudo_cache()
 
     rich_print(f"[bright_blue]Setting up [i]{pretty_name}[/] service ...[/]", end=" ")
     run(SUDO, "rc-service", service_name)

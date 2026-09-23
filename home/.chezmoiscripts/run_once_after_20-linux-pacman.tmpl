@@ -8,13 +8,11 @@
 
 from pathlib import Path
 from shutil import which
-from typing import Literal
 
 from rich import print as rich_print
 
-from helpers import DEVNULL, PIPE, run
+from helpers import CHEZMOI_PACKAGES, DEVNULL, PIPE, SUDO, run
 
-SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 CHAOTIC_KEY = "3056513887B78AEB"
 CHAOTIC_CDN = "https://cdn-mirror.chaotic.cx/chaotic-aur"
 CHAOTIC_CONFIG_ENTRY = """
@@ -33,10 +31,8 @@ def main() -> None:
     run("yay -Syu", *yay_args)
     rich_print("[bright_green]System updated successfully.[/]")
 
-    available_packages = set(
-        run("pacman -Slq", out=PIPE).stdout.split(),
-    ).intersection(
-        '# {{ template "packages" . }}'.split(),  # noqa: SIM905
+    available_packages = CHEZMOI_PACKAGES.intersection(
+        run("pacman -Slq", out=PIPE).stdout.split()
     )
 
     rich_print("[bright_blue]Installing pacman packages ...[/]")
