@@ -177,10 +177,10 @@ class Dconf:
         if isinstance(value, bool):
             return str(value).lower()
         if isinstance(value, str):
-            return repr(value)
+            return repr(repr(value))
         if isinstance(value, (int, float, Sequence)):
-            return str(value)
-        raise TypeError(f"Cannot serialize '{value!r}'.")
+            return repr(str(value))
+        raise TypeError(f"Cannot serialize {value!r}.")
 
 
 if __name__ == "__main__":
