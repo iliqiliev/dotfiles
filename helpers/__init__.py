@@ -1,8 +1,11 @@
 """Helper module."""
 
-from subprocess import DEVNULL, PIPE
-
 from .helpers import (
+    CHEZMOI_DATA,
+    CHEZMOI_PACKAGES,
+    DEVNULL,
+    PIPE,
+    SUDO,
     is_busybox,
     restart_explorer,
     run,
@@ -10,8 +13,11 @@ from .helpers import (
 )
 
 __all__ = [
+    "CHEZMOI_DATA",
+    "CHEZMOI_PACKAGES",
     "DEVNULL",
     "PIPE",
+    "SUDO",
     "is_busybox",
     "restart_explorer",
     "run",
