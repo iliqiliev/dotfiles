@@ -82,3 +82,7 @@ def __mise_bootstrap_android__() -> None:
     env["DEBIAN_FRONTEND"] = "noninteractive"
     run(("apt", "update"), check=True, stdin=DEVNULL, stderr=DEVNULL)
     run(("apt", "install", "--yes", *missing_packages), check=True)
+
+
+if __name__ == "__main__":
+    main()
