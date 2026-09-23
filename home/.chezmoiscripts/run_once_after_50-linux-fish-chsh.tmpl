@@ -1,46 +1,34 @@
-#!/usr/bin/env bash
-# vim: filetype=sh
+#!/usr/bin/env -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if ne .os "linux" -}}
+# {{ if or (ne .os "linux") (eq .distro "android") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-set -eu
+from getpass import getuser
+from pathlib import Path
+from pwd import getpwnam
 
-# shellcheck source=helpers/helpers.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+from rich import print as rich_print
 
-FISH_PATH=/usr/bin/fish
-USER=$(id -un)
+from helpers import DEVNULL, run
 
-if [[ ${SHELL-} =~ fish$ ]] || grep --quiet "${USER}:${FISH_PATH}$" /etc/passwd; then
-    exit 0
-fi
+FISH = "/usr/bin/fish"
+USER = getuser()
 
-print_blue "Changing default shell to 'fish' ..."
 
-# {{ if ne .distro "android" -}}
-if ! test -x "${FISH_PATH}"; then
-    print_red "'fish' is not installed. Exiting."
-    exit 0
-fi
-# {{ "\n" }}# {{ end -}}
+rich_print("[bright_blue]Changing default shell to [i]fish[/] ...[/]", end=" ")
 
-if ! command -v chsh >/dev/null; then
-    print_red "'chsh' command not found. Cannot change default shell."
-    exit 0
-fi
+if getpwnam(USER).pw_shell == FISH:
+    rich_print("[bright_green]OK[/]")
+    raise SystemExit(0)
 
-# {{ if eq .distro "android" -}}
-yes fish | chsh >/dev/null
-# {{ else -}}
-if ! grep --fixed-strings --line-regexp --quiet "$FISH_PATH" /etc/shells; then
-    print_red "'fish' is installed but not listed in '/etc/shells'."
-    exit 0
-fi
+if FISH not in set(Path("/etc/shells").read_text().split()):
+    rich_print("[bright_red][i]fish[/] is not listed in [i]/etc/shells[/].[/]")
+    raise SystemExit(1)
 
-chsh --shell "$FISH_PATH" "$USER" >/dev/null
-# {{ end -}}
+rich_print(f"\n[bright_blue]Enter [i]{USER}[/]'s password:[/]", end=" ")
+run("chsh --shell", FISH, USER, out=DEVNULL, err=DEVNULL)
 
-print_green "Shell changed to 'fish' successfully."
+rich_print("[bright_green]OK[/]")
