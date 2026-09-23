@@ -34,7 +34,7 @@ run(tuple(filter(None, cmd)), check=True)
 rich_print("[bright_green]Apk database synced successfully.[/]")
 
 available_packages = set(
-    run(("apk", "search", "--quiet"), stdout=PIPE).stdout.decode().split(),
+    run(("apk", "search", "--quiet"), check=True, stdout=PIPE).stdout.decode().split(),
 ).intersection(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )

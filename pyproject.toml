@@ -26,7 +26,6 @@ lint.extend-select = [
 ]
 lint.ignore = [
   "EXE001",  # Allow shebangs in non-executable files.
-  "PLW1510",  # Allow `subprocess.run` without explicit `check` argument.
 ]
 src = [
   ".",

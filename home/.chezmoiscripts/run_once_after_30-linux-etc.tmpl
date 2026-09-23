@@ -25,7 +25,7 @@ CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
-EXCLUSIONS = (
+EXCLUSIONS: tuple[Path, ...] = (
     CHEZMOI_ROOT / "home",  # Managed by the `termux` script.
     CHEZMOI_ROOT / "README.md",  # README file, should not be placed in `/`.
 )
@@ -62,7 +62,11 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
 
     root_files[chezmoi_file] = root_file
 
-if root_files and SUDO and run(("sudo", "-n", "true"), stderr=DEVNULL).returncode != 0:
+if (
+    root_files
+    and SUDO
+    and run(("sudo", "-n", "true"), check=False, stderr=DEVNULL).returncode
+):
     rich_print("[bright_blue]Caching sudo credentials ...")
     run(("sudo", "-v"), check=True)
     rich_print("[bright_green]Sudo credentials cached.")

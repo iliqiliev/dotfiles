@@ -22,10 +22,11 @@ if not MISE.is_file():
     rich_print(f"[bright_red]{mise_link} is not installed. Exiting ...")
     raise SystemExit(1)
 
-old_version = run((MISE, "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
+version_check_cmd = (MISE, "version", "--quiet")
+old_version = run(version_check_cmd, check=True, stdout=PIPE).stdout.decode().rstrip()
 # Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
-run((MISE, "self-update", "--yes"), stdout=DEVNULL, check=True)
-new_version = run((MISE, "version", "--quiet"), stdout=PIPE).stdout.decode().rstrip()
+run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
+new_version = run(version_check_cmd, check=True, stdout=PIPE).stdout.decode().rstrip()
 
 if old_version != new_version:
     rich_print(f"[bright_green]{mise_link} has been updated successfully.")
@@ -39,7 +40,7 @@ if old_version != new_version:
 def mise_bootstrap_android() -> None:
     """Mise tries to use `sudo` for on `Termux` but fails. This is a workaround."""
     cmd = (MISE, "bootstrap", "packages", "status", "--json")
-    packages = json_loads(run(cmd, stdout=PIPE).stdout.decode())
+    packages = json_loads(run(cmd, check=True, stdout=PIPE).stdout.decode())
 
     rename = {"gcc": "clang"}
     missing_packages: set[str] = {
@@ -54,7 +55,7 @@ def mise_bootstrap_android() -> None:
 
 
 cmd = (MISE, "bootstrap", "packages", "status", "--missing")
-if run(cmd, stdout=DEVNULL).returncode != 0:
+if run(cmd, check=False, stdout=DEVNULL).returncode:
     rich_print(f"[bright_blue]Installing {mise_link} bootstrap packages ...")
 
     if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133

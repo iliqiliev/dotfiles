@@ -37,7 +37,7 @@ rich_print("[bright_green]Packages upgraded successfully.")
 # {{ "\n" }}# {{ end -}}
 
 available_packages = set(
-    run(("apt-cache", "pkgnames"), stdout=PIPE).stdout.decode().split(),
+    run(("apt-cache", "pkgnames"), check=True, stdout=PIPE).stdout.decode().split(),
 ).intersection(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
