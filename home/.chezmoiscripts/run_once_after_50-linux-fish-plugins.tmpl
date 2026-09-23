@@ -1,5 +1,5 @@
-#!/usr/bin/env -S fish
-# vim: filetype=fish
+#!/usr/bin/env -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if ne .os "linux" -}}
@@ -8,18 +8,16 @@
 # Trigger this script if `~/.config/fish/fish_plugins` changes:
 # # {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 
-echo "$(set_color brblue)Installing fisher plugins ...$(set_color normal)"
+from pathlib import Path
 
-if not type --query fisher
-    echo "$(set_color brred)Fisher is not installed. Exiting ...$(set_color normal)"
-    exit 0
-end
+from rich import print as rich_print
 
-# Make fisher adopt itself.
-contains jorgebucaran/fisher $_fisher_plugins
-# @fish-lsp-disable-next-line 2003
-or set --universal --append _fisher_plugins jorgebucaran/fisher
+from helpers import DEVNULL, run
 
-fisher update >/dev/null || exit 1
+FISHER_PLUGINS = Path.home() / ".config/fish/fish_plugins"
 
-echo "$(set_color brgreen)Installed $(count (fisher list)) fish plugins.$(set_color normal)"
+plugin_count = len(FISHER_PLUGINS.read_text().splitlines())
+rich_print(f"[bright_blue]Installing {plugin_count} fisher plugins ...[/]", end=" ")
+
+run("fish -c 'fisher update'", out=DEVNULL)
+rich_print("[bright_green]OK[/]")
