@@ -70,6 +70,7 @@ def install_chaotic_aur() -> None:
         check=True,
         input=CHAOTIC_CONFIG_ENTRY,
         stdout=DEVNULL,
+        text=True,
     )
 
     cmd = (SUDO, "pacman", "-Sy", "--noconfirm")
