@@ -52,7 +52,7 @@ for source_file in CHEZMOI_HOME.rglob("*"):
             continue
 
     destination_file_link = f"[link={destination_file.as_uri()}]{destination_file}[/]"
-    rich_print(f"[bright_blue]Writing to '{destination_file_link}' ...", end=" ")
+    rich_print(f"[bright_blue]Writing to '{destination_file_link}' ...[/]", end=" ")
 
     source_file.copy(destination_file)
-    rich_print("[bright_green]OK")
+    rich_print("[bright_green]OK[/]")

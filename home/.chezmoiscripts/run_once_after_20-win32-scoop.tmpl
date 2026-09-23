@@ -27,7 +27,7 @@ def check_installed(packages: Iterable[str]) -> None:
     if not missing:
         return
 
-    rich_print(f"[bright_red]The following are missing: {' '.join(sorted(missing))}")
+    rich_print(f"[bright_red]The following are missing: {' '.join(sorted(missing))}[/]")
     raise SystemExit(1)
 
 
@@ -63,17 +63,17 @@ BUCKETS = (
 
 
 if SCOOP.exists():
-    rich_print("[bright_blue]Updating 'scoop' buckets ...")
+    rich_print("[bright_blue]Updating 'scoop' buckets ...[/]")
     run((SCOOP, "update"), check=True)
-    rich_print("[bright_blue]'scoop' buckets updated successfully.")
+    rich_print("[bright_blue]'scoop' buckets updated successfully.[/]")
 else:
-    rich_print("[bright_blue]Scoop not found. Installing it ...")
+    rich_print("[bright_blue]Scoop not found. Installing it ...[/]")
     install_scoop()
 
 if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
-    rich_print("[bright_blue]Git not found. Installing it ...")
+    rich_print("[bright_blue]Git not found. Installing it ...[/]")
     run((SCOOP, "install", "--no-update-scoop", "git"), check=True)
-    rich_print("[bright_green]Git installed successfully.")
+    rich_print("[bright_green]Git installed successfully.[/]")
 
 for bucket_url in BUCKETS:
     bucket, url = bucket_url
@@ -93,19 +93,19 @@ user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
 sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
 
 if user_packages:
-    rich_print("[bright_blue]Installing 'scoop' packages ...")
+    rich_print("[bright_blue]Installing 'scoop' packages ...[/]")
     cmd = (SCOOP, "install", "--no-update-scoop", *user_packages)
     run(cmd, check=True)
 
     check_installed(user_packages)
-    rich_print("[bright_green]Packages installed successfully.")
+    rich_print("[bright_green]Packages installed successfully.[/]")
 
 # {{ if ne .sudo "false" -}}
 if sudo_packages:
-    rich_print("[bright_blue]Installing packages that require admin privileges ...")
+    rich_print("[bright_blue]Installing packages that require admin privileges ...[/]")
     cmd = (GSUDO, SCOOP, "install", "--no-update-scoop", *sudo_packages)
     run(cmd, check=True)
 
     check_installed(sudo_packages)
-    rich_print("[bright_green]Admin packages installed successfully")
+    rich_print("[bright_green]Admin packages installed successfully. [/]")
 # {{ end -}}

@@ -9,18 +9,13 @@
 """Configure custom folder icons for `Gnome`."""
 
 from pathlib import Path
-from shutil import which
 from subprocess import run
 
 from rich import print as rich_print
 
 
 def main() -> None:
-    rich_print("[bright_blue]Setting up custom folder icons ...")
-
-    if which("gio") is None:
-        rich_print("[bright_red]'gio' is not installed. Cannot change folder icons.")
-        raise SystemExit(1)
+    rich_print("[bright_blue]Setting up custom folder icons ...[/]")
 
     for folder_path, icon_name in CUSTOM_ICONS.items():
         folder = Path(folder_path).expanduser()
@@ -30,12 +25,12 @@ def main() -> None:
             continue
 
         if not icon.is_file():
-            rich_print(f"[bright_red]Icon '{icon}' not found.")
+            rich_print(f"[bright_red]Icon '{icon}' not found.[/]")
             continue
 
         run(("gio", "set", folder, "metadata::custom-icon-name", icon_name), check=True)
 
-    rich_print("[bright_green]Custom folder icons set up successfully.")
+    rich_print("[bright_green]Custom folder icons set up successfully.[/]")
 
 
 FOLDER_ICONS = Path.home() / ".local/share/icons/Morewaita/scalable/places"

@@ -21,7 +21,7 @@ MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 def main() -> None:
     if not MISE.is_file():
-        rich_print(f"[bright_red]{MISE_LINK} is not installed. Exiting ...")
+        rich_print(f"[bright_red]{MISE_LINK} is not installed. Exiting ...[/]")
         raise SystemExit(1)
 
     mise_self_update()
@@ -40,7 +40,7 @@ def mise_self_update() -> None:
     if current == latest:
         return
 
-    rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...")
+    rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...[/]")
     run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
 
     rich_print(f"[bright_green]{MISE_LINK} has been updated successfully:[/]", end=" ")
@@ -53,14 +53,14 @@ def mise_bootstrap() -> None:
     if not run(cmd, check=False, stdout=DEVNULL).returncode:
         return
 
-    rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...")
+    rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...[/]")
 
     if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
         __mise_bootstrap_android__()
     else:
         run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)
 
-    rich_print("[bright_green]Bootstrap packages installed successfully.")
+    rich_print("[bright_green]Bootstrap packages installed successfully.[/]")
 
 
 def __mise_bootstrap_android__() -> None:

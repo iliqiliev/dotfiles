@@ -67,9 +67,9 @@ if (
     and SUDO
     and run(("sudo", "-n", "true"), check=False, stderr=DEVNULL).returncode
 ):
-    rich_print("[bright_blue]Caching sudo credentials ...")
+    rich_print("[bright_blue]Caching sudo credentials ...[/]")
     run(("sudo", "-v"), check=True)
-    rich_print("[bright_green]Sudo credentials cached.")
+    rich_print("[bright_green]Sudo credentials cached.[/]")
 
 
 # Re-trigger script if any file inside `root` changes:
@@ -77,11 +77,11 @@ if (
 
 for chezmoi_file, root_file in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}[/]"
-    rich_print(f"[bright_blue]Writing to '{root_file_link}' ...", end=" ")
+    rich_print(f"[bright_blue]Writing to '{root_file_link}' ...[/]", end=" ")
 
     cmd = (SUDO, "install", "-D", "-m", "644", chezmoi_file, root_file)
     run(tuple(filter(None, cmd)), check=True)
-    rich_print("[bright_green]OK")
+    rich_print("[bright_green]OK[/]")
 
     cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
 

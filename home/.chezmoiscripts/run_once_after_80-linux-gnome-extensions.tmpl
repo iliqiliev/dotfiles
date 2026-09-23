@@ -38,7 +38,7 @@ rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
 try:
     run(("gext", "--dbus", "install", *EXTENSIONS), check=True, stderr=DEVNULL)
 except CalledProcessError:
-    rich_print("[bright_blue]Falling back to filesystem mode.")
+    rich_print("[bright_blue]Falling back to filesystem mode.[/]")
     run(("gext", "--filesystem", "install", *EXTENSIONS), check=True)
     rich_print("[bright_yellow]Gnome shell restart required to apply changes.[/]")
 else:

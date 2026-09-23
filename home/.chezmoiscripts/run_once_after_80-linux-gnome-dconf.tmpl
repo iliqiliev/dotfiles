@@ -15,7 +15,7 @@ from rich import print as rich_print
 
 
 def main():
-    rich_print("[bright_blue]Setting Dconf settings ...")
+    rich_print("[bright_blue]Setting Dconf settings ...[/]")
     dconf = Dconf()
 
     # {{ if .isPersonal -}}
@@ -129,7 +129,7 @@ def main():
         "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow",
     )
 
-    rich_print("[bright_green]Dconf configured successfully.")
+    rich_print("[bright_green]Dconf configured successfully.[/]")
 
 
 class Dconf:

@@ -16,16 +16,16 @@ SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
-rich_print("[bright_blue]Syncing apt databse ...")
+rich_print("[bright_blue]Syncing apt databse ...[/]")
 cmd = (SUDO, "apt", "update", "--yes")
 run(tuple(filter(None, cmd)), check=True)
-rich_print("[bright_green]Apt database synced successfully.")
+rich_print("[bright_green]Apt database synced successfully.[/]")
 
 # {{ if eq .distro "android" -}}
-rich_print("[bright_blue]Updating system to avoid dependency mismatches ...")
+rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
 cmd = ("apt", "full-upgrade", "--yes", "-o", "Dpkg::Options::=--force-confnew")
 run(cmd, check=True)
-rich_print("[bright_green]Packages upgraded successfully.")
+rich_print("[bright_green]Packages upgraded successfully.[/]")
 # {{ "\n" }}# {{ end -}}
 
 available_packages = set(
@@ -34,7 +34,7 @@ available_packages = set(
     '# {{ template "packages" . }}'.split(),  # noqa: SIM905
 )
 
-rich_print("[bright_blue]Installing apt packages ...")
+rich_print("[bright_blue]Installing apt packages ...[/]")
 cmd = (SUDO, "apt", "install", "--yes", *available_packages)
 run(tuple(filter(None, cmd)), check=True)
-rich_print("[bright_green]Packages installed successfully.")
+rich_print("[bright_green]Packages installed successfully.[/]")

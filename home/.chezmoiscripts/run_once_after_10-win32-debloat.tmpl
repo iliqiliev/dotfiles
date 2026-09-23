@@ -60,7 +60,7 @@ async def main() -> None:
     if Confirm.ask(PROMPT, default=False):
         BLOAT_PACKAGES.update(DEEP_BLOAT_PACKAGES)
 
-    rich_print("[bright_blue]Removing bloat packages ...")
+    rich_print("[bright_blue]Removing bloat packages ...[/]")
 
     installed_packages = {
         pkg.id.name: pkg
@@ -68,23 +68,24 @@ async def main() -> None:
     }
 
     removed: int = 0
-    for package_name in sorted(BLOAT_PACKAGES):
-        if (package := installed_packages.get(package_name)) is None:
+    for pretty_name in sorted(BLOAT_PACKAGES):
+        if (package := installed_packages.get(pretty_name)) is None:
             continue
 
-        rich_print(f"[bright_blue]Removing '{package.display_name}' ...", end=" ")
+        pretty_name = package.display_name
+        rich_print(f"[bright_blue]Removing [i]{pretty_name}[/] ...[/]", end=" ")
         await package_manager.remove_package_async(package.id.full_name)
 
-        rich_print("[bright_green]Done.")
+        rich_print("[bright_green]Done.[/]")
         removed += 1
 
-    rich_print(f"[bright_green]{len(BLOAT_PACKAGES)} packages checked.")
+    rich_print(f"[bright_green]{len(BLOAT_PACKAGES)} packages checked.[/]")
 
     if removed == 0:
-        rich_print("[bright_green]No packages to debloat. :)")
+        rich_print("[bright_green]No packages to debloat.[/]")
         raise SystemExit(0)
 
-    rich_print(f"[bright_green]{removed} packages debloated.")
+    rich_print(f"[bright_green]{removed} packages debloated.[/]")
 
     restart_explorer()
 

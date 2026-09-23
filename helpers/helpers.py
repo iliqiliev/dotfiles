@@ -22,7 +22,7 @@ def is_busybox(utility: str) -> bool:
 
 def restart_explorer() -> None:
     """Restart `explorer.exe`."""
-    rich_print("[bright_blue]Restarting 'explorer.exe' ...", end=" ")
+    rich_print("[bright_blue]Restarting [i]explorer.exe[/] ...[/]", end=" ")
     run(("TASKKILL", "/F", "/IM", "explorer.exe"), check=True, stdout=DEVNULL)
     Popen("explorer.exe")
-    rich_print("[bright_green]Done.")
+    rich_print("[bright_green]Done.[/]")
