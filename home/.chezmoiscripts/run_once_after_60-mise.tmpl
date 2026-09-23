@@ -56,7 +56,7 @@ def mise_bootstrap() -> None:
 
     rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...[/]")
 
-    if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
+    if "# {{ .distro }}" == "android":  # noqa: PLR0133
         __mise_bootstrap_android__()
     else:
         run(MISE, "bootstrap packages apply --yes")
