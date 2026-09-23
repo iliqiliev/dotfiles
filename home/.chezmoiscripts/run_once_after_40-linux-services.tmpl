@@ -1,68 +1,89 @@
-#!/usr/bin/env bash
-# vim: filetype=sh
+#!/usr/bin/env -S uv run -qsw rich
+# vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
 # {{ if or (ne .os "linux") (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 
-set -eu
+from getpass import getuser
+from grp import getgrnam
+from os import environ as env
+from pathlib import Path
+from shutil import which
+from subprocess import CalledProcessError
+from typing import Literal, cast
 
-# shellcheck source=helpers/helpers.sh
-source "$CHEZMOI_WORKING_TREE"/helpers/helpers.sh
+from rich import print as rich_print
 
-USER=$(id -un)
+from helpers import DEVNULL, run, sudo_cache
 
-function main() {
-    service_scx_loader
-    service_virtualbox
-}
+SUDO: Literal["", "sudo"] = "# {{ .sudo }}"  # ty: ignore[invalid-assignment]
 
-function service_scx_loader() {
-    test -f "/usr/lib/systemd/system/scx_loader.service" || return 0
 
-    print_blue "Setting up 'Sched_ext' service ..."
-    $CHEZ_SUDO systemctl enable --now scx_loader
-    print_green "'Sched_ext' service set up successfully."
-}
+def main() -> None:
+    __systemd_service__("Sched_ext", "scx_loader.service")
+    service_virtualbox()
 
-function service_virtualbox() {
-    if test -v "container" || test '# {{ .productName }}' != "VirtualBox"; then
-        return 0
-    fi
 
-    print_blue "Setting up 'VirtualBox' service ..."
-    service_virtualbox_systemd || service_virtualbox_openrc
-    print_green "'VirtualBox' service set up successfully."
+def service_virtualbox() -> None:
+    is_virtualbox = cast("str", "# {{ .productName }}") == "VirtualBox"
+    is_container = env.get("container") is not None
 
-    if ! id --groups --name | grep --quiet --word-regexp "vboxsf"; then
-        print_blue -n "Adding user to 'vboxsf' group ..."
-        $CHEZ_SUDO usermod -aG "vboxsf" "$USER"
-        print_green " OK"
-    fi
+    if not is_virtualbox or is_container:
+        return
 
-    print_blue -n "Starting 'VirtualBox' user session services ..."
-    if ! VBoxClient-all >/dev/null; then
-        echo
-        print_yellow "Failed to start 'VirtualBox' user session services."
-    else
-        print_green " OK"
-    fi
-}
+    __systemd_service__("VirtualBox", "vboxservice.service")
+    __openrc_service__("VirtualBox", "virtualbox-guest-additions", "boot")
+    __openrc_service__("VirtualBox DRM", "virtualbox-drm-client", "default")
 
-function service_virtualbox_systemd() {
-    test -f /usr/lib/systemd/system/vboxservice.service || return 1
-    $CHEZ_SUDO systemctl enable --now "vboxservice.service"
-}
+    if (user := getuser()) not in getgrnam("vboxsf").gr_mem:
+        rich_print("[bright_blue]Adding user to [i]vboxsf[/] group ...[/]", end=" ")
+        run(SUDO, "usermod -aG vboxsf", user)
+        rich_print("[bright_green]OK[/]")
 
-function service_virtualbox_openrc() {
-    test -f /etc/init.d/virtualbox-guest-additions || return 1
-    $CHEZ_SUDO rc-service virtualbox-guest-additions start
-    $CHEZ_SUDO rc-update add virtualbox-guest-additions boot
+    if which("VBoxClient-all") is None:
+        return
 
-    test -f /etc/init.d/virtualbox-drm-client || return 0
-    $CHEZ_SUDO rc-service virtualbox-drm-client start
-    $CHEZ_SUDO rc-update add virtualbox-drm-client default
-}
+    rich_print("[bright_blue]Setting up [i]VirtualBox[/] user services ...[/]", end=" ")
+    try:
+        run("VBoxClient-all", out=DEVNULL)
+    except CalledProcessError:
+        rich_print("[bright_red]FAILED[/]")
+    else:
+        rich_print("[bright_green]OK[/]")
 
-main
+
+def __systemd_service__(pretty_name: str, service_name: str) -> bool:
+    if not Path(f"/usr/lib/systemd/system/{service_name}").is_file():
+        return False
+
+    if SUDO:
+        sudo_cache()
+
+    rich_print(f"[bright_blue]Setting up [i]{pretty_name}[/] service ...[/]", end=" ")
+    run(SUDO, "systemctl enable --now", service_name, err=DEVNULL)
+    rich_print("[bright_green]OK[/]")
+    return True
+
+
+def __openrc_service__(
+    pretty_name: str,
+    service_name: str,
+    runlevel: str | None = None,
+) -> bool:
+    if not Path(f"/etc/init.d/{service_name}").is_file():
+        return False
+
+    if SUDO:
+        sudo_cache()
+
+    rich_print(f"[bright_blue]Setting up [i]{pretty_name}[/] service ...[/]", end=" ")
+    run(SUDO, "rc-service", service_name)
+    run(SUDO, "rc-update add", service_name, runlevel)
+    rich_print("[bright_green]OK[/]")
+    return True
+
+
+if __name__ == "__main__":
+    main()
