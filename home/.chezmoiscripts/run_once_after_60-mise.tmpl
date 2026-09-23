@@ -2,6 +2,9 @@
 # vim: filetype=py
 
 # chezmoi:template:left-delimiter="# {{"
+# Trigger the script if any file inside `~/.config/mise` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/mise") }}
+# Trigger the script weekly, using the week number: # {{ div now.YearDay 7 }}
 
 """Set up a development environment using `mise`."""
 
@@ -13,31 +16,58 @@ from subprocess import DEVNULL, PIPE, run
 from rich import print as rich_print
 
 MISE = Path.home() / ".local/bin/mise"
-mise_link: str = "[i link=https://mise.jdx.dev/]mise[/]"
+MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 
-rich_print(f"[bright_blue]Installing development tools using {mise_link} ...")
+def main() -> None:
+    rich_print(f"[bright_blue]Installing development tools using {MISE_LINK} ...")
 
-if not MISE.is_file():
-    rich_print(f"[bright_red]{mise_link} is not installed. Exiting ...")
-    raise SystemExit(1)
+    if not MISE.is_file():
+        rich_print(f"[bright_red]{MISE_LINK} is not installed. Exiting ...")
+        raise SystemExit(1)
 
-version_check_cmd = (MISE, "version", "--quiet")
-old_version = run(version_check_cmd, check=True, stdout=PIPE).stdout.decode().rstrip()
-# Trigger weekly script re-run by using the week number: # {{ div now.YearDay 7 }}
-run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
-new_version = run(version_check_cmd, check=True, stdout=PIPE).stdout.decode().rstrip()
+    mise_self_update()
+    mise_bootstrap()
+    run((MISE, "install"), check=True)
 
-if old_version != new_version:
-    rich_print(f"[bright_green]{mise_link} has been updated successfully.")
-    rich_print(f"[bright_yellow]Old: [strike]{old_version}")
-    rich_print(f"[bright_green]New: {new_version}")
-
-# Re-trigger script if any file inside `~/.config/mise` changes:
-# # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/mise") }}
+    rich_print("[bright_green]Development tools installed successfully.")
 
 
-def mise_bootstrap_android() -> None:
+def mise_self_update() -> None:
+    cmd = (MISE, "version", "--json")
+    output = run(cmd, check=True, stdout=PIPE).stdout.decode()
+    version_info: dict[str, str] = json_loads(output)
+
+    current = f"v{version_info['version'].split()[0]}"
+    latest = f"v{version_info['latest']}"
+
+    if current == latest:
+        return
+
+    rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...")
+    run((MISE, "self-update", "--yes"), check=True, stdout=DEVNULL)
+
+    rich_print(f"[bright_green]{MISE_LINK} has been updated successfully.[/]")
+    rich_print(f"[bright_yellow]Old: [i strike]{current}[/].[/]")
+    rich_print(f"[bright_green]New: [i]{latest}[/].[/]")
+
+
+def mise_bootstrap() -> None:
+    cmd = (MISE, "bootstrap", "packages", "status", "--missing")
+    if not run(cmd, check=False, stdout=DEVNULL).returncode:
+        return
+
+    rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...")
+
+    if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
+        __mise_bootstrap_android__()
+    else:
+        run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)
+
+    rich_print("[bright_green]Bootstrap packages installed successfully.")
+
+
+def __mise_bootstrap_android__() -> None:
     """Mise tries to use `sudo` for on `Termux` but fails. This is a workaround."""
     cmd = (MISE, "bootstrap", "packages", "status", "--json")
     packages = json_loads(run(cmd, check=True, stdout=PIPE).stdout.decode())
@@ -51,20 +81,4 @@ def mise_bootstrap_android() -> None:
 
     env["DEBIAN_FRONTEND"] = "noninteractive"
     run(("apt", "update"), check=True, stdin=DEVNULL, stderr=DEVNULL)
-    run(("apt", "install", "-y", *missing_packages), check=True)
-
-
-cmd = (MISE, "bootstrap", "packages", "status", "--missing")
-if run(cmd, check=False, stdout=DEVNULL).returncode:
-    rich_print(f"[bright_blue]Installing {mise_link} bootstrap packages ...")
-
-    if '# {{ eq .distro "android" }}' == "true":  # noqa: PLR0133
-        mise_bootstrap_android()
-    else:
-        run((MISE, "bootstrap", "packages", "apply", "--yes"), check=True)
-
-    rich_print("[bright_green]Bootstrap packages installed successfully.")
-
-run((MISE, "install"), check=True)
-
-rich_print("[bright_green]Development tools installed successfully.")
+    run(("apt", "install", "--yes", *missing_packages), check=True)
