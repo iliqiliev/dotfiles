@@ -17,7 +17,7 @@ env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
 rich_print("[bright_blue]Syncing apt databse ...")
-cmd = (SUDO, "apt", "update", "-y")
+cmd = (SUDO, "apt", "update", "--yes")
 run(tuple(filter(None, cmd)), check=True)
 rich_print("[bright_green]Apt database synced successfully.")
 
