@@ -72,7 +72,7 @@ if (
     rich_print("[bright_green]Sudo credentials cached.[/]")
 
 
-# Re-trigger script if any file inside `root` changes:
+# Trigger the script if any file inside `root` changes:
 # # {{ template "hashDirectory" (joinPath .chezmoi.workingTree "root") }}
 
 for chezmoi_file, root_file in root_files.items():
