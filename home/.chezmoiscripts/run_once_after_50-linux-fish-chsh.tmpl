@@ -28,7 +28,9 @@ if FISH not in set(Path("/etc/shells").read_text().split()):
     rich_print("[bright_red][i]fish[/] is not listed in [i]/etc/shells[/].[/]")
     raise SystemExit(1)
 
-rich_print(f"\n[bright_blue]Enter [i]{USER}[/]'s password:[/]", end=" ")
+if USER != "root":
+    rich_print(f"\n[bright_blue]Enter [i]{USER}[/]'s password:[/]", end=" ")
+
 run("chsh --shell", FISH, USER, out=DEVNULL, err=DEVNULL)
 
 rich_print("[bright_green]OK[/]")
