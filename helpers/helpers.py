@@ -8,7 +8,23 @@ from subprocess import DEVNULL, PIPE, CompletedProcess, Popen
 from subprocess import run as subprocess_run
 from typing import Any, Literal
 
-from rich import print as rich_print
+from rich.console import Console
+from rich.theme import Theme
+
+console = Console(
+    theme=Theme(
+        {
+            "fail": "bright_red",
+            "good": "bright_green",
+            "info": "bright_blue",
+            "warn": "bright_yellow",
+        }
+    )
+)
+
+
+def fmt(message: str, end: str = "\n") -> None:
+    console.print(message, end=end)
 
 
 def is_busybox(utility: str) -> bool:
@@ -26,10 +42,10 @@ def is_busybox(utility: str) -> bool:
 
 def restart_explorer() -> None:
     """Restart `explorer.exe`."""
-    rich_print("[bright_blue]Restarting [i]explorer.exe[/] ...[/]", end=" ")
+    fmt("[info]Restarting [i]explorer.exe[/] ...", end=" ")
     run("TASKKILL /F /IM explorer.exe", out=DEVNULL)
     Popen("explorer.exe")
-    rich_print("[bright_green]Done.[/]")
+    fmt("[good]Done.")
 
 
 def run(
@@ -69,9 +85,9 @@ def sudo_cache() -> None:
     if not run("sudo -n true", check=False, err=DEVNULL).returncode:
         return
 
-    rich_print("[bright_blue]Caching sudo credentials ...[/]")
+    fmt("[info]Caching sudo credentials ...")
     run("sudo -v")
-    rich_print("[bright_green]Sudo credentials cached.[/]")
+    fmt("[good]Sudo credentials cached.")
 
 
 cmd = "chezmoi data --format json"
