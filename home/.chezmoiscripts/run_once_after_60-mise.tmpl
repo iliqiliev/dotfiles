@@ -20,10 +20,6 @@ MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise"
 
 
 def main() -> None:
-    if not MISE.is_file():
-        fmt(f"[fail]{MISE_LINK} is not installed. Exiting ...")
-        raise SystemExit(1)
-
     mise_self_update()
     mise_bootstrap()
     run(MISE, "install")
