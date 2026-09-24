@@ -23,6 +23,7 @@ build-backend = "uv_build"
 
 [tool.ruff]
 extension = { "py.tmpl" = "python" }
+extend-include = ["home/.chezmoiscripts/*"]
 lint.extend-select = [
   "TC",  # Type checking.
 ]
