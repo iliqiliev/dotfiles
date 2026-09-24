@@ -11,8 +11,8 @@ My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing c
 
 ## With `chezmoi` installed:
 
-```console
-chezmoi init --apply iliqiliev --depth 1
+```sh
+chezmoi init -a iliqiliev
 ```
 
 ## On **Linux** using `curl`:
