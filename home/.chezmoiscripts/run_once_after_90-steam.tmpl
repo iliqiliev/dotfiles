@@ -47,7 +47,7 @@ for path in localconfigs:
         parsed_vdf = parse(localconfig, mapper=DefaultDict)
 
     id3 = path.parent.parent.name
-    system = parsed_vdf["UserLocalConfigStore"]["System"]
+    system = parsed_vdf["UserLocalConfigStore"]["system"]
     apps = parsed_vdf["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["apps"]
 
     system["InGameOverlayScreenshotHotKey"] = "KEY_NONE"
