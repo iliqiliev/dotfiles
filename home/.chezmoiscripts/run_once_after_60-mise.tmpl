@@ -13,17 +13,15 @@ from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
 
-from rich import print as rich_print
-
-from helpers import CHEZMOI_DATA, DEVNULL, PIPE, run
+from helpers import CHEZMOI_DATA, DEVNULL, PIPE, fmt, run
 
 MISE = Path.home() / ".local/bin/mise"
-MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
+MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise"
 
 
 def main() -> None:
     if not MISE.is_file():
-        rich_print(f"[bright_red]{MISE_LINK} is not installed. Exiting ...[/]")
+        fmt(f"[fail]{MISE_LINK} is not installed. Exiting ...")
         raise SystemExit(1)
 
     mise_self_update()
@@ -41,12 +39,11 @@ def mise_self_update() -> None:
     if current == latest:
         return
 
-    rich_print(f"[bright_blue]Downloading {MISE_LINK} update ...[/]")
+    fmt(f"[info]Downloading {MISE_LINK} update ...")
     run(MISE, "self-update --yes", out=DEVNULL)
 
-    rich_print(f"[bright_green]{MISE_LINK} has been updated successfully:[/]", end=" ")
-    rich_print(f"[bright_yellow strike]{current}[/]", end=" -> ")
-    rich_print(f"[bright_green]{latest}[/]")
+    fmt(f"[good]{MISE_LINK} has been updated successfully:", end=" ")
+    fmt(f"[warn strike]{current}[/] -> [good]{latest}")
 
 
 def mise_bootstrap() -> None:
@@ -54,14 +51,14 @@ def mise_bootstrap() -> None:
     if not run(*cmd, check=False, out=DEVNULL).returncode:
         return
 
-    rich_print(f"[bright_blue]Installing {MISE_LINK} bootstrap packages ...[/]")
+    fmt(f"[info]Installing {MISE_LINK} bootstrap packages ...")
 
     if CHEZMOI_DATA["distro"] == "android":
         __mise_bootstrap_android__()
     else:
         run(MISE, "bootstrap packages apply --yes")
 
-    rich_print("[bright_green]Bootstrap packages installed successfully.[/]")
+    fmt("[good]Bootstrap packages installed successfully.")
 
 
 def __mise_bootstrap_android__() -> None:

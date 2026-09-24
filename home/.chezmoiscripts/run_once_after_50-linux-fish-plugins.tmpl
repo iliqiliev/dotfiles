@@ -10,14 +10,12 @@
 
 from pathlib import Path
 
-from rich import print as rich_print
-
-from helpers import DEVNULL, run
+from helpers import DEVNULL, fmt, run
 
 FISHER_PLUGINS = Path.home() / ".config/fish/fish_plugins"
 
 plugin_count = len(FISHER_PLUGINS.read_text().splitlines())
-rich_print(f"[bright_blue]Installing {plugin_count} fisher plugins ...[/]", end=" ")
+fmt(f"[info]Installing {plugin_count} fisher plugins ...", end=" ")
 
 run("fish -c 'fisher update'", out=DEVNULL)
-rich_print("[bright_green]OK[/]")
+fmt("[good]OK")

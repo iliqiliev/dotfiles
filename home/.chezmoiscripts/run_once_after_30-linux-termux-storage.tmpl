@@ -14,9 +14,7 @@ from os import environ as env
 from pathlib import Path
 from time import monotonic, sleep
 
-from rich import print as rich_print
-
-from helpers import run
+from helpers import fmt, run
 
 HOME = Path.home()
 CHEZMOI_HOME = Path(env["CHEZMOI_WORKING_TREE"]) / "root/home/$USER"
@@ -25,20 +23,20 @@ TIMEOUT = 15
 
 
 if not TERMUX_STORAGE.is_symlink():
-    rich_print("[bright_blue]Setting up Termux storage ...[/]")
+    fmt("[info]Setting up Termux storage ...")
 
     run("termux-setup-storage")
 
     deadline = monotonic() + TIMEOUT
-    rich_print("[bright_blue]Waiting for permission pop-up to be accepted ...[/]")
+    fmt("[info]Waiting for permission pop-up to be accepted ...")
 
     while not TERMUX_STORAGE.is_symlink():
         if monotonic() > deadline:
-            rich_print(f"[bright_red]Timed out after {TIMEOUT} seconds.[/]")
+            fmt(f"[fail]Timed out after {TIMEOUT} seconds.")
             raise SystemExit(1)
         sleep(500e-3)
 
-    rich_print("[bright_green]Termux storage setup successfully.[/]")
+    fmt("[good]Termux storage setup successfully.")
 
 for source_file in CHEZMOI_HOME.rglob("*"):
     if not source_file.is_file():
@@ -50,8 +48,8 @@ for source_file in CHEZMOI_HOME.rglob("*"):
         if cmp(source_file, destination_file, shallow=False):
             continue
 
-    destination_file_link = f"[link={destination_file.as_uri()}]{destination_file}[/]"
-    rich_print(f"[bright_blue]Writing to '{destination_file_link}' ...[/]", end=" ")
+    destination_file_link = f"[link={destination_file.as_uri()}]{destination_file}"
+    fmt(f"[info]Writing to '{destination_file_link}' ...", end=" ")
 
     source_file.copy(destination_file)
-    rich_print("[bright_green]OK[/]")
+    fmt("[good]OK")

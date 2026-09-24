@@ -15,23 +15,21 @@ This explains the shebang and the line above.
 
 from shutil import which
 
-from rich import print as rich_print
-
-from helpers import CHEZMOI_PACKAGES, PIPE, SUDO, run
+from helpers import CHEZMOI_PACKAGES, PIPE, SUDO, fmt, run
 
 if which("setup-apkrepos") is not None:
-    rich_print("[bright_blue]Adding community repository ...[/]")
+    fmt("[info]Adding community repository ...")
     run(SUDO, "setup-apkrepos -c -1")
-    rich_print("[bright_green]Community repository added successfully.[/]")
+    fmt("[good]Community repository added successfully.")
 
-rich_print("[bright_blue]Syncing apk database ...[/]")
+fmt("[info]Syncing apk database ...")
 run(SUDO, "apk update")
-rich_print("[bright_green]Apk database synced successfully.[/]")
+fmt("[good]Apk database synced successfully.")
 
 available_packages = CHEZMOI_PACKAGES.intersection(
     run("apk search --quiet", out=PIPE).stdout.split()
 )
 
-rich_print("[bright_blue]Installing apk packages ...[/]")
+fmt("[info]Installing apk packages ...")
 run(SUDO, "apk add", *available_packages)
-rich_print("[bright_green]Packages installed successfully.[/]")
+fmt("[good]Packages installed successfully.")

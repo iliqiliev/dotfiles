@@ -6,10 +6,8 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 
-from rich import print as rich_print
+from helpers import CHEZMOI_PACKAGES, SUDO, fmt, run
 
-from helpers import CHEZMOI_PACKAGES, SUDO, run
-
-rich_print("[bright_blue]Installing dnf packages ...[/]")
+fmt("[info]Installing dnf packages ...")
 run(SUDO, "dnf install --assumeyes --skip-unavailable", *CHEZMOI_PACKAGES)
-rich_print("[bright_green]Packages installed successfully.[/]")
+fmt("[good]Packages installed successfully.")

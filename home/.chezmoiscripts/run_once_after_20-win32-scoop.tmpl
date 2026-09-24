@@ -13,9 +13,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from requests import get as requests_get
-from rich import print as rich_print
 
-from helpers import CHEZMOI_PACKAGES, SUDO, run
+from helpers import CHEZMOI_PACKAGES, SUDO, fmt, run
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -28,7 +27,7 @@ def check_installed(packages: Iterable[str]) -> None:
     if not missing:
         return
 
-    rich_print(f"[bright_red]The following are missing: {' '.join(sorted(missing))}[/]")
+    fmt(f"[fail]The following are missing: {' '.join(sorted(missing))}")
     raise SystemExit(1)
 
 
@@ -63,17 +62,17 @@ BUCKETS = (
 
 
 if SCOOP.exists():
-    rich_print("[bright_blue]Updating 'scoop' buckets ...[/]")
+    fmt("[info]Updating 'scoop' buckets ...")
     run(SCOOP, "update")
-    rich_print("[bright_blue]'scoop' buckets updated successfully.[/]")
+    fmt("[info]'scoop' buckets updated successfully.")
 else:
-    rich_print("[bright_blue]Scoop not found. Installing it ...[/]")
+    fmt("[info]Scoop not found. Installing it ...")
     install_scoop()
 
 if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
-    rich_print("[bright_blue]Git not found. Installing it ...[/]")
+    fmt("[info]Git not found. Installing it ...")
     run(SCOOP, "install --no-update-scoop git")
-    rich_print("[bright_green]Git installed successfully.[/]")
+    fmt("[good]Git installed successfully.")
 
 for bucket_url in BUCKETS:
     bucket, url = bucket_url
@@ -92,15 +91,15 @@ user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
 sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
 
 if user_packages:
-    rich_print("[bright_blue]Installing 'scoop' packages ...[/]")
+    fmt("[info]Installing 'scoop' packages ...")
     run(SCOOP, "install --no-update-scoop", *user_packages)
 
     check_installed(user_packages)
-    rich_print("[bright_green]Packages installed successfully.[/]")
+    fmt("[good]Packages installed successfully.")
 
 if SUDO != "false" and sudo_packages:
-    rich_print("[bright_blue]Installing packages that require admin privileges ...[/]")
+    fmt("[info]Installing packages that require admin privileges ...")
     run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
 
     check_installed(sudo_packages)
-    rich_print("[bright_green]Admin packages installed successfully. [/]")
+    fmt("[good]Admin packages installed successfully. ")

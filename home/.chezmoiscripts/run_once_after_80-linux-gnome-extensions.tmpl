@@ -10,9 +10,7 @@
 
 from subprocess import CalledProcessError
 
-from rich import print as rich_print
-
-from helpers import DEVNULL, run
+from helpers import DEVNULL, fmt, run
 
 EXTENSIONS = (
     # Alphabetical App Grid.
@@ -35,13 +33,13 @@ EXTENSIONS = (
     "tiling-assistant@leleat-on-github",
 )
 
-rich_print("[bright_blue]Setting up GNOME extensions ...[/]")
+fmt("[info]Setting up GNOME extensions ...")
 
 try:
     run("gext --dbus install", *EXTENSIONS, err=DEVNULL)
 except CalledProcessError:
-    rich_print("[bright_blue]Falling back to filesystem mode.[/]")
+    fmt("[info]Falling back to filesystem mode.")
     run("gext --filesystem install", *EXTENSIONS)
-    rich_print("[bright_yellow]Gnome shell restart required to apply changes.[/]")
+    fmt("[warn]Gnome shell restart required to apply changes.")
 else:
-    rich_print("[bright_green]GNOME extensions set up successfully.[/]")
+    fmt("[good]GNOME extensions set up successfully.")

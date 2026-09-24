@@ -8,26 +8,24 @@
 
 from os import environ as env
 
-from rich import print as rich_print
-
-from helpers import CHEZMOI_DATA, CHEZMOI_PACKAGES, PIPE, SUDO, run
+from helpers import CHEZMOI_DATA, CHEZMOI_PACKAGES, PIPE, SUDO, fmt, run
 
 env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
-rich_print("[bright_blue]Syncing apt databse ...[/]")
+fmt("[info]Syncing apt databse ...")
 run(SUDO, "apt update --yes")
-rich_print("[bright_green]Apt database synced successfully.[/]")
+fmt("[good]Apt database synced successfully.")
 
 if CHEZMOI_DATA["distro"] == "android":
-    rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
+    fmt("[info]Updating system to avoid dependency mismatches ...")
     run("apt full-upgrade --yes -o Dpkg::Options::=--force-confnew")
-    rich_print("[bright_green]Packages upgraded successfully.[/]")
+    fmt("[good]Packages upgraded successfully.")
 
 available_packages = CHEZMOI_PACKAGES.intersection(
     run("apt-cache pkgnames", out=PIPE).stdout.split()
 )
 
-rich_print("[bright_blue]Installing apt packages ...[/]")
+fmt("[info]Installing apt packages ...")
 run(SUDO, "apt install --yes", *available_packages)
-rich_print("[bright_green]Packages installed successfully.[/]")
+fmt("[good]Packages installed successfully.")

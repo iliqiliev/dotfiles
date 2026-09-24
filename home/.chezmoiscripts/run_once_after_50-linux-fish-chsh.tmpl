@@ -10,27 +10,25 @@ from getpass import getuser
 from pathlib import Path
 from pwd import getpwnam
 
-from rich import print as rich_print
-
-from helpers import DEVNULL, run
+from helpers import DEVNULL, fmt, run
 
 FISH = "/usr/bin/fish"
 USER = getuser()
 
 
-rich_print("[bright_blue]Changing default shell to [i]fish[/] ...[/]", end=" ")
+fmt("[info]Changing default shell to [i]fish[/] ...", end=" ")
 
 if getpwnam(USER).pw_shell == FISH:
-    rich_print("[bright_green]OK[/]")
+    fmt("[good]OK")
     raise SystemExit(0)
 
 if FISH not in set(Path("/etc/shells").read_text().split()):
-    rich_print("[bright_red][i]fish[/] is not listed in [i]/etc/shells[/].[/]")
+    fmt("[fail][i]fish[/] is not listed in [i]/etc/shells[/].")
     raise SystemExit(1)
 
 if USER != "root":
-    rich_print(f"\n[bright_blue]Enter [i]{USER}[/]'s password:[/]", end=" ")
+    fmt(f"\n[info]Enter [i]{USER}[/]'s password:", end=" ")
 
 run("chsh --shell", FISH, USER, out=DEVNULL, err=DEVNULL)
 
-rich_print("[bright_green]OK[/]")
+fmt("[good]OK")

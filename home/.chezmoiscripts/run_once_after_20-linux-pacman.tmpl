@@ -9,9 +9,7 @@
 from pathlib import Path
 from shutil import which
 
-from rich import print as rich_print
-
-from helpers import CHEZMOI_PACKAGES, DEVNULL, PIPE, SUDO, run
+from helpers import CHEZMOI_PACKAGES, DEVNULL, PIPE, SUDO, fmt, run
 
 CHAOTIC_KEY = "3056513887B78AEB"
 CHAOTIC_CDN = "https://cdn-mirror.chaotic.cx/chaotic-aur"
@@ -27,17 +25,17 @@ def main() -> None:
 
     yay_args = ("--color=auto", "--needed", "--noconfirm")
 
-    rich_print("[bright_blue]Updating system to avoid dependency mismatches ...[/]")
+    fmt("[info]Updating system to avoid dependency mismatches ...")
     run("yay -Syu", *yay_args)
-    rich_print("[bright_green]System updated successfully.[/]")
+    fmt("[good]System updated successfully.")
 
     available_packages = CHEZMOI_PACKAGES.intersection(
         run("pacman -Slq", out=PIPE).stdout.split()
     )
 
-    rich_print("[bright_blue]Installing pacman packages ...[/]")
+    fmt("[info]Installing pacman packages ...")
     run("yay -S --asexplicit", *yay_args, *available_packages)
-    rich_print("[bright_green]Packages installed successfully.[/]")
+    fmt("[good]Packages installed successfully.")
 
 
 def install_chaotic_aur() -> None:
@@ -49,7 +47,7 @@ def install_chaotic_aur() -> None:
         for package in ("chaotic-keyring", "chaotic-mirrorlist")
     )
 
-    rich_print("[bright_blue]Installing Chaotic-AUR ...[/]")
+    fmt("[info]Installing Chaotic-AUR ...")
 
     run(SUDO, "pacman-key --init", err=DEVNULL)
     run(SUDO, "pacman-key --recv-key", CHAOTIC_KEY, err=DEVNULL)
@@ -59,16 +57,16 @@ def install_chaotic_aur() -> None:
     run(SUDO, "tee --append /etc/pacman.conf", input=CHAOTIC_CONFIG_ENTRY, out=DEVNULL)
     run(SUDO, "pacman -Sy --noconfirm")
 
-    rich_print("[bright_green]Chaotic-AUR installed successfully.[/]")
+    fmt("[good]Chaotic-AUR installed successfully.")
 
 
 def install_yay() -> None:
     if which("yay") is not None:
         return
 
-    rich_print("[bright_blue]Installing [i]yay[/] AUR helper ...[/]")
+    fmt("[info]Installing [i]yay[/] AUR helper ...")
     run(SUDO, "pacman -S --noconfirm yay")
-    rich_print("[bright_green]Yay installed successfully.[/]")
+    fmt("[good]Yay installed successfully.")
 
 
 if __name__ == "__main__":

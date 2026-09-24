@@ -10,13 +10,11 @@
 
 from pathlib import Path
 
-from rich import print as rich_print
-
-from helpers import run
+from helpers import fmt, run
 
 
 def main() -> None:
-    rich_print("[bright_blue]Setting up custom folder icons ...[/]")
+    fmt("[info]Setting up custom folder icons ...")
 
     for folder_path, icon_name in CUSTOM_ICONS.items():
         folder = Path(folder_path).expanduser()
@@ -26,12 +24,12 @@ def main() -> None:
             continue
 
         if not icon.is_file():
-            rich_print(f"[bright_red]Icon '{icon}' not found.[/]")
+            fmt(f"[fail]Icon '{icon}' not found.")
             continue
 
         run("gio set", folder, "metadata::custom-icon-name", icon_name)
 
-    rich_print("[bright_green]Custom folder icons set up successfully.[/]")
+    fmt("[good]Custom folder icons set up successfully.")
 
 
 FOLDER_ICONS = Path.home() / ".local/share/icons/Morewaita/scalable/places"

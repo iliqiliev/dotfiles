@@ -10,11 +10,10 @@
 
 from asyncio import run as asyncio_run
 
-from rich import print as rich_print
 from rich.prompt import Confirm
 from winrt.windows.management.deployment import PackageManager
 
-from helpers import restart_explorer
+from helpers import fmt, restart_explorer
 
 BLOAT_PACKAGES = {
     "Clipchamp.Clipchamp",
@@ -60,7 +59,7 @@ async def main() -> None:
     if Confirm.ask(PROMPT, default=False):
         BLOAT_PACKAGES.update(DEEP_BLOAT_PACKAGES)
 
-    rich_print("[bright_blue]Removing bloat packages ...[/]")
+    fmt("[info]Removing bloat packages ...")
 
     installed_packages = {
         pkg.id.name: pkg
@@ -73,19 +72,19 @@ async def main() -> None:
             continue
 
         pretty_name = package.display_name
-        rich_print(f"[bright_blue]Removing [i]{pretty_name}[/] ...[/]", end=" ")
+        fmt(f"[info]Removing [i]{pretty_name}[/] ...", end=" ")
         await package_manager.remove_package_async(package.id.full_name)
 
-        rich_print("[bright_green]Done.[/]")
+        fmt("[good]Done.")
         removed += 1
 
-    rich_print(f"[bright_green]{len(BLOAT_PACKAGES)} packages checked.[/]")
+    fmt(f"[good]{len(BLOAT_PACKAGES)} packages checked.")
 
     if removed == 0:
-        rich_print("[bright_green]No packages to debloat.[/]")
+        fmt("[good]No packages to debloat.")
         raise SystemExit(0)
 
-    rich_print(f"[bright_green]{removed} packages debloated.[/]")
+    fmt(f"[good]{removed} packages debloated.")
 
     restart_explorer()
 

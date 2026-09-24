@@ -10,8 +10,9 @@
 
 from pathlib import Path
 
-from rich import print as rich_print
 from vdf import dump, parse
+
+from helpers import fmt
 
 PERSONAL_ID3 = "460410354"
 
@@ -40,7 +41,7 @@ for steam_root in (
     localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
 
 for path in localconfigs:
-    rich_print("[bright_blue]Updating [i]Steam[/] config ...[/]")
+    fmt("[info]Updating [i]Steam[/] config ...")
 
     with path.open() as localconfig:
         parsed_vdf = parse(localconfig, mapper=DefaultDict)
@@ -60,5 +61,5 @@ for path in localconfigs:
     with path.open("w") as localconfig:
         dump(parsed_vdf, localconfig, pretty=True)
 
-    rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}[/]"
-    rich_print(f"[bright_green]'{rich_path}' updated successfully.[/]")
+    rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}"
+    fmt(f"[good]'{rich_path}' updated successfully.")

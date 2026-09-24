@@ -22,9 +22,7 @@ from winreg import (
     SetValueEx,
 )
 
-from rich import print as rich_print
-
-from helpers import CHEZMOI_DATA, restart_explorer
+from helpers import CHEZMOI_DATA, fmt, restart_explorer
 
 
 def registry_set_data(
@@ -51,8 +49,8 @@ def registry_set_data(
         with CreateKey(HKEY_CURRENT_USER, path) as key:
             SetValueEx(key, name, 0, reg_type, data)
     except PermissionError:
-        rich_print(rf"[bright_red]Failed to set [i]{name}[/] in [i]HKCU\{path}[/].[/]")
-        rich_print("[bright_yellow]Key may be protected by the [i]UCPD[/] driver.[/]")
+        fmt(rf"[fail]Failed to set [i]{name}[/] in [i]HKCU\{path}[/].")
+        fmt("[warn]Key may be protected by the [i]UCPD[/] driver.")
 
 
 def registry_set_many_data(
@@ -94,7 +92,7 @@ SEARCH = r"Software\Microsoft\Windows\CurrentVersion\Search"
 """Settings related to `Windows Search`."""
 
 
-rich_print("[bright_blue]Setting registry settings ...[/]")
+fmt("[info]Setting registry settings ...")
 
 XDG_CACHE_HOME = r"%USERPROFILE%\.cache"
 XDG_CONFIG_HOME = r"%USERPROFILE%\.config"
@@ -186,6 +184,6 @@ registry_set_data(SEARCH, "BingSearchEnabled", 0)
 # Disable Bing in Start search.
 registry_set_data(SEARCH, "SearchboxTaskbarMode", 0)
 
-rich_print("[bright_green]Registry settings imported successfully.[/]")
+fmt("[good]Registry settings imported successfully.")
 
 restart_explorer()
