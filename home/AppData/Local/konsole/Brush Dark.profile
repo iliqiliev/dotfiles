@@ -1,3 +1,5 @@
+# vim: filetype=confini
+
 [Appearance]
 ColorScheme=Adwaita Dark
 Font=AdwaitaMono Nerd Font Mono,12
