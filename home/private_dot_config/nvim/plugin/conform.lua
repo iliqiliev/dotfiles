@@ -1,0 +1,37 @@
+vim.pack.add({
+   { src = "https://github.com/stevearc/conform.nvim" },
+})
+
+require("conform").setup({
+   default_format_opts = {
+      async = true,
+      lsp_format = "fallback",
+   },
+
+   formatters = {
+      shfmt = {
+         -- 0 for tabs (default), >0 for number of spaces.
+         append_args = { "--indent", "4" },
+      },
+   },
+
+   formatters_by_ft = {
+      sh = { lsp_format = "prefer", "shfmt" },
+      fish = { lsp_format = "prefer", "fish_indent" },
+      lua = { "stylua" },
+      python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+      query = { lsp_format = "prefer" }, -- `ts_query_ls` is not a conform formatter.
+      sql = { lsp_format = "prefer", "sqruff" },
+      tcl = { lsp_format = "prefer", "tclfmt" },
+      toml = { lsp_format = "prefer", "tombi" },
+      ["*"] = { "injected" }, -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
+      ["_"] = { "trim_whitespace" }, -- For filetypes without a defined formatter.
+   },
+} --[[@as conform.setupOpts]])
+
+vim.keymap.set(
+   { "n", "v" },
+   "<Leader>f",
+   require("conform").format,
+   { desc = "Format Buffer" }
+)
