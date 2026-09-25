@@ -7,7 +7,6 @@ vim.lsp.enable({
    "fish_lsp",
    "lua_ls",
    "ty",
-   "ts_query_ls",
    "sqruff",
    "tclsp",
    "tombi",

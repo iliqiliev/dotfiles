@@ -17,7 +17,6 @@ require("conform").setup({
       fish = { lsp_format = "prefer", "fish_indent" },
       lua = { "stylua" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-      query = { lsp_format = "prefer" }, -- `ts_query_ls` is not a conform formatter.
       sql = { lsp_format = "prefer", "sqruff" },
       tcl = { lsp_format = "prefer", "tclfmt" },
       toml = { lsp_format = "prefer", "tombi" },

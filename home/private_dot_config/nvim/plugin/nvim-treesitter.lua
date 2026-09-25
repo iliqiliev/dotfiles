@@ -7,7 +7,6 @@ require("nvim-treesitter").install({
    "fish",
    "lua",
    "python",
-   "query",
    "sql",
    "tcl",
    "toml",
