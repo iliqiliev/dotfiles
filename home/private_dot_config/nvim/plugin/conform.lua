@@ -2,18 +2,15 @@ vim.pack.add({
    { src = "https://github.com/stevearc/conform.nvim" },
 })
 
+local shfmt_args = { "--indent", "4" } -- 0 for tabs (default), >0 for number of spaces.
+
 require("conform").setup({
    default_format_opts = {
       async = true,
       lsp_format = "fallback",
    },
 
-   formatters = {
-      shfmt = {
-         -- 0 for tabs (default), >0 for number of spaces.
-         append_args = { "--indent", "4" },
-      },
-   },
+   formatters = { shfmt = { append_args = shfmt_args } },
 
    formatters_by_ft = {
       sh = { lsp_format = "prefer", "shfmt" },
