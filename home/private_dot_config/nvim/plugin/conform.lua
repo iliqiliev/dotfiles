@@ -10,19 +10,16 @@ require("conform").setup({
       lsp_format = "fallback",
    },
 
-   formatters = { shfmt = { append_args = shfmt_args } },
-
-   formatters_by_ft = {
-      sh = { lsp_format = "prefer", "shfmt" },
-      fish = { lsp_format = "prefer", "fish_indent" },
-      lua = { "stylua" },
-      python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
-      sql = { lsp_format = "prefer", "sqruff" },
-      tcl = { lsp_format = "prefer", "tclfmt" },
-      toml = { lsp_format = "prefer", "tombi" },
-      ["*"] = { "injected" }, -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
-      ["_"] = { "trim_whitespace" }, -- For filetypes without a defined formatter.
+   formatters = {
+      shfmt = { append_args = shfmt_args },
    },
+
+   formatters_by_ft = vim.tbl_extend("error", require("config.languages").formatters, {
+      -- https://github.com/stevearc/conform.nvim/blob/master/doc/advanced_topics.md#injected-language-formatting-code-blocks
+      ["*"] = { "injected" },
+      -- For filetypes without a defined formatter.
+      ["_"] = { "trim_whitespace" },
+   }),
 } --[[@as conform.setupOpts]])
 
 vim.keymap.set(
