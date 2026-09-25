@@ -7,7 +7,7 @@ local shfmt_args = { "--indent", "4" } -- 0 for tabs (default), >0 for number of
 require("conform").setup({
    default_format_opts = {
       async = true,
-      lsp_format = "fallback",
+      lsp_format = "prefer",
    },
 
    formatters = {

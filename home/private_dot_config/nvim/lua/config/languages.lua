@@ -8,37 +8,42 @@ local languages = {
    fish = {
       treesitter = "fish",
       lsp = { "fish_lsp" },
-      conform = { lsp_format = "prefer", "fish_indent" },
+      conform = { "fish_indent" },
    },
    lua = {
       treesitter = "lua",
       lsp = { "lua_ls" },
-      conform = { "stylua" },
+      conform = { "stylua", lsp_format = "fallback" },
    },
    python = {
       treesitter = "python",
       lsp = { "ruff", "ty" },
-      conform = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+      conform = {
+         "ruff_fix",
+         "ruff_organize_imports",
+         "ruff_format",
+         lsp_format = "fallback",
+      },
    },
    sh = {
       treesitter = "bash",
       lsp = { "bashls" },
-      conform = { lsp_format = "prefer", "shfmt" },
+      conform = { "shfmt" },
    },
    sql = {
       treesitter = "sql",
       lsp = { "sqruff" },
-      conform = { lsp_format = "prefer", "sqruff" },
+      conform = { "sqruff" },
    },
    tcl = {
       treesitter = "tcl",
       lsp = { "tclsp" },
-      conform = { lsp_format = "prefer", "tclfmt" },
+      conform = { "tclfmt" },
    },
    toml = {
       treesitter = "toml",
       lsp = { "tombi" },
-      conform = { lsp_format = "prefer", "tombi" },
+      conform = { "tombi" },
    },
 }
 
