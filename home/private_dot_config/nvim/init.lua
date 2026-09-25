@@ -18,7 +18,8 @@ vim.opt.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
 vim.opt.undofile = true -- Persist undo history accross sessions.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
+-- Hide "How-to disable mouse" from the right click menu.
 vim.cmd([[
    aunmenu PopUp.How-to\ disable\ mouse
    aunmenu PopUp.-2-
-]]) -- Hide "How-to disable mouse" from the right click menu.
+]])
