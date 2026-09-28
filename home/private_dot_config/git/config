@@ -1,8 +1,11 @@
+# vim: filetype=gitconfig
+
 [include]
     path = delta
     path = user
 
 [core]
+    autocrlf = false
     eol = lf
 
 [merge]
