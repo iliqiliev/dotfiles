@@ -17,6 +17,5 @@ require("neo-tree").setup({
       "filesystem",
       "git_status",
       "document_symbols",
-      "buffers",
    },
 })
