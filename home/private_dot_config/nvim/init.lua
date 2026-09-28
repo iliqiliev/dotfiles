@@ -23,3 +23,8 @@ vim.cmd([[
    aunmenu PopUp.How-to\ disable\ mouse
    aunmenu PopUp.-2-
 ]])
+
+-- Detect light background using the $COLORFGBG variable.
+if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
+   vim.opt.background = "light"
+end
