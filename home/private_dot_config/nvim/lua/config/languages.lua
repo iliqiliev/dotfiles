@@ -49,17 +49,17 @@ local languages = {
 
 local M = {}
 
----@type table<string, conform.FiletypeFormatter>
-M.formatters = {}
 ---@type string[]
 M.parsers = {}
 ---@type string[]
 M.servers = {}
+---@type table<string, conform.FiletypeFormatter>
+M.formatters = {}
 
 for ft, language in pairs(languages) do
-   M.formatters[ft] = language.conform
    M.parsers[#M.parsers + 1] = language.treesitter
    vim.list_extend(M.servers, language.lsp or {})
+   M.formatters[ft] = language.conform
 end
 
 return M
