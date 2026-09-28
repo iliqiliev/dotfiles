@@ -7,6 +7,7 @@ vim.g.mapleader = " " -- This is used as the value of the special string `<Leade
 vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local to a buffer.
 
 -- Options.
+vim.opt.clipboard = "unnamedplus" -- Sync the Neovim clipboard to the system clipboard.
 vim.opt.confirm = true -- Ask for confirmation instead of failing on unsaved changes.
 vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
 vim.opt.ignorecase = true -- Ignore case in search patterns.
@@ -19,9 +20,10 @@ vim.opt.undofile = true -- Persist undo history accross sessions.
 vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
 -- Hide "How-to disable mouse" from the right click menu.
+-- `silent!` makes this not fail if `init.lua` is sourced repeatedly.
 vim.cmd([[
-   aunmenu PopUp.How-to\ disable\ mouse
-   aunmenu PopUp.-2-
+   silent! aunmenu PopUp.How-to\ disable\ mouse
+   silent! aunmenu PopUp.-2-
 ]])
 
 -- Detect light background using the $COLORFGBG variable.
