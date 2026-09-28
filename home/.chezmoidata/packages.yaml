@@ -74,6 +74,8 @@ packages:
   qalculate-gtk:
     __tags__: ["gui"]
     scoop: "qalculate"
+  wl-clipboard:
+    __tags__: ["linux"]
   zed:
     __tags__: ["gui"]
     pacman: "zed vulkan-swrast" # Needs `vulkan-driver` provider.
