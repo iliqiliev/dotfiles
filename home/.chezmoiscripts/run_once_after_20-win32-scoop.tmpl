@@ -42,8 +42,17 @@ def install_scoop() -> None:
     scoop_response = requests_get("https://get.scoop.sh", timeout=10)
     scoop_script.write_bytes(scoop_response.content)
 
+    # TODO: Remove this workaround after the issue with the installer is fixed.
+    # https://github.com/ScoopInstaller/Install/issues/139
+    SCOOP_DIR = HOME / "scoop"
+    SCOOP_DIR_TEMP = HOME / "scoop.bak"
+
+    SCOOP_DIR.move(SCOOP_DIR_TEMP)
+
     run_as_admin = "-RunAsAdmin" if is_admin() else None
     run("powershell -NoProfile -File", scoop_script, run_as_admin)
+
+    SCOOP_DIR_TEMP.move(SCOOP_DIR)
 
 
 HOME = Path.home()
