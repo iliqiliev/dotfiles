@@ -1,33 +1,37 @@
+# Chezmoi Dotfiles
+
 My dotfiles that are suitable for everyone! It's mostly sane defaults, nothing crazy.
 
+<!-- rumdl-disable no-inline-html -->
 <a href="https://codeberg.org/iliqiliev/dotfiles">
   <img alt="Get it on Codeberg." src="helpers/readme/codeberg_banner_dark.svg" height="60px">
 </a>
 <a href="https://github.com/iliqiliev/dotfiles">
   <img alt="Get it on GitHub." src="helpers/readme/github_banner_dark.png" height="60px">
 </a>
+<!-- rumdl-enable no-inline-html -->
 
-# Installation:
+## Installation
 
-## With `chezmoi` installed:
+### With `chezmoi` installed
 
 ```sh
 chezmoi init -a iliqiliev
 ```
 
-## On **Linux** using `curl`:
+### On **Linux** using `curl`
 
 ```sh
 curl -L iliq.org/dotfiles | sh
 ```
 
-## On **Windows** using `PowerShell`:
+### On **Windows** using `PowerShell`
 
 ```ps1
 irm iliq.org/dotfiles | iex
 ```
 
-# Helpful Links:
+## Helpful Links
 
 - [chezmoi user guide](https://www.chezmoi.io/user-guide/command-overview)
 - [chezmoi reference](https://www.chezmoi.io/reference)
