@@ -43,10 +43,10 @@ name = "{{ $name }}"
 sudo = "{{ $sudo }}"
 {{ if eq $os "linux" -}}
 {{   $productFile := "/sys/devices/virtual/dmi/id/product_name" -}}
-     productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
+productName = "{{ and (stat $productFile) (include $productFile | trim) -}}"
 {{ else if eq $os "windows" -}}
 {{   $productKey := "HKLM:/HARDWARE/DESCRIPTION/System/BIOS SystemProductName" -}}
-     productName = "{{ output "powershell" "-nop" "-c" "gpv" $productKey | trim -}}"
+productName = "{{ output "powershell" "-nop" "-c" "gpv" $productKey | trim -}}"
 {{ end -}}
 {{ $manageGui := and (ne $distro "android")
                      (not (env "container"))
