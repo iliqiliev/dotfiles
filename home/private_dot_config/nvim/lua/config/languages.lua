@@ -18,6 +18,11 @@ local languages = {
       lsp = { "lua_ls" },
       conform = { "stylua", lsp_format = "fallback" },
    },
+   markdown = {
+      treesitter = "markdown",
+      lsp = { "rumdl" },
+      conform = { "rumdl" },
+   },
    python = {
       treesitter = "python",
       lsp = { "ruff", "ty" },
