@@ -30,3 +30,5 @@ vim.cmd([[
 if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
    vim.opt.background = "light"
 end
+
+require("config.keymap") -- Load keymap configuration from a central location.

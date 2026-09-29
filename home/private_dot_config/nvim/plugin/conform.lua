@@ -21,10 +21,3 @@ require("conform").setup({
       ["_"] = { "trim_whitespace" },
    }),
 } --[[@as conform.setupOpts]])
-
-vim.keymap.set(
-   { "n", "v" },
-   "<Leader>f",
-   require("conform").format,
-   { desc = "Format Buffer" }
-)
