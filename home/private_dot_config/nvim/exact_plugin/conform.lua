@@ -12,6 +12,11 @@ require("conform").setup({
 
    formatters = {
       shfmt = { append_args = shfmt_args },
+      injected = {
+         condition = function(_, ctx)
+            return vim.bo[ctx.buf].filetype ~= "gotmpl"
+         end,
+      },
    },
 
    formatters_by_ft = vim.tbl_extend("error", require("config.languages").formatters, {
