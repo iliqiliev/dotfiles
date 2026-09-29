@@ -10,6 +10,9 @@ local languages = {
       lsp = { "fish_lsp" },
       conform = { "fish_indent" },
    },
+   gotmpl = {
+      treesitter = "gotmpl",
+   },
    lua = {
       treesitter = "lua",
       lsp = { "lua_ls" },
