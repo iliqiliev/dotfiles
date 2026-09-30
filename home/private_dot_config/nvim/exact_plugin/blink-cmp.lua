@@ -4,6 +4,10 @@ vim.pack.add({
 })
 
 require("blink.cmp").setup({
+   keymap = {
+      preset = "default",
+      ["<C-s>"] = { "show", "show_documentation", "hide_documentation" }, -- [s]how.
+   },
    sources = {
       per_filetype = {
          gotmpl = { "chezmoi", inherit_defaults = true },
