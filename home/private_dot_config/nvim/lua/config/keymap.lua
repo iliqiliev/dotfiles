@@ -37,9 +37,18 @@ vim.keymap.set(
 
 vim.keymap.set(
    "n",
-   "<leader>ft", -- [f]ile [t]ree
+   "<leader>et", -- [e]xplorer [t]ree
    function()
       require("mini.files").open() -- mini.files
    end,
    { desc = "Open the file explorer" }
+)
+
+vim.keymap.set(
+   "n",
+   "<leader>ec", -- [e]xplorer at [c]urrent file
+   function()
+      require("mini.files").open(vim.api.nvim_buf_get_name(0)) -- mini.files
+   end,
+   { desc = "Open the file explorer at the current file" }
 )
