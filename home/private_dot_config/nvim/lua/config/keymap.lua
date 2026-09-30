@@ -1,5 +1,12 @@
 vim.keymap.set(
    { "n", "v" },
+   "<leader>cr", -- [c]ode [r]ename.
+   vim.lsp.buf.rename,
+   { desc = "Rename symbol" }
+)
+
+vim.keymap.set(
+   { "n", "v" },
    "<Leader>cf", -- [c]ode [f]ormat.
    function()
       require("conform").format() -- conform.nvim
