@@ -5,6 +5,8 @@
 # {{ if or (not (lookPath "pacman")) (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this when the packages list changes:
+# # {{ template "packages" . | sha256sum }}
 
 from pathlib import Path
 from shutil import which

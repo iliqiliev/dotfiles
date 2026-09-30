@@ -5,6 +5,8 @@
 # {{ if or (not (lookPath "dnf")) (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this when the packages list changes:
+# # {{ template "packages" . | sha256sum }}
 
 from helpers import CHEZMOI_PACKAGES, SUDO, fmt, run
 

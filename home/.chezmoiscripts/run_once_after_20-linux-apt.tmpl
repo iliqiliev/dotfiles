@@ -5,6 +5,8 @@
 # {{ if or (not (lookPath "apt")) (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this when the packages list changes:
+# # {{ template "packages" . | sha256sum }}
 
 from os import environ as env
 

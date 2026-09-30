@@ -5,6 +5,8 @@
 # {{ if or (not (lookPath "apk")) (eq .sudo "false") -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this when the packages list changes:
+# # {{ template "packages" . | sha256sum }}
 
 "exec" "uv" "run" "-qsw" "rich" "$0"  # fmt: skip
 

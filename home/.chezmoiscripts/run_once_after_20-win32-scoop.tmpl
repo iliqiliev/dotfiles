@@ -5,6 +5,8 @@
 # {{ if ne .os "windows" -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this when the packages list changes:
+# # {{ template "packages" . | sha256sum }}
 
 """Install packages using `scoop`."""
 
