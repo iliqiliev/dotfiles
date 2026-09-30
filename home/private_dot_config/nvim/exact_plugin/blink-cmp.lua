@@ -3,16 +3,17 @@ vim.pack.add({
    { src = "https://github.com/saghen/blink.cmp" },
 })
 
-require("blink.cmp").setup({
+local blink_cmp = require("blink.cmp")
+
+blink_cmp.download({ match = "v*" }):pwait()
+
+blink_cmp.setup({
    keymap = {
       preset = "default",
       ["<C-s>"] = { "show", "show_documentation", "hide_documentation" }, -- [s]how.
    },
    sources = {
-      per_filetype = {
-         gotmpl = { "chezmoi", inherit_defaults = true },
-         lua = { "lazydev", inherit_defaults = true },
-      },
+      default = { "chezmoi", "lazydev", "lsp", "buffer", "snippets", "path" },
       providers = {
          chezmoi = {
             name = "Chezmoi",
