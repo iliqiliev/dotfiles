@@ -6,7 +6,7 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger this when the packages list changes:
-# # {{ template "packages" . | sha256sum }}
+# # {{ includeTemplate "packages" . | sha256sum }}
 
 from os import environ as env
 
