@@ -32,3 +32,13 @@ if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
 end
 
 require("config.keymap") -- Load keymap configuration from a central location.
+
+vim.pack.add({
+   { src = "https://github.com/folke/lazy.nvim" },
+})
+
+require("lazy").setup("plugins", {
+   rocks = {
+      enabled = false,
+   },
+})
