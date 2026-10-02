@@ -1,3 +1,6 @@
+---@module "snacks"
+
+---@type LazyPluginSpec
 return {
    "folke/snacks.nvim",
    keys = {
@@ -11,6 +14,7 @@ return {
    },
    lazy = false,
    priority = 1000,
+   ---@type snacks.Config
    opts = {
       explorer = { enabled = true },
       notifier = { enabled = true },

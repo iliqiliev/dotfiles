@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
    "https://github.com/dpezto/chezmoi-template.nvim",
    lazy = false,

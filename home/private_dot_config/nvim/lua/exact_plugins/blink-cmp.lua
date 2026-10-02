@@ -1,5 +1,9 @@
+---@module 'blink.cmp'
+
+---@type LazyPluginSpec
 return {
    "https://github.com/saghen/blink.cmp",
+   ---@type blink.cmp.Config
    opts = {
       keymap = {
          preset = "default",

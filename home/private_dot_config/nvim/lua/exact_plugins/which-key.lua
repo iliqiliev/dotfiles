@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
    "https://github.com/folke/which-key.nvim",
    event = "VeryLazy",
@@ -6,9 +7,11 @@ return {
       {
          "<leader>?",
          function()
-            require("which-key").show({ global = false })
+            require("which-key").show({
+               global = false,
+            })
          end,
-         desc = "Buffer Local Keymaps (which-key)",
+         desc = "Keymap helper (current buffer)",
       },
    },
 }

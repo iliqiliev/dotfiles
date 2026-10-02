@@ -1,3 +1,6 @@
+---@module "conform"
+
+---@type LazyPluginSpec
 return {
    "https://github.com/stevearc/conform.nvim",
    cmd = { "ConformInfo" },
@@ -12,6 +15,7 @@ return {
          desc = "Format buffer",
       },
    },
+   ---@type conform.setupOpts
    opts = {
       default_format_opts = {
          async = true,

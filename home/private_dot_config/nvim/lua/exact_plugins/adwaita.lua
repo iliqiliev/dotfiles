@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
    "https://github.com/Mofiqul/adwaita.nvim",
    config = function()

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
    "https://github.com/folke/trouble.nvim",
    cmd = "Trouble",
@@ -25,12 +26,12 @@ return {
       {
          "<leader>xL",
          "<cmd>Trouble loclist toggle<cr>",
-         desc = "Location List",
+         desc = "Location list",
       },
       {
          "<leader>xQ",
          "<cmd>Trouble qflist toggle<cr>",
-         desc = "Quickfix List",
+         desc = "Quickfix list",
       },
    },
    opts = {},

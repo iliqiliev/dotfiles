@@ -1,3 +1,6 @@
+---@module "snacks"
+
+---@type LazyPluginSpec
 return {
    "https://github.com/akinsho/bufferline.nvim",
    keys = {

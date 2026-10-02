@@ -1,3 +1,5 @@
+---@module "conform"
+
 ---@class Language
 ---@field treesitter? string -- Tree-sitter parser name for this filetype.
 ---@field lsp? string[]  -- LSP server name(s) to enable for this filetype.
