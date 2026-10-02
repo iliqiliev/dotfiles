@@ -7,7 +7,7 @@ return {
    event = { "BufWritePre" },
    keys = {
       {
-         mode = "",
+         mode = { "n", "v" },
          "<Leader>cf", -- [c]ode [f]ormat.
          function()
             require("conform").format()
