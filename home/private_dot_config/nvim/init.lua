@@ -14,6 +14,7 @@ vim.opt.ignorecase = true -- Ignore case in search patterns.
 vim.opt.mouse = "a" -- Enable the mouse for all modes.
 vim.opt.number = true -- Print the line number in front of each line.
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
+vim.opt.showmode = false -- Mode is already shown on the `statusline`.
 vim.opt.smartcase = true -- Override `ignorecase` if the pattern contains upper case letters.
 vim.opt.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
 vim.opt.undofile = true -- Persist undo history accross sessions.
