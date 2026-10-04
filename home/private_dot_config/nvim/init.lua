@@ -7,18 +7,19 @@ vim.g.mapleader = " " -- This is used as the value of the special string `<Leade
 vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local to a buffer.
 
 -- Options.
-vim.opt.clipboard = "unnamedplus" -- Sync the Neovim clipboard to the system clipboard.
-vim.opt.confirm = true -- Ask for confirmation instead of failing on unsaved changes.
-vim.opt.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
-vim.opt.ignorecase = true -- Ignore case in search patterns.
-vim.opt.mouse = "a" -- Enable the mouse for all modes.
-vim.opt.number = true -- Print the line number in front of each line.
-vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
-vim.opt.showmode = false -- Mode is already shown on the `statusline`.
-vim.opt.smartcase = true -- Override `ignorecase` if the pattern contains upper case letters.
-vim.opt.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
-vim.opt.undofile = true -- Persist undo history accross sessions.
-vim.opt.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
+vim.o.clipboard = "unnamedplus" -- Sync the Neovim clipboard to the system clipboard.
+vim.o.confirm = true -- Ask for confirmation instead of failing on unsaved changes.
+vim.o.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
+vim.o.ignorecase = true -- Ignore case in search patterns.
+vim.o.mouse = "a" -- Enable the mouse for all modes.
+vim.o.mousemoveevent = true -- Enable mouse move events and the `<MouseMove>` key.
+vim.o.number = true -- Print the line number in front of each line.
+vim.o.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
+vim.o.showmode = false -- Mode is already shown on the `statusline`.
+vim.o.smartcase = true -- Override `ignorecase` if the pattern contains upper case letters.
+vim.o.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
+vim.o.undofile = true -- Persist undo history across sessions.
+vim.o.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
 -- Hide "How-to disable mouse" from the right click menu.
 -- `silent!` makes this not fail if `init.lua` is sourced repeatedly.
