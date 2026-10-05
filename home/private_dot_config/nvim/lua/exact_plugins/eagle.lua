@@ -1,7 +1,13 @@
 ---@type LazyPluginSpec
 return {
    "https://github.com/soulis-1256/eagle.nvim",
+   event = "LspAttach",
    opts = {
-      render_delay = 600,
+      -- Hide the pop-up window borders.
+      border = "none",
+      -- Show the pop-up after the specified delay in miliseconds.
+      render_delay = 1000,
+      -- Hide the markdown headers. Also toggled with `:EagleWinToggleHeaders`.
+      show_headers = false,
    },
 }
