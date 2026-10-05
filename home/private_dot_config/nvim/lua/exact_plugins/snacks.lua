@@ -1,30 +1,51 @@
 ---@module "snacks"
 
+---@return string|string[]?
+local function get_shell()
+   if vim.fn.has("win32") then
+      -- Override the default shell on Windows.
+      return {
+         "brush",
+         "--rcfile",
+         vim.fs.normalize("~/.config/bash/bashrc"),
+      }
+   end
+   return nil
+end
+
 ---@type LazyPluginSpec
 return {
    "folke/snacks.nvim",
    keys = {
       {
-         "<leader>e", -- [e]xplorer
+         "<leader>e", -- [e]xplorer.
          function()
             Snacks.explorer()
          end,
-         desc = "Open the file explorer",
+         desc = "File explorer",
       },
       {
-         "<leader>n", -- [n]otifications
+         "<leader>n", -- [n]otifications.
          function()
             Snacks.notifier.show_history()
          end,
-         desc = "Show notification history",
+         desc = "Notification history",
+      },
+      {
+         "<leader>t", -- [t]erminal.
+         function()
+            Snacks.terminal()
+         end,
+         desc = "Terminal",
       },
    },
    lazy = false,
    priority = 1000,
    ---@type snacks.Config
    opts = {
-      explorer = { enabled = true },
-      notifier = { enabled = true },
-      scroll = { enabled = true },
+      explorer = {},
+      notifier = {},
+      scroll = {},
+      terminal = { shell = get_shell() },
    },
 }
