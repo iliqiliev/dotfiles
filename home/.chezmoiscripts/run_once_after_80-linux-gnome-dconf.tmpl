@@ -21,7 +21,7 @@ def main():
         sources = [("xkb", "us"), ("xkb", "bg+phonetic")]
         dconf.org.gnome.desktop.input_sources.sources = sources
 
-        favorites = ["zen", "kitty", "dev.zed.Zed"]
+        favorites = ["zen", "kitty", "nvim"]
         dconf.org.gnome.shell.favorite_apps = [f"{app}.desktop" for app in favorites]
 
     dconf.ca.desrt.dconf_editor.show_warning = False
