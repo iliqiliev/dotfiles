@@ -11,6 +11,13 @@ return {
          end,
          desc = "Open the file explorer",
       },
+      {
+         "<leader>n", -- [n]otifications
+         function()
+            Snacks.notifier.show_history()
+         end,
+         desc = "Show notification history",
+      },
    },
    lazy = false,
    priority = 1000,
