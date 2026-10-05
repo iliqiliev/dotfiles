@@ -1,7 +1,7 @@
 ---@module "conform"
 
 ---@class Language
----@field treesitter? string -- Tree-sitter parser name for this filetype.
+---@field treesitter string -- Tree-sitter parser name for this filetype.
 ---@field lsp? string[]  -- LSP server name(s) to enable for this filetype.
 ---@field conform? conform.FiletypeFormatter
 
@@ -59,7 +59,7 @@ local languages = {
 
 local M = {}
 
----@type string[]
+---@type table<string, string>
 M.parsers = {}
 ---@type string[]
 M.servers = {}
@@ -67,7 +67,7 @@ M.servers = {}
 M.formatters = {}
 
 for ft, language in pairs(languages) do
-   M.parsers[#M.parsers + 1] = language.treesitter
+   M.parsers[ft] = language.treesitter
    vim.list_extend(M.servers, language.lsp or {})
    M.formatters[ft] = language.conform
 end
