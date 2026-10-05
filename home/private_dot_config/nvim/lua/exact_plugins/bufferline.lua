@@ -1,3 +1,4 @@
+---@module "bufferline"
 ---@module "snacks"
 
 ---@type LazyPluginSpec
@@ -14,6 +15,7 @@ return {
       { "<leader>bj", "<cmd>BufferLinePick<cr>", desc = "Pick Buffer" },
    },
    lazy = false,
+   ---@type bufferline.UserConfig
    opts = {
       options = {
          close_command = function(n)
@@ -23,9 +25,8 @@ return {
             Snacks.bufdelete(n)
          end,
          right_mouse_command = function() end,
-         hover = {
-            enabled = true,
-         },
+         -- Hide the buffer close button (x) since middle mouse can be used.
+         show_buffer_close_icons = false,
       },
    },
 }
