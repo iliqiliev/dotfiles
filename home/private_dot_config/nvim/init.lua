@@ -10,6 +10,7 @@ vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local 
 vim.o.clipboard = "unnamedplus" -- Sync the Neovim clipboard to the system clipboard.
 vim.o.confirm = true -- Ask for confirmation instead of failing on unsaved changes.
 vim.o.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
+vim.o.foldlevelstart = 99 -- Open all folds by default.
 vim.o.ignorecase = true -- Ignore case in search patterns.
 vim.o.mouse = "a" -- Enable the mouse for all modes.
 vim.o.mousemoveevent = true -- Enable mouse move events and the `<MouseMove>` key.
