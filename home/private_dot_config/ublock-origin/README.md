@@ -4,7 +4,7 @@ The `my-ublock-backup.txt` file contains all uBlock settings.
 **Do not restore** them from it if you don't want your
 personal settings being **overwritten**!
 
-# Usage
+## Usage
 
 - Go to uBlock Origin's extension settings
 - Scroll down on the main tab (_Settings_)

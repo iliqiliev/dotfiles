@@ -1,3 +1,5 @@
+# Special Files
+
 This directory contains files that `chezmoi` cannot normaly manage.  
 They are placed using scripts in `home/.chezmoiscripts`
 
