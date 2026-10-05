@@ -14,7 +14,7 @@ from helpers import CHEZMOI_DATA, fmt, run
 
 
 def main():
-    fmt("[info]Setting Dconf settings ...")
+    fmt("[info]Setting Dconf settings ...", end=" ")
     dconf = Dconf()
 
     if CHEZMOI_DATA["isPersonal"] is True:
@@ -125,7 +125,7 @@ def main():
         "gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell/Extensions/ForceQuit --method org.gnome.Shell.Extensions.ForceQuit.SelectWindow",
     )
 
-    fmt("[good]Dconf configured successfully.")
+    fmt("[good]OK")
 
 
 class Dconf:
