@@ -1,7 +1,0 @@
-{
-  "Ignore shellcheck warning": {
-    "prefix": "shellcheck",
-    "body": ["# shellcheck disable=SC${1:code}"],
-    "description": "Ignore a specific shellcheck warning by its code",
-  },
-}
