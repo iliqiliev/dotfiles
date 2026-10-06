@@ -9,10 +9,12 @@ return {
       spec = {
          { "<leader>b", group = "Buffer" },
          { "<leader>c", group = "Code" },
+         { "<leader>f", group = "Find" },
          { "<leader>g", group = "Git" },
          { "<leader>gs", group = "Stage" },
          { "<leader>gu", group = "Unstage" },
          { "<leader>gr", group = "Reset" },
+         { "<leader>s", group = "Grep" },
          { "<leader>x", group = "Diagnostics" },
       },
    },
