@@ -76,6 +76,7 @@ manageGnome = {{ and (eq $os "linux")
 size = {{ $fontSize }}
 
 [diff]
+exclude = ["scripts"]
 pager = "{{ if lookPath "delta" }}delta{{ end }}"
 
 [env]
