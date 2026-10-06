@@ -1,8 +1,21 @@
+---@module "which-key"
+
 ---@type LazyPluginSpec
 return {
    "https://github.com/folke/which-key.nvim",
    event = "VeryLazy",
-   opts = {},
+   ---@type wk.Opts
+   opts = {
+      spec = {
+         { "<leader>b", group = "Buffer" },
+         { "<leader>c", group = "Code" },
+         { "<leader>g", group = "Git" },
+         { "<leader>gs", group = "Stage" },
+         { "<leader>gu", group = "Unstage" },
+         { "<leader>gr", group = "Reset" },
+         { "<leader>x", group = "Diagnostics" },
+      },
+   },
    keys = {
       {
          "<leader>?",
