@@ -21,8 +21,16 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+   spec = {
+      -- Load plugins from `nvim/lua/plugins/`.
+      { import = "plugins" },
+   },
    rocks = {
       enabled = false,
+   },
+   install = {
+      -- Load colorscheme when starting an installation during startup.
+      colorscheme = { "adwaita" },
    },
 })
