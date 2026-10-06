@@ -33,35 +33,42 @@ return {
          desc = "Explorer",
       },
       {
-         "<leader>fb",
+         "<leader>fA", -- [f]ind [A]LL.
+         function()
+            Snacks.picker()
+         end,
+         desc = "All",
+      },
+      {
+         "<leader>fb", -- [f]ind [b]uffers.
          function()
             Snacks.picker.buffers()
          end,
          desc = "Buffers",
       },
       {
-         "<leader>ff",
+         "<leader>ff", -- [f]ind [f]iles.
          function()
             Snacks.picker.files()
          end,
          desc = "Files",
       },
       {
-         "<leader>fg",
+         "<leader>fg", -- [f]ind [g]it files.
          function()
             Snacks.picker.git_files()
          end,
          desc = "Git files",
       },
       {
-         "<leader>fp",
+         "<leader>fp", -- [f]ind [p]rojects.
          function()
             Snacks.picker.projects()
          end,
          desc = "Projects",
       },
       {
-         "<leader>fr",
+         "<leader>fr", -- [f]ind [r]ecent.
          function()
             Snacks.picker.recent()
          end,
