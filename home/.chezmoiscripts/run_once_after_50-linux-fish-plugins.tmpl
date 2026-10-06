@@ -2,7 +2,7 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if ne .os "linux" -}}
+# {{ if or (ne .os "linux") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger this script if `~/.config/fish/fish_plugins` changes:

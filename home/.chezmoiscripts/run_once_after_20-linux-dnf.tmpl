@@ -2,7 +2,7 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (not (lookPath "dnf")) (eq .sudo "false") -}}
+# {{ if or (not (lookPath "dnf")) (eq .sudo "false") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger this when the packages list changes:

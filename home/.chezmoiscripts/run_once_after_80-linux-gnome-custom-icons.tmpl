@@ -2,7 +2,7 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if not .manageGnome -}}
+# {{ if or (not .manageGnome) (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 

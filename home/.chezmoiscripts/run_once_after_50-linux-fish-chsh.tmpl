@@ -2,7 +2,7 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (ne .os "linux") (eq .distro "android") -}}
+# {{ if or (ne .os "linux") (eq .distro "android") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 

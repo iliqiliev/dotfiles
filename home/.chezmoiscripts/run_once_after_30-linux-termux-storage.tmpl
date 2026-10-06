@@ -2,7 +2,7 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
-# {{ if ne .distro "android" -}}
+# {{ if or (ne .distro "android") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger this script if any file inside `root/home/$USER` changes:

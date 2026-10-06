@@ -2,6 +2,9 @@
 # vim: filetype=python
 
 # chezmoi:template:left-delimiter="# {{"
+# {{ if .isWork -}}
+# {{   abortEmpty -}}
+# {{ end -}}
 # Trigger the script if any file inside `~/.config/mise` changes:
 # # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/mise") }}
 # Trigger this script weekly, using the current week number:
