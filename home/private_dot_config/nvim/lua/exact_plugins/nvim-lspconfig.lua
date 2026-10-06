@@ -1,7 +1,8 @@
 ---@type LazyPluginSpec
 return {
-   "neovim/nvim-lspconfig",
+   "https://github.com/neovim/nvim-lspconfig",
    config = function()
+      -- Install LSP servers.
       vim.lsp.enable(require("config.languages").servers)
       -- Lower `semantic_tokens` priority so LSP does not overwriting treesitter.
       vim.highlight.priorities.semantic_tokens = 90

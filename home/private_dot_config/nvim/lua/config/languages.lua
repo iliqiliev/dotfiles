@@ -21,12 +21,12 @@ local languages = {
       conform = { "stylua", lsp_format = "fallback" },
    },
    markdown = {
-      treesitter = { "html", "markdown" },
+      treesitter = { "markdown", "html" },
       lsp = { "rumdl" },
       conform = { "rumdl" },
    },
    python = {
-      treesitter = { "python" },
+      treesitter = { "python", "regex" },
       lsp = { "ruff", "ty" },
       conform = {
          "ruff_fix",
