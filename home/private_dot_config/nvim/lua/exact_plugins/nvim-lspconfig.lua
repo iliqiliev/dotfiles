@@ -3,6 +3,8 @@ return {
    "neovim/nvim-lspconfig",
    config = function()
       vim.lsp.enable(require("config.languages").servers)
+      -- Lower `semantic_tokens` priority so LSP does not overwriting treesitter.
+      vim.highlight.priorities.semantic_tokens = 90
    end,
    event = { "BufReadPre", "BufNewFile" },
    keys = {
