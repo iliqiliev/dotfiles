@@ -52,6 +52,7 @@ return {
    ---@type snacks.Config
    opts = {
       explorer = {},
+      input = {},
       notifier = {},
       picker = {
          sources = {
