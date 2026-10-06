@@ -15,8 +15,16 @@ end
 
 ---@type LazyPluginSpec
 return {
-   "folke/snacks.nvim",
+   "https://github.com/folke/snacks.nvim",
    keys = {
+      {
+         mode = { "n", "i", "v" },
+         "<F1>",
+         function()
+            Snacks.picker.help()
+         end,
+         desc = "Help",
+      },
       {
          "<leader>e", -- [e]xplorer.
          function()
