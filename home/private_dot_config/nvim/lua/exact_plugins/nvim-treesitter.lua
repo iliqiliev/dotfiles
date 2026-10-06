@@ -5,12 +5,11 @@ return {
    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
    config = function()
       local parsers = require("config.languages").parsers
-      local treesitter_group =
-         vim.api.nvim_create_augroup("treesitter_configuration", {})
+      local group = vim.api.nvim_create_augroup("treesitter_config", { clear = true })
 
-      for ft, parser in pairs(parsers) do
-         -- Ensure the parser is installed.
-         require("nvim-treesitter").install(parser)
+      for ft, languages in pairs(parsers) do
+         -- Ensure the languages are installed.
+         require("nvim-treesitter").install(languages)
          -- Create an `autocmd` for the specific `ft`.
          vim.api.nvim_create_autocmd("FileType", {
             callback = function()
@@ -22,8 +21,8 @@ return {
                -- Enable treesitter-based indents.
                vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
             end,
-            desc = "Enable treesitter for a specific filetype.",
-            group = treesitter_group,
+            desc = "Enable treesitter for " .. ft .. " files.",
+            group = group,
             pattern = ft,
          })
       end

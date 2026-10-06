@@ -1,32 +1,32 @@
 ---@module "conform"
 
 ---@class Language
----@field treesitter string -- Tree-sitter parser name for this filetype.
+---@field treesitter string[] -- Tree-sitter parser name for this filetype.
 ---@field lsp? string[]  -- LSP server name(s) to enable for this filetype.
 ---@field conform? conform.FiletypeFormatter
 
 ---@type table<string, Language>
 local languages = {
    fish = {
-      treesitter = "fish",
+      treesitter = { "fish" },
       lsp = { "fish_lsp" },
       conform = { "fish_indent" },
    },
    gotmpl = {
-      treesitter = "gotmpl",
+      treesitter = { "gotmpl" },
    },
    lua = {
-      treesitter = "lua",
+      treesitter = { "lua" },
       lsp = { "lua_ls" },
       conform = { "stylua", lsp_format = "fallback" },
    },
    markdown = {
-      treesitter = "markdown",
+      treesitter = { "html", "markdown" },
       lsp = { "rumdl" },
       conform = { "rumdl" },
    },
    python = {
-      treesitter = "python",
+      treesitter = { "python" },
       lsp = { "ruff", "ty" },
       conform = {
          "ruff_fix",
@@ -36,22 +36,22 @@ local languages = {
       },
    },
    sh = {
-      treesitter = "bash",
+      treesitter = { "bash" },
       lsp = { "bashls" },
       conform = { "shfmt" },
    },
    sql = {
-      treesitter = "sql",
+      treesitter = { "sql" },
       lsp = { "sqruff" },
       conform = { "sqruff" },
    },
    tcl = {
-      treesitter = "tcl",
+      treesitter = { "tcl" },
       lsp = { "tclsp" },
       conform = { "tclfmt" },
    },
    toml = {
-      treesitter = "toml",
+      treesitter = { "toml" },
       lsp = { "tombi" },
       conform = { "tombi" },
    },
@@ -59,7 +59,7 @@ local languages = {
 
 local M = {}
 
----@type table<string, string>
+---@type table<string, string[]>
 M.parsers = {}
 ---@type string[]
 M.servers = {}
