@@ -2,7 +2,7 @@
 
 ---@return string|string[]?
 local function get_shell()
-   if vim.fn.has("win32") then
+   if vim.fn.has("win32") == 1 then
       -- Override the default shell on Windows.
       return {
          "brush",
