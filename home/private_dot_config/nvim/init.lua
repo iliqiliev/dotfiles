@@ -8,6 +8,7 @@ vim.g.maplocalleader = "\\" -- Like `<Leader>` but for mappings which are local 
 
 -- Options.
 vim.o.clipboard = "unnamedplus" -- Sync the Neovim clipboard to the system clipboard.
+vim.o.colorcolumn = "80,+0" -- Create wrap guides at 80 columns and `textwidth`.
 vim.o.confirm = true -- Ask for confirmation instead of failing on unsaved changes.
 vim.o.expandtab = true -- Use the appropriate number of spaces to insert a `<Tab>`.
 vim.o.foldlevelstart = 99 -- Open all folds by default.
