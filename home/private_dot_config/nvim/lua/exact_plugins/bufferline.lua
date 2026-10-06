@@ -22,6 +22,15 @@ return {
             Snacks.bufdelete(n)
          end,
          right_mouse_command = function() end,
+         -- Offset the bufferline by Snacks' explorer.
+         offsets = {
+            {
+               filetype = "snacks_layout_box",
+               text = "Explorer",
+               highlight = "SnacksPickerTitle",
+               separator = true,
+            },
+         },
          -- Hide the buffer close button (x) since middle mouse can be used.
          show_buffer_close_icons = false,
       },

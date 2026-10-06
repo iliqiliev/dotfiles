@@ -45,6 +45,15 @@ return {
    opts = {
       explorer = {},
       notifier = {},
+      picker = {
+         sources = {
+            explorer = {
+               -- This disables the title.
+               -- `bufferline.nvim` sets a title on the winbar.
+               title = "",
+            },
+         },
+      },
       scroll = {},
       terminal = { shell = get_shell() },
    },
