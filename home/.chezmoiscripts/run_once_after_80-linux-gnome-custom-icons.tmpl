@@ -14,7 +14,7 @@ from helpers import fmt, run
 
 
 def main() -> None:
-    fmt("[info]Setting up custom folder icons ...")
+    fmt("[info]Setting up custom folder icons ...", end=" ")
 
     for folder_path, icon_name in CUSTOM_ICONS.items():
         folder = Path(folder_path).expanduser()
@@ -29,7 +29,7 @@ def main() -> None:
 
         run("gio set", folder, "metadata::custom-icon-name", icon_name)
 
-    fmt("[good]Custom folder icons set up successfully.")
+    fmt("[good]OK")
 
 
 FOLDER_ICONS = Path.home() / ".local/share/icons/Morewaita/scalable/places"
