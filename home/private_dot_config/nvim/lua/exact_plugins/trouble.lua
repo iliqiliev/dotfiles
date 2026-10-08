@@ -5,23 +5,23 @@ return {
    keys = {
       {
          "<leader>xx",
-         "<cmd>Trouble diagnostics toggle<cr>",
+         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
          desc = "Diagnostics",
       },
       {
          "<leader>xX",
-         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-         desc = "Diagnostics (current buffer)",
+         "<cmd>Trouble diagnostics toggle<cr>",
+         desc = "Diagnostics (workspace)",
       },
       {
-         "<leader>cs",
+         "<leader>cs", -- [c]ode [s]ymbols.
          "<cmd>Trouble symbols toggle focus=false<cr>",
          desc = "Symbols",
       },
       {
-         "<leader>cl",
+         "<leader>ci", -- [c]ode [i]nformation.
          "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-         desc = "Definitions / references / ...",
+         desc = "Object information",
       },
       {
          "<leader>xL",
