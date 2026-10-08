@@ -24,11 +24,9 @@ vim.o.undofile = true -- Persist undo history across sessions.
 vim.o.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
 -- Hide "How-to disable mouse" from the right click menu.
--- `silent!` makes this not fail if `init.lua` is sourced repeatedly.
-vim.cmd([[
-   silent! aunmenu PopUp.How-to\ disable\ mouse
-   silent! aunmenu PopUp.-2-
-]])
+-- `pcall` makes this not fail if `init.lua` is sourced repeatedly.
+pcall(vim.cmd.aunmenu, vim.fn.escape("PopUp.How-to disable mouse", " "))
+pcall(vim.cmd.aunmenu, "PopUp.-2-")
 
 -- Detect light background using the $COLORFGBG variable.
 if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
