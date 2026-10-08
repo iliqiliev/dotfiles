@@ -20,6 +20,101 @@ CS2 = "730"
 KCD2 = "1771300"
 
 HOME = Path.home()
+STEAM_LIBRARY = HOME / "Games/Steam"
+
+
+def main() -> None:
+    try:
+        if (STEAM_ROOT := steam_get_root()) is None:
+            return
+    except FileExistsError as e:
+        fmt(f"[fail]{e}")
+        raise SystemExit(1)
+
+    library_id = steam_update_library(STEAM_ROOT)
+
+    steam_update_config(STEAM_ROOT, library_id)
+
+
+def steam_update_config(root: Path, library_id: str) -> None:
+    localconfigs = set(root.glob("userdata/*/config/localconfig.vdf"))
+
+    for path in localconfigs:
+        fmt("[info]Updating [i]Steam[/] config ...")
+
+        id3 = path.parent.parent.name
+
+        with path.open() as localconfig:
+            parsed_vdf = parse(localconfig, mapper=DefaultDict)
+
+        config = parsed_vdf["UserLocalConfigStore"]
+
+        # This sets the default game library.
+        config["LastInstallFolderIndex"] = library_id
+
+        config["system"]["InGameOverlayScreenshotHotKey"] = "KEY_NONE"
+        config["system"]["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
+
+        apps = config["Software"]["Valve"]["Steam"]["apps"]
+
+        language = "-language 'Bulgarian'" if id3 == PERSONAL_ID3 else ""
+        apps[CS2]["LaunchOptions"] = f"gamemoderun %command% +exec user.cfg {language}"
+        apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
+
+        with path.open("w") as localconfig:
+            dump(parsed_vdf, localconfig, pretty=True)
+
+        rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}[/]"
+        fmt(f"[good]'{rich_path}' updated successfully.")
+
+
+def steam_update_library(root: Path) -> str:
+    libraryfolders = root / "steamapps/libraryfolders.vdf"
+
+    with libraryfolders.open() as libraryfolder:
+        parsed_vdf = parse(libraryfolder)
+
+    largest_key = 0
+    """Steam stores each library ID as an integer, starting from 0."""
+
+    folders = parsed_vdf["libraryfolders"]
+
+    for folder_id, folder_info in folders.items():
+        largest_key = max(largest_key, int(folder_id))
+
+        if Path(folder_info["path"]) == STEAM_LIBRARY:
+            return folder_id
+
+    fmt("[info]Adding [i]Steam[/] library ...", end=" ")
+
+    library_id = str(largest_key + 1)
+
+    folders[library_id] = {
+        "path": STEAM_LIBRARY,
+        "label": "Games",
+    }
+
+    with libraryfolders.open("w") as libraryfolders:
+        dump(parsed_vdf, libraryfolders, pretty=True)
+
+    fmt("[good]OK")
+
+    return library_id
+
+
+def steam_get_root() -> Path | None:
+    STEAM_ROOTS = (
+        HOME / ".local/share/Steam",
+        HOME / ".var/app/com.valvesoftware.Steam/data/Steam",
+    )
+
+    existing_roots = tuple(root for root in STEAM_ROOTS if root.is_dir())
+
+    if len(existing_roots) == 1:
+        return existing_roots[0]
+
+    if len(existing_roots) > 1:
+        raise FileExistsError("Multiple Steam installations found.")
 
 
 class DefaultDict(dict[str, "str | DefaultDict"]):
@@ -32,34 +127,5 @@ class DefaultDict(dict[str, "str | DefaultDict"]):
         return empty_dict
 
 
-localconfigs: set[Path] = set()
-
-for steam_root in (
-    HOME / ".local/share/Steam",
-    HOME / ".var/app/com.valvesoftware.Steam/data/Steam",
-):
-    localconfigs.update(steam_root.glob("userdata/*/config/localconfig.vdf"))
-
-for path in localconfigs:
-    fmt("[info]Updating [i]Steam[/] config ...")
-
-    with path.open() as localconfig:
-        parsed_vdf = parse(localconfig, mapper=DefaultDict)
-
-    id3 = path.parent.parent.name
-    system = parsed_vdf["UserLocalConfigStore"]["system"]
-    apps = parsed_vdf["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["apps"]
-
-    system["InGameOverlayScreenshotHotKey"] = "KEY_NONE"
-    system["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
-
-    language = "-language 'Bulgarian'" if id3 == PERSONAL_ID3 else ""
-    apps[CS2]["LaunchOptions"] = f"gamemoderun %command% +exec user.cfg {language}"
-
-    apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
-
-    with path.open("w") as localconfig:
-        dump(parsed_vdf, localconfig, pretty=True)
-
-    rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}"
-    fmt(f"[good]'{rich_path}' updated successfully.")
+if __name__ == "__main__":
+    main()
