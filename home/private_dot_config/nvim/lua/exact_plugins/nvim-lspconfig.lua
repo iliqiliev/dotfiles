@@ -15,5 +15,11 @@ return {
          vim.lsp.buf.rename,
          desc = "Rename symbol",
       },
+      {
+         mode = { "n", "v" },
+         "<leader>ca", -- [c]ode [a]ction.
+         vim.lsp.buf.code_action,
+         desc = "Code action",
+      },
    },
 }
