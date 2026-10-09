@@ -89,6 +89,13 @@ return {
          desc = "Recent",
       },
       {
+         "<leader>G", -- Lazy[G]it.
+         function()
+            Snacks.lazygit()
+         end,
+         desc = "LazyGit",
+      },
+      {
          "<leader>n", -- [n]otifications.
          function()
             Snacks.notifier.show_history()
