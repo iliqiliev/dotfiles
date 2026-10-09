@@ -14,7 +14,7 @@ return {
       {
          "gK",
          function()
-            requre("hover").enter()
+            require("hover").enter()
          end,
          desc = "Enter hover pop-up",
       },
