@@ -128,5 +128,14 @@ return {
       },
       scroll = {},
       terminal = { shell = get_shell() },
+      -- Styles.
+      styles = {
+         terminal = {
+            wo = {
+               -- This makes the terminal background follow the editor's colorscheme.
+               winhighlight = "Normal:Normal,NormalNC:NormalNC",
+            },
+         },
+      },
    },
 }
