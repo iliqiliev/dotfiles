@@ -115,6 +115,16 @@ return {
    ---@type snacks.Config
    opts = {
       explorer = {},
+      indent = {
+         indent = {
+            -- The default is too bold.
+            hl = "LineNr",
+         },
+         scope = {
+            -- The default is a distracting bright red.
+            hl = "SnacksIndent",
+         },
+      },
       input = {},
       notifier = {},
       picker = {
