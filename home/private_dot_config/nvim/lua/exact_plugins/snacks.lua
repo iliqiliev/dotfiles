@@ -126,6 +126,7 @@ return {
             },
          },
       },
+      quickfile = {},
       scroll = {},
       terminal = { shell = get_shell() },
       -- Styles.
