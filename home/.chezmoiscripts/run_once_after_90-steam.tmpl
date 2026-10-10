@@ -18,11 +18,9 @@
 
 from pathlib import Path
 
-from vdf import dump, parse
+from vdf import dumps, loads
 
 from helpers import fmt
-
-PERSONAL_ID3 = "460410354"
 
 CS2 = "730"
 KCD2 = "1771300"
@@ -52,12 +50,12 @@ def steam_update_config(root: Path, library_id: str) -> None:
     localconfigs = set(root.glob("userdata/*/config/localconfig.vdf"))
 
     for path in localconfigs:
-        fmt("[info]Updating [i]Steam[/] config ...")
+        account_id32 = int(path.parent.parent.name)
+        username = steam_get_username(root, account_id32)
 
-        id3 = path.parent.parent.name
+        fmt(f"[info]Updating [i]Steam[/] config for [i]{username}[/] ...", end=" ")
 
-        with path.open() as localconfig:
-            parsed_vdf = parse(localconfig, mapper=DefaultDict)
+        parsed_vdf = loads(path.read_text(), mapper=DefaultDict)
 
         config = parsed_vdf["UserLocalConfigStore"]
 
@@ -69,22 +67,18 @@ def steam_update_config(root: Path, library_id: str) -> None:
 
         apps = config["Software"]["Valve"]["Steam"]["apps"]
 
-        language = "-language 'Bulgarian'" if id3 == PERSONAL_ID3 else ""
-        apps[CS2]["LaunchOptions"] = f"gamemoderun %command% +exec user.cfg {language}"
+        apps[CS2]["LaunchOptions"] = "gamemoderun %command% +exec user.cfg"
         apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
 
-        with path.open("w") as localconfig:
-            dump(parsed_vdf, localconfig, pretty=True)
+        path.write_text(dumps(parsed_vdf, pretty=True))
 
-        rich_path = f"[i link={path.as_uri()}]~/{path.relative_to(HOME)}[/]"
-        fmt(f"[good]'{rich_path}' updated successfully.")
+        fmt("[good]OK")
 
 
 def steam_update_library(root: Path) -> str:
     libraryfolders = root / "steamapps/libraryfolders.vdf"
 
-    with libraryfolders.open() as libraryfolder:
-        parsed_vdf = parse(libraryfolder)
+    parsed_vdf = loads(libraryfolders.read_text())
 
     largest_key = 0
     """Steam stores each library ID as an integer, starting from 0."""
@@ -106,8 +100,7 @@ def steam_update_library(root: Path) -> str:
         "label": "Games",
     }
 
-    with libraryfolders.open("w") as libraryfolders:
-        dump(parsed_vdf, libraryfolders, pretty=True)
+    libraryfolders.write_text(dumps(parsed_vdf, pretty=True))
 
     fmt("[good]OK")
 
@@ -122,6 +115,21 @@ def steam_get_root() -> Path | None:
 
     if len(existing_roots) > 1:
         raise FileExistsError("Multiple Steam installations found.")
+
+
+def steam_get_username(root: Path, account_id32: int) -> str:
+    ACCOUNT_ID_MASK = 0xFFFFFFFF
+    """Bitmask that selects the low 32 bits of an integer."""
+
+    loginusers = root / "config/loginusers.vdf"
+
+    parsed_vdf = loads(loginusers.read_text())
+
+    for account_id64, account_data in parsed_vdf["users"].items():
+        if int(account_id64) & ACCOUNT_ID_MASK == account_id32:
+            return account_data["PersonaName"]
+
+    return str(account_id32)
 
 
 class DefaultDict(dict[str, "str | DefaultDict"]):
