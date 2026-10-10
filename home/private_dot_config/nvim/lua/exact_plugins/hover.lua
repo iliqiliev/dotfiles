@@ -18,6 +18,20 @@ return {
          end,
          desc = "Enter hover pop-up",
       },
+      {
+         "<C-n>",
+         function()
+            require("hover").switch("next")
+         end,
+         desc = "Hover (next source)",
+      },
+      {
+         "<C-p>",
+         function()
+            require("hover").switch("previous")
+         end,
+         desc = "Hover (previous source)",
+      },
    },
    ---@type Hover.UserConfig
    opts = {},
