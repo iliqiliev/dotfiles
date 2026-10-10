@@ -5,6 +5,14 @@
 # {{ if or (not .manageGui) (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger this script based on the current Steam root directories found:
+# {{ $roots := list -}}
+# {{ $roots = append $roots ".local/share/Steam" -}}
+# {{ $roots = append $roots ".var/app/com.valvesoftware.Steam/data/Steam" -}}
+# {{ range $roots -}}
+# {{   $exists := all (stat (joinPath $.chezmoi.homeDir .)) -}}
+# # {{ print "~/" . ": " $exists }}
+# {{ end }}
 
 """Find and update `Steam` config files."""
 
@@ -21,6 +29,10 @@ KCD2 = "1771300"
 
 HOME = Path.home()
 STEAM_LIBRARY = HOME / "Games/Steam"
+STEAM_ROOTS = (
+    HOME / ".local/share/Steam",
+    HOME / ".var/app/com.valvesoftware.Steam/data/Steam",
+)
 
 
 def main() -> None:
@@ -103,11 +115,6 @@ def steam_update_library(root: Path) -> str:
 
 
 def steam_get_root() -> Path | None:
-    STEAM_ROOTS = (
-        HOME / ".local/share/Steam",
-        HOME / ".var/app/com.valvesoftware.Steam/data/Steam",
-    )
-
     existing_roots = tuple(root for root in STEAM_ROOTS if root.is_dir())
 
     if len(existing_roots) == 1:
