@@ -21,8 +21,7 @@
 {{     continue -}}
 {{   end -}}
 {{   $extensionFilePath := print $extensionsPath "/" $info.file -}}
-{{/* `range` overrides the `.` map so `.chezmoi.homeDir` cannot be used. */ -}}
-{{   if stat (joinPath (env "HOME") $extensionFilePath) -}}
+{{   if stat (joinPath $.chezmoi.homeDir $extensionFilePath) -}}
 {{/*   Let the browser manage already-installed extensions. */ -}}
 {{     continue -}}
 {{   end -}}
