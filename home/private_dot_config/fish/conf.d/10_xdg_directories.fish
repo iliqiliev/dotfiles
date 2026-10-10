@@ -28,7 +28,7 @@ set --export RUFF_CACHE_DIR $XDG_CACHE_HOME/ruff
 # $XDG_CONFIG_HOME
 set --export CLAUDE_CONFIG_DIR $XDG_CONFIG_HOME/claude
 set --export COPILOT_HOME $XDG_CONFIG_HOME/copilot
-set --export GEMINI_CLI_HOME=$XDG_CONFIG_HOME/gemini
+set --export GEMINI_CLI_HOME $XDG_CONFIG_HOME/gemini
 set --export NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 
 # $XDG_DATA_HOME
