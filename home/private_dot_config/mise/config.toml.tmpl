@@ -5,7 +5,7 @@
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
 "apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 # {{ if eq .distro "android" -}}
-"apt:clang" = "latest"  # `gcc` is not avaiable on Termux.
+"apt:clang" = "latest"  # `gcc` is not available on Termux.
 "apt:nodejs" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
 "apt:tree-sitter" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
 # {{ else -}}
