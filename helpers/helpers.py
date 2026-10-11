@@ -52,8 +52,8 @@ def run(
     *cmd: str | Path | None,
     check: bool = True,
     input: str | None = None,
-    out: int | None = True,
-    err: int | None = True,
+    out: int | None = None,
+    err: int | None = None,
 ) -> CompletedProcess[str]:
     args: list[str | Path] = []
 
