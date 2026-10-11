@@ -1,6 +1,3 @@
-alias ccopy fish_clipboard_copy
-alias cpaste fish_clipboard_paste
-
 if command --query bat
     alias cat bat
 end
