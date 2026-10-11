@@ -22,9 +22,6 @@ from vdf import dumps, loads
 
 from helpers import fmt
 
-CS2 = "730"
-KCD2 = "1771300"
-
 HOME = Path.home()
 STEAM_LIBRARY = HOME / "Games/Steam"
 STEAM_ROOTS = (
@@ -66,9 +63,9 @@ def steam_update_config(root: Path, library_id: str) -> None:
         config["system"]["InGameOverlayShortcutKey"] = "Ctrl\tShift\tKEY_TAB"
 
         apps = config["Software"]["Valve"]["Steam"]["apps"]
+        CS2 = "730"
 
-        apps[CS2]["LaunchOptions"] = "gamemoderun %command% +exec user.cfg"
-        apps[KCD2]["LaunchOptions"] = "gamemoderun %command%"
+        apps[CS2]["LaunchOptions"] = "%command% +exec user.cfg"
 
         path.write_text(dumps(parsed_vdf, pretty=True))
 
