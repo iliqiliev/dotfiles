@@ -17,5 +17,5 @@ FISHER_PLUGINS = Path.home() / ".config/fish/fish_plugins"
 plugin_count = len(FISHER_PLUGINS.read_text().splitlines())
 fmt(f"[info]Installing {plugin_count} fisher plugins ...", end=" ")
 
-run("fish -c 'fisher update'", out=DEVNULL)
+run("fish -c 'fisher update'", input="", out=DEVNULL)
 fmt("[good]OK")
