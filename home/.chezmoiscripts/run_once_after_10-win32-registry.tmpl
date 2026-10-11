@@ -179,9 +179,9 @@ registry_set_data(AUTORUN, "AltSnap", rf'"{which("AltSnap.exe")}"')
 # Autostart `Ditto`.
 registry_set_data(AUTORUN, "Ditto", "Ditto.exe")
 
-# Hide the taskbar search box.
-registry_set_data(SEARCH, "BingSearchEnabled", 0)
 # Disable Bing in Start search.
+registry_set_data(SEARCH, "BingSearchEnabled", 0)
+# Hide the taskbar search box.
 registry_set_data(SEARCH, "SearchboxTaskbarMode", 0)
 
 fmt("[good]Registry settings imported successfully.")
