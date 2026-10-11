@@ -69,7 +69,7 @@ def __openrc_service__(
     sudo_cache()
 
     fmt(f"[info]Setting up [i]{pretty_name}[/] service ...", end=" ")
-    run(SUDO, "rc-service", service_name)
+    run(SUDO, "rc-service", service_name, "start")
     run(SUDO, "rc-update add", service_name, runlevel)
     fmt("[good]OK")
     return True
