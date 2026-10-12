@@ -1,0 +1,2 @@
+# This file silences the warning when using podman in docker mode:
+# `Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.`
