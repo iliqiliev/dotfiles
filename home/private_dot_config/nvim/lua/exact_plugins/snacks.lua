@@ -1,18 +1,5 @@
 ---@module "snacks"
 
----@return string|string[]?
-local function get_shell()
-   if vim.fn.has("win32") == 1 then
-      -- Override the default shell on Windows.
-      return {
-         "brush",
-         "--rcfile",
-         vim.fs.normalize("~/.config/bash/bashrc"),
-      }
-   end
-   return nil
-end
-
 ---@type LazyPluginSpec
 return {
    "https://github.com/folke/snacks.nvim",
@@ -145,7 +132,7 @@ return {
       },
       quickfile = {},
       scroll = {},
-      terminal = { shell = get_shell() },
+      terminal = {},
       -- Styles.
       styles = {
          terminal = {

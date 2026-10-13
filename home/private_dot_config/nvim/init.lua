@@ -23,6 +23,13 @@ vim.o.tabstop = 4 -- Number of spaces that a `<Tab>` in the file counts for.
 vim.o.undofile = true -- Persist undo history across sessions.
 vim.o.wildmode = "longest:full,full" -- Completion mode used for the `wildchar`.
 
+-- Override the default shell on Windows.
+if vim.fn.has("win32") == 1 then
+   vim.o.shell = "brush --rcfile " .. vim.fs.normalize("~/.config/bash/bashrc")
+   vim.o.shellcmdflag = "-c"
+   vim.o.shellxquote = ""
+end
+
 -- `pcall` makes these not fail if `init.lua` is sourced repeatedly.
 -- Hide "How-to disable mouse" from the right click menu.
 pcall(vim.cmd.aunmenu, vim.fn.escape("PopUp.How-to disable mouse", " "))
