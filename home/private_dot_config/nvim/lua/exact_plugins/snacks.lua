@@ -20,6 +20,14 @@ return {
          end,
          desc = "Command History",
       },
+      -- Buffers.
+      {
+         "<leader>bd", -- [b]uffer [d]elete.
+         function()
+            Snacks.bufdelete()
+         end,
+         desc = "Close",
+      },
       -- Explorer.
       {
          "<leader>e", -- [e]xplorer.
