@@ -34,5 +34,20 @@ return {
       },
    },
    ---@type Hover.UserConfig
-   opts = {},
+   opts = {
+      providers = {
+         "hover.providers.diagnostic",
+         "hover.providers.lsp",
+         "hover.providers.dap",
+         "hover.providers.man",
+         -- Explicitly disabled.
+         -- "hover.providers.dictionary",
+         -- Optional, disabled by default:
+         -- "hover.providers.gh",
+         -- "hover.providers.gh_user",
+         -- "hover.providers.jira",
+         -- "hover.providers.fold_preview",
+         -- "hover.providers.highlight",
+      },
+   },
 }
