@@ -4,6 +4,7 @@
 return {
    "https://github.com/folke/snacks.nvim",
    keys = {
+      -- Miscellanious.
       {
          mode = { "n", "i", "v" },
          "<F1>",
@@ -13,19 +14,13 @@ return {
          desc = "Help",
       },
       {
-         "<leader>/",
-         function()
-            Snacks.picker.grep()
-         end,
-         desc = "Grep",
-      },
-      {
          "<leader>:",
          function()
             Snacks.picker.command_history()
          end,
          desc = "Command History",
       },
+      -- Explorer.
       {
          "<leader>e", -- [e]xplorer.
          function()
@@ -33,6 +28,7 @@ return {
          end,
          desc = "Explorer",
       },
+      -- Find.
       {
          "<leader>fA", -- [f]ind [A]LL.
          function()
@@ -75,6 +71,7 @@ return {
          end,
          desc = "Recent",
       },
+      -- Lazygit.
       {
          "<leader>G", -- Lazy[G]it.
          function()
@@ -82,6 +79,7 @@ return {
          end,
          desc = "LazyGit",
       },
+      -- Notifications.
       {
          "<leader>n", -- [n]otifications.
          function()
@@ -96,6 +94,29 @@ return {
          end,
          desc = "Notification search",
       },
+      -- Grep.
+      {
+         "<leader>sb", -- [s]earch [b]uffers.
+         function()
+            Snacks.picker.grep_buffers()
+         end,
+         desc = "Search buffers",
+      },
+      {
+         "<leader>sf", -- [s]earch [f]iles.
+         function()
+            Snacks.picker.grep()
+         end,
+         desc = "Search files",
+      },
+      {
+         "<leader>sg", -- [s]earch [g]it files.
+         function()
+            Snacks.picker.git_grep()
+         end,
+         desc = "Search git files",
+      },
+      -- Terminal.
       {
          "<leader>t", -- [t]erminal.
          function()
