@@ -150,6 +150,8 @@ return {
       styles = {
          terminal = {
             wo = {
+               -- Disable the terminal title, which shows the path to the shell.
+               winbar = "",
                -- This makes the terminal background follow the editor's colorscheme.
                winhighlight = "Normal:Normal,NormalNC:NormalNC",
             },
