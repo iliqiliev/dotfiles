@@ -25,6 +25,10 @@ local languages = {
       lsp = { "rumdl" },
       conform = { "rumdl" },
    },
+   matlab = {
+      treesitter = { "matlab" },
+      conform = { "mh_style" },
+   },
    python = {
       treesitter = { "python", "regex" },
       lsp = { "ruff", "ty" },
