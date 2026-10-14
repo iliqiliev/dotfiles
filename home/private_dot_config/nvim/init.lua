@@ -41,3 +41,4 @@ if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
 end
 
 require("config.lazy")
+require("config.keymap")
