@@ -55,6 +55,11 @@ local languages = {
       lsp = { "tombi" },
       conform = { "tombi" },
    },
+   yaml = {
+      treesitter = { "yaml" },
+      lsp = { "yamlls" },
+      conform = { lsp_format = "prefer" },
+   },
 }
 
 local M = {}
