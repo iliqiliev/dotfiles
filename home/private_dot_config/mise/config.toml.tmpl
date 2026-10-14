@@ -27,6 +27,7 @@ bashls = "npm:bash-language-server"
 fish-lsp = "npm:fish-lsp"
 sqruff = "aqua:quarylabs/sqruff"
 tclint = "pypi:tclint"
+yaml-language-server = "npm:yaml-language-server"
 
 [tools.bashls]  # Aliased.
 depends = "node"
@@ -91,6 +92,10 @@ version = "latest"
 
 [tools.uv]
 path = "~/.local/bin"
+
+[tools.yaml-language-server]  # Aliased.
+depends = ["node"]
+version = "latest"
 
 [tools.zoxide]
 version = "latest"
