@@ -25,6 +25,7 @@ XDG_STATE_HOME = "$HOME/.local/state"
 [tool_alias]
 bashls = "npm:bash-language-server"
 fish-lsp = "npm:fish-lsp"
+miss_hit = "pypi:miss_hit"
 sqruff = "aqua:quarylabs/sqruff"
 tclint = "pypi:tclint"
 yaml-language-server = "npm:yaml-language-server"
@@ -43,6 +44,10 @@ version = "latest"
 version = "latest"
 
 [tools.lua-language-server]
+version = "latest"
+
+[tools.miss_hit]  # Aliased.
+expose = ["miss_hit_core"]  # This exposes `mh_style` and `mh_metric`.
 version = "latest"
 
 [tools.node]
