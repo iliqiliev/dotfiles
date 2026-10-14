@@ -83,7 +83,7 @@ pager = "{{ if lookPath "delta" }}delta{{ end }}"
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
-PYTHONPATH = '{{ .chezmoi.workingTree }}'
+UV_PROJECT = '{{ .chezmoi.workingTree }}'
 XDG_CACHE_HOME = '{{ joinPath .chezmoi.homeDir ".cache" }}'
 XDG_CONFIG_HOME = '{{ joinPath .chezmoi.homeDir ".config" }}'
 XDG_DATA_HOME = '{{ joinPath .chezmoi.homeDir ".local/share" }}'
@@ -98,4 +98,8 @@ command = "shebang"
 {{ else if eq $distro "android" -}}
 command = "sh"
 args = ["-c", "termux-fix-shebang $1 && exec $1", "--"]
+
 {{ end -}}
+[interpreters.py]
+command = "uv"
+args = ["run"]
