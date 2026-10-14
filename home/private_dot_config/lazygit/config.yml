@@ -1,5 +1,6 @@
 git:
   diffRenderers:
-    - command: delta --{{colorScheme}} --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"u
+    - command: delta --{{colorScheme}} --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+
 gui:
   nerdFontsVersion: "3"
