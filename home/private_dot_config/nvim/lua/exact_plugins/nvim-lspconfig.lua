@@ -6,6 +6,17 @@ return {
       vim.lsp.enable(require("config.languages").servers)
       -- Lower `semantic_tokens` priority so LSP does not overwriting treesitter.
       vim.hl.priorities.semantic_tokens = 90
+      -- Configure LSP-provided diagnostics.
+      vim.diagnostic.config({
+         virtual_lines = {
+            -- Show a virtual line pointing to the diagnostic for the current line.
+            current_line = true,
+         },
+         virtual_text = {
+            -- Show inline diagnostics for every line, except the current.
+            current_line = false,
+         },
+      })
    end,
    event = { "BufReadPre", "BufNewFile" },
    keys = {
