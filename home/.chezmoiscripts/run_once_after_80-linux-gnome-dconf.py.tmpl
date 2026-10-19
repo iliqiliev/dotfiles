@@ -41,6 +41,11 @@ def main() -> None:
     WM_KEYBINDINGS.switch_to_workspace_left = ["<Control><Super>Left"]
     WM_KEYBINDINGS.switch_to_workspace_right = ["<Control><Super>Right"]
 
+    WM_PREFERENCES = dconf.org.gnome.desktop.wm.preferences
+    WM_PREFERENCES.action_middle_click_titlebar = "minimize"
+    WM_PREFERENCES.mouse_button_modifier = "<Super>"
+    WM_PREFERENCES.resize_with_right_button = True
+
     dconf.org.gnome.mutter.attach_modal_dialogs = False
 
     MEDIA_KEYS = dconf.org.gnome.settings_daemon.plugins.media_keys
