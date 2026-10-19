@@ -10,7 +10,6 @@
 packages:
   bash:
     __tags__: ["linux"]
-  bat:
   btop:
   chezmoi:
   chsh:
@@ -22,30 +21,17 @@ packages:
     scoop: "uutils-coreutils"
   cowsay:
   curl:
-  dua:
-    apt: "dua-cli"
-    dnf: "rust-dua-cli"
-    pacman: "dua-cli"
-  eza:
-  fastfetch:
-  fd:
-    apt: "fd-find"
   file:
     # Scoop's file cannot handle Unicode filenames. Git's file is used instead.
     __tags__: ["linux"]
   fish:
     __tags__: ["linux"]
-  fzf:
   grep:
   git:
-  git-delta:
-    apk: "delta"
-    scoop: "delta"
   kitty-terminfo:
     __tags__: ["linux"]
   less:
   neovim:
-  ripgrep:
   scoop:
     __tags__: ["windows"]
     scoop: "aria2 vcredist-aio"
@@ -56,10 +42,8 @@ packages:
     scoop: "gsudo"
   tar:
     __tags__: ["linux"]
-  tealdeer:
-  yazi:
-    pacman: "yazi ttf-nerd-fonts-symbols" # Needs `ttf-font-nerd` provider.
 
+  # GUI.
   altsnap:
     __tags__: ["gui", "windows"]
   ditto:
@@ -80,6 +64,7 @@ packages:
     __tags__: ["gui", "no-work"]
     scoop: "zen-browser"
 
+  # Gnome.
   gnome:
     __tags__: ["gnome"]
     apk: "gdm gnome-shell gnome-control-center"
@@ -97,6 +82,7 @@ packages:
     __tags__: ["gnome"]
     pacman: "mission-center nethogs"
 
+  # Virtual machine guest.
   spice-vdagent:
     __tags__: ["kvm-guest"]
     scoop: "virtio-guest-tools"
