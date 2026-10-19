@@ -41,7 +41,7 @@ def mise_self_update() -> None:
     run(MISE, "self-update --yes", out=DEVNULL)
 
     fmt(f"[good]{MISE_LINK} has been updated successfully:", end=" ")
-    fmt(f"[warn strike]{current}[/] -> [good]{latest}")
+    fmt(f"[warn][strike]{current}[/][/] -> [good]{latest}")
 
 
 def mise_bootstrap() -> None:
