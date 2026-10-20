@@ -69,6 +69,7 @@ version = "latest"
 
 [tools.miss_hit]  # Aliased.
 expose = ["miss_hit_core"]  # This exposes `mh_style` and `mh_metric`.
+uvx_args = "--quiet"
 version = "latest"
 
 [tools.node]
@@ -146,7 +147,6 @@ version = "latest"
 
 [settings]
 disable_hints = ["auto_update", "upgrade_auto_prune"]
-minimum_release_age_excludes = ["ruff", "ty", "uv"]
 node.compile = false
 disable_tools = [
   # {{ if list "alpine" "android" | has .distro -}}
