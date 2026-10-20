@@ -8,14 +8,7 @@ return {
       vim.hl.priorities.semantic_tokens = 90
       -- Configure LSP-provided diagnostics.
       vim.diagnostic.config({
-         virtual_lines = {
-            -- Show a virtual line pointing to the diagnostic for the current line.
-            current_line = true,
-         },
-         virtual_text = {
-            -- Show inline diagnostics for every line, except the current.
-            current_line = false,
-         },
+         virtual_text = true,
       })
    end,
    event = { "BufReadPre", "BufNewFile" },
