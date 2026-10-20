@@ -7,12 +7,7 @@
 # Trigger this when the packages list changes:
 # # {{ includeTemplate "packages" . | sha256sum }}
 
-"exec" "uv" "run" "-qsw" "rich" "$0"  # fmt: skip
-
-"""Install packages using `apk`.
-On `Alpine` the `env` utility does not support the `-S` flag.
-This explains the shebang and the line above.
-"""
+"""Install packages using `apk`."""
 
 from shutil import which
 
