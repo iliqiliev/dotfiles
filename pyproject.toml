@@ -6,14 +6,17 @@ requires-python = ">=3.14"
 authors = [{ name = "Iliya Iliev", email = "iliq0000@proton.me" }]
 dependencies = [
   "gnome-extensions-cli>=0.11.0; sys_platform == 'linux'",
-  "kodistubs",
-  "pygobject-stubs",
-  "requests",
-  "rich",
-  "vdf",
-  "winrt-Windows.ApplicationModel; sys_platform == 'win32'",
-  "winrt-Windows.Foundation.Collections; sys_platform == 'win32'",
-  "winrt-Windows.Management.Deployment; sys_platform == 'win32'",
+  "requests>=2.34.2",
+  "rich>=15.0.0",
+  "vdf>=3.4",
+  "winrt-Windows.ApplicationModel>=3.2.1; sys_platform == 'win32'",
+  "winrt-Windows.Foundation.Collections>=3.2.1; sys_platform == 'win32'",
+  "winrt-Windows.Management.Deployment>=3.2.1; sys_platform == 'win32'",
+]
+
+[dependency-groups]
+dev = [
+  "kodistubs>=21.0.0",
 ]
 
 [build-system]
@@ -22,7 +25,6 @@ build-backend = "uv_build"
 
 [tool.ruff]
 extension = { "py.tmpl" = "python" }
-extend-include = ["home/.chezmoiscripts/*"]
 lint.extend-select = [
   "TC",  # Type checking.
 ]
@@ -59,7 +61,6 @@ environment.root = [
 [tool.uv]
 build-backend.module-root = ""
 build-backend.module-name = ["helpers"]
-exclude-dependencies = ["pygobject"]
 environments = [
   "sys_platform == 'android' and implementation_name == 'cpython'",
   "sys_platform == 'linux' and implementation_name == 'cpython'",
