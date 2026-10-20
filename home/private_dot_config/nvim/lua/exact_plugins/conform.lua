@@ -28,9 +28,10 @@ return {
       default_format_opts = {
          async = true,
          lsp_format = "prefer",
+         timeout_ms = 3000,
       },
       format_on_save = {
-         timeout_ms = 1000,
+         timeout_ms = 3000,
       },
       formatters = {
          shfmt = {
