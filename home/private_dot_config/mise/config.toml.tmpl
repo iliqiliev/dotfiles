@@ -1,9 +1,6 @@
 # vim: filetype=toml
 # chezmoi:template:left-delimiter="# {{"
 
-[bootstrap.apt.sources]
-fish = { ppa = "fish-shell/release-4" }
-
 [bootstrap.packages]
 # Gcc.
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
@@ -11,8 +8,6 @@ fish = { ppa = "fish-shell/release-4" }
 "apt:gcc" = { version = "latest", env = ["!termux"] }  # But is available on Debian-based distros.
 "dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
-# Fish.
-"apt:fish" = "latest"
 # Nodejs.
 "apt:nodejs" = { version = "latest", env = ["termux"] }  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
 # Tree-sitter.
