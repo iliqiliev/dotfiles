@@ -1,10 +1,5 @@
 # `./conf.d` is loaded first.
 
-# Fish version < 2.3 does not load `./conf.d`.
-if not set --query FISH_LOCAL_UPGRADE
-    source ~/.config/fish/conf.d/00_upgrade.fish
-end
-
 # Add directories to `PATH`.
 fish_add_path \
     $HOME/.local/bin \

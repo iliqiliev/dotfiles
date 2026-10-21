@@ -2,19 +2,6 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ $fish := "/usr/bin/fish" -}}
-
-{{ if or (not (lookPath $fish))
-         (not (exec $fish "-c" "test (echo $version | awk -F '.' '{print $1}') -ge 4")) -}}
-[".local/bin/fish"]
-type = "archive-file"
-path = "fish"
-executable = true
-{{ $arch := includeTemplate "archRust" . -}}
-{{ $asset := print "fish-*-" .os "-" $arch ".tar.xz" -}}
-url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
-{{ end -}}
-
 {{ $fisherFuncion := ".config/fish/functions/fisher.fish" -}}
 {{ $fisherCompletions := ".config/fish/completions/fisher.fish" -}}
 
@@ -22,7 +9,9 @@ url = "{{ gitHubLatestReleaseAssetURL "fish-shell/fish-shell" $asset }}"
 ["{{ $fisherFuncion }}"]
 type = "file"
 url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
+{{ end -}}
 
+{{ if not (stat (joinPath .chezmoi.homeDir $fisherCompletions)) -}}
 ["{{ $fisherCompletions }}"]
 type = "file"
 url = "https://raw.githubusercontent.com/jorgebucaran/fisher/main/completions/fisher.fish"

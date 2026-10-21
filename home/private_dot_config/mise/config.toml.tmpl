@@ -1,6 +1,9 @@
 # vim: filetype=toml
 # chezmoi:template:left-delimiter="# {{"
 
+[bootstrap.apt.sources]
+fish = { ppa = "fish-shell/release-4" }
+
 [bootstrap.packages]
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
 "apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
@@ -13,6 +16,7 @@
 # {{ end -}}
 "dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
+"apt:fish" = "latest"
 
 [bootstrap.user]
 login_shell = "/usr/bin/fish"
