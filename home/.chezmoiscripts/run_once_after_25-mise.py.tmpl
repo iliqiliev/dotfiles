@@ -45,6 +45,16 @@ def mise_self_update() -> None:
     fmt(f"[warn][strike]{current}[/][/] -> [good]{latest}")
 
 
+def mise_prepare_fish() -> None:
+    """Prepare `fish` so that it can be used as a login shell."""
+    cmd = (MISE, "install fish --dry-run-code --quiet")
+    if not run(*cmd, check=False).returncode:
+        return
+
+    fmt("[info]Installing [i]fish[/] ...")
+    run(MISE, "install fish")
+
+
 def mise_bootstrap_user() -> None:
     """Install bootstrap packages with `mise`."""
     cmd = (MISE, "bootstrap user status --missing")
@@ -73,8 +83,8 @@ def mise_bootstrap_packages() -> None:
 
 def mise_install() -> None:
     """Install `mise` tools."""
-    cmd = (MISE, "install --dry-run-code")
-    if not run(*cmd, check=False, err=DEVNULL).returncode:
+    cmd = (MISE, "install --dry-run-code --quiet")
+    if not run(*cmd, check=False).returncode:
         return
 
     fmt(f"[info]Installing {MISE_LINK} tools ...")
@@ -82,7 +92,10 @@ def mise_install() -> None:
 
 
 def __mise_bootstrap_android__() -> None:
-    """`Mise` tries to use `sudo` on `Termux` but fails. This is a workaround."""
+    """`Mise` tries to use `sudo` on `Termux` but fails.
+
+    This is a workaround until `mise` supports `Termux` properly.
+    """
     cmd = (MISE, "bootstrap packages status --json")
     packages = json_loads(run(*cmd, out=PIPE).stdout)
 

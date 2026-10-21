@@ -20,7 +20,7 @@ fish = { ppa = "fish-shell/release-4" }
 "apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 
 [bootstrap.user]
-login_shell = "/usr/bin/fish"
+login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"
 
 [env]
 HOME = { default = "$USERPROFILE" }
@@ -32,6 +32,7 @@ XDG_STATE_HOME = "$HOME/.local/state"
 
 [tool_alias]
 bashls = "npm:bash-language-server"
+fish = "aqua:fish-shell/fish-shell"
 fish-lsp = "npm:fish-lsp"
 miss_hit = "pypi:miss_hit"
 sqruff = "aqua:quarylabs/sqruff"
@@ -61,6 +62,10 @@ version = "latest"
 version = "latest"
 
 [tools.fd]
+version = "latest"
+
+[tools.fish]
+os = ["unix"]
 version = "latest"
 
 [tools.fish-lsp]  # Aliased.
