@@ -5,18 +5,19 @@
 fish = { ppa = "fish-shell/release-4" }
 
 [bootstrap.packages]
+# Gcc.
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
-"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
-# {{ if eq .distro "android" -}}
-"apt:clang" = "latest"  # `gcc` is not available on Termux.
-"apt:nodejs" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
-"apt:tree-sitter" = "latest"  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
-# {{ else -}}
-"apt:gcc" = "latest"
-# {{ end -}}
+"apt:clang" = { version = "latest", env = ["termux"] }  # `gcc` is not available on Termux.
+"apt:gcc" = { version = "latest", env = ["!termux"] }  # But is available on Debian-based distros.
 "dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
+# Fish.
 "apt:fish" = "latest"
+# Nodejs.
+"apt:nodejs" = { version = "latest", env = ["termux"] }  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
+# Tree-sitter.
+"apt:tree-sitter" = { version = "latest", env = ["termux"] }  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
+"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 
 [bootstrap.user]
 login_shell = "/usr/bin/fish"
