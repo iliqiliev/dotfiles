@@ -2,8 +2,8 @@
 
 # Add directories to `PATH`.
 fish_add_path \
-    $HOME/.local/bin \
     $HOME/.local/share/mise/shims \
+    $HOME/.local/bin \
     /var/lib/flatpak/exports/bin
 
 # `less` variables.
