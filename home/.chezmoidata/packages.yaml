@@ -23,8 +23,6 @@ packages:
   file:
     # Scoop's file cannot handle Unicode filenames. Git's file is used instead.
     __tags__: ["linux"]
-  fish:
-    __tags__: ["linux"]
   grep:
   git:
   kitty-terminfo:
