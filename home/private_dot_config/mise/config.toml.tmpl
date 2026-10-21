@@ -159,8 +159,9 @@ version = "latest"
 [settings]
 all_compile = false  # This will become the default in `v2027.8.0`.
 disable_hints = [
-  "auto_update",
-  "upgrade_auto_prune",
+  "auto_update",  # Hints about the ability to enable `mise` to self-update automatically.
+  "system_packages_missing",  # Hints about missing bootstrap packages.
+  "upgrade_auto_prune",  # Hints about the ability to disable auto-prunning.
 ]
 disable_tools = [
   # {{ if list "alpine" "android" | has .distro -}}
