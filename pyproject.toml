@@ -40,12 +40,17 @@ src = [
 files.include = [
   "**/*.toml",
   "**/mise/config.toml.tmpl",
+  "**/mise/miserc.toml.tmpl",
   "**/uv/uv.toml.tmpl",
 ]
 
 [[tool.tombi.schemas]]
 path = "https://mise.jdx.dev/schema/mise.json"
 include = ["**/mise/config.toml.tmpl"]
+
+[[tool.tombi.schemas]]
+path = "https://raw.githubusercontent.com/jdx/mise/refs/heads/main/schema/miserc.json"
+include = ["**/mise/miserc.toml.tmpl"]
 
 [[tool.tombi.schemas]]
 path = "https://www.schemastore.org/uv.json"

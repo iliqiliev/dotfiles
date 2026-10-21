@@ -1,0 +1,15 @@
+# vim: filetype=toml
+# chezmoi:template:left-delimiter="# {{"
+
+# {{ $envList := list -}}
+# {{ if eq .distro "android" -}}
+# {{   $envList = append $envList "termux" }}
+# {{ else -}}
+# {{   $envList = append $envList "!termux" -}}
+# {{ end -}}
+
+env = [
+  # {{ range $envList -}}
+  "# {{ . }}",
+  # {{ end -}}
+]
