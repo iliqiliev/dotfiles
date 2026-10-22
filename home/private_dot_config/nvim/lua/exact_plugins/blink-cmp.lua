@@ -5,6 +5,12 @@ return {
    "https://github.com/saghen/blink.cmp",
    ---@type blink.cmp.Config
    opts = {
+      completion = {
+         documentation = {
+            -- Show documentation for completion suggestions.
+            auto_show = true,
+         },
+      },
       keymap = {
          preset = "default",
          ["<C-s>"] = { "show", "show_documentation", "hide_documentation" }, -- [s]how.
