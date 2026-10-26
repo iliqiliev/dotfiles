@@ -31,7 +31,7 @@ YAZI_CONFIG_HOME = "$XDG_CONFIG_HOME/yazi"
 YAZI_FILE_ONE = "{% if os() == 'windows' %}{{ vars.git_root }}/usr/bin/file{% else %}file{% endif %}"
 
 [tool_alias]
-bashls = "npm:bash-language-server"
+bash-language-server = "npm:bash-language-server"
 fish = "aqua:fish-shell/fish-shell"
 fish-lsp = "npm:fish-lsp"
 miss_hit = "pypi:miss_hit"
@@ -40,7 +40,7 @@ tclint = "pypi:tclint"
 yaml-language-server = "npm:yaml-language-server"
 
 [tools]
-bashls = "latest"  # Aliased.
+bash-language-server = "latest"  # Aliased.
 bat = "latest"
 chezmoi = "latest"
 delta = "latest"
