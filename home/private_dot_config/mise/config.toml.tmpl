@@ -40,7 +40,7 @@ tclint = "pypi:tclint"
 yaml-language-server = "npm:yaml-language-server"
 
 [tools]
-bashls = { version = "latest", depends = "node" }  # Aliased.
+bashls = "latest"  # Aliased.
 bat = "latest"
 chezmoi = "latest"
 delta = "latest"
@@ -49,15 +49,15 @@ eza = "latest"
 fastfetch = "latest"
 fd = "latest"
 fish = { version = "latest", os = "unix" }  # Aliased.
-fish-lsp = { version = "latest", depends = ["fish", "node"], os = "unix" }  # Aliased.
+fish-lsp = { version = "latest", os = "unix" }  # Aliased.
 fzf = "latest"
 lazygit = "latest"
-lua-language-server = { version = "latest" }
+lua-language-server = "latest"
 miss_hit = { version = "latest", expose = "miss_hit_core", uvx_args = "--quiet" }  # Aliased.
 node = "latest"
 pandoc = "latest"
 ripgrep = "latest"
-ripgrep-all = { version = "latest", depends = "pandoc", os = "unix" }
+ripgrep-all = { version = "latest", os = "unix" }
 ruff = "latest"
 rumdl = "latest"
 shellcheck = "latest"
@@ -73,9 +73,9 @@ tree-sitter = "latest"
 ty = "latest"
 usage = "latest"
 uv = { path = "~/.local/bin" }
-yaml-language-server = { version = "latest", depends = "node" }  # Aliased.
+yaml-language-server = "latest"  # Aliased.
 yazi = "latest"
-zoxide = { version = "latest", depends = "fzf" }
+zoxide = "latest"
 
 [settings]
 all_compile = false  # This will become the default in `v2027.8.0`.
