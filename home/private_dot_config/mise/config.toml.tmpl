@@ -20,10 +20,10 @@ login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"
 [env]
 HOME = { default = "$USERPROFILE" }
 # XDG User Directories:
-XDG_CACHE_HOME = "$HOME/.cache"
-XDG_CONFIG_HOME = "$HOME/.config"
-XDG_DATA_HOME = "$HOME/.local/share"
-XDG_STATE_HOME = "$HOME/.local/state"
+XDG_CACHE_HOME = { default = "$HOME/.cache" }
+XDG_CONFIG_HOME = { default = "$HOME/.config" }
+XDG_DATA_HOME = { default = "$HOME/.local/share" }
+XDG_STATE_HOME = { default = "$HOME/.local/state" }
 # Needed on Windows.
 BAT_CONFIG_DIR = "$XDG_CONFIG_HOME/bat"
 TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer"
