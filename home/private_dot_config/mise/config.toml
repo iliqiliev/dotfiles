@@ -1,6 +1,3 @@
-# vim: filetype=toml
-# chezmoi:template:left-delimiter="# {{"
-
 # The minimum version of `mise` required to use this config.
 min_version = "2026.10.18"
 
