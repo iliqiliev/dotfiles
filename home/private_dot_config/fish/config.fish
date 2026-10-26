@@ -6,9 +6,6 @@ fish_add_path \
     $HOME/.local/bin \
     /var/lib/flatpak/exports/bin
 
-# `less` variables.
-set --export PAGER less
-set --export LESS "-FMRXix4 --mouse --use-color --wheel-lines=3"
 
 # `neovim` variables.
 if command --query nvim
