@@ -1,8 +1,11 @@
 [bootstrap.packages]
+# mise doesn't install the musl version on Alpine.
+"apk:chezmoi" = "latest"
 # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 "apk:tree-sitter-cli" = "latest"
 
 [settings]
 disable_tools = [
+  "chezmoi",
   "tree-sitter",
 ]
