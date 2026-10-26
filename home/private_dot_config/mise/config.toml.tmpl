@@ -28,6 +28,7 @@ XDG_STATE_HOME = "$HOME/.local/state"
 BAT_CONFIG_DIR = "$XDG_CONFIG_HOME/bat"
 TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer"
 YAZI_CONFIG_HOME = "$XDG_CONFIG_HOME/yazi"
+YAZI_FILE_ONE = "{% if os() == 'windows' %}{{ vars.git_root }}/usr/bin/file{% else %}file{% endif %}"
 
 [tool_alias]
 bashls = "npm:bash-language-server"
@@ -91,3 +92,6 @@ disable_tools = [
   "node",
   # {{ end -}}
 ]
+
+[vars]
+git_root = "${GIT_INSTALL_ROOT:-$HOME/scoop/apps/git/current}"
