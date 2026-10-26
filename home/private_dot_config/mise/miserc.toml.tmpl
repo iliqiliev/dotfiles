@@ -2,10 +2,13 @@
 # chezmoi:template:left-delimiter="# {{"
 
 # {{ $envList := list -}}
+# {{ if eq .distro alpine -}}
+# {{   $env_list = append $envList "alpine" -}}
+# {{ end -}}
 # {{ if eq .distro "android" -}}
-# {{   $envList = append $envList "termux" }}
+# {{   $envList = append $envList "android" }}
 # {{ else -}}
-# {{   $envList = append $envList "!termux" -}}
+# {{   $envList = append $envList "!android" -}}
 # {{ end -}}
 
 env = [

@@ -4,15 +4,10 @@
 [bootstrap.packages]
 # Gcc.
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
-"apt:clang" = { version = "latest", env = ["termux"] }  # `gcc` is not available on Termux.
-"apt:gcc" = { version = "latest", env = ["!termux"] }  # But is available on Debian-based distros.
+"apt:clang" = { version = "latest", env = "android" }  # `gcc` is not available on Termux.
+"apt:gcc" = { version = "latest", env = "!android" }  # But is available on Debian-based distros.
 "dnf:gcc" = "latest"
 "pacman:gcc" = "latest"
-# Nodejs.
-"apt:nodejs" = { version = "latest", env = ["termux"] }  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
-# Tree-sitter.
-"apt:tree-sitter" = { version = "latest", env = ["termux"] }  # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
-"apk:tree-sitter-cli" = "latest"  # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 
 [bootstrap.user]
 login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"
@@ -83,14 +78,6 @@ disable_hints = [
   "auto_update",  # Hints about the ability to enable `mise` to self-update automatically.
   "system_packages_missing",  # Hints about missing bootstrap packages.
   "upgrade_auto_prune",  # Hints about the ability to disable auto-prunning.
-]
-disable_tools = [
-  # {{ if list "alpine" "android" | has .distro -}}
-  "tree-sitter",
-  # {{ end -}}
-  # {{ if list "android" | has .distro -}}
-  "node",
-  # {{ end -}}
 ]
 
 [vars]

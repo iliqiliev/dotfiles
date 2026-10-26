@@ -1,0 +1,8 @@
+[bootstrap.packages]
+# mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
+"apk:tree-sitter-cli" = "latest"
+
+[settings]
+disable_tools = [
+  "tree-sitter",
+]
