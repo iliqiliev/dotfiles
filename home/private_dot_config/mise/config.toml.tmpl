@@ -1,6 +1,13 @@
 # vim: filetype=toml
 # chezmoi:template:left-delimiter="# {{"
 
+# The minimum version of `mise` required to use this config.
+min_version = "2026.10.18"
+
+[bootstrap.hooks.pre-user]
+run = ["{{ mise_bin }} install fish"]
+run_windows = []
+
 [bootstrap.packages]
 # Gcc.
 "apk:build-base" = "latest"  # Just `gcc` is not enough.
