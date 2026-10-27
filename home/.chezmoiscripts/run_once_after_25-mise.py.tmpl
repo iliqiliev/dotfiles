@@ -10,11 +10,9 @@
 """Set up a development environment using `mise`."""
 
 from json import loads as json_loads
-from pathlib import Path
 
 from helpers import DEVNULL, PIPE, fmt, run
 
-MISE = Path.home() / ".local/bin/mise"
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 
@@ -24,7 +22,7 @@ def main() -> None:
 
 
 def mise_self_update() -> None:
-    output = run(MISE, "version --json", out=PIPE).stdout
+    output = run("mise version --json", out=PIPE).stdout
     version_info: dict[str, str] = json_loads(output)
 
     current = f"v{version_info['version'].split()[0]}"
@@ -34,7 +32,7 @@ def mise_self_update() -> None:
         return
 
     fmt(f"[info]Downloading {MISE_LINK} update ...")
-    run(MISE, "self-update --yes", out=DEVNULL)
+    run("mise self-update --yes", out=DEVNULL)
 
     fmt(f"[good]{MISE_LINK} has been updated successfully:", end=" ")
     fmt(f"[warn][strike]{current}[/][/] -> [good]{latest}")
@@ -42,12 +40,11 @@ def mise_self_update() -> None:
 
 def mise_bootstrap() -> None:
     """Perform full bootstrap with `mise`."""
-    cmd = (MISE, "bootstrap status --missing")
-    if not run(*cmd, check=False, out=DEVNULL).returncode:
+    if not run("mise bootstrap status --missing", check=False, out=DEVNULL).returncode:
         return
 
     fmt(f"[info]Performing {MISE_LINK} bootstrap ...")
-    run(MISE, "bootstrap user apply --yes")
+    run("mise bootstrap user apply --yes")
     fmt(f"[good]{MISE_LINK} bootstrap completed successfully.")
 
 
