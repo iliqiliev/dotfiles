@@ -5,10 +5,7 @@
 "apt:tree-sitter" = "latest"
 
 [settings]
-disable_tools = [
-  "node",
-  "tree-sitter",
-]
+disable_tools = ["node", "tree-sitter"]
 
 [settings.system_packages]
 elevate_with = "env"
