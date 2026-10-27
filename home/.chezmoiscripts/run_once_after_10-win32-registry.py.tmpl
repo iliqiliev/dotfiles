@@ -113,7 +113,7 @@ def main() -> None:
     # Autostart `AltSnap`. Written like this to be adopted by AltSnap's GUI.
     registry_set(AUTORUN, "AltSnap", rf'"{which("AltSnap.exe")}"')
     # Autostart `Ditto`.
-    registry_set(AUTORUN, "Ditto", "Ditto.exe")
+    registry_set(AUTORUN, "Ditto", which("Ditto") or "Ditto")
 
     # Disable Bing in Start search.
     registry_set(SEARCH, "BingSearchEnabled", 0)
