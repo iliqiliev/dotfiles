@@ -5,6 +5,26 @@ return {
    event = { "BufNewFile", "BufReadPost", "BufWritePre" },
    keys = {
       {
+         "]h",
+         "<cmd>Gitsigns nav_hunk next<cr>",
+         desc = "Next hunk",
+      },
+      {
+         "]H",
+         "<cmd>Gitsigns nav_hunk last<cr>",
+         desc = "Last hunk",
+      },
+      {
+         "[h",
+         "<cmd>Gitsigns nav_hunk prev<cr>",
+         desc = "Prev hunk",
+      },
+      {
+         "[H",
+         "<cmd>Gitsigns nav_hunk first<cr>",
+         desc = "First hunk",
+      },
+      {
          "<leader>gph", -- [g]it [p]review [h]unk.
          "<cmd>Gitsigns preview_hunk_inline<cr>",
          desc = "Preview hunk",
