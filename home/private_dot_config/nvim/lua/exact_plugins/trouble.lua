@@ -4,19 +4,19 @@ return {
    cmd = "Trouble",
    keys = {
       {
-         "<leader>xx",
-         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-         desc = "Diagnostics",
-      },
-      {
          "<leader>xX",
          "<cmd>Trouble diagnostics toggle<cr>",
          desc = "Diagnostics (workspace)",
       },
       {
-         "<leader>cs", -- [c]ode [s]ymbols.
-         "<cmd>Trouble symbols toggle focus=false<cr>",
-         desc = "Symbols",
+         "<leader>xx",
+         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+         desc = "Diagnostics",
+      },
+      {
+         "<leader>cd", -- [c]ode [d]efinition.
+         "<cmd>Trouble lsp_definitions<cr>",
+         desc = "Object definition",
       },
       {
          "<leader>ci", -- [c]ode [i]nformation.
@@ -24,14 +24,14 @@ return {
          desc = "Object information",
       },
       {
-         "<leader>xL",
-         "<cmd>Trouble loclist toggle<cr>",
-         desc = "Location list",
+         "<leader>cs", -- [c]ode [s]ymbols.
+         "<cmd>Trouble symbols toggle focus=false<cr>",
+         desc = "Symbols",
       },
       {
-         "<leader>xQ",
-         "<cmd>Trouble qflist toggle<cr>",
-         desc = "Quickfix list",
+         "<leader>ct", -- [c]ode [t]ype.
+         "<cmd>Trouble lsp_type_definitions<cr>",
+         desc = "Object type definition",
       },
    },
    opts = {},
