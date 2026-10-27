@@ -1,3 +1,10 @@
+# vim: filetype=conf
+# chezmoi:template:left-delimiter="# {{"
+
+# {{ if eq .os "windows" -}}
+# {{   abortEmpty -}}
+# {{ end -}}
+
 MANGOHUD="1"
 PROTON_ENABLE_HDR="1"
 PROTON_ENABLE_WAYLAND="1"
