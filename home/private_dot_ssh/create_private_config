@@ -1,4 +1,4 @@
 # vim: filetype=sshconfig
 
 Host *
-    SendEnv BAT_THEME
+    SendEnv BAT_THEME COLORFGBG
