@@ -8,7 +8,7 @@ dependencies = [
   "gnome-extensions-cli>=0.11.0; sys_platform == 'linux'",
   "requests>=2.34.2",
   "rich>=15.0.0",
-  "vdf>=3.4",
+  "vdf>=3.4; sys_platform == 'linux'",
   "winrt-Windows.ApplicationModel>=3.2.1; sys_platform == 'win32'",
   "winrt-Windows.Foundation.Collections>=3.2.1; sys_platform == 'win32'",
   "winrt-Windows.Management.Deployment>=3.2.1; sys_platform == 'win32'",

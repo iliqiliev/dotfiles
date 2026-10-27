@@ -1,5 +1,5 @@
 # chezmoi:template:left-delimiter="# {{"
-# {{ if or (not .manageGui) (.isWork) -}}
+# {{ if or (ne .os "linux") (not .manageGui) (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger this script based on the current Steam root directories found:
