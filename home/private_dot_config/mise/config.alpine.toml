@@ -1,10 +1,12 @@
 [bootstrap.packages]
-# Fixes tools like `chezmoi` or `fastfetch`.
+# Needed for `node`.
+"apk:bash" = "latest"
+# Fixes tools like `chezmoi`, `fastfetch`, `lua-language-server`.
 "apk:gcompat" = "latest"
+# Contains `chsh`, needed by `mise` to change the default shell.
+"apk:shadow" = "latest"
 # mise's version cannot find `/lib64/ld-linux-x86-64.so.2`.
 "apk:tree-sitter-cli" = "latest"
 
 [settings]
-disable_tools = [
-  "tree-sitter",
-]
+disable_tools = ["tree-sitter"]
