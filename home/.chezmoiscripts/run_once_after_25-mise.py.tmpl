@@ -10,10 +10,9 @@
 """Set up a development environment using `mise`."""
 
 from json import loads as json_loads
-from os import environ as env
 from pathlib import Path
 
-from helpers import CHEZMOI_DATA, DEVNULL, PIPE, fmt, run
+from helpers import DEVNULL, PIPE, fmt, run
 
 MISE = Path.home() / ".local/bin/mise"
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
@@ -21,10 +20,7 @@ MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 def main() -> None:
     mise_self_update()
-    mise_prepare_fish()
-    mise_bootstrap_user()
-    mise_bootstrap_packages()
-    mise_install()
+    mise_bootstrap()
 
 
 def mise_self_update() -> None:
@@ -44,70 +40,15 @@ def mise_self_update() -> None:
     fmt(f"[warn][strike]{current}[/][/] -> [good]{latest}")
 
 
-def mise_prepare_fish() -> None:
-    """Prepare `fish` so that it can be used as a login shell."""
-    cmd = (MISE, "install fish --dry-run-code --quiet")
-    if not run(*cmd, check=False).returncode:
-        return
-
-    fmt("[info]Installing [i]fish[/] ...")
-    run(MISE, "install fish")
-
-
-def mise_bootstrap_user() -> None:
-    """Install bootstrap packages with `mise`."""
-    cmd = (MISE, "bootstrap user status --missing")
+def mise_bootstrap() -> None:
+    """Perform full bootstrap with `mise`."""
+    cmd = (MISE, "bootstrap status --missing")
     if not run(*cmd, check=False, out=DEVNULL).returncode:
         return
 
-    fmt("[info]Changing default shell to [i]fish[/] ...")
+    fmt(f"[info]Performing {MISE_LINK} bootstrap ...")
     run(MISE, "bootstrap user apply --yes")
-
-
-def mise_bootstrap_packages() -> None:
-    """Install bootstrap packages with `mise`."""
-    cmd = (MISE, "bootstrap packages status --missing")
-    if not run(*cmd, check=False, out=DEVNULL).returncode:
-        return
-
-    fmt(f"[info]Installing {MISE_LINK} bootstrap packages ...")
-
-    if CHEZMOI_DATA["distro"] == "android":
-        __mise_bootstrap_android__()
-    else:
-        run(MISE, "bootstrap packages apply --yes")
-
-    fmt("[good]Bootstrap packages installed successfully.")
-
-
-def mise_install() -> None:
-    """Install `mise` tools."""
-    cmd = (MISE, "install --dry-run-code --quiet")
-    if not run(*cmd, check=False).returncode:
-        return
-
-    fmt(f"[info]Installing {MISE_LINK} tools ...")
-    run(MISE, "install")
-
-
-def __mise_bootstrap_android__() -> None:
-    """`Mise` tries to use `sudo` on `Termux` but fails.
-
-    This is a workaround until `mise` supports `Termux` properly.
-    """
-    cmd = (MISE, "bootstrap packages status --json")
-    packages = json_loads(run(*cmd, out=PIPE).stdout)
-
-    rename = {"gcc": "clang"}
-    missing_packages: set[str] = {
-        rename.get(pkg["package"], pkg["package"])
-        for pkg in packages["apt"]["packages"]
-        if pkg["state"] == "missing"
-    }
-
-    env["DEBIAN_FRONTEND"] = "noninteractive"
-    run("apt update", out=DEVNULL, err=DEVNULL)
-    run("apt install --yes", *missing_packages)
+    fmt(f"[good]{MISE_LINK} bootstrap completed successfully.")
 
 
 if __name__ == "__main__":
