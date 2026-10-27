@@ -6,7 +6,8 @@ requires-python = ">=3.14"
 authors = [{ name = "Iliya Iliev", email = "iliq0000@proton.me" }]
 dependencies = [
   "gnome-extensions-cli>=0.11.0; sys_platform == 'linux'",
-  "requests>=2.34.2",
+  "python-dotenv>=1.2.4; sys_platform == 'win32'",
+  "requests>=2.34.2; sys_platform == 'win32'",
   "rich>=15.0.0",
   "vdf>=3.4; sys_platform == 'linux'",
   "winrt-Windows.ApplicationModel>=3.2.1; sys_platform == 'win32'",
