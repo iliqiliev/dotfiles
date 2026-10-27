@@ -5,6 +5,11 @@ return {
    event = { "BufNewFile", "BufReadPost", "BufWritePre" },
    keys = {
       {
+         "<leader>gph", -- [g]it [p]review [h]unk.
+         "<cmd>Gitsigns preview_hunk_inline<cr>",
+         desc = "Preview hunk",
+      },
+      {
          "<leader>gsh", -- [g]it [s]tage [h]unk.
          "<cmd>Gitsigns stage_hunk<cr>",
          desc = "Stage hunk",
