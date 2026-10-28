@@ -24,6 +24,11 @@ return {
          desc = "Object information",
       },
       {
+         "<leader>cr", -- [c]ode [r]eferences.
+         "<cmd>Trouble lsp_references<cr>",
+         desc = "Object references",
+      },
+      {
          "<leader>cs", -- [c]ode [s]ymbols.
          "<cmd>Trouble symbols toggle focus=false<cr>",
          desc = "Symbols",
