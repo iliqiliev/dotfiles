@@ -11,6 +11,7 @@ return {
          { "<leader>c", group = "Code" },
          { "<leader>f", group = "Find" },
          { "<leader>g", group = "Git" },
+         { "<leader>gp", group = "Preview" },
          { "<leader>gs", group = "Stage" },
          { "<leader>gu", group = "Unstage" },
          { "<leader>gr", group = "Reset" },
