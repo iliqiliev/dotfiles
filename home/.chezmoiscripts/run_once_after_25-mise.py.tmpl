@@ -44,7 +44,7 @@ def mise_bootstrap() -> None:
         return
 
     fmt(f"[info]Performing {MISE_LINK} bootstrap ...")
-    run("mise bootstrap user apply --yes")
+    run("mise bootstrap --yes")
     fmt(f"[good]{MISE_LINK} bootstrap completed successfully.")
 
 
