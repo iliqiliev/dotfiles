@@ -1,0 +1,5 @@
+[env]
+BAT_CONFIG_DIR = "$XDG_CONFIG_HOME/bat"
+TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer"
+YAZI_CONFIG_HOME = "$XDG_CONFIG_HOME/yazi"
+YAZI_FILE_ONE = "${GIT_INSTALL_ROOT:-$USERPROFILE/scoop/apps/git/current}/usr/bin/file"

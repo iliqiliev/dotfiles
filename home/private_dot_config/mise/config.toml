@@ -23,11 +23,6 @@ XDG_CACHE_HOME = { default = "$HOME/.cache" }
 XDG_CONFIG_HOME = { default = "$HOME/.config" }
 XDG_DATA_HOME = { default = "$HOME/.local/share" }
 XDG_STATE_HOME = { default = "$HOME/.local/state" }
-# Needed on Windows.
-BAT_CONFIG_DIR = "$XDG_CONFIG_HOME/bat"
-TEALDEER_CONFIG_DIR = "$XDG_CONFIG_HOME/tealdeer"
-YAZI_CONFIG_HOME = "$XDG_CONFIG_HOME/yazi"
-YAZI_FILE_ONE = "{% if os() == 'windows' %}{{ vars.git_root }}/usr/bin/file{% else %}file{% endif %}"
 
 [tool_alias]
 bash-language-server = "npm:bash-language-server"
@@ -84,6 +79,3 @@ disable_hints = [
   "system_packages_missing",  # Hints about missing bootstrap packages.
   "upgrade_auto_prune",  # Hints about the ability to disable auto-prunning.
 ]
-
-[vars]
-git_root = "${GIT_INSTALL_ROOT:-$HOME/scoop/apps/git/current}"
