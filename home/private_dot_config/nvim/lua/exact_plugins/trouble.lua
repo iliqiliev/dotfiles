@@ -24,7 +24,7 @@ return {
          desc = "Object information",
       },
       {
-         "<leader>cr", -- [c]ode [r]eferences.
+         "<leader>cR", -- [c]ode [R]eferences.
          "<cmd>Trouble lsp_references<cr>",
          desc = "Object references",
       },
