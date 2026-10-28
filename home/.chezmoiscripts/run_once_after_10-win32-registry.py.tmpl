@@ -44,9 +44,9 @@ def main() -> None:
     fmt("[info]Setting registry settings ...")
 
     # Add directories to `%PATH%`.
-    registry_path_append(r"%USERPROFILE%\.local\share\mise\shims")
-    registry_path_append(r"%USERPROFILE%\.local\bin")
-    registry_path_append(rf"{env['USERPROFILE']}\scoop\shims")
+    registry_path_prepend(rf"{env['USERPROFILE']}\scoop\shims")
+    registry_path_prepend(r"%USERPROFILE%\.local\bin")
+    registry_path_prepend(r"%USERPROFILE%\.local\share\mise\shims")
 
     # Set keyboard layouts.
     registry_set_many_data(
@@ -145,20 +145,19 @@ def registry_set_many_data(
         registry_set(path, name, data)
 
 
-def registry_path_append(new_path: str) -> None:
+def registry_path_prepend(new_path: str) -> None:
     """Add `new_path` to `%PATH%` if not already present."""
     with CreateKey(HKEY_CURRENT_USER, "Environment") as key:
         old_path, path_type = cast("tuple[str, int]", QueryValueEx(key, "Path"))
 
         if path_type != REG_EXPAND_SZ:
-            error = TypeError("'PATH' type is not 'REG_EXPAND_SZ'.")
-            raise error
+            raise TypeError("'PATH' type is not 'REG_EXPAND_SZ'.")
 
         for part in old_path.split(";"):
             if ExpandEnvironmentStrings(new_path) == ExpandEnvironmentStrings(part):
                 return
 
-        new_path = f"{old_path.rstrip(';')};{new_path}"
+        new_path = f"{new_path};{old_path}".rstrip(";")
 
         SetValueEx(key, "Path", 0, REG_EXPAND_SZ, new_path)
 
