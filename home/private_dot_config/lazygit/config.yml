@@ -3,6 +3,8 @@
 git:
   diffRenderers:
     - command: delta --{{colorScheme}} --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+    - type: extDiff
+      command: difft --color=always --background={{colorScheme}} --context={{diffContext}}
 
 gui:
   nerdFontsVersion: "3"

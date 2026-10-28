@@ -43,6 +43,7 @@ bash-language-server = "latest"  # Aliased.
 bat = "latest"
 chezmoi = "latest"
 delta = "latest"
+difftastic = "latest"
 dua = "latest"
 eza = "latest"
 fastfetch = "latest"
