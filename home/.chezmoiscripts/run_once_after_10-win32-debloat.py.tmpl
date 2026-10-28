@@ -59,8 +59,8 @@ async def main() -> None:
     fmt("[info]Removing bloat packages ...")
 
     installed_packages = {
-        pkg.id.name: pkg
-        for pkg in package_manager.find_packages_by_user_security_id("")
+        package.id.name: package
+        for package in package_manager.find_packages_for_user("")
     }
 
     removed: int = 0
