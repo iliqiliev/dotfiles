@@ -8,3 +8,5 @@ git:
 
 gui:
   nerdFontsVersion: "3"
+  showBottomLine: false
+  showNumstatInFilesView: true
