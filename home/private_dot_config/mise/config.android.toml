@@ -4,6 +4,10 @@
 # mise's version cannot find `/lib/ld-musl-aarch64.so.1`.
 "apt:tree-sitter" = "latest"
 
+[env]
+# This fixes `uv` trying to install broken Python versions.
+UV_PYTHON_PREFERENCE = "only-system"
+
 [settings]
 disable_tools = ["node", "tree-sitter"]
 
