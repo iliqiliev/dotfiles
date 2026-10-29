@@ -24,6 +24,14 @@ XDG_CONFIG_HOME = { default = "$HOME/.config" }
 XDG_DATA_HOME = { default = "$HOME/.local/share" }
 XDG_STATE_HOME = { default = "$HOME/.local/state" }
 
+[settings]
+all_compile = false  # This will become the default in `v2027.8.0`.
+disable_hints = [
+  "auto_update",  # Hints about the ability to enable `mise` to self-update automatically.
+  "system_packages_missing",  # Hints about missing bootstrap packages.
+  "upgrade_auto_prune",  # Hints about the ability to disable auto-prunning.
+]
+
 [tool_alias]
 bash-language-server = "npm:bash-language-server"
 fish = "aqua:fish-shell/fish-shell"
@@ -71,11 +79,3 @@ uv = "latest"
 yaml-language-server = "latest"  # Aliased.
 yazi = "latest"
 zoxide = "latest"
-
-[settings]
-all_compile = false  # This will become the default in `v2027.8.0`.
-disable_hints = [
-  "auto_update",  # Hints about the ability to enable `mise` to self-update automatically.
-  "system_packages_missing",  # Hints about missing bootstrap packages.
-  "upgrade_auto_prune",  # Hints about the ability to disable auto-prunning.
-]
