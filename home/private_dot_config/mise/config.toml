@@ -67,7 +67,7 @@ topgrade = "latest"
 tree-sitter = "latest"
 ty = "latest"
 usage = "latest"
-uv = { path = "~/.local/bin" }
+uv = "latest"
 yaml-language-server = "latest"  # Aliased.
 yazi = "latest"
 zoxide = "latest"
