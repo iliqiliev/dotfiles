@@ -11,7 +11,7 @@
 {{   $ext = "zip" -}}
 {{ end -}}
 
-{{ if glob ".local/bin/mise*" -}}
+{{ if glob "{{ $path }}/{{ $mise }}" -}}
 {{/* If `mise` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
 {{ end -}}
