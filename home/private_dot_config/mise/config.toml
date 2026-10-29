@@ -1,5 +1,5 @@
 # The minimum version of `mise` required to use this config.
-min_version = "2026.10.18"
+min_version = "2026.10.22"
 
 [bootstrap.hooks.pre-user]
 run = ["{{ mise_bin }} install fish"]

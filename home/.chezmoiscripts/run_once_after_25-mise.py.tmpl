@@ -25,8 +25,8 @@ def mise_self_update() -> None:
     output = run("mise version --json", out=PIPE).stdout
     version_info: dict[str, str] = json_loads(output)
 
-    current = mise_version(version_info["version"].split()[0])
-    latest = mise_version(version_info["latest"])
+    current = version_info["version"].split()[0]
+    latest = version_info["latest"]
 
     if current >= latest:
         return
@@ -46,11 +46,6 @@ def mise_bootstrap() -> None:
     fmt(f"[info]Performing {MISE_LINK} bootstrap ...")
     run("mise bootstrap --yes")
     fmt(f"[good]{MISE_LINK} bootstrap completed successfully.")
-
-
-def mise_version(version: str) -> tuple[int, int, int]:
-    year, month, release = map(int, version.split("."))
-    return (year, month, release)
 
 
 if __name__ == "__main__":
