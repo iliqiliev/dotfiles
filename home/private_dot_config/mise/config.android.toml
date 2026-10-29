@@ -8,12 +8,12 @@
 # This fixes `uv` trying to install broken Python versions.
 UV_PYTHON_PREFERENCE = "only-system"
 
-[tools]
-uv = { version = "latest", postinstall = "pkg install --yes -- python" }
-
 [settings]
 disable_tools = ["node", "tree-sitter"]
 
 [settings.system_packages]
 # `mise` tries to use `sudo` otherwise.
 elevate_with = ""
+
+[tools]
+uv = { version = "latest", postinstall = "pkg install --yes -- python" }
