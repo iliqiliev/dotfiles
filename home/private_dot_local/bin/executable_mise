@@ -8,4 +8,6 @@ if ! command -v proot >/dev/null; then
     pkg install -y proot
 fi
 
+export SSL_CERT_FILE="$PREFIX"/etc/tls/cert.pem
+
 proot -b "$PREFIX"/etc/resolv.conf:/etc/resolv.conf ~/.termux/mise "$@"
