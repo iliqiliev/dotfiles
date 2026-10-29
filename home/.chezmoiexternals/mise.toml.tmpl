@@ -2,9 +2,7 @@
 {{ $libc := "-musl" -}}
 {{ $ext := "tar.xz" -}}
 
-{{ if eq .distro "android" -}}
-{{   $mise = "__mise" -}}
-{{ else if eq .os "windows" -}}
+{{ if eq .os "windows" -}}
 {{   $mise = "mise.exe" -}}
 {{   $libc = "" -}}
 {{   $ext = "zip" -}}
@@ -19,7 +17,7 @@
 {{ $asset := print "mise-v*.*.*-" .os "-" $arch $libc "." $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
 
-[".local/bin/{{ $mise }}"]
+[".local/bin/{{ if eq .distro "android" }}__{{ end }}{{ $mise }}"]
 type = "archive-file"
 path = "mise/bin/{{ $mise }}"
 executable = true

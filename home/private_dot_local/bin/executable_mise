@@ -8,4 +8,4 @@ if ! command -v proot >/dev/null; then
     pkg install -y proot
 fi
 
-proot -b "$PREFIX"/etc/resolv.conf:/etc/resolv.conf mise "$@"
+proot -b "$PREFIX"/etc/resolv.conf:/etc/resolv.conf ~/.local/bin/__mise "$@"
