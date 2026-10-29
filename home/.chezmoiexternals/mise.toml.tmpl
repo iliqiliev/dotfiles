@@ -2,13 +2,15 @@
 {{ $libc := "-musl" -}}
 {{ $ext := "tar.xz" -}}
 
-{{ if eq .os "windows" -}}
+{{ if eq .distro "android" -}}
+{{   $mise = "__mise" -}}
+{{ else if eq .os "windows" -}}
 {{   $mise = "mise.exe" -}}
 {{   $libc = "" -}}
 {{   $ext = "zip" -}}
 {{ end -}}
 
-{{ if glob ".local/bin/mise*" -}}
+{{ if glob ".local/bin/*mise*" -}}
 {{/* If `mise` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
 {{ end -}}

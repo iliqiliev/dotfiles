@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/env sh
+
+# This file is ignored from a './.chezmoiignore.tmpl' file
+# if the chezmoi '.distro' is not 'android' to avoid 'inconsistent state' error.
+
+if ! command -v proot >/dev/null; then
+    echo "Installing 'proot'."
+    pkg install -y proot
+fi
+
+proot -b "$PREFIX"/etc/resolv.conf:/etc/resolv.conf mise "$@"
