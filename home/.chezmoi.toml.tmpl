@@ -97,5 +97,5 @@ XDG_STATE_HOME = '{{ joinPath .chezmoi.homeDir ".local/state" }}'
 refreshPeriod = "5m"
 
 [interpreters.py]
-command = "uv"
-args = ["run"]
+command = "mise"
+args = ["exec", "uv", "--", "uv", "run"]
