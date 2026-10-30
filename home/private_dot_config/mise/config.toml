@@ -2,6 +2,7 @@
 min_version = "2026.10.22"
 
 [bootstrap.hooks.pre-user]
+description = "Installing 'fish' to use it as default shell."
 run = ["{{ mise_bin }} install fish"]
 run_windows = []
 
