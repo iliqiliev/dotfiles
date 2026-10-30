@@ -1,17 +1,14 @@
 {{ $mise := "mise" -}}
-{{ $path := ".local/bin" -}}
 {{ $libc := "-musl" -}}
 {{ $ext := "tar.xz" -}}
 
-{{ if eq .distro "android" -}}
-{{   $path = ".termux" -}}
-{{ else if eq .os "windows" -}}
+{{ if eq .os "windows" -}}
 {{   $mise = "mise.exe" -}}
 {{   $libc = "" -}}
 {{   $ext = "zip" -}}
 {{ end -}}
 
-{{ if glob "{{ $path }}/{{ $mise }}" -}}
+{{ if glob ".local/bin/{{ $mise }}" -}}
 {{/* If `mise` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
 {{ end -}}
@@ -20,14 +17,14 @@
 {{ $asset := print "mise-v*.*.*-" .os "-" $arch $libc "." $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
 
-["{{ $path }}/{{ $mise }}"]
+[".local/bin/{{ $mise }}"]
 type = "archive-file"
 path = "mise/bin/{{ $mise }}"
 executable = true
 url = "{{ $url }}"
 
 {{ if eq .os "windows" -}}
-["{{ $path }}/mise-shim.exe"]
+[".local/bin/mise-shim.exe"]
 type = "archive-file"
 path = "mise/bin/mise-shim.exe"
 executable = true
