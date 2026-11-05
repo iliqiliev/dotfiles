@@ -6,6 +6,7 @@ return {
    opts = {
       library = {
          { path = "lazy.nvim", words = { "Lazy" } },
+         { path = "wezterm-types", mods = { "wezterm" } },
       },
    },
 }
