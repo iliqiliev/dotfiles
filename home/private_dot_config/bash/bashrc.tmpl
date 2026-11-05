@@ -47,6 +47,10 @@ if command -v eza >/dev/null; then
     alias tree="eza --tree"
 fi
 
+if test "$TERM" = xterm-kitty; then
+    alias ssh="kitten ssh"
+fi
+
 # Abbreviations/Aliases:
 # shellcheck source=home/private_dot_config/fish/conf.d/30_abbreviations.fish
 source ~/.config/bash/abbreviations
