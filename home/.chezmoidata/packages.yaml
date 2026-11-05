@@ -47,7 +47,7 @@ packages:
     __tags__: ["gui", "windows"]
   kitty:
     __tags__: ["gui"]
-    scoop: "konsole-nightly"
+    scoop: "wezterm"
   kodi:
     __tags__: ["gui", "linux"]
   process-explorer:
