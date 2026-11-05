@@ -20,6 +20,35 @@ config.default_prog = {
    wezterm.home_dir .. "/.config/bash/bashrc",
 }
 config.font = wezterm.font("AdwaitaMono Nerd Font Mono")
+config.mouse_bindings = {
+   {
+      event = { Up = { streak = 1, button = "Left" } },
+      action = "OpenLinkAtMouseCursor",
+   },
+   {
+      event = { Up = { streak = 2, button = "Left" } },
+      action = "Nop",
+   },
+   {
+      event = { Up = { streak = 3, button = "Left" } },
+      action = "Nop",
+   },
+   {
+      event = { Up = { streak = 1, button = "Left" } },
+      mods = "ALT",
+      action = "Nop",
+   },
+   {
+      event = { Up = { streak = 1, button = "Left" } },
+      mods = "SHIFT",
+      action = "Nop",
+   },
+   {
+      event = { Up = { streak = 1, button = "Left" } },
+      mods = "ALT|SHIFT",
+      action = "Nop",
+   },
+}
 config.window_decorations = "INTEGRATED_BUTTONS"
 
 return config
