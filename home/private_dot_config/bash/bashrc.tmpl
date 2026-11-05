@@ -38,8 +38,14 @@ if test -r ~/.local/share/blesh/ble.sh; then
     source -- ~/.local/share/blesh/ble.sh
 fi
 
-command -v bat >/dev/null && alias cat="bat"
-command -v eza >/dev/null && alias ls="eza" && alias tree="eza -T"
+if command -v bat >/dev/null; then
+    alias cat="bat"
+fi
+
+if command -v eza >/dev/null; then
+    alias ls="eza --hyperlink"
+    alias tree="eza --tree"
+fi
 
 # Abbreviations/Aliases:
 # shellcheck source=home/private_dot_config/fish/conf.d/30_abbreviations.fish
