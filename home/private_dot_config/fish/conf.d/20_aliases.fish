@@ -7,10 +7,6 @@ if command --query eza
     alias tree "eza -T"
 end
 
-if command --query fdfind
-    alias fd fdfind
-end
-
 if test "$TERM" = xterm-kitty
     alias ssh "kitten ssh"
 end
