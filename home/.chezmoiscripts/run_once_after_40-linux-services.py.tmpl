@@ -18,31 +18,6 @@ def main() -> None:
     service_virtualbox()
 
 
-def service_virtualbox() -> None:
-    if CHEZMOI_DATA["productName"] != "VirtualBox" or env.get("container"):
-        return
-
-    __systemd_service__("VirtualBox", "vboxservice.service")
-    __openrc_service__("VirtualBox", "virtualbox-guest-additions", "boot")
-    __openrc_service__("VirtualBox DRM", "virtualbox-drm-client", "default")
-
-    if (user := getuser()) not in getgrnam("vboxsf").gr_mem:
-        fmt("[info]Adding user to [i]vboxsf[/] group ...", end=" ")
-        run(SUDO, "usermod -aG vboxsf", user)
-        fmt("[good]OK")
-
-    if which("VBoxClient-all") is None:
-        return
-
-    fmt("[info]Setting up [i]VirtualBox[/] user services ...", end=" ")
-    try:
-        run("VBoxClient-all", out=DEVNULL)
-    except CalledProcessError:
-        fmt("[fail]FAILED")
-    else:
-        fmt("[good]OK")
-
-
 def __systemd_service__(pretty_name: str, service_name: str) -> bool:
     if not Path(f"/usr/lib/systemd/system/{service_name}").is_file():
         return False
@@ -70,6 +45,31 @@ def __openrc_service__(
     run(SUDO, "rc-update add", service_name, runlevel)
     fmt("[good]OK")
     return True
+
+
+def service_virtualbox() -> None:
+    if CHEZMOI_DATA["productName"] != "VirtualBox" or env.get("container"):
+        return
+
+    __systemd_service__("VirtualBox", "vboxservice.service")
+    __openrc_service__("VirtualBox", "virtualbox-guest-additions", "boot")
+    __openrc_service__("VirtualBox DRM", "virtualbox-drm-client", "default")
+
+    if (user := getuser()) not in getgrnam("vboxsf").gr_mem:
+        fmt("[info]Adding user to [i]vboxsf[/] group ...", end=" ")
+        run(SUDO, "usermod -aG vboxsf", user)
+        fmt("[good]OK")
+
+    if which("VBoxClient-all") is None:
+        return
+
+    fmt("[info]Setting up [i]VirtualBox[/] user services ...", end=" ")
+    try:
+        run("VBoxClient-all", out=DEVNULL)
+    except CalledProcessError:
+        fmt("[fail]FAILED")
+    else:
+        fmt("[good]OK")
 
 
 if __name__ == "__main__":
