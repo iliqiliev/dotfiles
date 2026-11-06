@@ -27,6 +27,9 @@ packages:
   git:
   kitty-terminfo:
     __tags__: ["linux"]
+  kmscon:
+    __tags__: ["arch"]
+    pacman: "kmscon ttf-adwaitamono-nerd"
   less:
   neovim:
   scoop:

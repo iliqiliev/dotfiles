@@ -15,6 +15,7 @@ from helpers import CHEZMOI_DATA, DEVNULL, SUDO, fmt, run, sudo_cache
 
 def main() -> None:
     __systemd_service__("Sched_ext", "scx_loader.service")
+    service_kmscon()
     service_virtualbox()
 
 
@@ -45,6 +46,20 @@ def __openrc_service__(
     run(SUDO, "rc-update add", service_name, runlevel)
     fmt("[good]OK")
     return True
+
+
+def service_kmscon() -> None:
+    fmt("[info]Setting up [i]KMSCON[/] service ...", end=" ")
+
+    try:
+        run(SUDO, "systemctl disable getty@.service", err=DEVNULL)
+        run(SUDO, "systemctl enable kmsconvt@.service", err=DEVNULL)
+
+    except CalledProcessError:
+        run(SUDO, "systemctl disable kmsconvt@service", check=False)
+        run(SUDO, "systemctl enable getty@service", check=False)
+
+    fmt("[good]OK")
 
 
 def service_virtualbox() -> None:
