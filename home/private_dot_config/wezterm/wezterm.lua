@@ -4,13 +4,20 @@ local gui = wezterm.gui
 
 ---@return string
 local function detect_color_scheme()
+   local theme = "Catppuccin Mocha"
+   local fgbg = "15;0"
+
    if gui and gui.get_appearance():find("Light") then
-      config.set_environment_variables = { COLORFGBG = "0;15" }
-      return "Catppuccin Latte"
-   else
-      config.set_environment_variables = { COLORFGBG = "15;0" }
-      return "Catppuccin Mocha"
+      theme = "Catppuccin Latte"
+      fgbg = "0;15"
    end
+
+   config.set_environment_variables = {
+      BAT_THEME = theme,
+      COLORFGBG = fgbg,
+   }
+
+   return theme
 end
 
 config.color_scheme = detect_color_scheme()
