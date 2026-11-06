@@ -64,9 +64,9 @@ SCOOP_BUCKETS = HOME / "scoop/buckets"
 GSUDO = SCOOP_APPS / "gsudo/current/gsudo.exe"
 NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
 BUCKETS = (
-    ("extras", None),
-    ("sysinternals", None),
-    ("iliya", "https://github.com/iliqiliev/iliya-bucket"),
+    "extras",
+    "sysinternals",
+    "iliya https://github.com/iliqiliev/iliya-bucket",
 )
 
 
@@ -83,13 +83,11 @@ if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
     run(SCOOP, "install --no-update-scoop git")
     fmt("[good]Git installed successfully.")
 
-for bucket_url in BUCKETS:
-    bucket, url = bucket_url
-
+for bucket in BUCKETS:
     if (SCOOP_BUCKETS / bucket).is_dir():
         continue
 
-    run(SCOOP, "bucket add", bucket, url)
+    run(SCOOP, "bucket add", bucket)
 
 
 available_packages = CHEZMOI_PACKAGES.intersection(
