@@ -2,6 +2,8 @@
 # {{ if or (ne .os "windows") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
+# Trigger the script if any file inside `~/.config/environment.d` changes:
+# # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/environment.d") }}
 
 """Set Windows registry settings."""
 
