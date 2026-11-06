@@ -26,6 +26,7 @@ config.default_prog = {
    "--rcfile",
    wezterm.home_dir .. "/.config/bash/bashrc",
 }
+config.enable_scroll_bar = true
 config.font = wezterm.font("AdwaitaMono Nerd Font Mono")
 config.mouse_bindings = {
    {
@@ -56,6 +57,7 @@ config.mouse_bindings = {
       action = "Nop",
    },
 }
+config.scrollback_lines = 20000
 config.window_decorations = "INTEGRATED_BUTTONS"
 
 return config
