@@ -1,10 +1,12 @@
+---@module "blink.cmp"
+
 ---@type LazyPluginSpec[]
 return {
-   -- For LSP suggestions for wezterm configuration.
+   -- LSP suggestions for wezterm configuration.
    {
       "https://github.com/DrKJeff16/wezterm-types",
    },
-   -- For Chezmoi integration.
+   -- Chezmoi integration.
    {
       "https://github.com/dpezto/chezmoi-template.nvim",
       lazy = false,
@@ -21,7 +23,7 @@ return {
          },
       },
    },
-   -- Add the Chezmoi completion source to blink.cmp.
+   -- Chezmoi source for `blink.cmp`.
    {
       "https://github.com/saghen/blink.cmp",
       ---@param opts blink.cmp.Config
