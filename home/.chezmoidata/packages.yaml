@@ -21,8 +21,6 @@ packages:
     __tags__: ["linux"]
   grep:
   git:
-  kitty-terminfo:
-    __tags__: ["linux"]
   kmscon:
     __tags__: ["arch"]
     pacman: "kmscon ttf-adwaitamono-nerd"
@@ -44,9 +42,6 @@ packages:
     __tags__: ["gui", "windows"]
   ditto:
     __tags__: ["gui", "windows"]
-  kitty:
-    __tags__: ["gui"]
-    scoop: "wezterm"
   kodi:
     __tags__: ["gui", "linux"]
   process-explorer:
@@ -54,6 +49,8 @@ packages:
   qalculate-gtk:
     __tags__: ["gui"]
     scoop: "qalculate"
+  wezterm:
+    __tags__: ["gui", "windows"]
   wl-clipboard:
     __tags__: ["gui", "linux"]
   zen-browser-bin:
