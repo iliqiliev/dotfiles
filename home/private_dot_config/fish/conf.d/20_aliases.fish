@@ -4,7 +4,7 @@ end
 
 if command --query eza
     alias ls "eza --hyperlink"
-    alias tree "eza --tree"
+    alias tree "eza --tree --hyperlink"
 end
 
 if test "$TERM" = xterm-kitty
