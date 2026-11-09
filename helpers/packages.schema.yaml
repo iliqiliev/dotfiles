@@ -1,0 +1,78 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: Package List
+description: >-
+  Packages to install across machines, filtered by tags and mapped to
+  each supported package manager.
+type: object
+required: [packages]
+additionalProperties: false
+properties:
+  packages:
+    description: >-
+      Map of package names to their options. The key is the default package
+      name to be used by every package manager unless overridden below.
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/package"
+
+definitions:
+  package:
+    title: <package>
+    description: >-
+      Package options.
+      Leave the value empty to install it everywhere under its key name.
+    type: [object, "null"]
+    additionalProperties: false
+    properties:
+      __tags__:
+        title: Tags
+        description: >-
+          Only install this package when all of these tags match.
+          Omit to install everywhere.
+        type: array
+        uniqueItems: true
+        items:
+          oneOf:
+            - const: alpine
+              description: Distro is Alpine Linux.
+            - const: arch
+              description: Distro is Arch Linux.
+            - const: gui
+              description: GUI management is enabled (`manageGui`).
+            - const: gnome
+              description: GNOME management is enabled (`manageGnome`).
+            - const: kvm-guest
+              description: Running as a KVM guest, outside a container.
+            - const: linux
+              description: OS is Linux.
+            - const: no-work
+              description: Not a work machine (`isWork` is false).
+            - const: oracle-guest
+              description: Running as a VirtualBox guest, outside a container.
+            - const: windows
+              description: OS is Windows.
+      apk:
+        description: >-
+          Package name(s) for apk (Alpine).
+          Space-separated for several packages.
+        type: string
+      apt:
+        description: >-
+          Package name(s) for apt (Debian-based).
+          Space-separated for several packages.
+        type: string
+      dnf:
+        description: >-
+          Package name(s) for dnf (Fedora-based).
+          Space-separated for several packages.
+        type: string
+      pacman:
+        description: >-
+          Package name(s) for pacman (Arch).
+          Space-separated for several packages.
+        type: string
+      scoop:
+        description: >-
+          Package name(s) for scoop (Windows).
+          Space-separated for several packages.
+        type: string
