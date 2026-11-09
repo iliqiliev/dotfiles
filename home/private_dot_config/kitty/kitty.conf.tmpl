@@ -6,6 +6,10 @@ font_family AdwaitaMono Nerd Font Mono
 # Determined by: chezmoi execute-template {{ "'{{ sub .fonts.size 3 }}'" }}
 font_size {{ sub .fonts.size 3 }}
 
+# Show hyperlink target in a small box,
+# sized to fit the URL, just below the mouse cursor.
+hyperlink_target_position tooltip
+
 # Save and restore the state of every kitty window on logout.
 restore_session_after_logout yes
 
