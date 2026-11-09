@@ -1,4 +1,4 @@
-$schema: http://json-schema.org/draft-07/schema#
+$schema: https://json-schema.org/draft/2020-12/schema
 title: Package List
 description: >-
   Packages to install across machines, filtered by tags and mapped to
@@ -13,9 +13,9 @@ properties:
       name to be used by every package manager unless overridden below.
     type: object
     additionalProperties:
-      $ref: "#/definitions/package"
+      $ref: "#/$defs/package"
 
-definitions:
+$defs:
   package:
     title: <package>
     description: >-
