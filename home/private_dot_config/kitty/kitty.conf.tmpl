@@ -6,6 +6,9 @@ font_family AdwaitaMono Nerd Font Mono
 # Determined by: chezmoi execute-template {{ "'{{ sub .fonts.size 3 }}'" }}
 font_size {{ sub .fonts.size 3 }}
 
+# Save and restore the state of every kitty window on logout.
+restore_session_after_logout yes
+
 # Number of lines of history to keep in memory for scrolling back.
 scrollback_lines 20000
 
