@@ -28,6 +28,11 @@ return {
          end,
          desc = "Close",
       },
+      {
+         "<leader>bD", -- [b]uffer [D]elete.
+         "<cmd>bdelete<cr>",
+         desc = "Close (Discard layout)",
+      },
       -- Explorer.
       {
          "<leader>e", -- [e]xplorer.

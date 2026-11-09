@@ -5,9 +5,7 @@
 return {
    "https://github.com/akinsho/bufferline.nvim",
    keys = {
-      { "<leader>bf", "<cmd>BufferLinePick<cr>", desc = "Buffer" }, -- [b]uffer [f]ind
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "<leader>bf", "<cmd>BufferLinePick<cr>", desc = "Find" }, -- [b]uffer [f]ind
       { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
       { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
    },
