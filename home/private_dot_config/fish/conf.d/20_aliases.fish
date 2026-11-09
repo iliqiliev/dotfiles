@@ -3,8 +3,8 @@ if command --query bat
 end
 
 if command --query eza
-    alias ls "eza --hyperlink"
-    alias tree "eza --tree --hyperlink"
+    alias ls "eza --hyperlink='auto'"
+    alias tree "eza --tree --hyperlink='auto'"
 end
 
 if test "$TERM" = xterm-kitty
