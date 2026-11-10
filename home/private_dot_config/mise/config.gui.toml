@@ -6,9 +6,9 @@ version = "latest"
 os = "linux"
 postinstall = """
 
-# Install the desktop entry so `kitty` shows in application list.
+# Install the `kitty` desktop entries so that it is integrated into the desktop.
 mkdir -p ~/.local/share/applications
-cp "$MISE_TOOL_INSTALL_PATH"/share/applications/kitty*.desktop ~/.local/share/applications 
+cp "$MISE_TOOL_INSTALL_PATH"/share/applications/kitty*.desktop ~/.local/share/applications
 
 # Install `kitty` icons for the fallback theme.
 mkdir -p ~/.local/share/icons
