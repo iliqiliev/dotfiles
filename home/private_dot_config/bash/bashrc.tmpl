@@ -47,6 +47,10 @@ if command -v eza >/dev/null; then
     alias tree="eza --tree --hyperlink=auto"
 fi
 
+if command -v fd >/dev/null; then
+    alias fd="fd --hyperlink=auto"
+fi
+
 if test "$TERM" = xterm-kitty; then
     alias ssh="kitten ssh"
 fi
