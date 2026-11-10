@@ -15,4 +15,3 @@
 type = "archive"
 {{ $asset := print "kitty-*.*.*-" $arch ".txz" -}}
 url = "{{ gitHubLatestReleaseAssetURL "kovidgoyal/kitty" $asset }}"
-refreshPeriod = "672h"
