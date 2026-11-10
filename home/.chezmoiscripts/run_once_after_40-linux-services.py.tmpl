@@ -19,14 +19,20 @@ def main() -> None:
     service_virtualbox()
 
 
-def __systemd_service__(pretty_name: str, service_name: str) -> bool:
+def __systemd_service__(
+    pretty_name: str,
+    service_name: str,
+    now: bool = True,
+) -> bool:
     if not Path(f"/usr/lib/systemd/system/{service_name}").is_file():
         return False
+
+    now_arg = "--now" if now else None
 
     sudo_cache()
 
     fmt(f"[info]Setting up [i]{pretty_name}[/] service ...", end=" ")
-    run(SUDO, "systemctl enable --now", service_name, err=DEVNULL)
+    run(SUDO, "systemctl enable", now_arg, service_name, err=DEVNULL)
     fmt("[good]OK")
     return True
 
