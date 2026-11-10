@@ -1,5 +1,0 @@
-{{ if or (ne .os "linux") (not .manageGui) -}}
-{{   abortEmpty -}}
-{{ end -}}
-
-{{ joinPath .chezmoi.homeDir ".local/kitty.app/share/applications/kitty.desktop" -}}
