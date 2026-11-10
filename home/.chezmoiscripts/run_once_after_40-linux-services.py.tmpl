@@ -71,6 +71,7 @@ def service_kmscon() -> bool:
         run(SUDO, f"systemctl enable {service_name}", err=DEVNULL)
 
     except CalledProcessError:
+        fmt("[fail]FAILED")
         run(SUDO, f"systemctl disable {service_name}", check=False)
         run(SUDO, "systemctl enable getty@.service", check=False)
         return False
