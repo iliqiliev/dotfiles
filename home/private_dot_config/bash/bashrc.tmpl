@@ -33,9 +33,9 @@ function yazi() {
 export HISTCONTROL=ignoreboth:erasedups
 
 # Source `ble.sh`.
-if test -r ~/.local/share/blesh/ble.sh; then
+if mise install blesh --dry-run-code --quiet; then
     # shellcheck source=/dev/null
-    source -- ~/.local/share/blesh/ble.sh
+    source -- "$(mise where blesh)"/ble.sh
 fi
 
 if command -v bat >/dev/null; then

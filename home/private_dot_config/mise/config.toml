@@ -35,6 +35,7 @@ disable_hints = [
 
 [tool_alias]
 bash-language-server = "npm:bash-language-server"
+blesh = "github:akinomyoga/ble.sh"
 fish = "aqua:fish-shell/fish-shell"
 fish-lsp = "npm:fish-lsp"
 miss_hit = "pypi:miss_hit"
@@ -45,6 +46,7 @@ yaml-language-server = "npm:yaml-language-server"
 [tools]
 bash-language-server = "latest"  # Aliased.
 bat = "latest"
+blesh = { version = "nightly", os = "unix" }
 chezmoi = "latest"
 delta = "latest"
 difftastic = "latest"
