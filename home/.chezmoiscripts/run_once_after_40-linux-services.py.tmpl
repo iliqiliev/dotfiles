@@ -14,13 +14,13 @@ from helpers import CHEZMOI_DATA, DEVNULL, SUDO, fmt, run, sudo_cache
 
 
 def main() -> None:
-    __systemd_service__("Kernel modules cleanup", "linux-modules-cleanup.service")
-    __systemd_service__("Sched_ext", "scx_loader.service")
+    _systemd_service_("Kernel modules cleanup", "linux-modules-cleanup.service")
+    _systemd_service_("Sched_ext", "scx_loader.service")
     service_kmscon()
     service_virtualbox()
 
 
-def __systemd_service__(
+def _systemd_service_(
     pretty_name: str,
     service_name: str,
     now: bool = True,
@@ -38,7 +38,7 @@ def __systemd_service__(
     return True
 
 
-def __openrc_service__(
+def _openrc_service_(
     pretty_name: str,
     service_name: str,
     runlevel: str | None = None,
@@ -83,9 +83,9 @@ def service_virtualbox() -> bool:
     if CHEZMOI_DATA["productName"] != "VirtualBox" or env.get("container"):
         return False
 
-    __systemd_service__("VirtualBox", "vboxservice.service")
-    __openrc_service__("VirtualBox", "virtualbox-guest-additions", "boot")
-    __openrc_service__("VirtualBox DRM", "virtualbox-drm-client", "default")
+    _systemd_service_("VirtualBox", "vboxservice.service")
+    _openrc_service_("VirtualBox", "virtualbox-guest-additions", "boot")
+    _openrc_service_("VirtualBox DRM", "virtualbox-drm-client", "default")
 
     if (user := getuser()) not in getgrnam("vboxsf").gr_mem:
         fmt("[info]Adding user to [i]vboxsf[/] group ...", end=" ")
