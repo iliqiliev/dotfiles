@@ -48,23 +48,27 @@ def __openrc_service__(
     return True
 
 
-def service_kmscon() -> None:
+def service_kmscon() -> bool:
+    service_name = "kmsconvt@.service"
+
     fmt("[info]Setting up [i]KMSCON[/] service ...", end=" ")
 
     try:
         run(SUDO, "systemctl disable getty@.service", err=DEVNULL)
-        run(SUDO, "systemctl enable kmsconvt@.service", err=DEVNULL)
+        run(SUDO, f"systemctl enable {service_name}", err=DEVNULL)
 
     except CalledProcessError:
-        run(SUDO, "systemctl disable kmsconvt@service", check=False)
+        run(SUDO, f"systemctl disable {service_name}", check=False)
         run(SUDO, "systemctl enable getty@service", check=False)
+        return False
 
     fmt("[good]OK")
+    return True
 
 
-def service_virtualbox() -> None:
+def service_virtualbox() -> bool:
     if CHEZMOI_DATA["productName"] != "VirtualBox" or env.get("container"):
-        return
+        return False
 
     __systemd_service__("VirtualBox", "vboxservice.service")
     __openrc_service__("VirtualBox", "virtualbox-guest-additions", "boot")
@@ -76,15 +80,17 @@ def service_virtualbox() -> None:
         fmt("[good]OK")
 
     if which("VBoxClient-all") is None:
-        return
+        return True
 
     fmt("[info]Setting up [i]VirtualBox[/] user services ...", end=" ")
     try:
         run("VBoxClient-all", out=DEVNULL)
     except CalledProcessError:
         fmt("[fail]FAILED")
-    else:
-        fmt("[good]OK")
+        return False
+
+    fmt("[good]OK")
+    return True
 
 
 if __name__ == "__main__":
