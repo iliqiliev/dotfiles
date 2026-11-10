@@ -26,8 +26,14 @@ packages:
     pacman: "kmscon ttf-adwaitamono-nerd"
   less:
   neovim:
-  scoop:
-    __tags__: ["windows"]
+  package_manager:
+    apk: ""
+    apt: ""
+    dnf: ""
+    # Fixes missing modules after a kernel upgrade.
+    pacman: "kernel-modules-hook"
+    # `aria2` is a better downloader than the built-in one.
+    # Visual C++ Redistributable Runtimes are needed by many packages.
     scoop: "aria2 vcredist-aio"
   sched-ext:
     __tags__: ["arch"]
