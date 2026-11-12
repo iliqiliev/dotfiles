@@ -1,6 +1,7 @@
 ---@module "blink.cmp"
+---@module "snacks"
 
----@type LazyPluginSpec[]
+---@type LazySpec
 return {
    -- LSP suggestions for wezterm configuration.
    {
@@ -26,6 +27,7 @@ return {
    -- Chezmoi source for `blink.cmp`.
    {
       "https://github.com/saghen/blink.cmp",
+      optional = true,
       ---@param opts blink.cmp.Config
       opts = function(_, opts)
          opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
@@ -45,5 +47,20 @@ return {
          )
          table.insert(default, "chezmoi")
       end,
+   },
+   -- Show `chezmoi`-specific files and directories by default.
+   {
+      "https://github.com/folke/snacks.nvim",
+      optional = true,
+      ---@type snacks.Config
+      opts = {
+         picker = {
+            sources = {
+               explorer = {
+                  include = { ".chezmoi*" },
+               },
+            },
+         },
+      },
    },
 }
