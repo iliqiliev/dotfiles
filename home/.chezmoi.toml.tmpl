@@ -62,6 +62,7 @@ productName = "{{ output "powershell" "-nop" "-c" "gpv" $productKey | trim -}}"
 {{ end -}}
 {{ $manageGui := and (ne $distro "android")
                      (not (env "container"))
+                     (stdinIsATTY)
                      (promptBoolOnce . "manageGui" "Manage GUI applications" true) -}}
 manageGui = {{ $manageGui }}
 manageGnome = {{ and (eq $os "linux")
