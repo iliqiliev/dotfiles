@@ -1,5 +1,5 @@
 # The minimum version of `mise` required to use this config.
-min_version = "2026.10.22"
+min_version = "2026.11.6"
 
 [bootstrap.hooks.pre-user]
 description = "Installing 'fish' to use it as default shell."
@@ -7,12 +7,8 @@ run = ["{{ mise_bin }} install fish"]
 run_windows = []
 
 [bootstrap.packages]
-# Gcc.
-"apk:build-base" = "latest"  # Just `gcc` is not enough.
-"apt:clang" = { version = "latest", env = "android" }  # `gcc` is not available on Termux.
-"apt:gcc" = { version = "latest", env = "!android" }  # But is available on Debian-based distros.
-"dnf:gcc" = "latest"
-"pacman:gcc" = "latest"
+gcc = { names = { apk = "build-base" }, env = "!android" }
+clang = { env = "android" }  # `gcc` is not available on Termux.
 
 [bootstrap.user]
 login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"
