@@ -18,7 +18,17 @@ os = "{{ $os }}"
 {{   println "DOTFILES WARNING: unsupported distribution:" $distro | writeToStdout -}}
 {{ end -}}
 distro = "{{ $distro }}"
-{{ $isPersonal := promptBoolOnce . "isPersonal" "Are you Iliya Iliev" false -}}
+{{ $isPersonal := false -}}
+{{ if hasKey . "isPersonal" -}}
+{{   $isPersonal = .isPersonal -}}
+{{ else if (env "CHEZ_IS_PERSONAL") -}}
+{{   $isPersonal = eq (env "CHEZ_IS_PERSONAL") ("1") -}}
+{{ else if stdinIsATTY -}}
+{{   $isPersonal = promptBool "Are you Iliya Iliev" false -}}
+{{ else -}}
+{{   println "DOTFILES WARNING: No TTY is attached and $CHEZ_IS_PERSONAL is not set."
+             "Defaulting value to:" $isPersonal | writeToStdout -}}
+{{ end -}}
 isPersonal = {{ $isPersonal }}
 isWork = {{ and ($isPersonal) (eq (env "USERDNSDOMAIN") ("AD.BTK.BG")) }}
 {{ $email := "iliq0000@proton.me" -}}
