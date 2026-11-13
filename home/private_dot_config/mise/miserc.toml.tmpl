@@ -1,22 +1,7 @@
 # vim: filetype=toml
-# chezmoi:template:left-delimiter="# {{"
-
-# {{ $envList := list -}}
-# {{ if eq .distro "alpine" -}}
-# {{   $envList = append $envList "alpine" -}}
-# {{ end -}}
-# {{ if eq .distro "android" -}}
-# {{   $envList = append $envList "android" }}
-# {{ else -}}
-# {{   $envList = append $envList "!android" -}}
-# {{ end -}}
-# {{ if .manageGui -}}
-# {{   $envList = append $envList "gui" -}}
-# {{ end -}}
 
 auto_env = true
 env = [
-  # {{ range $envList -}}
-  "# {{ . }}",
-  # {{ end -}}
+  "{{ .distro }}",
+  "{{ if .manageGui }}gui{{ end }}",
 ]

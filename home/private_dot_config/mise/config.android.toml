@@ -1,4 +1,7 @@
 [bootstrap.packages]
+# This overrides the entry from the main config and
+# and is needed as `gcc` is not available on Termux.
+gcc = { names = { apt = "clang" } }
 # The `mise` version cannot find `/lib/ld-musl-aarch64.so.1`.
 nodejs = "latest"
 # The `mise` version cannot find `/lib/ld-musl-aarch64.so.1`.

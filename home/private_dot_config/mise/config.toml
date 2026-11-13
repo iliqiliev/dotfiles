@@ -7,8 +7,7 @@ run = ["{{ mise_bin }} install fish"]
 run_windows = []
 
 [bootstrap.packages]
-gcc = { names = { apk = "build-base" }, env = "!android" }
-clang = { env = "android" }  # `gcc` is not available on Termux.
+gcc = { names = { apk = "build-base" } }
 
 [bootstrap.user]
 login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"
