@@ -7,36 +7,35 @@
 
 """Setup `/etc` directory."""
 
+import json
 from contextlib import suppress
-from filecmp import cmp
 from hashlib import sha256
-from json import dumps as json_dumps
-from json import loads as json_loads
 from os import environ as env
 from pathlib import Path
 
-from helpers import SUDO, fmt, run, sudo_cache
+from helpers import PIPE, SUDO, fmt, run, sudo_cache
 
+CACHE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 
-ROOT_HASHES_CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 EXCLUSIONS: tuple[Path, ...] = (
     CHEZMOI_ROOT / "home/$USER",  # Managed by the `termux` script.
     CHEZMOI_ROOT / "README.md",  # README file, should not be placed in `/`.
 )
 
+if not CACHE.is_file():
+    CACHE.write_text("{}")
 
-if not ROOT_HASHES_CACHE_FILE.is_file():
-    ROOT_HASHES_CACHE_FILE.write_text("{}")
-
-cache: dict[str, str] = json_loads(ROOT_HASHES_CACHE_FILE.read_text())
+cache: dict[str, str] = json.loads(CACHE.read_text())
 """Store a mapping of already-written `root_file` paths to their hashes.
 Used to avoid requiring sudo access after the first time
 that a non-readable file has been written to.
 """
 
-root_files: dict[Path, Path] = {}
+root_files: dict[Path, str] = {}
+"""Map each `root_file` that needs to be written to its new contents."""
+
 for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
     if any(chezmoi_file.is_relative_to(exclusion) for exclusion in EXCLUSIONS):
         continue
@@ -44,31 +43,41 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
     if not chezmoi_file.is_file():
         continue
 
-    root_file = ROOT / chezmoi_file.relative_to(CHEZMOI_ROOT)
+    relative_path = chezmoi_file.relative_to(CHEZMOI_ROOT)
+    contents = chezmoi_file.read_text()
+
+    if chezmoi_file.suffix == ".tmpl":
+        # Remove the `.tmpl` suffix.
+        relative_path = relative_path.with_suffix("")
+        # Render the template.
+        contents = run("chezmoi execute-template", input=contents, out=PIPE).stdout
+
+    root_file = ROOT / relative_path
 
     cached_hash = cache.get(str(root_file))
-    calculated_hash = sha256(chezmoi_file.read_bytes()).hexdigest()
+    calculated_hash = sha256(contents.encode()).hexdigest()
 
     if cached_hash == calculated_hash:
         continue
 
-    # `cmp` raises `PermissionError` if `root_file` is not readable.
+    # Reading raises `PermissionError` if `root_file` is not readable.
     with suppress(FileNotFoundError, PermissionError):
-        if cmp(chezmoi_file, root_file, shallow=False):
+        if root_file.read_text() == contents:
             continue
 
-    root_files[chezmoi_file] = root_file
+    root_files[root_file] = contents
 
 if root_files:
     sudo_cache()
 
-for chezmoi_file, root_file in root_files.items():
+for root_file, contents in root_files.items():
     root_file_link = f"[link={root_file.as_uri()}]{root_file}"
     fmt(f"[info]Writing to '{root_file_link}' ...", end=" ")
 
-    run(SUDO, "install -D -m 644", chezmoi_file, root_file)
+    # `install` reads the new contents from stdin.
+    run(SUDO, "install -D -m 644 /dev/stdin", root_file, input=contents)
     fmt("[good]OK")
 
-    cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
+    cache[str(root_file)] = sha256(contents.encode()).hexdigest()
 
-ROOT_HASHES_CACHE_FILE.write_text(json_dumps(cache))
+CACHE.write_text(json.dumps(cache, indent=2))
