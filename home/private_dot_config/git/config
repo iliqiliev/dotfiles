@@ -2,14 +2,12 @@
 
 [include]
     path = delta
+    path = conflictstyle
     path = user
 
 [core]
     autocrlf = false
     eol = lf
-
-[merge]
-    conflictstyle = diff3
 
 [pull]
     rebase = true
