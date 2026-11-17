@@ -17,19 +17,20 @@ from pathlib import Path
 
 from helpers import SUDO, fmt, run, sudo_cache
 
-CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 CHEZMOI_ROOT = Path(env["CHEZMOI_WORKING_TREE"]) / "root"
 ROOT = Path(env.get("PREFIX", "/"))  # $PREFIX is "root" in Termux.
 
+ROOT_HASHES_CACHE_FILE = Path(env["CHEZMOI_CACHE_DIR"]) / "etc-script-cache.json"
 EXCLUSIONS: tuple[Path, ...] = (
     CHEZMOI_ROOT / "home/$USER",  # Managed by the `termux` script.
     CHEZMOI_ROOT / "README.md",  # README file, should not be placed in `/`.
 )
 
-if not CACHE_FILE.is_file():
-    CACHE_FILE.write_text("{}")
 
-cache: dict[str, str] = json_loads(CACHE_FILE.read_text())
+if not ROOT_HASHES_CACHE_FILE.is_file():
+    ROOT_HASHES_CACHE_FILE.write_text("{}")
+
+cache: dict[str, str] = json_loads(ROOT_HASHES_CACHE_FILE.read_text())
 """Store a mapping of already-written `root_file` paths to their hashes.
 Used to avoid requiring sudo access after the first time
 that a non-readable file has been written to.
@@ -70,4 +71,4 @@ for chezmoi_file, root_file in root_files.items():
 
     cache[str(root_file)] = sha256(chezmoi_file.read_bytes()).hexdigest()
 
-CACHE_FILE.write_text(json_dumps(cache))
+ROOT_HASHES_CACHE_FILE.write_text(json_dumps(cache))
