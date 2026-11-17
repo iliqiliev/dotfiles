@@ -5,19 +5,11 @@
 {{ $mozillaAddonsBaseURL := "https://addons.mozilla.org/firefox/downloads/latest" -}}
 {{ $extensionsPath := ".config/zen/profile/extensions" -}}
 
-{{ $filters := dict
-         "personal" (.isPersonal)
-          "no-work" (not .isWork)
--}}
-
 {{ range $name, $info := .firefoxExtensions -}}
 
-{{   range $tag := (index $info "__tags__") -}}
-{{     if not (index $filters $tag) -}}
-{{       $name = false -}}
-{{     end -}}
-{{   end -}}
-{{   if not $name -}}
+{{   $tags := index $info "__tags__" -}}
+{{   $args := dict "data" $ "tags" $tags -}}
+{{   if not (includeTemplate "filterTags" $args) -}}
 {{     continue -}}
 {{   end -}}
 {{   $extensionFilePath := print $extensionsPath "/" $info.file -}}

@@ -1,29 +1,14 @@
 {{ $packageManager := index .packageManagers .distro -}}
 {{ $finalPackages := list -}}
-{{ $filters := dict
-           "alpine" (eq .distro "alpine")
-             "arch" (eq .distro "arch")
-            "gnome" (.manageGnome)
-              "gui" (.manageGui)
-        "kvm-guest" (and (not (env "container")) (.productName | contains "Standard PC"))
-            "linux" (eq .os "linux")
-          "no-work" (not .isWork)
-     "oracle-guest" (and (not (env "container")) (eq .productName "VirtualBox"))
-          "windows" (eq .os "windows")
--}}
 
 {{ range $package, $overrides := .packages -}}
 {{   if kindIs "invalid" $overrides -}}
 {{     $finalPackages = append $finalPackages $package -}}
 {{     continue -}}
 {{   end -}}
-{{   range $tag := (index $overrides "__tags__") -}}
-{{     if not (index $filters $tag) -}}
-{{       $package = false -}}
-{{       break -}}
-{{     end -}}
-{{   end -}}
-{{   if not $package -}}
+{{   $tags := index $overrides "__tags__" -}}
+{{   $args := dict "data" $ "tags" $tags -}}
+{{   if not (includeTemplate "filterTags" $args) -}}
 {{     continue -}}
 {{   end -}}
 {{   $package = index $overrides $packageManager | default $package -}}
