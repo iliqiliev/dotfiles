@@ -6,7 +6,7 @@
 
 ["{{ $addonPath }}/plugin.video.elementum.zip"]
 type = "file"
-{{ $arch := includeTemplate "archShort" . -}}
+{{ $arch := .chezmoi.arch | replace "amd64" "x64" -}}
 {{ $asset := print "plugin.video.elementum-*.*.*." .os "_" $arch ".zip" -}}
 url = "{{ gitHubLatestReleaseAssetURL "elgatito/plugin.video.elementum" $asset }}"
 

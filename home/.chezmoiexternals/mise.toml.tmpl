@@ -13,7 +13,7 @@
 {{   abortEmpty -}}
 {{ end -}}
 
-{{ $arch := includeTemplate "archShort" . -}}
+{{ $arch := .chezmoi.arch | replace "amd64" "x64" -}}
 {{ $asset := print "mise-v*.*.*-" .os "-" $arch $libc "." $ext -}}
 {{ $url := gitHubLatestReleaseAssetURL "jdx/mise" $asset -}}
 

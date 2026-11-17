@@ -6,7 +6,6 @@
 type = "archive-file"
 path = "brush.exe"
 executable = true
-{{ $arch := includeTemplate "archRust" . -}}
 {{ $release := (gitHubLatestTag "reubeno/brush").Name | replace "v" "" -}}
-{{ $asset := print $release "-" $arch "-*-" .os "-msvc.tar.gz" -}}
+{{ $asset := print $release "-x86_64-*-" .os "-msvc.tar.gz" -}}
 url = "{{ gitHubReleaseAssetURL "cargo-bins/cargo-quickinstall" $release $asset }}"
