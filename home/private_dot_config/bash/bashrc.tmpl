@@ -3,20 +3,6 @@
 # chezmoi:template:left-delimiter="# {{"
 # chezmoi:template:line-endings=lf
 
-function abbr() {
-    # Mimic behaviour of `fish` so that existing abbreviations can be used.
-    local KEY="$1"
-    local VALUE="$2"
-
-    # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A77-Completion#user-content-sec-sabbrev
-    if declare -F ble-sabbrev >/dev/null; then
-        ble-sabbrev "${KEY}"="${VALUE}"
-    else
-        # shellcheck disable=SC2139
-        alias "${KEY}"="${VALUE}"
-    fi
-}
-
 # ignoredups, ignorespace, erasedups.
 export HISTCONTROL=ignoreboth:erasedups
 
