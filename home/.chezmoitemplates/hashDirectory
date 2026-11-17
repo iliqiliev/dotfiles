@@ -3,6 +3,6 @@
 {{ range glob (print . "/**") -}}
 {{/* `.` here is the current range iterable. */ -}}
 {{   if ne (lstat .).type "file" }}{{ continue }}{{ end -}}
-{{   $contents = print $contents (include .) -}}
+{{   $contents = print $contents . (include .) -}}
 {{ end -}}
 {{ $contents | sha256sum -}}
