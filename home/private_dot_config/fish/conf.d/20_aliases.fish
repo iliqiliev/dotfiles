@@ -1,16 +1,7 @@
-if command --query bat
-    alias cat bat
-end
+# This file is also used by bash, so it only uses syntax both shells support.
 
-if command --query eza
-    alias ls "eza --hyperlink=auto"
-    alias tree "eza --tree --hyperlink=auto"
-end
-
-if command --query fd
-    alias fd "fd --hyperlink=auto"
-end
-
-if test "$TERM" = xterm-kitty
-    alias ssh "kitten ssh"
-end
+command -v bat >/dev/null && alias cat="bat"
+command -v eza >/dev/null && alias ls="eza --hyperlink=auto"
+command -v eza >/dev/null && alias tree="eza --tree --hyperlink=auto"
+command -v fd >/dev/null && alias fd="fd --hyperlink=auto"
+test "$TERM" = xterm-kitty && alias ssh="kitten ssh"

@@ -38,22 +38,9 @@ if mise install blesh --dry-run-code --quiet; then
     source -- "$(mise where blesh)"/ble.sh
 fi
 
-if command -v bat >/dev/null; then
-    alias cat="bat"
-fi
-
-if command -v eza >/dev/null; then
-    alias ls="eza --hyperlink=auto"
-    alias tree="eza --tree --hyperlink=auto"
-fi
-
-if command -v fd >/dev/null; then
-    alias fd="fd --hyperlink=auto"
-fi
-
-if test "$TERM" = xterm-kitty; then
-    alias ssh="kitten ssh"
-fi
+# Aliases:
+# shellcheck source=home/private_dot_config/fish/conf.d/20_aliases.fish
+source ~/.config/bash/aliases
 
 # Abbreviations/Aliases:
 # shellcheck source=home/private_dot_config/fish/conf.d/30_abbreviations.fish
