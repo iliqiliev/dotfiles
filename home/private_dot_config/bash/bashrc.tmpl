@@ -6,6 +6,19 @@
 # ignoredups, ignorespace, erasedups.
 export HISTCONTROL=ignoreboth:erasedups
 
+# Load `environment.d` if it was not.
+if ! test -v ENVIRONMENT_D_SOURCED; then
+    set -o allexport
+
+    for file in ~/.config/environment.d/*.conf; do
+        # shellcheck disable=SC1090
+        source "$file"
+    done
+
+    set +o allexport
+    unset file
+fi
+
 # Source `ble.sh`.
 if mise install blesh --dry-run-code --quiet; then
     # shellcheck source=/dev/null
