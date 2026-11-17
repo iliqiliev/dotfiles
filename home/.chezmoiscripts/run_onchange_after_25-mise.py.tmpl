@@ -28,7 +28,7 @@ def mise_self_update() -> None:
     current = version_info["version"].split()[0]
     latest = version_info["latest"]
 
-    if current >= latest:
+    if current == latest:
         return
 
     fmt(f"[info]Downloading {MISE_LINK} update ...")
