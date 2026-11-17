@@ -1,0 +1,35 @@
+{{/*
+
+Prints `true` (as a string, not a bool)
+if every tag in `.tags` is enabled on this machine.
+
+Input is a dict:
+  .data - The full chezmoi data.
+  .tags - List of tag names. For example: ["gui", "linux"]
+
+*/ -}}
+
+{{ $filters := dict
+           "alpine" (eq .data.distro "alpine")
+             "arch" (eq .data.distro "arch")
+            "gnome" (.data.manageGnome)
+              "gui" (.data.manageGui)
+        "kvm-guest" (and (not (env "container")) (.data.productName | contains "Standard PC"))
+            "linux" (eq .data.os "linux")
+          "no-work" (not .data.isWork)
+     "oracle-guest" (and (not (env "container")) (eq .data.productName "VirtualBox"))
+         "personal" (.data.isPersonal)
+          "windows" (eq .data.os "windows")
+-}}
+
+{{ $match := true -}}
+{{ range .tags -}}
+{{   if not (index $filters .) -}}
+{{     $match = false -}}
+{{     break -}}
+{{   end -}}
+{{ end -}}
+
+{{ if $match -}}
+true
+{{ end -}}
