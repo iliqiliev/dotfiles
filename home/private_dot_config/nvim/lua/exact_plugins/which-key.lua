@@ -17,6 +17,8 @@ return {
          { "<leader>gr", group = "Reset" },
          { "<leader>s", group = "Grep" },
          { "<leader>x", group = "Diagnostics" },
+         { "[", group = "Previous" },
+         { "]", group = "Next" },
       },
    },
    keys = {
