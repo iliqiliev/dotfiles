@@ -52,6 +52,10 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
         # Render the template.
         contents = run("chezmoi execute-template", input=contents, out=PIPE).stdout
 
+        # Skip templates that render empty, e.g. using `abortEmpty`.
+        if not contents:
+            continue
+
     root_file = ROOT / relative_path
 
     cached_hash = cache.get(str(root_file))
