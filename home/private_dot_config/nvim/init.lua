@@ -16,6 +16,7 @@ vim.o.ignorecase = true -- Ignore case in search patterns.
 vim.o.mouse = "a" -- Enable the mouse for all modes.
 vim.o.mousemoveevent = true -- Enable mouse move events and the `<MouseMove>` key.
 vim.o.number = true -- Print the line number in front of each line.
+vim.opt.sessionoptions:remove("blank") -- Do not save empty windows in sessions.
 vim.o.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
 vim.o.showmode = false -- Mode is already shown on the `statusline`.
 vim.o.smartcase = true -- Override `ignorecase` if the pattern contains upper case letters.

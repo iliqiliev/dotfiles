@@ -3,6 +3,17 @@
 ---@type LazyPluginSpec
 return {
    "https://github.com/folke/snacks.nvim",
+   init = function()
+      -- Start Neovim without a `[No Name]` buffer when opening a directory.
+      vim.api.nvim_create_autocmd("BufFilePost", {
+         callback = function(event)
+            if event.file == "" then
+               vim.bo[event.buf].buflisted = false
+            end
+         end,
+         desc = "Unlist buffers whose name was cleared.",
+      })
+   end,
    keys = {
       -- Miscellaneous.
       {
