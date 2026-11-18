@@ -1,6 +1,6 @@
 # Special Files
 
-This directory contains files that `chezmoi` cannot normaly manage.  
+This directory contains files that `chezmoi` cannot normally manage.  
 They are placed using scripts in `home/.chezmoiscripts`
 
 - `./etc` - Files that require root access.
