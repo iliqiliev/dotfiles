@@ -3,7 +3,6 @@
 from json import loads as json_loads
 from pathlib import Path
 from shlex import split as shlex_split
-from shutil import which
 from subprocess import DEVNULL, PIPE, CompletedProcess, Popen
 from subprocess import run as subprocess_run
 from typing import Any, Literal
@@ -25,19 +24,6 @@ console = Console(
 
 def fmt(message: str, end: str = "\n") -> None:
     console.print(message, end=end)
-
-
-def is_busybox(utility: str) -> bool:
-    if (utility_path := which(utility)) is None:
-        raise FileNotFoundError(f"'{utility}' is not installed.")
-
-    if (busybox_path := which("busybox")) is None:
-        return False
-
-    utility_path_resolved = Path(utility_path).resolve()
-    busybox_path_resolved = Path(busybox_path).resolve()
-
-    return utility_path_resolved == busybox_path_resolved
 
 
 def restart_explorer() -> None:
