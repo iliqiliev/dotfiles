@@ -50,7 +50,7 @@ def install_scoop() -> None:
     SCOOP_DIR.move(SCOOP_DIR_TEMP)
 
     run_as_admin = "-RunAsAdmin" if is_admin() else None
-    run("powershell -NoProfile -File", scoop_script, run_as_admin)
+    run("powershell -NoProfile -ExecutionPolicy Bypass -File", scoop_script, run_as_admin)
 
     copytree(SCOOP_DIR_TEMP, SCOOP_DIR, dirs_exist_ok=True)
     rmtree(SCOOP_DIR_TEMP)
