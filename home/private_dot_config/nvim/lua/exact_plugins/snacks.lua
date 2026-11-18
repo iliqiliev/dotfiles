@@ -4,7 +4,7 @@
 return {
    "https://github.com/folke/snacks.nvim",
    keys = {
-      -- Miscellanious.
+      -- Miscellaneous.
       {
          mode = { "n", "i", "v" },
          "<F1>",

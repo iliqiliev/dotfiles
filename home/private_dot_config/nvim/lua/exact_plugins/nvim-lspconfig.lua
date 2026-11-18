@@ -2,9 +2,9 @@
 return {
    "https://github.com/neovim/nvim-lspconfig",
    config = function()
-      -- Install LSP servers.
+      -- Enable LSP servers.
       vim.lsp.enable(require("config.languages").servers)
-      -- Lower `semantic_tokens` priority so LSP does not overwriting treesitter.
+      -- Lower `semantic_tokens` priority so LSP does not override treesitter.
       vim.hl.priorities.semantic_tokens = 90
       -- Configure LSP-provided diagnostics.
       vim.diagnostic.config({
