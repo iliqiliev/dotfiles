@@ -12,6 +12,9 @@
 [pull]
     rebase = true
 
+[rebase]
+    autoStash = true
+
 [url "https://github.com/"]
     insteadOf = "gh:"
 
