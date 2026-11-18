@@ -37,7 +37,7 @@ pcall(vim.cmd.aunmenu, "PopUp.-2-")
 
 -- Detect light background using the $COLORFGBG variable.
 if string.match(vim.env.COLORFGBG or "", ";(%d+)$") == "15" then
-   vim.opt.background = "light"
+   vim.o.background = "light"
 end
 
 require("config.lazy")
