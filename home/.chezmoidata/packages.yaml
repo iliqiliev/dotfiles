@@ -48,6 +48,8 @@ packages:
     __tags__: ["gui", "windows"]
   ditto:
     __tags__: ["gui", "windows"]
+  glibc-langpack-bg:
+    __tags__: ["fedora", "gui", "personal"]
   kodi:
     __tags__: ["gui", "linux"]
   process-explorer:
