@@ -12,7 +12,7 @@ from helpers import CHEZMOI_DATA, CHEZMOI_PACKAGES, PIPE, SUDO, fmt, run
 env["DEBIAN_FRONTEND"] = "noninteractive"
 
 
-fmt("[info]Syncing apt databse ...")
+fmt("[info]Syncing apt database ...")
 run(SUDO, "apt update --yes")
 fmt("[good]Apt database synced successfully.")
 
