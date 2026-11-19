@@ -1,7 +1,7 @@
 # `./conf.d` is loaded first.
 
 # Add directories to `PATH`.
-fish_add_path \
+fish_add_path --global \
     $HOME/.local/share/mise/shims \
     $HOME/.local/bin \
     /var/lib/flatpak/exports/bin
