@@ -37,6 +37,8 @@ $defs:
               description: Distro is Alpine Linux.
             - const: arch
               description: Distro is Arch Linux.
+            - const: fedora
+              description: Distro is Fedora.
             - const: gui
               description: GUI management is enabled (`manageGui`).
             - const: gnome
@@ -49,6 +51,8 @@ $defs:
               description: Not a work machine (`isWork` is false).
             - const: oracle-guest
               description: Running as a VirtualBox guest, outside a container.
+            - const: personal
+              description: Personal machine (`isPersonal` is true).
             - const: windows
               description: OS is Windows.
       apk:

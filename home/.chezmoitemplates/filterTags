@@ -12,6 +12,7 @@ Input is a dict:
 {{ $filters := dict
            "alpine" (eq .data.distro "alpine")
              "arch" (eq .data.distro "arch")
+           "fedora" (eq .data.distro "fedora")
             "gnome" (.data.manageGnome)
               "gui" (.data.manageGui)
         "kvm-guest" (and (not (env "container")) (.data.productName | contains "Standard PC"))
