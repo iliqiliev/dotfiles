@@ -1,0 +1,6 @@
+{{ if or (not .isPersonal) (not (stat "/etc/locale.gen")) -}}
+{{   abortEmpty -}}
+{{ end -}}
+
+bg_BG.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
