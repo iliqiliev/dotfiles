@@ -3,5 +3,6 @@
 auto_env = true
 env = [
   "{{ .distro }}",
+  # Renders as "" without GUI, which mise ignores.
   "{{ if .manageGui }}gui{{ end }}",
 ]
