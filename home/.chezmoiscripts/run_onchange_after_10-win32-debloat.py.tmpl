@@ -6,11 +6,16 @@
 """Debloat Windows."""
 
 from asyncio import run as asyncio_run
+from msvcrt import getwch
+from typing import TYPE_CHECKING
 
-from rich.prompt import Confirm
+from rich.control import Control, ControlType
 from winrt.windows.management.deployment import PackageManager
 
-from helpers import fmt, restart_explorer
+from helpers import console, fmt, restart_explorer
+
+if TYPE_CHECKING:
+    from winrt.windows.applicationmodel import Package
 
 BLOAT_PACKAGES = {
     "Clipchamp.Clipchamp",
@@ -20,6 +25,8 @@ BLOAT_PACKAGES = {
     "Microsoft.GetHelp",
     "Microsoft.MicrosoftSolitaireCollection",
     "Microsoft.MicrosoftStickyNotes",
+    "Microsoft.OutlookForWindows",
+    "Microsoft.Paint",
     "Microsoft.PowerAutomateDesktop",
     "Microsoft.StartExperiencesApp",
     "Microsoft.Todos",
@@ -32,59 +39,107 @@ BLOAT_PACKAGES = {
     "Microsoft.ZuneMusic",
     "MicrosoftCorporationII.QuickAssist",
     "MicrosoftWindows.Client.WebExperience",
-}
-
-DEEP_BLOAT_PACKAGES = {
-    "Microsoft.Paint",
-    "Microsoft.OutlookForWindows",
     "MSTeams",
 }
 
-SEPARATOR = "\n > "
-PROMPT = f"""\
-Perform deeper debloat?
-This will remove the following packages:\
-{SEPARATOR}{SEPARATOR.join(sorted(DEEP_BLOAT_PACKAGES))}
-Accept?\
-"""
+
+ERASE_LINE = (
+    Control.move_to_column(0),
+    Control((ControlType.ERASE_IN_LINE, 2)),
+)
+
+CTRL_C = "\x03"
+CTRL_D = "\x04"
+ENTER = "\r"
+ESC = "\x1b"
 
 
 async def main() -> None:
     """Debloat Windows."""
+
     package_manager = PackageManager()
 
-    if Confirm.ask(PROMPT, default=False):
-        BLOAT_PACKAGES.update(DEEP_BLOAT_PACKAGES)
+    bloat_packages = [
+        package
+        for package in package_manager.find_packages_for_user("")
+        if package.id.name in BLOAT_PACKAGES
+    ]
+
+    if not bloat_packages:
+        return
 
     fmt("[info]Removing bloat packages ...")
 
-    installed_packages = {
-        package.id.name: package
-        for package in package_manager.find_packages_for_user("")
-    }
+    remove_all = False
+    remove_none = False
+    removed = False
 
-    removed: int = 0
-    for package_name in sorted(BLOAT_PACKAGES):
-        if (package := installed_packages.get(package_name)) is None:
+    for package in sorted(bloat_packages, key=pretty_name):
+        question = f"Remove [i]{pretty_name(package)}[/]"
+
+        if remove_all:
+            fmt(f"{question} ...", end=" ")
+
+        elif remove_none:
+            fmt(f"{question} ... [warn]Skipped.")
             continue
 
-        pretty_name = package.display_name
-        fmt(f"[info]Removing [i]{pretty_name}[/] ...", end=" ")
+        elif (answer := ask(question)) in ("no", "none"):
+            remove_none = answer == "none"
+            fmt("[warn]Skipped.")
+            continue
+
+        else:
+            remove_all = answer == "all"
+
         await package_manager.remove_package_async(package.id.full_name)
 
         fmt("[good]Done.")
-        removed += 1
+        removed = True
 
-    fmt(f"[good]{len(BLOAT_PACKAGES)} packages checked.")
+    if removed:
+        restart_explorer()
 
-    if removed == 0:
-        fmt("[good]No packages to debloat.")
-        raise SystemExit(0)
 
-    fmt(f"[good]{removed} packages debloated.")
+def pretty_name(package: Package) -> str:
+    """Return the display name of `package`, or its ID if it has none."""
+    return package.display_name or package.id.name
 
-    restart_explorer()
+
+def ask(question: str) -> str:
+    """Ask a yes/no/all question in the style of `chezmoi`'s prompts."""
+
+    answers = {
+        "y": "yes",
+        "n": "no",
+        "a": "all",
+        ENTER: "yes",
+        CTRL_D: "none",
+        ESC: "none",
+    }
+
+    fmt(f"{question}?")
+    fmt("> [dim]yes/no/all, default yes[/]", end="")
+    # Put the cursor on the first choice, after `> `.
+    console.control(Control.move_to_column(2))
+
+    while (key := getwch().lower()) not in (*answers, CTRL_C):
+        continue
+
+    # Erase the prompt line and turn `{question}?` into `{question} ...`.
+    console.control(*ERASE_LINE, Control.move(0, -1), *ERASE_LINE)
+    fmt(f"{question} ...", end=" ")
+
+    # `getwch` reads Ctrl+C as a key, so raise it by hand.
+    if key == CTRL_C:
+        raise KeyboardInterrupt
+
+    return answers[key]
 
 
 if __name__ == "__main__":
-    asyncio_run(main())
+    try:
+        asyncio_run(main())
+    except KeyboardInterrupt:
+        fmt("[fail]Interrupted.")
+        raise SystemExit(130)
