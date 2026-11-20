@@ -10,14 +10,19 @@ dependencies = [
   "requests>=2.34.2; sys_platform == 'win32'",
   "rich>=15.0.0",
   "vdf>=3.4; sys_platform == 'linux'",
-  "winrt-Windows.ApplicationModel>=3.2.1; sys_platform == 'win32'",
-  "winrt-Windows.Foundation.Collections>=3.2.1; sys_platform == 'win32'",
-  "winrt-Windows.Management.Deployment>=3.2.1; sys_platform == 'win32'",
+  "winrt-Windows.ApplicationModel>=4!10.0.28000.2957; sys_platform == 'win32'",
+  "winrt-Windows.Foundation.Collections>=4!10.0.28000.2957; sys_platform == 'win32'",
+  "winrt-Windows.Management.Deployment>=4!10.0.28000.2957; sys_platform == 'win32'",
 ]
 
 [dependency-groups]
 dev = [
   "kodistubs>=21.0.0",
+  "python-dotenv>=1.2.4",
+  "requests>=2.34.2",
+  "winrt-Windows.ApplicationModel>=4!10.0.28000.2957",
+  "winrt-Windows.Foundation.Collections>=4!10.0.28000.2957",
+  "winrt-Windows.Management.Deployment>=4!10.0.28000.2957",
 ]
 
 [build-system]
@@ -55,6 +60,7 @@ environment.root = [
 ]
 
 [tool.uv]
+override-dependencies = ["winrt-runtime>=4; sys_platform == 'win32'"]
 build-backend.module-root = ""
 build-backend.module-name = ["helpers"]
 environments = [
