@@ -11,6 +11,9 @@
 {{ if glob (print ".local/bin/" $mise) -}}
 {{/* If `mise` is already installed, let it manage itself. */ -}}
 {{   abortEmpty -}}
+{{ else if eq .distro "android" -}}
+{{/* Cannot resolve DNS on Android, the Termux package is used instead. */ -}}
+{{   abortEmpty -}}
 {{ end -}}
 
 {{ $arch := .chezmoi.arch | replace "amd64" "x64" -}}
