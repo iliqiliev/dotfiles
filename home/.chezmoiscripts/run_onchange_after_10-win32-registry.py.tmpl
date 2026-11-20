@@ -13,7 +13,6 @@
 from os import environ as env
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import cast
 from unittest.mock import patch
 from winreg import (
     HKEY_CURRENT_USER,
@@ -68,7 +67,8 @@ def main() -> None:
 
 def path_prepend(new_path: str) -> None:
     """Add `new_path` to `%PATH%` if not already present."""
-    old_path, path_type = cast("tuple[str, int]", QueryValueEx(ENVIRONMENT, "Path"))
+    old_path: str
+    old_path, path_type = QueryValueEx(ENVIRONMENT, "Path")
 
     if path_type != REG_EXPAND_SZ:
         raise TypeError("'PATH' type is not 'REG_EXPAND_SZ'.")
