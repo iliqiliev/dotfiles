@@ -60,7 +60,7 @@ environment.root = [
 ]
 
 [tool.uv]
-override-dependencies = ["winrt-runtime>=4; sys_platform == 'win32'"]
+override-dependencies = ["winrt-runtime>=4.2.0,<5; sys_platform == 'win32'"]
 build-backend.module-root = ""
 build-backend.module-name = ["helpers"]
 environments = [
