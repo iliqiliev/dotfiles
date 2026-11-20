@@ -1,22 +1,57 @@
+[bootstrap.hooks.pre-tools]
+# `mise` cannot bootstrap packages on Termux, so they are installed with `pkg`.
+# `clang` replaces `gcc` from the main config, and `python` is needed by `uv`.
+description = "Installing Termux packages to replace the disabled tools."
+run = """pkg install --yes -- \
+  chezmoi \
+  clang \
+  difftastic \
+  eza \
+  fastfetch \
+  gh \
+  git-delta \
+  lazygit \
+  lua-language-server \
+  nodejs \
+  python \
+  ripgrep-all \
+  shellcheck \
+  tealdeer \
+  topgrade \
+  tree-sitter \
+  uv
+"""
+
 [bootstrap.packages]
-# This overrides the entry from the main config and
-# and is needed as `gcc` is not available on Termux.
-gcc = { names = { apt = "clang" } }
-# The `mise` version cannot find `/lib/ld-musl-aarch64.so.1`.
-nodejs = "latest"
-# The `mise` version cannot find `/lib/ld-musl-aarch64.so.1`.
-tree-sitter = "latest"
+# This skips the entry from the main config, as `os` is `android` on Termux, not `linux`.
+gcc = { os = "linux" }
 
 [env]
 # This fixes `uv` trying to install broken Python versions.
 UV_PYTHON_PREFERENCE = "only-system"
 
 [settings]
-disable_tools = ["node", "tree-sitter"]
+# The `mise` versions of these do not work on Termux.
+# "No DNS" means it cannot resolve hosts, as it looks for `/etc/resolv.conf`.
+disable_tools = [
+  "chezmoi",  # No DNS.
+  "delta",  # No `aarch64-unknown-linux-musl` build.
+  "difftastic",  # No `aarch64-unknown-linux-musl` build.
+  "eza",  # The `vfox` plugin rejects `android-arm64`.
+  "fastfetch",  # Cannot find `/lib/ld-linux-aarch64.so.1`.
+  "gh",  # No DNS.
+  "lazygit",  # Killed by Android's seccomp filter (SIGSYS).
+  "lua-language-server",  # Cannot find `/lib/ld-linux-aarch64.so.1`.
+  "node",  # No prebuilt Node.js for Android, so `mise` compiles it from source.
+  "ripgrep-all",  # No `aarch64-unknown-linux-musl` build.
+  "shellcheck",  # Killed by Android's seccomp filter (SIGSYS).
+  "tealdeer",  # No DNS.
+  "topgrade",  # No CA certificates, and no DNS once they are provided.
+  "tree-sitter",  # Cannot find `/lib/ld-linux-aarch64.so.1`.
+  "uv",  # No DNS.
+]
 
-[settings.system_packages]
-# `mise` tries to use `sudo` otherwise.
-elevate_with = ""
-
-[tools]
-uv = { version = "latest", postinstall = "pkg install --yes -- python" }
+[tool_alias]
+# The default `packslip` backend finds no build for Android.
+# The `aqua` backend picks the static musl build, which works on Termux.
+usage = "aqua:jdx/usage"
