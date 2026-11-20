@@ -20,9 +20,9 @@ if ! test -v ENVIRONMENT_D_SOURCED; then
 fi
 
 # Source `ble.sh`.
-if mise install blesh --dry-run-code --quiet; then
+if test -r ~/.local/share/mise/installs/blesh/ble.sh; then
     # shellcheck source=/dev/null
-    source -- "$(mise where blesh)"/ble.sh
+    source -- ~/.local/share/mise/installs/blesh/ble.sh
 fi
 
 # Aliases:
