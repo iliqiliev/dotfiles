@@ -11,7 +11,7 @@
 
 from json import loads as json_loads
 
-from helpers import DEVNULL, PIPE, fmt, run
+from helpers import CHEZMOI_DATA, DEVNULL, PIPE, fmt, run
 
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
@@ -43,8 +43,14 @@ def mise_bootstrap() -> None:
     if not run("mise bootstrap status --missing", check=False, out=DEVNULL).returncode:
         return
 
+    skip = "--skip=user" if CHEZMOI_DATA["distro"] == "android" else None
+    """Skip configuring the login shell on `Termux`.
+
+    Termux sets the login shell with the `~/.termux/shell` symlink instead.
+    """
+
     fmt(f"[info]Performing {MISE_LINK} bootstrap ...")
-    run("mise bootstrap --yes")
+    run("mise bootstrap --yes", skip)
     fmt(f"[good]{MISE_LINK} bootstrap completed successfully.")
 
 
