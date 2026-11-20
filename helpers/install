@@ -35,7 +35,17 @@ set -eu # Exit on [e]rror and [u]nset variables.
 
 PATH="${PATH}:${HOME}/.local/bin"
 
-if ! CHEZMOI="$(command -v chezmoi)"; then
+if test -n "${TERMUX_VERSION:-}"; then
+    printf "\033[94m%b\n\033[m" "Installing chezmoi ..."
+
+    # The chezmoi from the official installer cannot resolve DNS on Termux.
+    # The `mise` release builds cannot resolve DNS either.
+    # `uv` and `python` are needed to run the chezmoi scripts.
+    pkg install --yes chezmoi mise python uv
+
+    CHEZMOI="$(command -v chezmoi)"
+
+elif ! CHEZMOI="$(command -v chezmoi)"; then
     CHEZMOI="${HOME}/.local/bin/chezmoi"
     CHEZMOI_DIR="$(dirname "${CHEZMOI}")"
     CHEZMOI_URL="https://get.chezmoi.io/"
