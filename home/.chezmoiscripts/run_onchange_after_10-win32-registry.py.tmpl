@@ -3,7 +3,8 @@
 # {{   abortEmpty -}}
 # {{ end -}}
 # Trigger the script if any file inside `~/.config/environment.d` changes:
-# # {{ template "hashDirectory" (joinPath .chezmoi.sourceDir "private_dot_config/environment.d") }}
+# {{ $environmentD := joinPath .chezmoi.sourceDir "private_dot_config/environment.d" -}}
+# # {{ template "hashDirectory" $environmentD }}
 
 """Set Windows registry settings."""
 
