@@ -7,6 +7,9 @@
 
 ---@type table<string, Language>
 local languages = {
+   dosini = {
+      treesitter = { "ini" },
+   },
    fish = {
       treesitter = { "fish" },
       lsp = { "fish_lsp" },
