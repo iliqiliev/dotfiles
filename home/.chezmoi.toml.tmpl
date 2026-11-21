@@ -86,7 +86,7 @@ size = {{ $fontSize }}
 
 [diff]
 exclude = ["scripts"]
-pager = "{{ if lookPath "delta" }}delta{{ end }}"
+pager = "delta"
 
 [env]
 {{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
