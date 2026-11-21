@@ -58,6 +58,8 @@ config.mouse_bindings = {
       action = "Nop",
    },
 }
+-- Draw with Direct3D (through ANGLE) instead of OpenGL.
+config.prefer_egl = true
 config.scrollback_lines = 20000
 config.window_decorations = "INTEGRATED_BUTTONS"
 
