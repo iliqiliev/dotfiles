@@ -84,7 +84,7 @@ if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
     fmt("[good]Git installed successfully.")
 
 for bucket in BUCKETS:
-    if (SCOOP_BUCKETS / bucket).is_dir():
+    if (SCOOP_BUCKETS / bucket.split()[0]).is_dir():
         continue
 
     run(SCOOP, "bucket add", bucket)
