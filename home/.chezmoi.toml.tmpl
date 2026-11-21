@@ -96,6 +96,7 @@ pager = "{{ if lookPath "delta" }}delta{{ end }}"
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
 {{ $pathList = joinPath .chezmoi.homeDir ".local/share/mise/shims" | prepend $pathList -}}
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
+PYTHONPYCACHEPREFIX = '{{ joinPath .chezmoi.homeDir ".cache/python" }}'
 UV_PROJECT = '{{ .chezmoi.workingTree }}'
 XDG_CACHE_HOME = '{{ joinPath .chezmoi.homeDir ".cache" }}'
 XDG_CONFIG_HOME = '{{ joinPath .chezmoi.homeDir ".config" }}'
