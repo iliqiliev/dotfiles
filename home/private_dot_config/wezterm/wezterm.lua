@@ -28,6 +28,7 @@ config.default_prog = {
 }
 config.enable_scroll_bar = true
 config.font = wezterm.font("AdwaitaMono Nerd Font Mono")
+config.font_dirs = { wezterm.home_dir .. "/AppData/Local/Microsoft/Windows/Fonts" }
 config.mouse_bindings = {
    {
       event = { Up = { streak = 1, button = "Left" } },
