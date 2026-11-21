@@ -1,5 +1,24 @@
 ---@module "snacks"
 
+--- Close LazyGit, then open `target` in the current tab page.
+---@param target string The file or directory to open.
+---@param line? string The line to jump to.
+---@return string command A shell command for LazyGit's `os` settings.
+local function open_in_nvim(target, line)
+   local nvim = 'nvim --server "$NVIM"'
+
+   local commands = {
+      nvim .. ' --remote-send "q"',
+      nvim .. " --remote " .. target,
+   }
+
+   if line then
+      table.insert(commands, nvim .. ' --remote-send ":' .. line .. '<cr>"')
+   end
+
+   return table.concat(commands, "; ")
+end
+
 ---@type LazyPluginSpec
 return {
    "https://github.com/folke/snacks.nvim",
@@ -168,12 +187,9 @@ return {
       lazygit = {
          config = {
             os = {
-               -- The `nvim-remote` preset uses `--remote-tab`, which opens a new tab page.
-               -- Use `--remote` instead, to open files as buffers in the current window.
-               -- `q` closes LazyGit first.
-               edit = 'nvim --server "$NVIM" --remote-send "q"; nvim --server "$NVIM" --remote {{filename}}',
-               editAtLine = 'nvim --server "$NVIM" --remote-send "q"; nvim --server "$NVIM" --remote {{filename}}; nvim --server "$NVIM" --remote-send ":{{line}}<CR>"',
-               openDirInEditor = 'nvim --server "$NVIM" --remote-send "q"; nvim --server "$NVIM" --remote {{dir}}',
+               edit = open_in_nvim("{{filename}}"),
+               editAtLine = open_in_nvim("{{filename}}", "{{line}}"),
+               openDirInEditor = open_in_nvim("{{dir}}"),
             },
          },
       },
