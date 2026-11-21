@@ -50,8 +50,3 @@ disable_tools = [
   "tree-sitter",  # Cannot find `/lib/ld-linux-aarch64.so.1`.
   "uv",  # No DNS.
 ]
-
-[tool_alias]
-# The default `packslip` backend finds no build for Android.
-# The `aqua` backend picks the static musl build, which works on Termux.
-usage = "aqua:jdx/usage"

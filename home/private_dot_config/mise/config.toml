@@ -73,7 +73,6 @@ tombi = "latest"
 topgrade = "latest"
 tree-sitter = "latest"
 ty = "latest"
-usage = "latest"
 uv = "latest"
 yaml-language-server = "latest"  # Aliased.
 yazi = "latest"
