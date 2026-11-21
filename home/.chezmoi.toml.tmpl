@@ -66,24 +66,6 @@ manageGnome = {{ and (eq $os "linux")
                      (ne $sudo "false")
                      (or (ne (lookPath "gnome-shell") ("")) (promptBoolOnce . "manageGnome" "Manage Gnome" false)) }}
 
-[data.fonts]
-{{ $vertRes := 0 -}}
-{{ if and ($manageGui) (eq $os "linux") -}}
-{{   $resolutionCmd := "grep -osm1 '[0-9]*$' /sys/class/graphics/*/virtual_size || true" -}}
-{{   $vertRes = output "sh" "-c" $resolutionCmd | trim | int -}}
-{{ else if and ($manageGui) (eq $os "windows") -}}
-{{   $resolutionCmd := "Add-Type -A System.Windows.Forms; [Windows.Forms.Screen]::PrimaryScreen.Bounds.Height" -}}
-{{   $vertRes = output "powershell" "-nop" "-c" $resolutionCmd | trim | int -}}
-{{ end -}}
-{{ $fontSize := 16 -}}
-{{ if gt $vertRes 1080 -}}
-{{   $fontSize = 20 -}}
-{{ else if and (gt $vertRes 0) (le $vertRes 800) -}}
-{{   $fontSize = 12 -}}
-{{ end -}}
-# Font size chosen from detected vertical resolution: {{ $vertRes }}px
-size = {{ $fontSize }}
-
 [diff]
 exclude = ["scripts"]
 pager = "delta"
