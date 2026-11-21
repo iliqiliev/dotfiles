@@ -9,6 +9,12 @@ Windows Registry Editor Version 5.00
 "2"="00040402"
 {{ end -}}
 
+; Install the fonts that `chezmoi` installs. Windows loads them at the next login.
+[HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Fonts]
+{{ range glob (joinPath .chezmoi.homeDir "AppData/Local/Microsoft/Windows/Fonts/*.ttf") -}}
+"{{ base . }}"={{ quote . }}
+{{ end -}}
+
 ; Disable mouse acceleration.
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="0"
