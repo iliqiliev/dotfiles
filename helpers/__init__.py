@@ -31,7 +31,7 @@ def restart_explorer() -> None:
     fmt("[info]Restarting [i]explorer.exe[/] ...", end=" ")
     run("TASKKILL /F /IM explorer.exe", out=DEVNULL)
     Popen("explorer.exe")
-    fmt("[good]Done.")
+    fmt("[good]OK")
 
 
 def run(

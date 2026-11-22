@@ -35,7 +35,7 @@ ENVIRONMENT = CreateKey(HKEY_CURRENT_USER, "Environment")
 
 
 def main() -> None:
-    fmt("[info]Setting registry settings ...")
+    fmt("[info]Setting registry settings ...", end=" ")
 
     # Add directories to `%PATH%`.
     path_prepend(rf"{env['USERPROFILE']}\scoop\shims")
@@ -60,7 +60,7 @@ def main() -> None:
         file.close()
         run("reg import", Path(file.name), err=DEVNULL)
 
-    fmt("[good]Registry settings imported successfully.")
+    fmt("[good]OK")
 
     restart_explorer()
 
