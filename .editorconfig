@@ -8,3 +8,6 @@ indent_size = 3
 indent_style = space
 insert_final_newline = true
 max_line_length = 88
+
+[*.{py,py.tmpl}]
+max_line_length = 88
