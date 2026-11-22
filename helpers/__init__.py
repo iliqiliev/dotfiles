@@ -8,9 +8,12 @@ from subprocess import DEVNULL, PIPE, CompletedProcess, Popen
 from subprocess import run as subprocess_run
 from typing import Literal, TypedDict
 
+import typeguard
 from rich.console import Console
 from rich.theme import Theme
-from typeguard import check_type
+from typeguard import CollectionCheckStrategy, check_type, typechecked
+
+typeguard.config.collection_check_strategy = CollectionCheckStrategy.ALL_ITEMS
 
 console = Console(
     theme=Theme(
@@ -36,6 +39,7 @@ def restart_explorer() -> None:
     fmt("[good]OK")
 
 
+@typechecked
 def run(
     *cmd: str | Path | None,
     check: bool = True,
@@ -48,10 +52,8 @@ def run(
     for part in filter(None, cmd):
         if isinstance(part, Path):
             args.append(part)
-        elif isinstance(part, str):
-            args.extend(shlex_split(part))
         else:
-            raise TypeError
+            args.extend(shlex_split(part))
 
     return subprocess_run(
         args=args,
