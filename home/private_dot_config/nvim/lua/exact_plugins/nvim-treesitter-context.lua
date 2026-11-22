@@ -6,7 +6,7 @@ return {
    event = { "BufNewFile", "BufReadPost", "BufWritePre" },
    keys = {
       {
-         "[C",
+         "[x", -- Conte[x]t.
          function()
             require("treesitter-context").go_to_context(vim.v.count1)
          end,

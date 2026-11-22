@@ -62,6 +62,18 @@ return {
       -- Move.
       {
          mode = { "n", "x", "o" },
+         "]C", -- Next [C]lass.
+         move_to("goto_next_start", "@class.outer"),
+         desc = "Next class",
+      },
+      {
+         mode = { "n", "x", "o" },
+         "[C", -- Prev [C]lass.
+         move_to("goto_previous_start", "@class.outer"),
+         desc = "Prev class",
+      },
+      {
+         mode = { "n", "x", "o" },
          "]f", -- Next [f]unction.
          move_to("goto_next_start", "@function.outer"),
          desc = "Next function",
