@@ -9,6 +9,7 @@ dependencies = [
   "python-dotenv>=1.2.4; sys_platform == 'win32'",
   "requests>=2.34.2; sys_platform == 'win32'",
   "rich>=15.0.0",
+  "typeguard>=4.6.1",
   "vdf>=3.4; sys_platform == 'linux'",
   "winrt-Windows.ApplicationModel>=4!10.0.28000.2957; sys_platform == 'win32'",
   "winrt-Windows.Foundation.Collections>=4!10.0.28000.2957; sys_platform == 'win32'",

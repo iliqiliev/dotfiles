@@ -1,14 +1,16 @@
 """Helper functions."""
 
-from json import loads as json_loads
+import tomllib
+from os import environ as env
 from pathlib import Path
 from shlex import split as shlex_split
 from subprocess import DEVNULL, PIPE, CompletedProcess, Popen
 from subprocess import run as subprocess_run
-from typing import Any, Literal
+from typing import Literal, TypedDict
 
 from rich.console import Console
 from rich.theme import Theme
+from typeguard import check_type
 
 console = Console(
     theme=Theme(
@@ -76,9 +78,24 @@ def sudo_cache() -> None:
     fmt("[good]Sudo credentials cached.")
 
 
-cmd = "chezmoi data --format json"
-CHEZMOI_DATA: dict[str, Any] = json_loads(run(cmd, out=PIPE).stdout)
+class ChezmoiData(TypedDict):
+    """The `[data]` section of the `chezmoi` config."""
+
+    os: Literal["linux", "windows"]
+    distro: str
+    isPersonal: bool
+    isWork: bool
+    email: str
+    name: str
+    sudo: Literal["", "false", "sudo"]
+    productName: str
+    manageGui: bool
+    manageGnome: bool
+
+
+CHEZMOI_CONFIG = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
+CHEZMOI_DATA = check_type(CHEZMOI_CONFIG["data"], ChezmoiData)
+SUDO = CHEZMOI_DATA["sudo"]
+
 cmd = "chezmoi execute-template '{{ template `packages` .}}'"
 CHEZMOI_PACKAGES: set[str] = set(run(cmd, out=PIPE).stdout.split())
-
-SUDO: Literal["", "false", "sudo"] = CHEZMOI_DATA.get("sudo", "sudo")
