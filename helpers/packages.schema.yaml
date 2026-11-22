@@ -59,24 +59,30 @@ $defs:
         description: >-
           Package name(s) for apk (Alpine).
           Space-separated for several packages.
-        type: string
+        $ref: "#/$defs/packageNames"
       apt:
         description: >-
           Package name(s) for apt (Debian-based).
           Space-separated for several packages.
-        type: string
+        $ref: "#/$defs/packageNames"
       dnf:
         description: >-
           Package name(s) for dnf (Fedora-based).
           Space-separated for several packages.
-        type: string
+        $ref: "#/$defs/packageNames"
       pacman:
         description: >-
           Package name(s) for pacman (Arch).
           Space-separated for several packages.
-        type: string
+        $ref: "#/$defs/packageNames"
       scoop:
         description: >-
           Package name(s) for scoop (Windows).
           Space-separated for several packages.
-        type: string
+        $ref: "#/$defs/packageNames"
+
+  packageNames:
+    type: string
+    pattern: '\S' # At least one package name, not only whitespace.
+    patternErrorMessage: >-
+      An empty value is not allowed. Use `__tags__` to filter out the package instead.
