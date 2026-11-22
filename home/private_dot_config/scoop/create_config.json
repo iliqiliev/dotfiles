@@ -3,5 +3,6 @@
   "aria2-warning-enabled": false,
   "scoop_branch": "master",
   "scoop_repo": "https://github.com/ScoopInstaller/Scoop",
+  "show_update_log": false,
   "use_sqlite_cache": true
 }
