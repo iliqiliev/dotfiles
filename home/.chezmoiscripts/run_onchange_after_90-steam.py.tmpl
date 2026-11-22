@@ -15,7 +15,7 @@
 
 from pathlib import Path
 
-from vdf import dumps, loads
+import vdf
 
 from helpers import fmt
 
@@ -49,7 +49,7 @@ def steam_update_config(root: Path, library_id: str) -> None:
 
         fmt(f"[info]Updating [i]Steam[/] config for [i]{username}[/] ...", end=" ")
 
-        parsed_vdf = loads(path.read_text(), mapper=DefaultDict)
+        parsed_vdf = vdf.loads(path.read_text(), mapper=DefaultDict)
 
         config = parsed_vdf["UserLocalConfigStore"]
 
@@ -64,7 +64,7 @@ def steam_update_config(root: Path, library_id: str) -> None:
 
         apps[CS2]["LaunchOptions"] = "%command% +exec user.cfg"
 
-        path.write_text(dumps(parsed_vdf, pretty=True))
+        path.write_text(vdf.dumps(parsed_vdf, pretty=True))
 
         fmt("[good]OK")
 
@@ -72,7 +72,7 @@ def steam_update_config(root: Path, library_id: str) -> None:
 def steam_update_library(root: Path) -> str:
     libraryfolders = root / "steamapps/libraryfolders.vdf"
 
-    parsed_vdf = loads(libraryfolders.read_text())
+    parsed_vdf = vdf.loads(libraryfolders.read_text())
 
     largest_key = 0
     """Steam stores each library ID as an integer, starting from 0."""
@@ -94,7 +94,7 @@ def steam_update_library(root: Path) -> str:
         "label": "Games",
     }
 
-    libraryfolders.write_text(dumps(parsed_vdf, pretty=True))
+    libraryfolders.write_text(vdf.dumps(parsed_vdf, pretty=True))
 
     fmt("[good]OK")
 
@@ -117,7 +117,7 @@ def steam_get_username(root: Path, account_id32: int) -> str:
 
     loginusers = root / "config/loginusers.vdf"
 
-    parsed_vdf = loads(loginusers.read_text())
+    parsed_vdf = vdf.loads(loginusers.read_text())
 
     for account_id64, account_data in parsed_vdf["users"].items():
         if int(account_id64) & ACCOUNT_ID_MASK == account_id32:

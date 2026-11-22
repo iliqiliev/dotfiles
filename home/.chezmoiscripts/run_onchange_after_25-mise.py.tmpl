@@ -9,7 +9,7 @@
 
 """Set up a development environment using `mise`."""
 
-from json import loads as json_loads
+import json
 
 from helpers import CHEZMOI_DATA, DEVNULL, PIPE, fmt, run
 
@@ -23,7 +23,7 @@ def main() -> None:
 
 def mise_self_update() -> None:
     output = run("mise version --json", out=PIPE).stdout
-    version_info: dict[str, str] = json_loads(output)
+    version_info: dict[str, str] = json.loads(output)
 
     current = version_info["version"].split()[0]
     latest = version_info["latest"]
