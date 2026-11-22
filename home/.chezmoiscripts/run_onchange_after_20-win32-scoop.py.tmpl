@@ -76,7 +76,7 @@ BUCKETS = (
 if SCOOP.exists():
     fmt("[info]Updating 'scoop' buckets ...")
     run(SCOOP, "update")
-    fmt("[info]'scoop' buckets updated successfully.")
+    fmt("[good]'scoop' buckets updated successfully.")
 else:
     fmt("[info]Scoop not found. Installing it ...")
     install_scoop()
@@ -112,4 +112,4 @@ if SUDO != "false" and sudo_packages:
     run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
 
     check_installed(sudo_packages)
-    fmt("[good]Admin packages installed successfully. ")
+    fmt("[good]Admin packages installed successfully.")
