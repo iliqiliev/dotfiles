@@ -20,6 +20,12 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Always trust the `chezmoi` source's `.lazy.lua`, it is managed by me.
+local chezmoi_spec = vim.fs.normalize("~/.local/share/chezmoi/.lazy.lua")
+if vim.uv.fs_stat(chezmoi_spec) then
+   vim.secure.trust({ action = "allow", path = chezmoi_spec })
+end
+
 require("lazy").setup({
    spec = {
       -- Load plugins from `nvim/lua/plugins/`.
