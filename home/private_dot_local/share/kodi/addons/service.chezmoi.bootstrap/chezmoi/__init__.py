@@ -1,7 +1,6 @@
 """Kodi helper functions for Chezmoi bootstrap."""
 
-from json import dumps as json_dumps
-from json import loads as json_loads
+import json
 from sqlite3 import connect as sqlite3_connect
 from typing import TYPE_CHECKING, Literal
 
@@ -118,7 +117,7 @@ def kodi_get_addon_dependencies(addon_id: str = ADDON_ID) -> set[str]:
         method="Addons.GetAddonDetails",
         params={"addonid": addon_id, "properties": ["dependencies"]},
     )
-    response_dict = json_loads(response)
+    response_dict = json.loads(response)
 
     dependencies: set[str] = {
         dependency["addonid"]
@@ -133,7 +132,7 @@ def kodi_get_addons(installed: bool | Literal["all"] = True) -> set[str]:
     response = kodi_rpc("Addons.GetAddons", {"installed": installed})
     kodi_log(f"Addons.GetAddons(installed={installed})='{response}'", LOGDEBUG)
 
-    response_dict = json_loads(response)
+    response_dict = json.loads(response)
     return {addon["addonid"] for addon in response_dict["result"]["addons"]}
 
 
@@ -142,7 +141,7 @@ def kodi_log(message: str, level: int = LOGINFO) -> None:
 
 
 def kodi_rpc(method: str, params: dict[str, KodiSettingsValue]) -> str:
-    payload = json_dumps(
+    payload = json.dumps(
         {
             "jsonrpc": "2.0",
             "id": 1,
@@ -161,7 +160,7 @@ def kodi_set_setting(
     response = kodi_rpc("Settings.SetSettingValue", {"setting": key, "value": value})
     kodi_log(f"Settings.SetSettingValue({key}={value})='{response}'", LOGDEBUG)
 
-    response_dict = json_loads(response)
+    response_dict = json.loads(response)
     call_signature = f"Settings.SetSettingValue({key}={value})"
 
     if isinstance(result := response_dict.get("result"), bool):
