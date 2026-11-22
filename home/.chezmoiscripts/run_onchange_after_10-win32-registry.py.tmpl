@@ -54,7 +54,12 @@ def main() -> None:
     cmd = "chezmoi execute-template '{{ template `registry.reg` . }}'"
     registry_reg = run(cmd, out=PIPE).stdout
 
-    with NamedTemporaryFile("w", suffix=".reg", delete_on_close=False) as file:
+    with NamedTemporaryFile(
+        "w",
+        encoding="utf-16",
+        suffix=".reg",
+        delete_on_close=False,
+    ) as file:
         file.write(registry_reg)
         # The file must be closed before `reg` uses it.
         file.close()
