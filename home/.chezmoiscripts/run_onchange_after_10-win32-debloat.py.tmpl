@@ -119,7 +119,7 @@ def ask(question: str) -> str:
     }
 
     fmt(f"{question}?")
-    fmt("> [dim]yes/no/all, default yes[/]", end="")
+    fmt("> [dim]yes/no/all, default yes", end="")
     # Put the cursor on the first choice, after `> `.
     console.control(Control.move_to_column(2))
 
