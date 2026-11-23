@@ -114,4 +114,5 @@ class ChezmoiData(TypedDict):
 chezmoi_config = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
 
 CHEZMOI_DATA = check_type(chezmoi_config["data"], ChezmoiData)
+HOME = Path.home()
 SUDO = CHEZMOI_DATA["sudo"]
