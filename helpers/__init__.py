@@ -4,7 +4,8 @@ import tomllib
 from os import environ as env
 from pathlib import Path
 from shlex import split as shlex_split
-from subprocess import DEVNULL, PIPE, CompletedProcess, Popen
+from subprocess import DEVNULL, CompletedProcess, Popen
+from subprocess import PIPE as PIPE  # Re-exported.
 from subprocess import run as subprocess_run
 from typing import Literal, TypedDict
 
