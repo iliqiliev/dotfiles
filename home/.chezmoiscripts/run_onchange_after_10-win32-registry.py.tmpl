@@ -25,7 +25,7 @@ from winreg import (
 
 from dotenv import load_dotenv
 
-from helpers import DEVNULL, fmt, restart_explorer, run
+from helpers import DEVNULL, HOME, fmt, restart_explorer, run
 
 ENVIRONMENT = CreateKey(HKEY_CURRENT_USER, "Environment")
 """The user's environment variables."""
@@ -93,9 +93,7 @@ def parse_environment_d() -> list[tuple[str, str]]:
     return [(key, value.replace("/", "\\")) for key, value in env.items()]
 
 
-REGISTRY_REG: str = """
-# {{ template `registry.reg` . }}
-"""
+REGISTRY_REG: str = r"""# {{ template `registry.reg` . }}"""
 
 if __name__ == "__main__":
     main()
