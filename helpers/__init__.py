@@ -2,6 +2,7 @@
 
 import tomllib
 from os import environ as env
+from os import pathsep
 from pathlib import Path
 from shlex import split as shlex_split
 from subprocess import DEVNULL, CompletedProcess, Popen
@@ -30,6 +31,20 @@ console = Console(
 
 def fmt(message: str, end: str = "\n") -> None:
     console.print(message, end=end)
+
+
+@typechecked
+def path_add(*paths: Path, mode: Literal["append", "prepend"] = "prepend") -> None:
+    """Add `paths` to `PATH`, skipping the ones already in it."""
+    old_paths = env["PATH"].strip(pathsep).split(pathsep)
+    new_paths = (str(path) for path in paths if str(path) not in old_paths)
+
+    if mode == "prepend":
+        all_paths: tuple[str, ...] = (*new_paths, *old_paths)
+    else:
+        all_paths: tuple[str, ...] = (*old_paths, *new_paths)
+
+    env["PATH"] = pathsep.join(all_paths)
 
 
 def restart_explorer() -> None:
