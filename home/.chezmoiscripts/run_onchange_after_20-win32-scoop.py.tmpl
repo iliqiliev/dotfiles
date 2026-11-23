@@ -2,8 +2,6 @@
 # {{ if or (ne .os "windows") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
-# Trigger this when the packages list changes:
-# # {{ includeTemplate "packages" . | sha256sum }}
 
 """Install packages using `scoop`."""
 
@@ -14,10 +12,69 @@ from typing import TYPE_CHECKING
 
 from requests import get as requests_get
 
-from helpers import CHEZMOI_PACKAGES, SUDO, fmt, run
+from helpers import SUDO, fmt, run
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
+
+
+HOME = Path.home()
+SCOOP_APPS = HOME / "scoop/apps"
+
+NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
+BUCKETS = (
+    "extras",
+    "sysinternals",
+    "iliya https://github.com/iliqiliev/iliya-bucket",
+)
+
+
+def main() -> None:
+    SCOOP = HOME / "scoop/shims/scoop.cmd"
+
+    if SCOOP.exists():
+        fmt("[info]Updating 'scoop' buckets ...")
+        run(SCOOP, "update")
+        fmt("[good]'scoop' buckets updated successfully.")
+    else:
+        fmt("[info]Scoop not found. Installing it ...")
+        install_scoop()
+
+    if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
+        fmt("[info]Git not found. Installing it ...")
+        run(SCOOP, "install --no-update-scoop git")
+        fmt("[good]Git installed successfully.")
+
+    SCOOP_BUCKETS = HOME / "scoop/buckets"
+
+    for bucket in BUCKETS:
+        if (SCOOP_BUCKETS / bucket.split()[0]).is_dir():
+            continue
+
+        run(SCOOP, "bucket add", bucket)
+
+    available_packages = PACKAGES.intersection(
+        package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")
+    )
+
+    user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
+    sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
+
+    if user_packages:
+        fmt("[info]Installing 'scoop' packages ...")
+        run(SCOOP, "install --no-update-scoop", *user_packages)
+
+        check_installed(user_packages)
+        fmt("[good]Packages installed successfully.")
+
+    if SUDO != "false" and sudo_packages:
+        GSUDO = SCOOP_APPS / "gsudo/current/gsudo.exe"
+
+        fmt("[info]Installing packages that require admin privileges ...")
+        run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
+
+        check_installed(sudo_packages)
+        fmt("[good]Admin packages installed successfully.")
 
 
 def check_installed(packages: Iterable[str]) -> None:
@@ -59,57 +116,11 @@ def install_scoop() -> None:
     rmtree(SCOOP_DIR_TEMP)
 
 
-HOME = Path.home()
-SCOOP = HOME / "scoop/shims/scoop.cmd"
-SCOOP_APPS = HOME / "scoop/apps"
-SCOOP_BUCKETS = HOME / "scoop/buckets"
-
-GSUDO = SCOOP_APPS / "gsudo/current/gsudo.exe"
-NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")
-BUCKETS = (
-    "extras",
-    "sysinternals",
-    "iliya https://github.com/iliqiliev/iliya-bucket",
+PACKAGES: set[str] = set(
+    """
+    # {{ template `packages` . }}
+    """.split(),  # ruff: ignore[SIM905]
 )
 
-
-if SCOOP.exists():
-    fmt("[info]Updating 'scoop' buckets ...")
-    run(SCOOP, "update")
-    fmt("[good]'scoop' buckets updated successfully.")
-else:
-    fmt("[info]Scoop not found. Installing it ...")
-    install_scoop()
-
-if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
-    fmt("[info]Git not found. Installing it ...")
-    run(SCOOP, "install --no-update-scoop git")
-    fmt("[good]Git installed successfully.")
-
-for bucket in BUCKETS:
-    if (SCOOP_BUCKETS / bucket.split()[0]).is_dir():
-        continue
-
-    run(SCOOP, "bucket add", bucket)
-
-
-available_packages = CHEZMOI_PACKAGES.intersection(
-    package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")
-)
-
-user_packages = sorted(available_packages.difference(NEED_SUDO_PACKAGES))
-sudo_packages = sorted(available_packages.intersection(NEED_SUDO_PACKAGES))
-
-if user_packages:
-    fmt("[info]Installing 'scoop' packages ...")
-    run(SCOOP, "install --no-update-scoop", *user_packages)
-
-    check_installed(user_packages)
-    fmt("[good]Packages installed successfully.")
-
-if SUDO != "false" and sudo_packages:
-    fmt("[info]Installing packages that require admin privileges ...")
-    run(GSUDO, SCOOP, "install --no-update-scoop", *sudo_packages)
-
-    check_installed(sudo_packages)
-    fmt("[good]Admin packages installed successfully.")
+if __name__ == "__main__":
+    main()
