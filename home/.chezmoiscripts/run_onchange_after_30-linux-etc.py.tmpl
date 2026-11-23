@@ -51,7 +51,7 @@ for chezmoi_file in CHEZMOI_ROOT.rglob("*"):
         # Remove the `.tmpl` suffix.
         relative_path = relative_path.with_suffix("")
         # Render the template.
-        chezmoi = env["CHEZMOI_EXECUTABLE"]
+        chezmoi = Path(env["CHEZMOI_EXECUTABLE"])
         contents = run(chezmoi, "execute-template", input=contents, out=PIPE).stdout
 
         # Skip templates that render empty, e.g. using `abortEmpty`.
