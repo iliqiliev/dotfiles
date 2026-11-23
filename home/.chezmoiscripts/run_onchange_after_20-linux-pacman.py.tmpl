@@ -2,13 +2,11 @@
 # {{ if or (not (lookPath "pacman")) (eq .sudo "false") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
-# Trigger this when the packages list changes:
-# # {{ includeTemplate "packages" . | sha256sum }}
 
 from pathlib import Path
 from shutil import which
 
-from helpers import CHEZMOI_PACKAGES, DEVNULL, PIPE, SUDO, fmt, run
+from helpers import DEVNULL, PIPE, SUDO, fmt, run
 
 CHAOTIC_KEY = "3056513887B78AEB"
 CHAOTIC_CDN = "https://cdn-mirror.chaotic.cx/chaotic-aur"
@@ -28,7 +26,7 @@ def main() -> None:
     run("yay -Syu", *yay_args)
     fmt("[good]System updated successfully.")
 
-    available_packages = CHEZMOI_PACKAGES.intersection(
+    available_packages = PACKAGES.intersection(
         run("pacman -Slq", out=PIPE).stdout.split()
     )
 
@@ -67,6 +65,12 @@ def install_yay() -> None:
     run(SUDO, "pacman -S --noconfirm yay")
     fmt("[good]Yay installed successfully.")
 
+
+PACKAGES: set[str] = set(
+    """
+    # {{ template `packages` . }}
+    """.split(),  # ruff: ignore[SIM905]
+)
 
 if __name__ == "__main__":
     main()
