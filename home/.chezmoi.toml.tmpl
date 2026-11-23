@@ -76,7 +76,6 @@ pager = "delta"
 {{   $pathList = joinPath .chezmoi.homeDir "scoop/shims" | prepend $pathList -}}
 {{ end -}}
 {{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
-{{ $pathList = joinPath .chezmoi.homeDir ".local/share/mise/shims" | prepend $pathList -}}
 PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPYCACHEPREFIX = '{{ joinPath .chezmoi.homeDir ".cache/python" }}'
 UV_PROJECT = '{{ .chezmoi.workingTree }}'
