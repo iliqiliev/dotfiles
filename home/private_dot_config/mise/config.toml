@@ -7,7 +7,8 @@ run = ["{{ mise_bin }} install fish"]
 run_windows = []
 
 [bootstrap.packages]
-gcc = { names = { apk = "build-base" } }
+# `os` is `android` on Termux, not `linux`, so this also skips Termux.
+gcc = { names = { apk = "build-base" }, os = "linux" }
 
 [bootstrap.user]
 login_shell = "{{ xdg_data_home }}/mise/installs/fish/global/fish"

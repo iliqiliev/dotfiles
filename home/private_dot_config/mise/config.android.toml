@@ -22,10 +22,6 @@ run = """pkg install --yes -- \
   uv
 """
 
-[bootstrap.packages]
-# This skips the entry from the main config, as `os` is `android` on Termux, not `linux`.
-gcc = { os = "linux" }
-
 [env]
 # This fixes `uv` trying to install broken Python versions.
 UV_PYTHON_PREFERENCE = "only-system"
