@@ -36,9 +36,9 @@ def main() -> None:
     fmt("[info]Setting registry settings ...", end=" ")
 
     # Add directories to `%PATH%`.
-    path_prepend(rf"{env['USERPROFILE']}\scoop\shims")
-    path_prepend(r"%USERPROFILE%\.local\bin")
-    path_prepend(r"%USERPROFILE%\.local\share\mise\shims")
+    registry_path_prepend(rf"{env['USERPROFILE']}\scoop\shims")
+    registry_path_prepend(r"%USERPROFILE%\.local\bin")
+    registry_path_prepend(r"%USERPROFILE%\.local\share\mise\shims")
 
     # Set environment variables.
     for name, value in parse_environment_d():
@@ -65,7 +65,7 @@ def main() -> None:
     restart_explorer()
 
 
-def path_prepend(new_path: str) -> None:
+def registry_path_prepend(new_path: str) -> None:
     """Add `new_path` to `%PATH%` if not already present."""
     old_path: str
     old_path, path_type = QueryValueEx(ENVIRONMENT, "Path")
