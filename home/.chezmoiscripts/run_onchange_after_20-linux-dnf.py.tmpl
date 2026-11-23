@@ -2,11 +2,21 @@
 # {{ if or (not (lookPath "dnf")) (eq .sudo "false") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
-# Trigger this when the packages list changes:
-# # {{ includeTemplate "packages" . | sha256sum }}
 
-from helpers import CHEZMOI_PACKAGES, SUDO, fmt, run
+from helpers import SUDO, fmt, run
 
-fmt("[info]Installing dnf packages ...")
-run(SUDO, "dnf install --assumeyes --skip-unavailable", *CHEZMOI_PACKAGES)
-fmt("[good]Packages installed successfully.")
+
+def main() -> None:
+    fmt("[info]Installing dnf packages ...")
+    run(SUDO, "dnf install --assumeyes --skip-unavailable", *PACKAGES)
+    fmt("[good]Packages installed successfully.")
+
+
+PACKAGES: set[str] = set(
+    """
+    # {{ template `packages` . }}
+    """.split(),  # ruff: ignore[SIM905]
+)
+
+if __name__ == "__main__":
+    main()
