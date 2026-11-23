@@ -2,28 +2,38 @@
 # {{ if or (not (lookPath "apk")) (eq .sudo "false") (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
-# Trigger this when the packages list changes:
-# # {{ includeTemplate "packages" . | sha256sum }}
 
 """Install packages using `apk`."""
 
 from shutil import which
 
-from helpers import CHEZMOI_PACKAGES, PIPE, SUDO, fmt, run
+from helpers import PIPE, SUDO, fmt, run
 
-if which("setup-apkrepos") is not None:
-    fmt("[info]Adding community repository ...")
-    run(SUDO, "setup-apkrepos -c -1")
-    fmt("[good]Community repository added successfully.")
 
-fmt("[info]Syncing apk database ...")
-run(SUDO, "apk update")
-fmt("[good]Apk database synced successfully.")
+def main() -> None:
+    if which("setup-apkrepos") is not None:
+        fmt("[info]Adding community repository ...")
+        run(SUDO, "setup-apkrepos -c -1")
+        fmt("[good]Community repository added successfully.")
 
-available_packages = CHEZMOI_PACKAGES.intersection(
-    run("apk search --quiet", out=PIPE).stdout.split()
+    fmt("[info]Syncing apk database ...")
+    run(SUDO, "apk update")
+    fmt("[good]Apk database synced successfully.")
+
+    available_packages = PACKAGES.intersection(
+        run("apk search --quiet", out=PIPE).stdout.split()
+    )
+
+    fmt("[info]Installing apk packages ...")
+    run(SUDO, "apk add", *available_packages)
+    fmt("[good]Packages installed successfully.")
+
+
+PACKAGES: set[str] = set(
+    """
+    # {{ template `packages` . }}
+    """.split(),  # ruff: ignore[SIM905]
 )
 
-fmt("[info]Installing apk packages ...")
-run(SUDO, "apk add", *available_packages)
-fmt("[good]Packages installed successfully.")
+if __name__ == "__main__":
+    main()
