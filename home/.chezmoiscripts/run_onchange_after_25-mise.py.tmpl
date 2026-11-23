@@ -11,12 +11,13 @@
 
 import json
 
-from helpers import CHEZMOI_DATA, DEVNULL, PIPE, fmt, run
+from helpers import CHEZMOI_DATA, DEVNULL, HOME, PIPE, fmt, path_add, run
 
 MISE_LINK: str = "[i link=https://mise.jdx.dev/]mise[/]"
 
 
 def main() -> None:
+    path_add(HOME / ".local/bin")
     mise_self_update()
     mise_bootstrap()
 
