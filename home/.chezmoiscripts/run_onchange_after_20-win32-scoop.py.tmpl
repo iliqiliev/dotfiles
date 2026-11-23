@@ -31,17 +31,20 @@ def main() -> None:
         HOME / "scoop/apps/gsudo/current",
     )
 
-    if (HOME / "scoop/apps/scoop/current/bin/scoop.ps1").exists():
-        fmt("[info]Updating 'scoop' buckets ...")
-        run("scoop update")
-        fmt("[good]'scoop' buckets updated successfully.")
-    else:
+    SCOOP = HOME / "scoop/shims/scoop.cmd"
+
+    if not SCOOP.exists():
         fmt("[info]Scoop not found. Installing it ...")
         install_scoop()
 
+    else:
+        fmt("[info]Updating 'scoop' buckets ...")
+        run(SCOOP, "update")
+        fmt("[good]'scoop' buckets updated successfully.")
+
     if not (HOME / "scoop/apps/git/current/cmd/git.exe").exists():
         fmt("[info]Git not found. Installing it ...")
-        run("scoop install --no-update-scoop git")
+        run(SCOOP, "install --no-update-scoop git")
         fmt("[good]Git installed successfully.")
 
     SCOOP_BUCKETS = HOME / "scoop/buckets"
@@ -50,7 +53,7 @@ def main() -> None:
         if (SCOOP_BUCKETS / bucket.split()[0]).is_dir():
             continue
 
-        run("scoop bucket add", bucket)
+        run(SCOOP, "bucket add", bucket)
 
     available_packages = PACKAGES.intersection(
         package.stem for package in SCOOP_BUCKETS.glob("*/bucket/*.json")
@@ -61,14 +64,14 @@ def main() -> None:
 
     if user_packages:
         fmt("[info]Installing 'scoop' packages ...")
-        run("scoop install --no-update-scoop", *user_packages)
+        run(SCOOP, "install --no-update-scoop", *user_packages)
 
         check_installed(user_packages)
         fmt("[good]Packages installed successfully.")
 
     if SUDO != "false" and sudo_packages:
         fmt("[info]Installing packages that require admin privileges ...")
-        run("gsudo scoop install --no-update-scoop", *sudo_packages)
+        run("gsudo", SCOOP, "install --no-update-scoop", *sudo_packages)
 
         check_installed(sudo_packages)
         fmt("[good]Admin packages installed successfully.")
