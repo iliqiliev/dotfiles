@@ -12,9 +12,8 @@ from os import environ as env
 from pathlib import Path
 from time import monotonic, sleep
 
-from helpers import fmt, run
+from helpers import HOME, fmt, run
 
-HOME = Path.home()
 CHEZMOI_HOME = Path(env["CHEZMOI_WORKING_TREE"]) / "root/home/$USER"
 TERMUX_STORAGE = HOME / "storage/shared"
 TIMEOUT = 15

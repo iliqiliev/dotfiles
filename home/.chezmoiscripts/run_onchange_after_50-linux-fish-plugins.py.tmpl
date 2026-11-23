@@ -6,11 +6,9 @@
 # Trigger this script if `~/.config/fish/fish_plugins` changes:
 # # {{ include "private_dot_config/fish/fish_plugins" | sha256sum }}
 
-from pathlib import Path
+from helpers import DEVNULL, HOME, fmt, run
 
-from helpers import DEVNULL, fmt, run
-
-FISHER_PLUGINS = Path.home() / ".config/fish/fish_plugins"
+FISHER_PLUGINS = HOME / ".config/fish/fish_plugins"
 
 plugin_count = len(FISHER_PLUGINS.read_text().splitlines())
 fmt(f"[info]Installing {plugin_count} fisher plugins ...", end=" ")

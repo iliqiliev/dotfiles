@@ -7,19 +7,17 @@
 """Install packages using `scoop`."""
 
 from ctypes import WinDLL
-from pathlib import Path
 from shutil import copytree, rmtree
 from typing import TYPE_CHECKING
 
 from requests import get as requests_get
 
-from helpers import SUDO, fmt, run
+from helpers import HOME, SUDO, fmt, run
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
 
-HOME = Path.home()
 SCOOP_APPS = HOME / "scoop/apps"
 
 NEED_SUDO_PACKAGES = ("vcredist-aio", "virtio-guest-tools")

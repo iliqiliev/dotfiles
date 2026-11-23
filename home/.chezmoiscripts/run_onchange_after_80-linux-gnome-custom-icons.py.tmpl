@@ -8,7 +8,7 @@
 
 from pathlib import Path
 
-from helpers import fmt, run
+from helpers import HOME, fmt, run
 
 
 def main() -> None:
@@ -30,7 +30,7 @@ def main() -> None:
     fmt("[good]OK")
 
 
-FOLDER_ICONS = Path.home() / ".local/share/icons/Morewaita/scalable/places"
+FOLDER_ICONS = HOME / ".local/share/icons/Morewaita/scalable/places"
 CUSTOM_ICONS = {
     "~/.cache": "folder-temp",
     "~/.config": "folder-user",
