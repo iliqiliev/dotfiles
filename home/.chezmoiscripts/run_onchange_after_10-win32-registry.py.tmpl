@@ -5,8 +5,6 @@
 # Trigger the script if any file inside `~/.config/environment.d` changes:
 # {{ $environmentD := joinPath .chezmoi.sourceDir "private_dot_config/environment.d" -}}
 # # {{ template "hashDirectory" $environmentD }}
-# Trigger the script when the registry settings change:
-# # {{ includeTemplate "registry.reg" . | sha256sum }}
 
 """Set Windows registry settings."""
 
@@ -26,7 +24,7 @@ from winreg import (
 
 from dotenv import load_dotenv
 
-from helpers import DEVNULL, PIPE, fmt, restart_explorer, run
+from helpers import DEVNULL, fmt, restart_explorer, run
 
 HOME = Path.home()
 
@@ -51,16 +49,13 @@ def main() -> None:
 
         SetValueEx(ENVIRONMENT, name, 0, value_type, value)
 
-    cmd = "chezmoi execute-template '{{ template `registry.reg` . }}'"
-    registry_reg = run(cmd, out=PIPE).stdout
-
     with NamedTemporaryFile(
         "w",
         encoding="utf-16",
         suffix=".reg",
         delete_on_close=False,
     ) as file:
-        file.write(registry_reg)
+        file.write(REGISTRY_REG)
         # The file must be closed before `reg` uses it.
         file.close()
         run("reg import", Path(file.name), err=DEVNULL)
@@ -98,6 +93,10 @@ def parse_environment_d() -> list[tuple[str, str]]:
 
     return [(key, value.replace("/", "\\")) for key, value in env.items()]
 
+
+REGISTRY_REG: str = """
+# {{ template `registry.reg` . }}
+"""
 
 if __name__ == "__main__":
     main()
