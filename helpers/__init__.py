@@ -95,9 +95,15 @@ class ChezmoiData(TypedDict):
     manageGnome: bool
 
 
-CHEZMOI_CONFIG = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
-CHEZMOI_DATA = check_type(CHEZMOI_CONFIG["data"], ChezmoiData)
-SUDO = CHEZMOI_DATA["sudo"]
+chezmoi_config = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
 
-cmd = "chezmoi execute-template '{{ template `packages` .}}'"
-CHEZMOI_PACKAGES: set[str] = set(run(cmd, out=PIPE).stdout.split())
+CHEZMOI_DATA = check_type(chezmoi_config["data"], ChezmoiData)
+CHEZMOI_PACKAGES: set[str] = set(
+    run(
+        env["CHEZMOI_EXECUTABLE"],
+        "execute-template",
+        "'{{ template `packages` .}}'",
+        out=PIPE,
+    ).stdout.split()
+)
+SUDO = CHEZMOI_DATA["sudo"]
