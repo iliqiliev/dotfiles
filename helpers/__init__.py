@@ -111,8 +111,15 @@ class ChezmoiData(TypedDict):
     manageGnome: bool
 
 
-chezmoi_config = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
+HOME = Path.home()
+
+chezmoi_config_file = Path(
+    env.get(
+        "CHEZMOI_CONFIG_FILE",
+        HOME / ".config/chezmoi/chezmoi.toml",
+    )
+)
+chezmoi_config = tomllib.loads(chezmoi_config_file.read_text("utf-8"))
 
 CHEZMOI_DATA = check_type(chezmoi_config["data"], ChezmoiData)
-HOME = Path.home()
 SUDO = CHEZMOI_DATA["sudo"]
