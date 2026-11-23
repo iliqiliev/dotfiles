@@ -2,7 +2,8 @@
 # `mise` cannot bootstrap packages on Termux, so they are installed with `pkg`.
 # `clang` replaces `gcc` from the main config, and `python` is needed by `uv`.
 description = "Installing Termux packages to replace the disabled tools."
-run = """pkg install --yes -- \
+run = """
+pkg install --yes -- \
   chezmoi \
   clang \
   difftastic \
