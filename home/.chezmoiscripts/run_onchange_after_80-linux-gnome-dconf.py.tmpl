@@ -3,16 +3,21 @@
 # {{ if or (not .manageGnome) (.isWork) -}}
 # {{   abortEmpty -}}
 # {{ end -}}
-# Trigger this script when the Dconf settings change:
-# # {{ includeTemplate "dconf.ini" . | sha256sum }}
 
 """Configure Dconf settings."""
 
-from helpers import PIPE, fmt, run
+from helpers import fmt, run
 
-cmd = "chezmoi execute-template '{{ template `dconf.ini` . }}'"
-dconf_ini = run(cmd, out=PIPE).stdout
 
-fmt("[info]Loading Dconf settings ...", end=" ")
-run("dconf load /", input=dconf_ini)
-fmt("[good]OK")
+def main() -> None:
+    fmt("[info]Loading Dconf settings ...", end=" ")
+    run("dconf load /", input=DCONF_INI)
+    fmt("[good]OK")
+
+
+DCONF_INI: str = """
+# {{ template `dconf.ini` . }}
+"""
+
+if __name__ == "__main__":
+    main()
