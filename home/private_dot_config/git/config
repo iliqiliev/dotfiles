@@ -1,13 +1,21 @@
 # vim: filetype=gitconfig
 
 [include]
-    path = delta
     path = conflictstyle
     path = user
 
 [core]
     autocrlf = false
     eol = lf
+    pager = delta
+
+[delta]
+    hyperlinks = true
+    navigate = true
+    tabs = 4
+
+[interactive]
+    diffFilter = delta --color-only
 
 [pull]
     rebase = true
