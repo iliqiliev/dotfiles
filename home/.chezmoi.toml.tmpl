@@ -71,12 +71,6 @@ exclude = ["scripts"]
 pager = "delta"
 
 [env]
-{{ $pathList := env "PATH" | splitList .chezmoi.pathListSeparator -}}
-{{ if eq $os "windows" -}}
-{{   $pathList = joinPath .chezmoi.homeDir "scoop/shims" | prepend $pathList -}}
-{{ end -}}
-{{ $pathList = joinPath .chezmoi.homeDir ".local/bin" | prepend $pathList -}}
-PATH = '{{ $pathList | uniq | join .chezmoi.pathListSeparator }}'
 PYTHONPYCACHEPREFIX = '{{ joinPath .chezmoi.homeDir ".cache/python" }}'
 UV_PROJECT = '{{ .chezmoi.workingTree }}'
 XDG_CACHE_HOME = '{{ joinPath .chezmoi.homeDir ".cache" }}'
@@ -88,5 +82,5 @@ XDG_STATE_HOME = '{{ joinPath .chezmoi.homeDir ".local/state" }}'
 refreshPeriod = "5m"
 
 [interpreters.py]
-command = "mise"
+command = '{{ lookPath "mise" | default ".local/bin/mise" }}'
 args = ["exec", "uv", "--", "uv", "run", "--no-dev"]
