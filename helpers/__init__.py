@@ -99,12 +99,4 @@ class ChezmoiData(TypedDict):
 chezmoi_config = tomllib.loads(Path(env["CHEZMOI_CONFIG_FILE"]).read_text("utf-8"))
 
 CHEZMOI_DATA = check_type(chezmoi_config["data"], ChezmoiData)
-CHEZMOI_PACKAGES: set[str] = set(
-    run(
-        env["CHEZMOI_EXECUTABLE"],
-        "execute-template",
-        "'{{ template `packages` .}}'",
-        out=PIPE,
-    ).stdout.split()
-)
 SUDO = CHEZMOI_DATA["sudo"]
