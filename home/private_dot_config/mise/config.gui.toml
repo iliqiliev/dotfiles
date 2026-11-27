@@ -1,6 +1,3 @@
-[tool_alias]
-kitty = "github:kovidgoyal/kitty"
-
 [tools.kitty]
 version = "latest"
 os = "linux"
