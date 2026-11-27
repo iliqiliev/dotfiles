@@ -1,0 +1,28 @@
+# Source `./functions`, which fish autoloads instead.
+for file in ~/.config/bash/functions/*.bash; do
+    # shellcheck source=/dev/null
+    source -- "$file"
+done
+unset file
+
+# Source `./conf.d` first, like fish does.
+for file in ~/.config/bash/conf.d/*.bash; do
+    # shellcheck source=/dev/null
+    source -- "$file"
+done
+unset file
+
+# ignoredups, ignorespace, erasedups.
+export HISTCONTROL=ignoreboth:erasedups
+
+# Initialize `starship.rs`.
+eval -- "$(starship init bash --print-full-init 2>/dev/null || true)"
+
+# Initialize `zoxide`.
+eval -- "$(zoxide init bash || true)" 2>/dev/null
+# Fix `zoxide` trying to use `cygpath` on native Windows.
+if test "$OSTYPE" == "windows"; then
+    function __zoxide_pwd() {
+        \builtin pwd -L
+    }
+fi
