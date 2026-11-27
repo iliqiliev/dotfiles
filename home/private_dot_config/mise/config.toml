@@ -30,6 +30,7 @@ disable_hints = [
 ]
 
 [tool_alias]
+bash-completion = "github:scop/bash-completion"
 bash-language-server = "npm:bash-language-server"
 blesh = "github:akinomyoga/ble.sh"
 brush = "github:reubeno/brush"
