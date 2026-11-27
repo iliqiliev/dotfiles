@@ -1,6 +1,7 @@
 {
   "aria2-enabled": true,
   "aria2-warning-enabled": false,
+  "cat_style": "plain",
   "scoop_branch": "master",
   "scoop_repo": "https://github.com/ScoopInstaller/Scoop",
   "show_update_log": false,
